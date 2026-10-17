@@ -18,7 +18,7 @@ RAIZ = Path(__file__).resolve().parent.parent
 SAIDA = RAIZ / "saida"
 WEB = RAIZ / "docs"
 WEB.mkdir(exist_ok=True)
-GOVERNADOR_2T = ["AC", "AM", "DF", "ES", "RJ", "RN", "TO"]  # 2º turno para governador em 2026
+GOVERNADOR_2T = ["AC", "AM", "DF", "ES", "RN", "TO"]  # 2º turno para governador em 2026 (o RJ decidiu no 1º)
 MINUSCULAS = {"de", "da", "do", "das", "dos", "e"}
 
 
@@ -45,25 +45,25 @@ def fundo():
 
 def pares():
     m = pd.read_csv(SAIDA / "urnas_mudadas_2026.csv")
-    chave = ["SG_UF", "CD_MUNICIPIO", "NR_LOCAL_VOTACAO", "NR_LOCAL_VOTACAO_2"]
+    chave = ["SG_UF", "CD_MUNICIPIO", "NR_ZONA", "NR_LOCAL_VOTACAO", "NR_LOCAL_VOTACAO_2", "tipo"]
     g = m.groupby(chave, dropna=False).agg(
-        mun=("NM_MUNICIPIO", "first"), tipo=("tipo", "first"), dist=("dist_km", "first"),
+        mun=("NM_MUNICIPIO", "first"), dist=("dist_km", "first"),
         de=("NM_LOCAL_VOTACAO", "first"), de_end=("DS_ENDERECO", "first"), de_bairro=("NM_BAIRRO", "first"),
         lat1=("lat", "first"), lon1=("lon", "first"),
         para=("NM_LOCAL_VOTACAO_2", "first"), para_end=("DS_ENDERECO_2", "first"), para_bairro=("NM_BAIRRO_2", "first"),
         lat2=("lat_2", "first"), lon2=("lon_2", "first"),
-        zona=("NR_ZONA", "first"), secoes=("NR_SECAO", lambda s: sorted(int(x) for x in s)),
+        secoes=("NR_SECAO", lambda s: sorted(int(x) for x in s)),
         aptos=("aptos", "sum"), comp=("comparecimento", "sum"), validos=("validos", "sum"),
         lula=("c13", "sum"), flavio=("c22", "sum"), outros=("outros", "sum"),
         urnas_lula=("vencedor", lambda s: int((s == "Lula").sum())),
         urnas_flavio=("vencedor", lambda s: int((s == "Flávio").sum())),
     ).reset_index()
     tipo_curto = {"voltou ao local de cadastro": "volta", "saiu do local de cadastro": "sai",
-                  "trocou de local provisório": "troca"}
+                  "trocou de local provisório": "troca", "local de sempre em outro prédio": "predio"}
     out = []
     for r in g.itertuples():
         out.append({
-            "uf": r.SG_UF, "cod": int(r.CD_MUNICIPIO), "mun": nome_proprio(r.mun), "zona": int(r.zona), "secoes": r.secoes,
+            "uf": r.SG_UF, "cod": int(r.CD_MUNICIPIO), "mun": nome_proprio(r.mun), "zona": int(r.NR_ZONA), "secoes": r.secoes,
             "tipo": tipo_curto[r.tipo], "dist": None if pd.isna(r.dist) else round(float(r.dist), 2),
             "de": r.de, "de_end": r.de_end, "de_bairro": r.de_bairro, "a": [coord(r.lon1), coord(r.lat1)],
             "para": r.para, "para_end": r.para_end, "para_bairro": r.para_bairro, "b": [coord(r.lon2), coord(r.lat2)],

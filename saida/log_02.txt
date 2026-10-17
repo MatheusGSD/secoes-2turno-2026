@@ -1,19 +1,29 @@
-urnas: 497897 | aptos: 157826587 | sem par no outro turno: 0 0
+2026 seções por tipo: {1: 497897, 2: 16567}
+urnas: 497897 | aptos 1º turno: 157828968 | sem par no outro turno: 0 0
+mudou de número: 2053 | só renumerada: 8 | mesmo número, prédio novo: 46 | desses, troca entre locais: 0 | só nome ou só endereço: 331
+pontos fora do município, anulados: 6
 2026                                           urnas      aptos
 tipo                                                      
-igual                                    491153  155795137
-igual, fora do cadastro nos dois turnos    4691    1421481
-saiu do local de cadastro                   156      48110
-trocou de local provisório                   16       5552
-voltou ao local de cadastro                1881     556307
-2026 distância (km) das que mudaram: {'count': 1691.0, 'mean': 0.85, 'std': 2.14, 'min': 0.0, '25%': 0.18, '50%': 0.41, '75%': 0.73, '90%': 1.38, 'max': 28.67} | sem coordenada: 362
-painel: 4864 seções | mudaram do 1º para o 2º turno: 172
-urnas: 471629 | aptos: 155756933 | sem par no outro turno: 0 0
+igual                                    491111  155787726
+igual, fora do cadastro nos dois turnos    4695    1420295
+local de sempre em outro prédio              46      14490
+saiu do local de cadastro                   156      47899
+trocou de local provisório                   12       4254
+voltou ao local de cadastro                1877     554304
+2026 urnas que mudam: 2091 | aptos 1º turno: 620947 | 2º turno: 620955 | agregadas: 131 | municípios: 342 | UFs: 24
+2026 distância (km): {'count': 1681.0, 'mean': 0.856, 'std': 2.649, 'min': 0.002, '25%': 0.186, '50%': 0.415, '75%': 0.729, '90%': 1.376, 'max': 73.026} | sem distância: 410
+painel: 4864 seções, 4863 urnas | mudam do 1º para o 2º turno: 168
+2022 seções por tipo: {1: 471011, 2: 23030, 3: 618}
+urnas: 471011 | aptos 1º turno: 155758656 | sem par no outro turno: 0 0
+mudou de número: 1384 | só renumerada: 5 | mesmo número, prédio novo: 127 | desses, troca entre locais: 0 | só nome ou só endereço: 852
+pontos fora do município, anulados: 5
 2022                                           urnas      aptos
 tipo                                                      
-igual                                    464843  153592122
-igual, fora do cadastro nos dois turnos    5402    1726048
-saiu do local de cadastro                   394     130529
-trocou de local provisório                   26       8243
-voltou ao local de cadastro                 964     299991
-2022 distância (km) das que mudaram: {'count': 925.0, 'mean': 0.81, 'std': 1.94, 'min': 0.0, '25%': 0.14, '50%': 0.42, '75%': 0.69, '90%': 1.24, 'max': 20.77} | sem coordenada: 459
+igual                                    464098  153548758
+igual, fora do cadastro nos dois turnos    5407    1727057
+local de sempre em outro prédio             127      44478
+saiu do local de cadastro                   389     130187
+trocou de local provisório                   26       8218
+voltou ao local de cadastro                 964     299958
+2022 urnas que mudam: 1506 | aptos 1º turno: 482841 | 2º turno: 482775 | agregadas: 160 | municípios: 255 | UFs: 26
+2022 distância (km): {'count': 922.0, 'mean': 0.879, 'std': 3.036, 'min': 0.0, '25%': 0.143, '50%': 0.417, '75%': 0.682, '90%': 1.225, 'max': 71.726} | sem distância: 584
