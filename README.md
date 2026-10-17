@@ -40,6 +40,7 @@ local e a mesma coordenada, não conta. Os detalhes estão no cabeçalho de cada
 | `02_mudancas.py` | Urnas que mudam de local entre os turnos, em 2026 e 2022, e a conferência com o painel do TSE |
 | `03_impacto.py` | Efeito da troca sobre a abstenção em 2022 e o peso das mudanças de 2026 na margem |
 | `04_exportar_web.py` | Dados da página (`docs/dados.json`) |
+| `05_imagem_x.py` | Cartão 1600 × 900 para redes sociais (`saida/imagem_x.png`) |
 
 Para rodar do zero, baixe para `dados/` os arquivos do [portal de dados abertos do TSE](https://dadosabertos.tse.jus.br/)
 (cerca de 630 MB, fora do git) e rode os scripts em ordem com `python -P scripts/0N_....py`:
