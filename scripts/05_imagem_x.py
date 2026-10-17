@@ -62,7 +62,7 @@ def main():
     itens = [
         ("Metade muda menos de 410 m", "do local onde a urna funcionou no 1º turno"),
         ("Votam igual às urnas vizinhas", "da mesma zona eleitoral, sem pender para um lado"),
-        ("Efeito no resultado: menos de 300 votos", "numa diferença de 2,24 milhões no 1º turno"),
+        ("Efeito estimado: menos de 300 votos", "com base em 2022; a diferença no 1º turno foi de 2,24 milhões"),
     ]
     y = 0.405
     fig.add_artist(plt.Line2D([x0, 0.955], [y + 0.035, y + 0.035], color=TINTA, linewidth=1.2))

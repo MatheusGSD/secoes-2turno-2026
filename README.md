@@ -22,9 +22,9 @@ quais urnas mudam de prédio, em quem esses eleitores votaram no 1º turno e qua
   igual (−0,24 ponto para Lula, intervalo de 95% de −1,0 a +0,6).
 - **Mudar de lugar não fez o eleitor faltar em 2022.** As 1.382 urnas que trocaram de prédio entre os turnos de 2022
   tiveram abstenção 0,22 ponto menor que as vizinhas da mesma zona (intervalo de 95% de −0,40 a −0,04).
-- **O efeito no resultado é nulo.** Repetindo 2022, a vantagem de Flávio muda entre −250 e +80 votos, diante de
-  2,24 milhões no 1º turno. Mesmo com abstenção total nessas urnas, Lula perderia no máximo 36.895 votos líquidos
-  (1,6% da diferença).
+- **O efeito estimado no resultado é próximo de zero.** Se 2026 repetir 2022, a vantagem de Flávio muda entre −250 e
+  +80 votos, diante de 2,24 milhões no 1º turno. Mesmo com abstenção total nessas urnas, Lula perderia no máximo
+  36.895 votos líquidos (1,6% da diferença).
 
 O voto para governador não foi calculado: o arquivo nacional de votação por seção do TSE traz só presidente.
 
