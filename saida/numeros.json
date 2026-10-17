@@ -1,0 +1,173 @@
+{
+ "nacional": {
+  "lula": 53722151,
+  "flavio": 55960603,
+  "validos": 118975029,
+  "pct_lula": 45.15413986576965,
+  "pct_flavio": 47.0355867700608,
+  "margem_votos": 2238452,
+  "abst": 20.840923335686146
+ },
+ "mudadas": {
+  "urnas": 2053,
+  "aptos": 609969,
+  "comparecimento": 482731,
+  "validos": 461183,
+  "lula": 233928,
+  "flavio": 197033,
+  "outros": 30222,
+  "pct_lula": 50.72346552236314,
+  "pct_flavio": 42.723387462243835,
+  "abst": 20.859748610175266,
+  "margem_votos": -36895,
+  "urnas_lula": 1141,
+  "urnas_flavio": 903,
+  "urnas_empate": 9,
+  "municipios": 336,
+  "ufs": 23,
+  "dist_mediana_km": 0.4105842467237398,
+  "sem_coord": 362,
+  "efeito_margem": -79.07697723603869,
+  "efeito_margem_lo": -250.90653736871852,
+  "efeito_margem_hi": 80.88445466285529,
+  "eleitores_a_menos": -1588.563667163236
+ },
+ "resto": {
+  "pct_lula": 45.13246747557243,
+  "abst": 20.840850297390322
+ },
+ "tipos": [
+  {
+   "tipo": "saiu do local de cadastro",
+   "urnas": 156,
+   "aptos": 48110,
+   "c13": 17539,
+   "c22": 16344,
+   "validos": 36296,
+   "pct_lula": 48.32212916023804
+  },
+  {
+   "tipo": "trocou de local provisório",
+   "urnas": 16,
+   "aptos": 5552,
+   "c13": 2433,
+   "c22": 1551,
+   "validos": 4262,
+   "pct_lula": 57.08587517597372
+  },
+  {
+   "tipo": "voltou ao local de cadastro",
+   "urnas": 1881,
+   "aptos": 556307,
+   "c13": 213956,
+   "c22": 179138,
+   "validos": 420625,
+   "pct_lula": 50.866210995542346
+  }
+ ],
+ "faixas": [
+  {
+   "faixa": "300 a 600 m",
+   "urnas": 519,
+   "aptos": 164442
+  },
+  {
+   "faixa": "600 m a 1,2 km",
+   "urnas": 357,
+   "aptos": 110013
+  },
+  {
+   "faixa": "até 300 m",
+   "urnas": 617,
+   "aptos": 176849
+  },
+  {
+   "faixa": "mais de 1,2 km",
+   "urnas": 198,
+   "aptos": 53541
+  },
+  {
+   "faixa": "sem coordenada",
+   "urnas": 362,
+   "aptos": 105124
+  }
+ ],
+ "efeito_2022": [
+  {
+   "grupo": "todas",
+   "efeito_pp": -0.22203334168654254,
+   "ic_baixo": -0.3966087454038024,
+   "ic_alto": -0.043579122775402386,
+   "urnas": 1382,
+   "aptos": 438763
+  },
+  {
+   "grupo": "saiu do local de cadastro",
+   "efeito_pp": -0.16185487556646205,
+   "ic_baixo": -0.5507874540944124,
+   "ic_alto": 0.14770802180704834,
+   "urnas": 392,
+   "aptos": 130529
+  },
+  {
+   "grupo": "voltou ao local de cadastro",
+   "efeito_pp": -0.2249774168822517,
+   "ic_baixo": -0.42802961225056996,
+   "ic_alto": -0.012145740697772531,
+   "urnas": 964,
+   "aptos": 299991
+  },
+  {
+   "grupo": "trocou de local provisório",
+   "efeito_pp": -1.0678223677877217,
+   "ic_baixo": -1.7330114597438488,
+   "ic_alto": 1.0558194458809758,
+   "urnas": 26,
+   "aptos": 8243
+  },
+  {
+   "grupo": "até 300 m",
+   "efeito_pp": -0.09483475612552172,
+   "ic_baixo": -0.38790309038013643,
+   "ic_alto": 0.2063627479691958,
+   "urnas": 376,
+   "aptos": 118478
+  },
+  {
+   "grupo": "300 a 600 m",
+   "efeito_pp": -0.2091032457382379,
+   "ic_baixo": -0.5612916475630941,
+   "ic_alto": 0.1316156578988735,
+   "urnas": 252,
+   "aptos": 83533
+  },
+  {
+   "grupo": "600 m a 1,2 km",
+   "efeito_pp": -0.5151145178932723,
+   "ic_baixo": -0.9160904908634196,
+   "ic_alto": -0.1396299973150701,
+   "urnas": 198,
+   "aptos": 66041
+  },
+  {
+   "grupo": "mais de 1,2 km",
+   "efeito_pp": -0.7547958760066726,
+   "ic_baixo": -1.7899793286124688,
+   "ic_alto": 0.15720164295530653,
+   "urnas": 97,
+   "aptos": 26700
+  },
+  {
+   "grupo": "sem coordenada",
+   "efeito_pp": -0.10100224059518327,
+   "ic_baixo": -0.4361822294860793,
+   "ic_alto": 0.14721020081859768,
+   "urnas": 459,
+   "aptos": 144011
+  }
+ ],
+ "painel_tse": {
+  "secoes": 4864,
+  "mudaram_1t_2t": 172
+ }
+}

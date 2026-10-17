@@ -1,0 +1,37 @@
+2026 linhas de voto: 3788476 | seções x turno: 497897
+ NR_TURNO  NR_VOTAVEL                        NM_VOTAVEL  QT_VOTOS       pct
+        1          22           FLAVIO NANTES BOLSONARO  55960603 47.035587
+        1          13         LUIZ INÁCIO LULA DA SILVA  53722151 45.154140
+        1          70                AUGUSTO JORGE CURY   3438835  2.890384
+        1          14 RENAN ANTONIO FERREIRA DOS SANTOS   2667307  2.241905
+        1          55              RONALDO RAMOS CAIADO   2600440  2.185702
+        1          30                   ROMEU ZEMA NETO    323159  0.271619
+        1          80   SAMARA MARTINS DA SILVA FEITOSA    121858  0.102423
+        1          16           HERTZ DA CONCEICAO DIAS     42730  0.035915
+        1          27           CLARIANA ZACARKIM BARAO     39218  0.032963
+        1          21              EDMILSON SILVA COSTA     22272  0.018720
+        1          35              WILSON GRASSI JUNIOR     16508  0.013875
+        1          29                 RUI COSTA PIMENTA     14825  0.012461
+        1          28          LEONARDO ALVES DE ARAUJO      5123  0.004306
+col       comparecimento    validos
+NR_TURNO                           
+1              124934069  118975029
+2022 linhas de voto: 5368073 | seções x turno: 942020
+ NR_TURNO  NR_VOTAVEL                          NM_VOTAVEL  QT_VOTOS       pct
+        1          13           LUIZ INÁCIO LULA DA SILVA  57120571 48.433864
+        1          22              JAIR MESSIAS BOLSONARO  50949797 43.201520
+        1          15                 SIMONE NASSAR TEBET   4902256  4.156737
+        1          12                 CIRO FERREIRA GOMES   3585946  3.040607
+        1          44             SORAYA VIEIRA THRONICKE    600202  0.508925
+        1          30          LUIZ FELIPE CHAVES D AVILA    555928  0.471384
+        1          14          KELMON LUIS DA SILVA SOUZA     80785  0.068499
+        1          80      LEONARDO PÉRICLES VIEIRA ROQUE     53200  0.045110
+        1          21                 SOFIA PADUA MANZANO     45002  0.038158
+        1          16 VERA LUCIA PEREIRA DA SILVA SALGADO     25161  0.021335
+        1          27                   JOSE MARIA EYMAEL     16346  0.013860
+        2          13           LUIZ INÁCIO LULA DA SILVA  60193094 50.901450
+        2          22              JAIR MESSIAS BOLSONARO  58061090 49.098550
+col       comparecimento    validos
+NR_TURNO                           
+1              123378340  117935194
+2              123942648  118254184

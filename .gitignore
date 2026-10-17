@@ -1,0 +1,8 @@
+# downloads públicos do TSE (cerca de 630 MB), baixados de novo pela fonte
+/dados/
+
+# tabelas completas por urna, geradas pelos scripts
+saida/*.csv.gz
+
+__pycache__/
+*.pyc

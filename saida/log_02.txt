@@ -1,0 +1,19 @@
+urnas: 497897 | aptos: 157826587 | sem par no outro turno: 0 0
+2026                                           urnas      aptos
+tipo                                                      
+igual                                    491153  155795137
+igual, fora do cadastro nos dois turnos    4691    1421481
+saiu do local de cadastro                   156      48110
+trocou de local provisório                   16       5552
+voltou ao local de cadastro                1881     556307
+2026 distância (km) das que mudaram: {'count': 1691.0, 'mean': 0.85, 'std': 2.14, 'min': 0.0, '25%': 0.18, '50%': 0.41, '75%': 0.73, '90%': 1.38, 'max': 28.67} | sem coordenada: 362
+painel: 4864 seções | mudaram do 1º para o 2º turno: 172
+urnas: 471629 | aptos: 155756933 | sem par no outro turno: 0 0
+2022                                           urnas      aptos
+tipo                                                      
+igual                                    464843  153592122
+igual, fora do cadastro nos dois turnos    5402    1726048
+saiu do local de cadastro                   394     130529
+trocou de local provisório                   26       8243
+voltou ao local de cadastro                 964     299991
+2022 distância (km) das que mudaram: {'count': 925.0, 'mean': 0.81, 'std': 1.94, 'min': 0.0, '25%': 0.14, '50%': 0.42, '75%': 0.69, '90%': 1.24, 'max': 20.77} | sem coordenada: 459
