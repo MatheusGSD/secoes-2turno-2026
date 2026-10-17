@@ -1,7 +1,7 @@
 # Urnas que mudam de lugar no 2º turno de 2026
 
 A Justiça Eleitoral trocou o endereço de algumas seções entre o 1º e o 2º turno de 2026. Este repositório mostra
-quais urnas mudam de prédio, em quem esses eleitores votaram no 1º turno e quanto isso pode pesar no resultado.
+quais urnas mudam de prédio, em quem os eleitores dessas urnas votaram no 1º turno e quanto isso pode pesar no resultado.
 
 **Página com o mapa:** https://matheusgsd.github.io/secoes-2turno-2026/
 
@@ -10,23 +10,23 @@ quais urnas mudam de prédio, em quem esses eleitores votaram no 1º turno e qua
 Dados do TSE de 17/10/2026, às 6h28. O TSE ainda pode mudar locais até o dia 25.
 
 - **2.091 urnas funcionam no 2º turno num prédio diferente do 1º**, com 620.947 eleitores aptos, em 342 municípios de 24
-  estados: 0,42% das urnas e 0,4% dos votos válidos do país. Metade muda até 415 m.
+  estados: 0,42% das urnas do país, com 0,4% dos votos válidos no 1º turno. Metade muda até 415 m.
 - **O painel do TSE não mostra isso.** A lista "Seções alteradas" do painel de estatísticas tem 4.864 seções (4.863
-  urnas), mas compara o local do 2º turno com o local *de cadastro*. 4.695 delas já funcionaram nesse mesmo prédio no 1º
+  urnas), mas compara o local do 2º turno com o local *de cadastro*. 4.695 dessas urnas já funcionaram nesse mesmo prédio no 1º
   turno. E ficam de fora 1.877 urnas que voltam ao local de sempre, depois de terem sido deslocadas no 1º turno, e 46
-  cujo local de sempre passou a outro prédio sem trocar de número no cadastro. Só 168 urnas estão nas duas contas.
+  cujo local de sempre passou para outro prédio sem trocar de número no cadastro. Só 168 urnas estão nas duas contas.
 - **Por que não 4,3 mil.** O TSE divulgou em 16/10, e a imprensa reproduziu, que 4.352 seções mudaram de local, com
   dados até 16/10. As "499.248 seções instaladas" citadas são urnas, a mesma unidade usada aqui. O TSE não informou o
-  critério. A distribuição por estado não fecha com os dados de 17/10: são 431 seções no Rio de Janeiro, onde o painel
-  tem 47 e só 19 urnas mudam de prédio do 1º para o 2º turno.
+  critério. A distribuição por estado não fecha com os dados de 17/10: o TSE cita 431 seções no Rio de Janeiro, onde o
+  painel tem 47 e só 19 urnas mudam de prédio do 1º para o 2º turno.
 - **No 1º turno, os eleitores dessas urnas votaram mais em Lula** (50,6% contra 42,8% de Flávio; no país, 45,2% contra 47,0%).
-  É geografia: 48% dos eleitores estão no Nordeste. Comparadas com as urnas que não mudam do mesmo município e da mesma
-  zona eleitoral, o voto foi, em média, o mesmo (−0,4 ponto para Lula, intervalo de 95% de −1,1 a +0,4).
+  É geografia: 48% dos eleitores dessas urnas estão no Nordeste. Comparado com o das urnas do mesmo município e da mesma zona eleitoral
+  que não mudam, o voto foi, em média, o mesmo (−0,4 ponto para Lula, intervalo de 95% de −1,1 a +0,4).
 - **Em 2022, trocar de prédio não mostrou aumento de abstenção.** Nas 1.506 urnas que trocaram de prédio entre os
   turnos, a abstenção variou 0,08 ponto a menos que nas vizinhas do mesmo município e zona (intervalo de −0,23 a
-  +0,08). Em outras comparações, vai de −0,19 a +0,14 ponto. É uma comparação observacional: essas urnas já tinham
-  abstenção 0,8 ponto acima das vizinhas no 1º turno.
-- **O efeito estimado no resultado é próximo de zero.** Se 2026 repetir 2022, a vantagem de Flávio muda em −48 votos
+  +0,08). Em outras comparações, vai de −0,19 a +0,14 ponto. É uma comparação entre urnas, não um experimento:
+  essas urnas já tinham abstenção 0,8 ponto acima das vizinhas no 1º turno.
+- **O efeito estimado no resultado é próximo de zero.** Se 2026 repetir 2022, a vantagem de Flávio cairia 48 votos
   (intervalo de −116 a +23; entre −203 e +182 nas outras comparações), diante de 2,24 milhões no 1º turno. Mesmo que
   ninguém votasse nessas urnas, e com a abstenção igual dos dois lados, Lula perderia 36.485 votos líquidos (1,6% da
   diferença).
@@ -37,8 +37,8 @@ estados com 2º turno para governador (AC, AM, ES, RN, TO e DF) têm 136 urnas m
 ## Como foi feito
 
 A urna é a seção principal; os eleitores de seção agregada votam nela. Os aptos são o eleitorado federal de cada urna em cada turno.
-Uma urna muda de prédio quando o número do local no 2º turno é diferente do 1º (salvo se nome e endereço continuam
-iguais), ou quando o número é o mesmo mas nome e endereço mudaram juntos. Coordenada só vale se cair dentro do
+Uma urna muda de prédio quando o número do local no 2º turno é diferente do 1º (salvo se o nome e o endereço
+continuarem iguais), ou quando o número é o mesmo mas o nome e o endereço mudam juntos. Coordenada só vale se cair dentro do
 município, pela malha do IBGE. Os detalhes estão no cabeçalho de cada script.
 
 | Script | O que faz |
