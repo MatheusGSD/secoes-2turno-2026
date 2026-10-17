@@ -3,7 +3,7 @@
 O painel do TSE ("Seções eleitorais alteradas no segundo turno", em Estatísticas > Eleitorado >
 Capilaridade) lista 4.864 seções em 2026. Conferimos linha a linha: são as seções cujo local no 2º
 turno é diferente do local de CADASTRO (NR_LOCAL_VOTACAO_ORIGINAL), não do local onde votaram no
-1º turno. A maioria delas já tinha votado no local novo no 1º turno. Para o eleitor, o que importa é
+1º turno. A maioria delas já tinha funcionado no local novo no 1º turno. Para o eleitor, o que importa é
 outra comparação: prédio do 1º turno x prédio do 2º turno, que fazemos aqui com o cadastro de locais
 do TSE (uma linha por seção e turno).
 

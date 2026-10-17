@@ -9,19 +9,19 @@ quais urnas mudam de prédio, em quem esses eleitores votaram no 1º turno e qua
 
 Dados do TSE de 17/10/2026, às 6h28. O TSE ainda pode mudar locais até o dia 25.
 
-- **2.091 urnas votam no 2º turno num prédio diferente do 1º**, com 620.947 eleitores aptos, em 342 municípios de 24
+- **2.091 urnas funcionam no 2º turno num prédio diferente do 1º**, com 620.947 eleitores aptos, em 342 municípios de 24
   estados: 0,42% das urnas e 0,4% dos votos válidos do país. Metade muda até 415 m.
 - **O painel do TSE não mostra isso.** A lista "Seções alteradas" do painel de estatísticas tem 4.864 seções (4.863
-  urnas), mas compara o local do 2º turno com o local *de cadastro*. 4.695 delas já votaram nesse mesmo prédio no 1º
+  urnas), mas compara o local do 2º turno com o local *de cadastro*. 4.695 delas já funcionaram nesse mesmo prédio no 1º
   turno. E ficam de fora 1.877 urnas que voltam ao local de sempre, depois de terem sido deslocadas no 1º turno, e 46
   cujo local de sempre passou a outro prédio sem trocar de número no cadastro. Só 168 urnas estão nas duas contas.
 - **Por que não 4,3 mil.** O TSE divulgou em 16/10, e a imprensa reproduziu, que 4.352 seções mudaram de local, com
   dados até 16/10. As "499.248 seções instaladas" citadas são urnas, a mesma unidade usada aqui. O TSE não informou o
   critério. A distribuição por estado não fecha com os dados de 17/10: são 431 seções no Rio de Janeiro, onde o painel
   tem 47 e só 19 urnas mudam de prédio do 1º para o 2º turno.
-- **No 1º turno, essas urnas votaram mais em Lula** (50,6% contra 42,8% de Flávio; no país, 45,2% contra 47,0%).
+- **No 1º turno, os eleitores dessas urnas votaram mais em Lula** (50,6% contra 42,8% de Flávio; no país, 45,2% contra 47,0%).
   É geografia: 48% dos eleitores estão no Nordeste. Comparadas com as urnas que não mudam do mesmo município e da mesma
-  zona eleitoral, votaram em média como elas (−0,4 ponto para Lula, intervalo de 95% de −1,1 a +0,4).
+  zona eleitoral, o voto foi, em média, o mesmo (−0,4 ponto para Lula, intervalo de 95% de −1,1 a +0,4).
 - **Em 2022, trocar de prédio não mostrou aumento de abstenção.** Nas 1.506 urnas que trocaram de prédio entre os
   turnos, a abstenção variou 0,08 ponto a menos que nas vizinhas do mesmo município e zona (intervalo de −0,23 a
   +0,08). Em outras comparações, vai de −0,19 a +0,14 ponto. É uma comparação observacional: essas urnas já tinham
@@ -36,7 +36,7 @@ estados com 2º turno para governador (AC, AM, ES, RN, TO e DF) têm 136 urnas m
 
 ## Como foi feito
 
-A urna é a seção principal; seção agregada vota nela. Os aptos são o eleitorado federal de cada urna em cada turno.
+A urna é a seção principal; os eleitores de seção agregada votam nela. Os aptos são o eleitorado federal de cada urna em cada turno.
 Uma urna muda de prédio quando o número do local no 2º turno é diferente do 1º (salvo se nome e endereço continuam
 iguais), ou quando o número é o mesmo mas nome e endereço mudaram juntos. Coordenada só vale se cair dentro do
 município, pela malha do IBGE. Os detalhes estão no cabeçalho de cada script.

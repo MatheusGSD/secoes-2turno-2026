@@ -56,13 +56,13 @@ def main():
     t(0.80, "Urnas que mudam de lugar", size=20, weight="bold")
     t(0.62, f"{m['urnas']:,}".replace(",", "."), size=34, weight="bold")
     fatia = f"{100 * m['validos'] / n['validos']:.1f}".replace(".", ",")
-    t(0.555, f"urnas votam no 2º turno num prédio diferente do 1º,\ncom {fatia}% dos votos válidos do país",
+    t(0.555, f"urnas funcionam no 2º turno num prédio diferente do 1º,\ncom {fatia}% dos votos válidos do país",
       size=8.6, color=TINTA2, linespacing=1.35, va="top")
 
     mediana = int(round(m["dist_mediana_km"] * 1000 / 5) * 5)
     itens = [
         (f"Metade muda até {mediana} m", "do prédio onde a urna funcionou no 1º turno"),
-        ("Votam, em média, como as vizinhas", "do mesmo município e zona: não pendem para um lado"),
+        ("Voto igual, em média, ao das vizinhas", "comparado com urnas do mesmo município e zona"),
         ("Efeito estimado: menos de 300 votos", "com base em 2022; a diferença no 1º turno foi de 2,24 milhões"),
     ]
     y = 0.405
