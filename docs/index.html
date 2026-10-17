@@ -3,49 +3,47 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="As 2.053 urnas que votam em outro prédio no 2º turno de 2026, como votaram no 1º turno e quanto a mudança pode pesar no resultado.">
-<meta property="og:title" content="Urnas que mudam de lugar">
-<meta property="og:description" content="As 2.053 urnas que votam em outro prédio no 2º turno de 2026, como votaram no 1º turno e quanto a mudança pode pesar no resultado.">
-<style>
-html, body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important; }
-</style>
 <title>Urnas que mudam de lugar</title>
+<meta name="description" content="As 2.053 urnas que votam em outro prédio no 2º turno de 2026: onde ficam, como votaram no 1º turno, por que o número difere das 4,3 mil seções das reportagens e por que a mudança não pesa no resultado.">
+<meta property="og:title" content="Urnas que mudam de lugar">
+<meta property="og:description" content="As 2.053 urnas que votam em outro prédio no 2º turno de 2026: onde ficam, como votaram no 1º turno e por que a mudança não pesa no resultado.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..100,500..800&family=Public+Sans:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <style>
-/* Relatório de uma coluna (~68ch), com o mapa e o painel lateral em faixa larga no meio */
+/* Relatório de uma coluna (~68ch); o mapa abre a página numa faixa larga, com painel lateral */
 :root {
   --papel: #f8f8f6; --painel: #ffffff; --tinta: #121417; --tinta2: #4c5058; --tinta3: #80848c;
-  --linha: #dcdedf; --ponto: rgba(70, 76, 86, .30); --sombra: 0 1px 2px rgba(0,0,0,.06), 0 4px 18px rgba(0,0,0,.07);
-  --lula: #d4574a; --flavio: #3f74c2; --lula-claro: #f6dcd8; --flavio-claro: #dbe5f5; --destaque: #121417;
+  --linha: #dcdedf; --fundo2: #eff0ee; --ponto: rgba(70, 76, 86, .30); --sombra: 0 1px 2px rgba(0,0,0,.06), 0 4px 18px rgba(0,0,0,.07);
+  --lula: #d4574a; --flavio: #3f74c2; --flavio-claro: #dbe5f5; --destaque: #121417;
   --display: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
   --texto: "Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
   --dados: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
+  color-scheme: light;
 }
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --papel: #161719; --painel: #1f2023; --tinta: #eceef0; --tinta2: #b2b6bd; --tinta3: #868a92;
-  --linha: #34363b; --ponto: rgba(200, 206, 214, .26); --sombra: 0 1px 2px rgba(0,0,0,.4), 0 4px 18px rgba(0,0,0,.35);
-  --lula: #de6a5d; --flavio: #5a89d6; --lula-claro: #4a2724; --flavio-claro: #23324a; --destaque: #eceef0; color-scheme: dark } }
+  --linha: #34363b; --fundo2: #222326; --ponto: rgba(200, 206, 214, .26); --sombra: 0 1px 2px rgba(0,0,0,.4), 0 4px 18px rgba(0,0,0,.35);
+  --lula: #de6a5d; --flavio: #5a89d6; --flavio-claro: #23324a; --destaque: #eceef0; color-scheme: dark } }
 :root[data-theme="dark"] {
   --papel: #161719; --painel: #1f2023; --tinta: #eceef0; --tinta2: #b2b6bd; --tinta3: #868a92;
-  --linha: #34363b; --ponto: rgba(200, 206, 214, .26); --sombra: 0 1px 2px rgba(0,0,0,.4), 0 4px 18px rgba(0,0,0,.35);
-  --lula: #de6a5d; --flavio: #5a89d6; --lula-claro: #4a2724; --flavio-claro: #23324a; --destaque: #eceef0; color-scheme: dark }
+  --linha: #34363b; --fundo2: #222326; --ponto: rgba(200, 206, 214, .26); --sombra: 0 1px 2px rgba(0,0,0,.4), 0 4px 18px rgba(0,0,0,.35);
+  --lula: #de6a5d; --flavio: #5a89d6; --flavio-claro: #23324a; --destaque: #eceef0; color-scheme: dark }
 
+html, body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important; }
 html { background: var(--papel); }
 body { background: var(--papel); color: var(--tinta); font: 16px/1.6 var(--texto);
   padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 .col { max-width: 44rem; margin: 0 auto; }
-.larga { max-width: 76rem; margin: 0 auto; }
-header.topo { padding-block: 3rem 1.5rem; }
-.chapeu { font: 500 .78rem/1.2 var(--dados); letter-spacing: .08em; text-transform: uppercase; color: var(--tinta2); margin: 0 0 .9rem; }
+.larga { max-width: 82rem; margin: 0 auto; }
+header.topo { padding-block: 2.6rem 1.4rem; }
+.chapeu { font: 500 .78rem/1.3 var(--dados); letter-spacing: .08em; text-transform: uppercase; color: var(--tinta2); margin: 0 0 .9rem; }
 h1 { font: 800 clamp(2.4rem, 7vw, 4.2rem)/0.98 var(--display); font-stretch: 72%; letter-spacing: -.01em; margin: 0 0 1rem; text-wrap: balance; }
-h2 { font: 750 clamp(1.5rem, 3.6vw, 2rem)/1.1 var(--display); font-stretch: 80%; margin: 3.2rem 0 .8rem; text-wrap: balance; }
-h3 { font: 700 1.05rem/1.3 var(--texto); margin: 1.6rem 0 .4rem; }
+h2 { font: 750 clamp(1.5rem, 3.6vw, 2rem)/1.1 var(--display); font-stretch: 80%; margin: 3.4rem 0 .8rem; text-wrap: balance; }
+h3 { font: 700 1.05rem/1.3 var(--texto); margin: 2rem 0 .5rem; text-wrap: balance; }
 p { margin: 0 0 1rem; }
 .linha-fina { font-size: 1.15rem; line-height: 1.5; color: var(--tinta2); max-width: 40rem; margin: 0; }
 .num { font-family: var(--dados); font-variant-numeric: tabular-nums; font-size: .94em; }
-.lula { color: var(--tinta); } .flavio { color: var(--tinta); }
 .chip { display: inline-block; width: .7em; height: .7em; border-radius: 50%; vertical-align: .02em; margin-right: .3em; }
 .chip.l { background: var(--lula); } .chip.f { background: var(--flavio); }
 a { color: var(--tinta); text-decoration-color: var(--tinta3); text-underline-offset: 2px; }
@@ -53,44 +51,33 @@ a:hover { text-decoration-color: var(--tinta); }
 :focus-visible { outline: 2px solid var(--destaque); outline-offset: 2px; }
 
 /* resumo em três números */
-.tres { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0; margin: 2rem 0 0;
-  border-top: 2px solid var(--tinta); }
+.tres { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 1.8rem 0 0; border-top: 2px solid var(--tinta); }
 .tres > div { padding: .9rem 1rem 0 0; min-width: 0; }
 .tres > div + div { padding-left: 1rem; border-left: 1px solid var(--linha); }
 .tres b { display: block; font: 750 clamp(1.7rem, 4.5vw, 2.5rem)/1 var(--display); font-stretch: 75%; font-variant-numeric: tabular-nums; margin-bottom: .35rem; }
 .tres span { display: block; font-size: .88rem; line-height: 1.4; color: var(--tinta2); }
 @media (max-width: 560px) { .tres { grid-template-columns: 1fr; } .tres > div + div { padding-left: 0; border-left: 0; border-top: 1px solid var(--linha); } .tres > div { padding-bottom: .8rem; } }
 
-/* barras do painel x mudança real */
-.fluxo { display: grid; gap: 1.4rem; margin: 1.6rem 0 1rem; }
-.fluxo .rot { display: flex; justify-content: space-between; gap: 1rem; font-size: .9rem; margin-bottom: .35rem; flex-wrap: wrap; }
-.fluxo .rot b { font-weight: 700; }
-.barra { display: flex; height: 30px; gap: 2px; }
-.barra > div { height: 100%; border-radius: 3px; min-width: 3px; }
-.seg-ja { background: var(--linha); }
-.seg-novo { background: var(--tinta); }
-.seg-volta { background: var(--tinta2); }
-.leg-barra { display: flex; flex-wrap: wrap; gap: .3rem 1.2rem; font-size: .84rem; color: var(--tinta2); margin-top: .45rem; }
-.leg-barra i { display: inline-block; width: 12px; height: 12px; border-radius: 2px; vertical-align: -1px; margin-right: .35rem; }
-
 /* mapa */
-.faixa-mapa { margin: 2.2rem auto 0; display: grid; grid-template-columns: minmax(0, 1fr) 21rem; gap: 0;
-  background: var(--painel); border: 1px solid var(--linha); border-radius: 8px; overflow: hidden; box-shadow: var(--sombra); }
-.mapa-wrap { position: relative; min-height: 34rem; height: 72vh; max-height: 46rem; border-right: 1px solid var(--linha); touch-action: none; }
+.mapa-intro { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: .3rem 1.5rem; margin: 2.2rem 0 .7rem; }
+.mapa-intro h2 { margin: 0; }
+.mapa-intro p { margin: 0; color: var(--tinta2); font-size: .92rem; max-width: 40rem; }
+.faixa-mapa { display: grid; grid-template-columns: minmax(0, 1fr) 22rem; background: var(--painel); border: 1px solid var(--linha); border-radius: 8px; overflow: hidden; box-shadow: var(--sombra); }
+.mapa-wrap { position: relative; min-height: 36rem; height: 80vh; max-height: 52rem; border-right: 1px solid var(--linha); touch-action: none; }
 #mapa { position: absolute; inset: 0; width: 100%; height: 100%; cursor: grab; display: block; }
 #mapa:active { cursor: grabbing; }
 .ctrl { position: absolute; top: .7rem; left: .7rem; right: .7rem; display: flex; flex-wrap: wrap; gap: .5rem; pointer-events: none; }
 .ctrl > * { pointer-events: auto; }
-.seg { display: inline-flex; background: var(--painel); border: 1px solid var(--linha); border-radius: 6px; padding: 2px; box-shadow: var(--sombra); }
+.seg { display: inline-flex; flex-wrap: wrap; background: var(--painel); border: 1px solid var(--linha); border-radius: 6px; padding: 2px; box-shadow: var(--sombra); }
 .seg button { border: 0; background: transparent; color: var(--tinta2); font: 600 .8rem/1 var(--texto); padding: .45rem .6rem; border-radius: 4px; cursor: pointer; }
 .seg button[aria-pressed="true"] { background: var(--tinta); color: var(--papel); }
 select { font: 600 .82rem var(--texto); color: var(--tinta); background: var(--painel); border: 1px solid var(--linha); border-radius: 6px; padding: .42rem .5rem; box-shadow: var(--sombra); max-width: 13rem; }
-.zoom { position: absolute; right: .7rem; bottom: .7rem; display: grid; gap: 4px; }
+.zoom { position: absolute; right: calc(.7rem + env(safe-area-inset-right, 0px)); bottom: .7rem; display: grid; gap: 4px; }
 .zoom button { width: 34px; height: 34px; border: 1px solid var(--linha); background: var(--painel); color: var(--tinta); border-radius: 6px; font: 600 1.1rem/1 var(--texto); cursor: pointer; box-shadow: var(--sombra); }
 .leg-mapa { position: absolute; left: .7rem; bottom: .7rem; background: var(--painel); border: 1px solid var(--linha); border-radius: 6px; padding: .5rem .65rem; font-size: .76rem; line-height: 1.5; color: var(--tinta2); box-shadow: var(--sombra); max-width: calc(100% - 5.5rem); }
 .leg-mapa div { display: flex; align-items: center; gap: .4rem; }
 .dica { position: absolute; pointer-events: none; background: var(--tinta); color: var(--papel); font-size: .78rem; line-height: 1.35; padding: .4rem .55rem; border-radius: 5px; max-width: 16rem; transform: translate(-50%, calc(-100% - 12px)); }
-.lado { padding: 1.1rem 1.1rem 1.2rem; overflow-y: auto; max-height: 46rem; min-width: 0; font-size: .9rem; }
+.lado { padding: 1.1rem 1.1rem 1.2rem; overflow-y: auto; max-height: 52rem; min-width: 0; font-size: .9rem; }
 .lado h3 { margin: 0 0 .2rem; font: 700 1.15rem/1.25 var(--display); font-stretch: 85%; }
 .lado .sub { color: var(--tinta2); font-size: .82rem; margin: 0 0 .9rem; }
 .trajeto { display: grid; grid-template-columns: 14px minmax(0, 1fr); gap: .1rem .6rem; margin: .4rem 0 .9rem; }
@@ -108,11 +95,29 @@ select { font: 600 .82rem var(--texto); color: var(--tinta); background: var(--p
 .voto-leg { display: flex; justify-content: space-between; font-size: .8rem; gap: .5rem; }
 .links-osm { font-size: .8rem; color: var(--tinta2); display: flex; flex-wrap: wrap; gap: .2rem .8rem; }
 .vazio p { color: var(--tinta2); }
+.botao { font: 600 .8rem var(--texto); background: none; border: 1px solid var(--linha); color: var(--tinta); border-radius: 6px; padding: .4rem .6rem; cursor: pointer; }
 @media (max-width: 860px) {
   .faixa-mapa { grid-template-columns: 1fr; }
-  .mapa-wrap { border-right: 0; border-bottom: 1px solid var(--linha); height: 64vh; min-height: 26rem; }
+  .mapa-wrap { border-right: 0; border-bottom: 1px solid var(--linha); height: 68vh; min-height: 26rem; }
   .lado { max-height: none; }
 }
+
+/* barras do painel x mudança real */
+.fluxo { display: grid; gap: 1.4rem; margin: 1.6rem 0 1rem; }
+.fluxo .rot { display: flex; justify-content: space-between; gap: 1rem; font-size: .9rem; margin-bottom: .35rem; flex-wrap: wrap; }
+.fluxo .rot b { font-weight: 700; }
+.barra { display: flex; height: 30px; gap: 2px; }
+.barra > div { height: 100%; border-radius: 3px; min-width: 3px; }
+.seg-ja { background: var(--linha); }
+.seg-novo { background: var(--tinta); }
+.seg-volta { background: var(--tinta2); }
+.leg-barra { display: flex; flex-wrap: wrap; gap: .3rem 1.2rem; font-size: .84rem; color: var(--tinta2); margin-top: .45rem; }
+.leg-barra i { display: inline-block; width: 12px; height: 12px; border-radius: 2px; vertical-align: -1px; margin-right: .35rem; }
+
+/* caixa da conta */
+.conta { background: var(--fundo2); border-radius: 6px; padding: 1rem 1.1rem; margin: 1rem 0 1.4rem; font-size: .92rem; }
+.conta ol { margin: 0; padding-left: 1.2rem; display: grid; gap: .55rem; }
+.conta b { font-family: var(--dados); font-weight: 500; font-variant-numeric: tabular-nums; }
 
 /* gráficos */
 figure { margin: 1.4rem 0 1.6rem; }
@@ -124,33 +129,38 @@ figcaption { font-size: .82rem; color: var(--tinta2); margin-top: .5rem; line-he
 .graf .zero { stroke: var(--tinta3); stroke-width: 1; }
 .graf .bigode { stroke: var(--tinta); stroke-width: 2; stroke-linecap: round; }
 .graf .ponto-ef { fill: var(--tinta); stroke: var(--papel); stroke-width: 2; }
-.graf .alvo { fill: transparent; cursor: default; }
-.graf .alvo:hover + g .bigode { stroke-width: 3; }
-.graf .sep { stroke: var(--linha); stroke-dasharray: 2 3; }
+.graf .alvo { fill: transparent; }
 .graf .muted { fill: var(--tinta2); font-size: 11.5px; }
 .graf .forte { font-weight: 700; }
-.graf .b-margem { fill: var(--tinta2); }
+.graf .b-margem { fill: var(--tinta3); }
 .graf .b-teto { fill: var(--tinta); }
-.graf .b-est { fill: var(--tinta); }
 .dica-g { position: fixed; pointer-events: none; background: var(--tinta); color: var(--papel); font-size: .78rem; line-height: 1.35; padding: .4rem .55rem; border-radius: 5px; max-width: 16rem; z-index: 5; }
 
-/* tabela */
+/* tabelas */
 .tab-wrap { overflow-x: auto; margin: 1rem 0 1.5rem; border-top: 2px solid var(--tinta); }
-table { border-collapse: collapse; width: 100%; font-size: .86rem; min-width: 36rem; }
-th, td { padding: .45rem .4rem; border-bottom: 1px solid var(--linha); text-align: right; white-space: nowrap; }
+table { border-collapse: collapse; width: 100%; font-size: .86rem; }
+th, td { padding: .5rem .45rem; border-bottom: 1px solid var(--linha); text-align: right; vertical-align: top; }
 th:first-child, td:first-child { text-align: left; }
-th { font: 600 .76rem/1.25 var(--texto); color: var(--tinta2); vertical-align: bottom; white-space: normal; }
-td { font-family: var(--dados); font-variant-numeric: tabular-nums; font-size: .82rem; }
-td.uf { font-family: var(--texto); font-weight: 700; font-size: .86rem; }
-.mini { display: inline-block; width: 3.6rem; height: 9px; vertical-align: middle; position: relative; background: var(--flavio-claro); border-radius: 2px; overflow: hidden; margin-left: .4rem; }
+th { font: 600 .76rem/1.25 var(--texto); color: var(--tinta2); vertical-align: bottom; }
+td { font-family: var(--dados); font-variant-numeric: tabular-nums; font-size: .82rem; white-space: nowrap; }
+td.uf, td.txt { font-family: var(--texto); font-size: .86rem; }
+td.uf { font-weight: 700; }
+td.txt { white-space: normal; text-align: left; line-height: 1.4; }
+tr.nos td { font-weight: 700; }
+#tab-uf, .lista-pares { min-width: 36rem; }
+.tab-situ { min-width: 38rem; }
+.sim { font: 600 .74rem/1 var(--texto); padding: .2rem .4rem; border-radius: 3px; background: var(--tinta); color: var(--papel); white-space: nowrap; }
+.nao { font: 600 .74rem/1 var(--texto); padding: .2rem .4rem; border-radius: 3px; border: 1px solid var(--tinta3); color: var(--tinta2); white-space: nowrap; }
+.mini { display: inline-block; width: 3rem; height: 9px; vertical-align: middle; position: relative; background: var(--flavio-claro); border-radius: 2px; overflow: hidden; margin-left: .4rem; }
 .mini i { position: absolute; left: 0; top: 0; bottom: 0; background: var(--lula); }
 .mini b { position: absolute; top: -2px; bottom: -2px; width: 2px; background: var(--tinta); }
 .selo { display: inline-block; font: 600 .68rem/1 var(--texto); padding: .2rem .35rem; border: 1px solid var(--tinta2); border-radius: 3px; color: var(--tinta2); margin-left: .35rem; vertical-align: 1px; }
-.lista-pares td:nth-child(2), .lista-pares th:nth-child(2) { text-align: left; white-space: normal; min-width: 16rem; }
+.lista-pares td:nth-child(2) { text-align: left; white-space: normal; min-width: 15rem; font-family: var(--texto); font-size: .8rem; }
 details { margin: 1rem 0; }
 summary { cursor: pointer; font-weight: 600; }
-.notas { font-size: .9rem; color: var(--tinta2); }
+.notas { font-size: .9rem; color: var(--tinta2); padding-left: 1.2rem; }
 .notas li { margin-bottom: .55rem; }
+.notas strong { color: var(--tinta); }
 footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta3); }
 @media (prefers-reduced-motion: reduce) { * { transition: none !important; } }
 </style>
@@ -158,40 +168,22 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta3); }
 <body>
 
 <header class="topo col">
-  <p class="chapeu">2º turno · 25 de outubro de 2026 · dados do TSE de 17/10</p>
+  <p class="chapeu">2º turno · 25 de outubro de 2026 · dados do TSE de 17/10, 6h28</p>
   <h1>Urnas que mudam de lugar</h1>
-  <p class="linha-fina">A Justiça Eleitoral trocou o endereço de algumas seções entre o 1º e o 2º turno. Quais são, em quem esses eleitores votaram no dia 4 e quanto isso pode pesar no resultado.</p>
+  <p class="linha-fina">2.053 urnas vão funcionar em outro prédio no 2º turno. Veja onde ficam, como votaram no 1º turno, por que o número é diferente das 4,3 mil seções das reportagens e por que a mudança não pesa no resultado.</p>
   <div class="tres" aria-label="Resumo">
-    <div><b class="num-g">2.053</b><span>urnas votam em outro prédio no 2º turno, em 336 municípios de 23 estados</span></div>
-    <div><b class="num-g">610 mil</b><span>eleitores aptos nessas urnas, 0,39% do eleitorado do país</span></div>
-    <div><b class="num-g">até 250</b><span>votos de efeito provável na diferença entre Flávio e Lula, que foi de 2,24 milhões no 1º turno</span></div>
+    <div><b>2.053</b><span>urnas votam no 2º turno num prédio diferente do 1º turno: 0,41% das 499.248 urnas do país</span></div>
+    <div><b>610 mil</b><span>eleitores aptos nessas urnas, em 336 municípios de 23 estados</span></div>
+    <div><b>≈ 0</b><span>votos de efeito provável: entre 250 a menos e 80 a mais na vantagem de Flávio, que foi de 2,24 milhões no 1º turno</span></div>
   </div>
 </header>
 
 <main>
-<section class="col">
-  <h2>O painel do TSE não mostra o que mudou para o eleitor</h2>
-  <p>O TSE publicou a lista no painel de estatísticas (Eleitorado › Capilaridade › Seções alteradas): 4.864 seções. Conferimos a lista linha a linha com o cadastro de locais de votação do TSE, atualizado em 17 de outubro. O painel compara o local do 2º turno com o local <em>de cadastro</em> da seção. Não compara com o local onde ela funcionou no 1º turno.</p>
-  <p>Por isso o painel inclui quem não muda nada: 4.692 das 4.864 seções já votaram nesse mesmo prédio no dia 4. E deixa de fora o maior grupo de mudanças reais: 1.881 urnas que tinham sido levadas para outro prédio no 1º turno e agora voltam ao local de sempre.</p>
-  <div class="fluxo" aria-label="Seções do painel do TSE e urnas que mudam de fato">
-    <div>
-      <div class="rot"><b>Lista do painel do TSE</b><span class="num">4.864 seções</span></div>
-      <div class="barra"><div class="seg-ja" style="flex: 4692"></div><div class="seg-novo" style="flex: 172"></div></div>
-    </div>
-    <div>
-      <div class="rot"><b>Mudam de prédio do 1º para o 2º turno</b><span class="num">2.053 urnas</span></div>
-      <div class="barra"><div class="seg-novo" style="flex: 172"></div><div class="seg-volta" style="flex: 1881"></div></div>
-    </div>
-    <div class="leg-barra">
-      <span><i class="seg-ja"></i>Já votaram nesse prédio no 1º turno (4.692)</span>
-      <span><i class="seg-novo"></i>Mudança nova, para fora do local de sempre (172)</span>
-      <span><i class="seg-volta"></i>Voltam ao local de sempre e não aparecem no painel (1.881)</span>
-    </div>
+<section class="larga" aria-labelledby="t-mapa">
+  <div class="mapa-intro col" style="max-width:none">
+    <h2 id="t-mapa">Onde ficam</h2>
+    <p>Cada círculo é um trajeto de um prédio a outro, do tamanho do número de eleitores e na cor de quem venceu ali no 1º turno. Aproxime para ver as setas. Clique para ver os endereços e os votos.</p>
   </div>
-  <p>As mudanças são curtas: metade das urnas muda menos de 410 metros, e 90% menos de 1,4 km. Os maiores casos estão em Macapá (25 mil eleitores), São Paulo, Manaus, Limeira (SP), Bacabal (MA) e Jequié (BA).</p>
-</section>
-
-<section class="larga">
   <div class="faixa-mapa">
     <div class="mapa-wrap" id="mapa-wrap">
       <canvas id="mapa" aria-label="Mapa do Brasil com as urnas que mudam de local no 2º turno. A lista equivalente está abaixo do mapa."></canvas>
@@ -204,12 +196,12 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta3); }
         <select id="sel-uf" aria-label="Estado"><option value="">Brasil inteiro</option></select>
         <select id="sel-mun" aria-label="Município" hidden><option value="">Todos os municípios</option></select>
       </div>
-      <div class="leg-mapa" id="leg-mapa">
+      <div class="leg-mapa">
         <div><span class="chip l"></span>Lula venceu no 1º turno</div>
         <div><span class="chip f"></span>Flávio venceu no 1º turno</div>
         <div id="leg-zoom">Tamanho: eleitores. Aproxime para ver as setas do local antigo ao novo.</div>
       </div>
-      <div class="zoom"><button type="button" id="z-mais" aria-label="Aproximar">+</button><button type="button" id="z-menos" aria-label="Afastar">−</button><button type="button" id="z-tudo" aria-label="Ver tudo" style="font-size:.75rem">BR</button></div>
+      <div class="zoom"><button type="button" id="z-mais" aria-label="Aproximar">+</button><button type="button" id="z-menos" aria-label="Afastar">−</button><button type="button" id="z-tudo" aria-label="Ver o Brasil inteiro" style="font-size:.75rem">BR</button></div>
       <div class="dica" id="dica" hidden></div>
     </div>
     <aside class="lado" id="lado" aria-live="polite"></aside>
@@ -222,41 +214,102 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta3); }
     <div class="tab-wrap"><table class="lista-pares" id="tab-pares"></table></div>
   </details>
 
+  <h2>Por que 2.053, e não 4,3 mil</h2>
+  <p>As reportagens publicadas em 17 de outubro, a partir de texto da Agência Brasil, falam em 4.352 seções com local alterado, 0,87% das 499.248 do país. O painel de estatísticas do TSE mostra hoje 4.864. Nós contamos 2.053. Os três números medem coisas diferentes.</p>
+  <div class="tab-wrap">
+    <table>
+      <thead><tr><th>Fonte</th><th style="text-align:left">O que compara</th><th>Urnas</th><th>% das 499.248</th></tr></thead>
+      <tbody>
+        <tr><td class="txt">Reportagens de 17/10, com dados até 16/10</td><td class="txt">Não informado. O total sugere o mesmo critério do painel</td><td>4.352</td><td>0,87%</td></tr>
+        <tr><td class="txt">Painel do TSE, atualização de 17/10</td><td class="txt">Local do 2º turno × local <strong>de cadastro</strong> da seção</td><td>4.863</td><td>0,97%</td></tr>
+        <tr class="nos"><td class="txt">Este levantamento, 17/10</td><td class="txt">Local do 2º turno × local onde a urna funcionou <strong>no 1º turno</strong></td><td>2.053</td><td>0,41%</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <h3>A diferença está na comparação</h3>
+  <p>Toda seção tem um local de cadastro, onde costuma funcionar. Às vezes a Justiça Eleitoral a leva para outro prédio por uma eleição, por reforma, chuva ou falta de energia. O painel do TSE compara o local do 2º turno com o de cadastro. Para quem vai votar, a pergunta que importa é outra: vou votar no mesmo lugar do dia 4?</p>
+  <p>Essa diferença de critério separa as urnas em três situações:</p>
+  <div class="tab-wrap">
+    <table class="tab-situ">
+      <thead><tr><th>Situação</th><th style="text-align:left">Exemplo real</th><th>Urnas</th><th>Painel e reportagens</th><th>Este levantamento</th></tr></thead>
+      <tbody>
+        <tr><td class="txt"><strong>Já estava fora do local de sempre</strong> no 1º turno e continua no mesmo prédio provisório</td><td class="txt">Campo Grande (AL), zona 20: as seções 125 e 126 são da Escola Douglas Apratto, votaram no Ginásio do Colégio Douglas Apratto no dia 4 e continuam lá</td><td>4.691</td><td><span class="sim">conta</span></td><td><span class="nao">não conta</span></td></tr>
+        <tr><td class="txt"><strong>Sai do local de sempre</strong> só no 2º turno, ou troca de um prédio provisório por outro</td><td class="txt">São Paulo, zona 256: 12 urnas da EE Conselheiro Ruy Barbosa vão para o Recanto Nossa Senhora de Lourdes, a 560 m</td><td>172</td><td><span class="sim">conta</span></td><td><span class="sim">conta</span></td></tr>
+        <tr><td class="txt"><strong>Volta ao local de sempre</strong> no 2º turno, depois de ter votado em outro prédio no 1º</td><td class="txt">Recife, zona 3: 12 urnas que votaram na Escola São Jorge voltam à Escola Monsenhor Álvaro Negromonte, a 870 m</td><td>1.881</td><td><span class="nao">não conta</span></td><td><span class="sim">conta</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>O painel soma a primeira e a segunda linha: 4.691 + 172 = 4.863 urnas. Nós somamos a segunda e a terceira: 172 + 1.881 = 2.053. Só as 172 do meio estão nas duas contas.</p>
+  <div class="fluxo" aria-label="Urnas do painel do TSE e urnas que mudam de fato">
+    <div>
+      <div class="rot"><b>Lista do painel do TSE</b><span class="num">4.863 urnas</span></div>
+      <div class="barra"><div class="seg-ja" style="flex: 4691"></div><div class="seg-novo" style="flex: 172"></div></div>
+    </div>
+    <div>
+      <div class="rot"><b>Mudam de prédio do 1º para o 2º turno</b><span class="num">2.053 urnas</span></div>
+      <div class="barra"><div class="seg-novo" style="flex: 172"></div><div class="seg-volta" style="flex: 1881"></div></div>
+    </div>
+    <div class="leg-barra">
+      <span><i class="seg-ja"></i>Já votaram nesse prédio no 1º turno (4.691)</span>
+      <span><i class="seg-novo"></i>Saem do local de sempre (172)</span>
+      <span><i class="seg-volta"></i>Voltam ao local de sempre (1.881)</span>
+    </div>
+  </div>
+
+  <h3>Seção ou urna?</h3>
+  <p>Em geral, cada seção tem a sua urna. A exceção é a seção agregada, que vota na urna de outra seção, a principal. O país tem 517.179 seções e 499.248 urnas, contando as 1.351 do exterior. As "499.248 seções instaladas" das reportagens são, portanto, urnas, e por isso comparamos tudo em urnas. As 2.053 urnas que mudam recebem também os eleitores de 78 seções agregadas. No exterior, nenhuma urna muda de lugar.</p>
+
+  <h3>E a diferença de data?</h3>
+  <p>As reportagens usam dados contabilizados até 16 de outubro. Os nossos são do cadastro e do painel atualizados em 17 de outubro, às 6h28. O TSE atualiza os dois todo dia e substitui o arquivo anterior, então não é possível refazer a conta com a versão de 16/10.</p>
+  <p>A data pode explicar parte da diferença no total, mas não a distribuição por estado. As reportagens citam 982 seções em São Paulo, 514 em Minas, 431 no Rio de Janeiro e 312 na Bahia. Nos dados de 17/10, o painel tem 315, 323, 47 e 167, e nenhuma urna do Rio muda de prédio do 1º para o 2º turno. Testamos outras formas de contar, incluindo trocas de nome e de endereço, e nenhuma chega a 431 no Rio. O critério da reportagem não foi divulgado, e não conseguimos reproduzir o número dela.</p>
+
   <h2>Quem vota nessas urnas</h2>
   <p>No 1º turno, essas 2.053 urnas votaram mais em Lula que o resto do país: <span class="chip l"></span>Lula teve 50,7% dos votos válidos e <span class="chip f"></span>Flávio, 42,7%. No Brasil, Flávio ficou à frente, com 47,0% contra 45,2%. Lula venceu em 1.141 dessas urnas e Flávio em 903, com 9 empates. A abstenção foi a mesma do país: 20,9%.</p>
-  <p>O motivo é geográfico. Quase metade dos eleitores afetados está no Nordeste, onde Lula vence com folga. Dentro de cada estado, a diferença para o resto do estado é menor e vai para os dois lados: as urnas que mudam votaram mais em Lula que o estado em Alagoas, Piauí e no Rio Grande do Sul, e menos no Maranhão e no Amapá (tabela abaixo).</p>
+  <p>O motivo é geográfico: 48% desses eleitores estão no Nordeste, onde Lula vence com folga. Para saber se as mudanças pegam mais urnas de um lado, comparamos cada urna que muda com as urnas que não mudam da mesma zona eleitoral, que ficam no mesmo bairro ou cidade. As que mudam votaram em Lula 0,24 ponto a menos que as vizinhas, com intervalo de 95% de 1,0 ponto a menos a 0,6 a mais. Em 46,5% delas Lula foi melhor que nas vizinhas, e em 53,5% foi pior. Na prática, votam igual.</p>
 
-  <h2>Mudar de lugar faz o eleitor faltar?</h2>
-  <p>Essa é a dúvida que decide o impacto. Para não chutar, medimos o que aconteceu em 2022, quando 1.382 urnas também trocaram de prédio entre os turnos. Para cada uma, comparamos a variação da abstenção do 1º para o 2º turno com a das urnas que não mudaram na mesma zona eleitoral.</p>
-  <p>Resultado: a abstenção <strong>não subiu</strong>. Nas urnas que mudaram, ela caiu 0,22 ponto a mais que nas vizinhas (intervalo de 95%: de 0,04 a 0,40 ponto). Também não há sinal de alta nas mudanças mais longas.</p>
+  <h2>O impacto, passo a passo</h2>
+  <h3>1. Mudar de prédio faz o eleitor faltar?</h3>
+  <p>É essa resposta que define o impacto. Em vez de supor um número, medimos o que aconteceu em 2022, quando 1.382 urnas também trocaram de prédio entre os turnos. Para cada uma, comparamos a variação da abstenção do 1º para o 2º turno com a das urnas que não mudaram na mesma zona eleitoral.</p>
+  <p>A abstenção <strong>não subiu</strong>. Nas urnas que mudaram, ela caiu 0,22 ponto a mais que nas vizinhas, com intervalo de 95% de 0,04 a 0,40 ponto. Não há sinal de alta nem nas mudanças mais longas, nem nas urnas que saíram do local de sempre.</p>
   <figure>
     <svg class="graf" id="g-2022" role="img" aria-label="Efeito da troca de local sobre a abstenção em 2022, por grupo, com intervalo de 95%"></svg>
     <figcaption>Variação da abstenção do 1º para o 2º turno de 2022 nas urnas que trocaram de local, menos a variação nas urnas que não mudaram da mesma zona eleitoral, em pontos percentuais. Média ponderada pelos eleitores aptos. A linha é o intervalo de 95%, por 2.000 sorteios das zonas eleitorais. Abaixo de zero, a abstenção subiu menos (ou caiu mais) que nas vizinhas.</figcaption>
   </figure>
 
-  <h2>Quanto pode mexer no resultado</h2>
-  <p>Se 2026 repetir 2022, a conta fica entre 250 votos a menos e 80 votos a mais na vantagem de Flávio. É um efeito nulo diante dos 2,24 milhões de votos que separaram os dois no 1º turno.</p>
-  <p>Mesmo o caso extremo é pequeno. Se nenhum eleitor dessas urnas votasse no 2º turno, Lula perderia no máximo 36.895 votos líquidos, que foi a vantagem dele sobre Flávio nessas urnas no 1º turno. Isso equivale a 1,6% da diferença nacional.</p>
+  <h3>2. A conta para 2026</h3>
+  <div class="conta">
+    <ol>
+      <li>Para cada uma das 2.053 urnas, eleitores a mais ou a menos = aptos × efeito medido em 2022 na mesma faixa de distância. No total, dá cerca de <b>1.600 eleitores a mais</b> votando, não a menos.</li>
+      <li>Esses eleitores se dividem como os votos da própria urna no 1º turno. Numa urna onde Lula teve 60%, 60% deles vão para Lula.</li>
+      <li>Somando as 2.053 urnas, a vantagem de Flávio muda em <b>−79 votos</b>. Com os limites do intervalo de 2022, fica entre <b>−251 e +81</b>.</li>
+    </ol>
+  </div>
+
+  <h3>3. E se 2022 não servir de guia?</h3>
+  <p>Mesmo que trocar de prédio afaste eleitores, o espaço para efeito é pequeno. Com 5 pontos de abstenção a mais em todas as 2.053 urnas, mais do que qualquer grupo mostrou em 2022, Flávio ganharia cerca de 2,3 mil votos líquidos. No caso extremo, se ninguém votasse nessas urnas, Lula perderia no máximo 36.895 votos líquidos, que foi a vantagem dele ali no 1º turno. Isso é 1,6% da diferença nacional.</p>
   <figure>
-    <svg class="graf" id="g-margem" role="img" aria-label="Diferença nacional no 1º turno comparada ao teto e à estimativa do efeito das mudanças"></svg>
-    <figcaption>Votos, na mesma escala. O teto supõe abstenção total nas 2.053 urnas. A estimativa aplica o efeito medido em 2022, por faixa de distância, e supõe que quem deixa de votar se divide como os votos válidos daquela urna no 1º turno.</figcaption>
+    <svg class="graf" id="g-margem" role="img" aria-label="Diferença nacional no 1º turno comparada aos cenários de efeito das mudanças"></svg>
+    <figcaption>Votos, todos na mesma escala. Os cenários supõem que quem deixa de votar se divide como os votos daquela urna no 1º turno. No 2º turno, os votos de quem escolheu outros candidatos se redistribuem, e a conta não tenta prever isso.</figcaption>
   </figure>
 
   <h2>Estado por estado</h2>
-  <p>Para presidente, o que conta é a soma nacional. Por estado, o peso das mudanças também é pequeno. Onde há 2º turno para governador, a margem estadual importa mais, mas esses estados têm poucas urnas afetadas: Acre 13, Amazonas 48, Espírito Santo 7, Rio Grande do Norte 24 e Tocantins 37. Rio de Janeiro e Distrito Federal não têm nenhuma. Juntas, somam 37 mil eleitores. O arquivo nacional de votos por seção do TSE traz só presidente, então não calculamos o voto para governador nessas urnas.</p>
+  <p>Para presidente, o que conta é a soma nacional. Por estado, o peso das mudanças também é pequeno. Onde há 2º turno para governador, a margem estadual importa mais, mas esses estados têm poucas urnas afetadas: Acre 13, Amazonas 48, Espírito Santo 7, Rio Grande do Norte 24 e Tocantins 37. Rio de Janeiro e Distrito Federal não têm nenhuma. Ao todo, são 37 mil eleitores. O arquivo nacional de votação por seção do TSE traz só presidente, então não calculamos o voto para governador nessas urnas.</p>
   <div class="tab-wrap"><table id="tab-uf"></table></div>
 
   <h2>Como foi feito</h2>
   <ul class="notas">
-    <li><strong>Lista das mudanças.</strong> Cadastro de locais de votação do TSE (eleitorado_local_votacao_2026, gerado em 17/10/2026), com uma linha por seção e por turno. Uma urna muda quando o número do local de votação no 2º turno é diferente do 1º. Troca só de nome, com o mesmo número e a mesma coordenada, não conta: são 259 correções de grafia.</li>
-    <li><strong>Conferência com o painel.</strong> As 4.864 seções do painel do TSE são exatamente as que têm local do 2º turno diferente do local de cadastro. As chaves (estado, zona e seção) batem uma a uma. A coluna "Eleitorado" do painel usa outra contagem, maior que a do cadastro. Aqui usamos os aptos do cadastro.</li>
+    <li><strong>Lista das mudanças.</strong> Cadastro de locais de votação do TSE (eleitorado_local_votacao_2026, gerado em 17/10/2026 às 6h28), com uma linha por seção e por turno. Uma urna muda quando o número do local de votação no 2º turno é diferente do 1º. Troca só de nome, com o mesmo número e a mesma coordenada, não conta: são 259 correções de grafia.</li>
+    <li><strong>Conferência com o painel.</strong> As 4.864 seções do painel do TSE (Estatísticas › Eleitorado › Capilaridade › Seções alteradas, atualização de 17/10 às 6h28) são exatamente as que têm local do 2º turno diferente do local de cadastro. As chaves (estado, zona e seção) batem uma a uma. São 4.863 urnas, porque uma das seções é agregada. A coluna "Eleitorado" do painel usa outra contagem, maior que a do cadastro. Aqui usamos os aptos do cadastro.</li>
     <li><strong>Urna, não seção.</strong> Seção agregada vota na urna da seção principal. Contamos a urna, com os aptos das seções agregadas somados.</li>
     <li><strong>Votos do 1º turno.</strong> Votação por seção do TSE, presidente, 1º turno de 2026, sem o exterior. Comparecimento é a soma dos votos para presidente, incluindo brancos e nulos.</li>
-    <li><strong>Distância.</strong> Linha reta entre as coordenadas dos dois locais. 362 urnas não têm coordenada confiável em um dos lados (sem coordenada, ou mais de 50 km dentro do mesmo município, caso de Verdelândia-MG e Unaí-MG). No mapa, aparecem só no local que tem coordenada. 4 pares não aparecem no mapa, só na lista.</li>
+    <li><strong>Comparação com as vizinhas.</strong> % de Lula nos válidos de cada urna que muda, menos o das urnas que não mudam da mesma zona eleitoral. Média ponderada pelos válidos, com intervalo por 2.000 sorteios das zonas.</li>
+    <li><strong>Distância.</strong> Linha reta entre as coordenadas dos dois locais. 362 urnas não têm coordenada confiável em um dos lados (sem coordenada, ou mais de 50 km dentro do mesmo município, como em Verdelândia-MG e Unaí-MG). No mapa, aparecem só no local que tem coordenada. 4 trajetos não aparecem no mapa, só na lista.</li>
     <li><strong>Efeito de 2022.</strong> Mesma classificação, com o cadastro de locais e a votação por seção de 2022. É uma comparação descritiva: as urnas que mudam podem ser diferentes das outras por outros motivos. Ainda assim, nenhum grupo mostra alta de abstenção.</li>
-    <li><strong>O que fica de fora.</strong> No 2º turno, os votos de quem escolheu outros candidatos se redistribuem, e a conta do impacto não tenta prever isso. Também não mede o efeito de filas ou de informação errada sobre o local.</li>
+    <li><strong>O que fica de fora.</strong> A redistribuição dos votos de quem escolheu outros candidatos no 1º turno, o voto para governador e o efeito de filas ou de informação errada sobre o local.</li>
+    <li><strong>Até o dia 25.</strong> O TSE ainda pode mudar locais. Estes números valem para os dados de 17/10.</li>
   </ul>
-  <p class="notas">Fontes: TSE, <a href="https://dadosabertos.tse.jus.br/" target="_blank" rel="noopener">dados abertos</a> (cadastro de locais de votação 2022 e 2026; votação por seção 2022 e 2026) e <a href="https://sig.tse.jus.br/ords/dwapr/r/seai/sig-eleicao-eleitorado/home" target="_blank" rel="noopener">painel de estatísticas do eleitorado</a>. Contexto: <a href="https://www.justicaeleitoral.jus.br/fato-ou-boato/checagens/2026/mudancas-de-locais-de-votacao-no-2o-turno-seguem-regras-e-atendem-a-necessidades-de-seguranca" target="_blank" rel="noopener">Fato ou Boato</a> e <a href="https://www.tse.jus.br/comunicacao/noticias/2026/Outubro/entenda-por-que-a-justica-eleitoral-trocou-o-endereco-de-algumas-secoes-para-o-2o-turno" target="_blank" rel="noopener">notícia do TSE</a> de 16/10/2026. Para conferir o seu local, use o e-Título ou o Autoatendimento Eleitoral do TSE.</p>
+  <p class="notas" style="padding-left:0">Fontes: TSE, <a href="https://dadosabertos.tse.jus.br/" target="_blank" rel="noopener">dados abertos</a> (cadastro de locais de votação 2022 e 2026; votação por seção 2022 e 2026) e <a href="https://sig.tse.jus.br/ords/dwapr/r/seai/sig-eleicao-eleitorado/home" target="_blank" rel="noopener">painel de estatísticas do eleitorado</a>. Contexto: <a href="https://www.justicaeleitoral.jus.br/fato-ou-boato/checagens/2026/mudancas-de-locais-de-votacao-no-2o-turno-seguem-regras-e-atendem-a-necessidades-de-seguranca" target="_blank" rel="noopener">Fato ou Boato</a> e <a href="https://www.tse.jus.br/comunicacao/noticias/2026/Outubro/entenda-por-que-a-justica-eleitoral-trocou-o-endereco-de-algumas-secoes-para-o-2o-turno" target="_blank" rel="noopener">notícia do TSE</a>, de 16/10/2026. Reportagem com as 4.352 seções: <a href="https://agenciabrasil.ebc.com.br/radioagencia-nacional/politica/audio/2026-10/tse-anuncia-alteracao-de-4352-locais-de-votacao-para-o-segundo-turno" target="_blank" rel="noopener">Agência Brasil</a>, reproduzida por <a href="https://www.brasildefato.com.br/2026/10/17/justica-eleitoral-altera-43-mil-secoes-para-o-2o-turno-veja-como-consultar-onde-votar/" target="_blank" rel="noopener">Brasil de Fato</a>, <a href="https://revistaforum.com.br/revista-forum/eleicoes-tse-votacao-2-turno/" target="_blank" rel="noopener">Revista Fórum</a> e <a href="https://www.correio24horas.com.br/eleicoes/eleicoes-2026-bahia-tem-312-secoes-eleitorais-com-locais-de-votacao-alterados-para-o-2-turno-1026" target="_blank" rel="noopener">Correio</a>, entre outros. Para conferir o seu local, use o e-Título ou o Autoatendimento Eleitoral do TSE.</p>
 </section>
 </main>
 <footer class="col">Levantamento de Matheus Dalmolin com dados públicos do TSE. Cada ponto cinza do mapa é um local de votação do 2º turno. Código e dados: <a href="https://github.com/MatheusGSD/secoes-2turno-2026" target="_blank" rel="noopener">github.com/MatheusGSD/secoes-2turno-2026</a>.</footer>
@@ -271,10 +324,12 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta3); }
   const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
   const UFNOME = { AC: "Acre", AL: "Alagoas", AM: "Amazonas", AP: "Amapá", BA: "Bahia", CE: "Ceará", DF: "Distrito Federal", ES: "Espírito Santo", GO: "Goiás", MA: "Maranhão", MG: "Minas Gerais", MS: "Mato Grosso do Sul", MT: "Mato Grosso", PA: "Pará", PB: "Paraíba", PE: "Pernambuco", PI: "Piauí", PR: "Paraná", RJ: "Rio de Janeiro", RN: "Rio Grande do Norte", RO: "Rondônia", RR: "Roraima", RS: "Rio Grande do Sul", SC: "Santa Catarina", SE: "Sergipe", SP: "São Paulo", TO: "Tocantins" };
   const TIPO = { volta: "Volta ao local de sempre", sai: "Sai do local de sempre", troca: "Troca de um local provisório por outro" };
+  const lado = document.getElementById("lado");
 
   let D;
   try { D = await (await fetch("dados.json")).json(); }
-  catch (e) { document.getElementById("lado").innerHTML = "<p>Não foi possível carregar os dados do mapa. Recarregue a página.</p>"; return; }
+  catch (e) { lado.innerHTML = "<p>Não foi possível carregar os dados do mapa. Recarregue a página.</p>"; return; }
+  const N = D.numeros, M = N.mudadas;
 
   // ---------- fundo: pontos dos locais de votação ----------
   const f = D.fundo, fundo = new Float64Array(f.length);
@@ -291,12 +346,11 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta3); }
   const wrap = document.getElementById("mapa-wrap"), cv = document.getElementById("mapa"), ctx = cv.getContext("2d");
   const dica = document.getElementById("dica");
   let W = 0, H = 0, dpr = 1, t = d3.zoomIdentity, filtro = "todas", sel = null, ufSel = "", munSel = "";
+  let fundoXY = new Float32Array(0), rotXY = [];
   const proj = d3.geoMercator();
-  const amostra = { type: "MultiPoint", coordinates: [[-73.99, -33.75], [-34.79, 5.27], [-73.99, 5.27], [-34.79, -33.75]] };
-  const P = new Map();
+  const caixaBR = { type: "MultiPoint", coordinates: [[-73.99, -33.75], [-34.79, 5.27], [-73.99, 5.27], [-34.79, -33.75]] };
   function projetar() {
-    proj.fitExtent([[20, 56], [W - 20, H - 20]], amostra);
-    P.clear();
+    proj.fitExtent([[20, 56], [W - 20, H - 20]], caixaBR);
     for (const p of pares) {
       if (p.temA) p.pa = proj(p.a);
       if (p.temB) p.pb = proj(p.b);
@@ -306,8 +360,8 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta3); }
     for (let i = 0; i < fundo.length; i += 2) { const q = proj([fundo[i], fundo[i + 1]]); fundoXY[i] = q[0]; fundoXY[i + 1] = q[1]; }
     rotXY = D.rotulos.map(r => [r[0], proj([r[1], r[2]])]);
   }
-  let fundoXY, rotXY;
-  const visivel = p => p.pp && (filtro === "todas" || p.tipo === filtro || (filtro === "sai" && p.tipo === "troca"));
+  const doTipo = p => filtro === "todas" || p.tipo === filtro || (filtro === "sai" && p.tipo === "troca");
+  const visivel = p => p.pp && doTipo(p);
 
   function desenhar() {
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -328,19 +382,18 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta3); }
     const cor = { l: css("--lula"), f: css("--flavio"), e: css("--tinta3") }, papel = css("--painel"), tinta = css("--tinta");
     const lista = pares.filter(visivel).sort((a, b) => b.aptos - a.aptos);
     if (setas) {
-      ctx.lineWidth = 2; ctx.lineCap = "round";
+      ctx.lineCap = "round";
       for (const p of lista) {
         if (!(p.temA && p.temB)) continue;
         const ax = p.pa[0] * k + t.x, ay = p.pa[1] * k + t.y, bx = p.pb[0] * k + t.x, by = p.pb[1] * k + t.y;
         const L = Math.hypot(bx - ax, by - ay); if (L < 2) continue;
-        ctx.strokeStyle = cor[p.venc]; ctx.globalAlpha = sel && sel !== p ? 0.35 : 0.9;
+        ctx.strokeStyle = cor[p.venc]; ctx.fillStyle = cor[p.venc]; ctx.globalAlpha = sel && sel !== p ? 0.35 : 0.9; ctx.lineWidth = 2;
         const ux = (bx - ax) / L, uy = (by - ay) / L, fim = Math.max(0, L - p.r - 3);
         ctx.beginPath(); ctx.moveTo(ax, ay); ctx.lineTo(ax + ux * fim, ay + uy * fim); ctx.stroke();
         const hx = ax + ux * fim, hy = ay + uy * fim, a = 6;
         ctx.beginPath(); ctx.moveTo(hx, hy); ctx.lineTo(hx - ux * a * 1.6 - uy * a, hy - uy * a * 1.6 + ux * a);
-        ctx.lineTo(hx - ux * a * 1.6 + uy * a, hy - uy * a * 1.6 - ux * a); ctx.closePath(); ctx.fillStyle = cor[p.venc]; ctx.fill();
-        ctx.globalAlpha = 1; ctx.beginPath(); ctx.arc(ax, ay, 4, 0, 7); ctx.fillStyle = papel; ctx.fill();
-        ctx.lineWidth = 2; ctx.strokeStyle = cor[p.venc]; ctx.stroke();
+        ctx.lineTo(hx - ux * a * 1.6 + uy * a, hy - uy * a * 1.6 - ux * a); ctx.closePath(); ctx.fill();
+        ctx.globalAlpha = 1; ctx.beginPath(); ctx.arc(ax, ay, 4, 0, 7); ctx.fillStyle = papel; ctx.fill(); ctx.stroke();
       }
     }
     for (const p of lista) {
@@ -361,6 +414,7 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta3); }
 
   const zoom = d3.zoom().scaleExtent([0.8, 4000]).on("zoom", e => { t = e.transform; dica.hidden = true; desenhar(); });
   const sCv = d3.select(cv).call(zoom).on("dblclick.zoom", null);
+  const anima = () => !matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   function redimensionar() {
     const r = wrap.getBoundingClientRect(); W = r.width; H = r.height; dpr = window.devicePixelRatio || 1;
@@ -372,14 +426,14 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta3); }
   new MutationObserver(() => desenhar()).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
   redimensionar();
 
-  function enquadrar(lista, anim = true) {
+  function enquadrar(lista) {
     const pts = lista.flatMap(p => [p.pa, p.pb, p.pp].filter(Boolean));
-    if (!pts.length) { sCv.transition().duration(anim ? 600 : 0).call(zoom.transform, d3.zoomIdentity); return; }
+    if (!pts.length) { sCv.transition().duration(anima() ? 600 : 0).call(zoom.transform, d3.zoomIdentity); return; }
     const xs = pts.map(q => q[0]), ys = pts.map(q => q[1]);
     const x0 = Math.min(...xs), x1 = Math.max(...xs), y0 = Math.min(...ys), y1 = Math.max(...ys);
     const pad = 70, k = Math.min(3000, 0.9 / Math.max((x1 - x0 + 1e-6) / (W - pad), (y1 - y0 + 1e-6) / (H - pad - 50)));
     const tr = d3.zoomIdentity.translate(W / 2 - k * (x0 + x1) / 2, (H + 40) / 2 - k * (y0 + y1) / 2).scale(k);
-    sCv.transition().duration(anim && !matchMedia("(prefers-reduced-motion: reduce)").matches ? 750 : 0).call(zoom.transform, tr);
+    sCv.transition().duration(anima() ? 750 : 0).call(zoom.transform, tr);
   }
 
   function achar(mx, my) {
@@ -405,38 +459,35 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta3); }
   });
 
   // ---------- painel lateral ----------
-  const lado = document.getElementById("lado");
-  const N = D.numeros, M = N.mudadas;
-  function resumoArea() {
-    const lista = pares.filter(p => (!ufSel || p.uf === ufSel) && (!munSel || p.mun === munSel) &&
-      (filtro === "todas" || p.tipo === filtro || (filtro === "sai" && p.tipo === "troca")));
-    const s = lista.reduce((a, p) => (a.aptos += p.aptos, a.urnas += p.secoes.length, a.lula += p.lula, a.flavio += p.flavio, a.validos += p.validos, a.ul += p.ul, a.uf += p.uf_, a), { aptos: 0, urnas: 0, lula: 0, flavio: 0, validos: 0, ul: 0, uf: 0 });
-    return { lista, s };
+  function daArea() {
+    return pares.filter(p => (!ufSel || p.uf === ufSel) && (!munSel || p.mun === munSel) && doTipo(p));
   }
   function barraVoto(l, fl, v) {
-    const pl = 100 * l / v, pf = 100 * fl / v, po = 100 - pl - pf;
-    return `<div class="voto" aria-hidden="true"><div style="flex:${pl};background:var(--lula)"></div><div style="flex:${Math.max(po, 0)};background:var(--linha)"></div><div style="flex:${pf};background:var(--flavio)"></div></div>
-      <div class="voto-leg"><span><span class="chip l"></span>Lula ${pct(pl)}%</span><span>outros ${pct(Math.max(po, 0))}%</span><span><span class="chip f"></span>Flávio ${pct(pf)}%</span></div>`;
+    const pl = 100 * l / v, pf = 100 * fl / v, po = Math.max(0, 100 - pl - pf);
+    return `<div class="voto" aria-hidden="true"><div style="flex:${pl};background:var(--lula)"></div><div style="flex:${po};background:var(--linha)"></div><div style="flex:${pf};background:var(--flavio)"></div></div>
+      <div class="voto-leg"><span><span class="chip l"></span>Lula ${pct(pl)}%</span><span>outros ${pct(po)}%</span><span><span class="chip f"></span>Flávio ${pct(pf)}%</span></div>`;
   }
   function mostrar(p) {
     if (!p) {
-      const { lista, s } = resumoArea();
+      const lista = daArea();
+      const s = lista.reduce((a, q) => (a.aptos += q.aptos, a.urnas += q.secoes.length, a.lula += q.lula, a.flavio += q.flavio, a.validos += q.validos, a.ul += q.ul, a.uf += q.uf_, a), { aptos: 0, urnas: 0, lula: 0, flavio: 0, validos: 0, ul: 0, uf: 0 });
       const onde = munSel ? `${munSel} (${ufSel})` : ufSel ? UFNOME[ufSel] : "Brasil";
       const nomeF = { todas: "", volta: " · voltam ao local de sempre", sai: " · saem do local de sempre" }[filtro];
+      const saldo = s.lula - s.flavio;
       lado.innerHTML = `<div class="vazio"><span class="rot-mini">${esc(onde)}${nomeF}</span>
-        <h3>${fmt.format(s.urnas)} ${s.urnas === 1 ? "urna muda" : "urnas mudam"} de local</h3>
+        <h3>${fmt.format(s.urnas)} ${s.urnas === 1 ? "urna muda" : "urnas mudam"} de prédio</h3>
         <p class="sub">${fmt.format(s.aptos)} eleitores aptos em ${fmt.format(lista.length)} ${lista.length === 1 ? "trajeto" : "trajetos"} de um prédio a outro</p>
         <span class="rot-mini">Voto no 1º turno nessas urnas</span>
         ${s.validos ? barraVoto(s.lula, s.flavio, s.validos) : ""}
         <dl class="kv" style="margin-top:.8rem">
           <dt>Urnas onde Lula venceu</dt><dd>${fmt.format(s.ul)}</dd>
           <dt>Urnas onde Flávio venceu</dt><dd>${fmt.format(s.uf)}</dd>
-          <dt>Saldo Lula − Flávio</dt><dd>${(s.lula - s.flavio > 0 ? "+" : "") + fmt.format(s.lula - s.flavio)}</dd>
+          <dt>Saldo Lula − Flávio</dt><dd>${(saldo > 0 ? "+" : "") + fmt.format(saldo)}</dd>
         </dl>
-        <p>Toque num círculo para ver de onde para onde a urna vai, o endereço e como ela votou.</p></div>`;
+        <p>Clique num círculo para ver de onde para onde a urna vai, os endereços e como ela votou.</p></div>`;
       return;
     }
-    const d = p.dist == null ? "distância desconhecida" : p.dist < 1 ? `${fmt.format(Math.round(p.dist * 1000 / 10) * 10)} m em linha reta` : `${pct(p.dist)} km em linha reta`;
+    const d = p.dist == null ? "distância desconhecida" : p.dist < 1 ? `${fmt.format(Math.round(p.dist * 100) * 10)} m em linha reta` : `${pct(p.dist)} km em linha reta`;
     const osm = q => `https://www.openstreetmap.org/?mlat=${q[1]}&mlon=${q[0]}#map=18/${q[1]}/${q[0]}`;
     const rota = p.temA && p.temB ? `<a href="https://www.openstreetmap.org/directions?engine=fossgis_osrm_foot&route=${p.a[1]}%2C${p.a[0]}%3B${p.b[1]}%2C${p.b[0]}" target="_blank" rel="noopener">Trajeto a pé</a>` : "";
     lado.innerHTML = `<span class="rot-mini">${esc(TIPO[p.tipo])}</span>
@@ -457,7 +508,7 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta3); }
         ${p.secoes.length > 1 ? `<dt>Urnas: Lula / Flávio venceu</dt><dd>${p.ul} / ${p.uf_}</dd>` : ""}
       </dl>
       <p class="links-osm">${p.temA ? `<a href="${osm(p.a)}" target="_blank" rel="noopener">Local antigo no mapa</a>` : ""}${p.temB ? `<a href="${osm(p.b)}" target="_blank" rel="noopener">Local novo no mapa</a>` : ""}${rota}</p>
-      <p><button type="button" id="voltar-resumo" style="font:600 .8rem var(--texto);background:none;border:1px solid var(--linha);color:var(--tinta);border-radius:6px;padding:.4rem .6rem;cursor:pointer">Voltar ao resumo</button></p>`;
+      <p><button type="button" class="botao" id="voltar-resumo">Voltar ao resumo</button></p>`;
     document.getElementById("voltar-resumo").onclick = () => { sel = null; mostrar(null); desenhar(); };
   }
 
@@ -468,7 +519,7 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta3); }
   });
   function atualizar(enq = true) {
     sel = null; mostrar(null); desenhar(); tabela();
-    if (enq) enquadrar(pares.filter(p => (!ufSel || p.uf === ufSel) && (!munSel || p.mun === munSel) && visivel(p)));
+    if (enq) enquadrar(daArea().filter(p => p.pp));
   }
   selUf.addEventListener("change", () => {
     ufSel = selUf.value; munSel = "";
@@ -492,26 +543,27 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta3); }
 
   // ---------- lista dos locais (tabela equivalente ao mapa) ----------
   function tabela() {
-    const { lista } = resumoArea();
-    const L = lista.slice().sort((a, b) => b.aptos - a.aptos), lim = (ufSel || munSel) ? L.length : 40;
-    document.getElementById("sum-lista").textContent = (ufSel || munSel)
+    const L = daArea().sort((a, b) => b.aptos - a.aptos), tudo = ufSel || munSel, lim = tudo ? L.length : 40;
+    document.getElementById("sum-lista").textContent = tudo
       ? `Lista dos ${fmt.format(L.length)} trajetos em ${munSel || UFNOME[ufSel]}`
       : `Lista dos 40 maiores trajetos (de ${fmt.format(L.length)}; escolha um estado no mapa para ver todos)`;
-    document.getElementById("tab-pares").innerHTML = `<thead><tr><th>Município</th><th>Do local do 1º turno → ao do 2º</th><th>Distância</th><th>Urnas</th><th>Eleitores</th><th>Lula</th><th>Flávio</th></tr></thead><tbody>` +
-      L.slice(0, lim).map(p => `<tr><td class="uf">${esc(p.mun)} (${p.uf})</td><td style="font-family:var(--texto);font-size:.8rem">${esc(p.de)} → <strong>${esc(p.para)}</strong></td><td>${p.dist == null ? "–" : p.dist < 1 ? Math.round(p.dist * 100) * 10 + " m" : pct(p.dist) + " km"}</td><td>${p.secoes.length}</td><td>${fmt.format(p.aptos)}</td><td>${pct(100 * p.lula / p.validos)}%</td><td>${pct(100 * p.flavio / p.validos)}%</td></tr>`).join("") + "</tbody>";
+    const dist = p => p.dist == null ? "–" : p.dist < 1 ? Math.round(p.dist * 100) * 10 + " m" : pct(p.dist) + " km";
+    document.getElementById("tab-pares").innerHTML = `<thead><tr><th>Município</th><th style="text-align:left">Do local do 1º turno → ao do 2º</th><th>Distância</th><th>Urnas</th><th>Eleitores</th><th>Lula</th><th>Flávio</th></tr></thead><tbody>` +
+      L.slice(0, lim).map(p => `<tr><td class="uf">${esc(p.mun)} (${p.uf})</td><td>${esc(p.de)} → <strong>${esc(p.para)}</strong></td><td>${dist(p)}</td><td>${p.secoes.length}</td><td>${fmt.format(p.aptos)}</td><td>${pct(100 * p.lula / p.validos)}%</td><td>${pct(100 * p.flavio / p.validos)}%</td></tr>`).join("") + "</tbody>";
   }
 
   // ---------- tabela por estado ----------
   (function () {
     const linhas = D.ufs.slice().sort((a, b) => b.aptos - a.aptos);
-    const mini = (v, uf) => `<span class="mini" aria-hidden="true"><i style="width:${v}%"></i><b style="left:calc(${uf}% - 1px)"></b></span>`;
+    const mini = (v, ref) => `<span class="mini" aria-hidden="true"><i style="width:${v}%"></i><b style="left:calc(${ref}% - 1px)"></b></span>`;
+    const sg = n => (n > 0 ? "+" : "") + fmt.format(n);
+    const sgMil = n => (n > 0 ? "+" : n < 0 ? "−" : "") + fmt.format(Math.round(Math.abs(n) / 1000)) + " mil";
     document.getElementById("tab-uf").innerHTML = `<thead><tr><th>Estado</th><th>Urnas que mudam</th><th>Eleitores</th><th>Lula nessas urnas<br>(traço: Lula no estado)</th><th>Urnas vencidas<br>Lula / Flávio</th><th>Saldo Lula − Flávio nessas urnas</th><th>Saldo Lula − Flávio no estado</th></tr></thead><tbody>` +
       linhas.map(u => {
-        const pl = 100 * u.c13 / u.validos, plu = 100 * u.c13_uf / u.validos_uf, s = u.c13 - u.c22, se = u.c13_uf - u.c22_uf;
-        const sg = n => (n > 0 ? "+" : "") + fmt.format(n);
-        return `<tr><td class="uf">${UFNOME[u.SG_UF]}${u.gov_2t ? '<span class="selo" title="2º turno para governador">gov. 2º turno</span>' : ""}</td><td>${fmt.format(u.urnas)}</td><td>${fmt.format(u.aptos)}</td><td>${pct(pl)}% ${mini(pl, plu)}</td><td>${u.urnas_lula} / ${u.urnas_flavio}</td><td>${sg(s)}</td><td>${sg(se)}</td></tr>`;
+        const pl = 100 * u.c13 / u.validos, plu = 100 * u.c13_uf / u.validos_uf;
+        return `<tr><td class="uf">${UFNOME[u.SG_UF]}${u.gov_2t ? '<span class="selo" title="2º turno para governador">gov. 2º turno</span>' : ""}</td><td>${fmt.format(u.urnas)}</td><td>${fmt.format(u.aptos)}</td><td>${pct(pl)}% ${mini(pl, plu)}</td><td>${u.urnas_lula} / ${u.urnas_flavio}</td><td>${sg(u.c13 - u.c22)}</td><td>${sgMil(u.c13_uf - u.c22_uf)}</td></tr>`;
       }).join("") +
-      `<tr><td class="uf">Brasil</td><td>${fmt.format(M.urnas)}</td><td>${fmt.format(M.aptos)}</td><td>${pct(M.pct_lula)}% ${mini(M.pct_lula, N.nacional.pct_lula)}</td><td>${M.urnas_lula} / ${M.urnas_flavio}</td><td>+${fmt.format(M.lula - M.flavio)}</td><td>${fmt.format(N.nacional.lula - N.nacional.flavio)}</td></tr></tbody>`;
+      `<tr class="nos"><td class="uf">Brasil</td><td>${fmt.format(M.urnas)}</td><td>${fmt.format(M.aptos)}</td><td>${pct(M.pct_lula)}% ${mini(M.pct_lula, N.nacional.pct_lula)}</td><td>${M.urnas_lula} / ${M.urnas_flavio}</td><td>${sg(M.lula - M.flavio)}</td><td>${sgMil(N.nacional.lula - N.nacional.flavio)}</td></tr></tbody>`;
   })();
 
   // ---------- gráficos ----------
@@ -523,64 +575,61 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta3); }
   (function g2022() {
     const ef = Object.fromEntries(N.efeito_2022.map(r => [r.grupo, r]));
     const grupos = [
-      ["todas", "Todas as urnas que mudaram"],
-      null,
+      ["todas", "Todas as urnas que mudaram"], null,
       ["saiu do local de cadastro", "Saíram do local de sempre"],
-      ["voltou ao local de cadastro", "Voltaram ao local de sempre"],
-      null,
-      ["até 300 m", "Mudança de até 300 m"],
-      ["300 a 600 m", "De 300 a 600 m"],
-      ["600 m a 1,2 km", "De 600 m a 1,2 km"],
-      ["mais de 1,2 km", "Mais de 1,2 km"],
+      ["voltou ao local de cadastro", "Voltaram ao local de sempre"], null,
+      ["até 300 m", "Mudança de até 300 m"], ["300 a 600 m", "De 300 a 600 m"],
+      ["600 m a 1,2 km", "De 600 m a 1,2 km"], ["mais de 1,2 km", "Mais de 1,2 km"],
     ];
     const svg = d3.select("#g-2022"), Wg = 680, esq = 250, dir = 20, lh = 30;
-    let yy = 34; const rows = [];
+    let yy = 40; const rows = [];
     for (const g of grupos) { if (!g) { yy += 10; continue; } rows.push({ g, y: yy }); yy += lh; }
     const Hg = yy + 26;
     svg.attr("viewBox", `0 0 ${Wg} ${Hg}`);
     const xs = d3.scaleLinear([-2, 1], [esq, Wg - dir]);
     const ax = svg.append("g").attr("class", "eixo");
     for (const v of [-2, -1.5, -1, -0.5, 0, 0.5, 1]) {
-      ax.append("line").attr("class", v === 0 ? "zero" : "grade").attr("x1", xs(v)).attr("x2", xs(v)).attr("y1", 22).attr("y2", Hg - 22);
+      ax.append("line").attr("class", v === 0 ? "zero" : "grade").attr("x1", xs(v)).attr("x2", xs(v)).attr("y1", 26).attr("y2", Hg - 22);
       ax.append("text").attr("x", xs(v)).attr("y", Hg - 6).attr("text-anchor", "middle").text((v > 0 ? "+" : "") + pct(v, v % 1 ? 1 : 0));
     }
-    svg.append("text").attr("class", "muted").attr("x", xs(0) - 6).attr("y", 13).attr("text-anchor", "end").text("← abstenção subiu menos");
-    svg.append("text").attr("class", "muted").attr("x", xs(0) + 6).attr("y", 13).text("subiu mais →");
+    svg.append("text").attr("class", "muted").attr("x", xs(0) - 6).attr("y", 14).attr("text-anchor", "end").text("← abstenção subiu menos");
+    svg.append("text").attr("class", "muted").attr("x", xs(0) + 6).attr("y", 14).text("subiu mais →");
+    svg.append("text").attr("class", "muted").attr("x", esq - 12).attr("y", 26).attr("text-anchor", "end").text("urnas");
     for (const { g, y } of rows) {
       const r = ef[g[0]];
-      svg.append("text").attr("x", 0).attr("y", y + 4).attr("class", g[0] === "todas" ? "forte" : "").text(g[1]);
+      svg.append("text").attr("x", 0).attr("y", y + 4).attr("class", g[0] === "todas" ? "forte" : null).text(g[1]);
       svg.append("text").attr("class", "muted").attr("x", esq - 12).attr("y", y + 4).attr("text-anchor", "end").text(fmt.format(r.urnas));
-      const gr = svg.append("g");
-      gr.append("line").attr("class", "bigode").attr("x1", xs(Math.max(-2, r.ic_baixo))).attr("x2", xs(Math.min(1, r.ic_alto))).attr("y1", y).attr("y2", y);
-      gr.append("circle").attr("class", "ponto-ef").attr("cx", xs(r.efeito_pp)).attr("cy", y).attr("r", 5.5);
+      svg.append("line").attr("class", "bigode").attr("x1", xs(Math.max(-2, r.ic_baixo))).attr("x2", xs(Math.min(1, r.ic_alto))).attr("y1", y).attr("y2", y);
+      svg.append("circle").attr("class", "ponto-ef").attr("cx", xs(r.efeito_pp)).attr("cy", y).attr("r", 5.5);
       const alvo = svg.append("rect").attr("class", "alvo").attr("x", 0).attr("y", y - lh / 2).attr("width", Wg).attr("height", lh);
       dicaG(alvo.node(), `<b>${g[1]}</b><br>${fmt.format(r.urnas)} urnas, ${fmt.format(r.aptos)} eleitores<br>Efeito: ${pct(r.efeito_pp, 2)} ponto<br>IC 95%: ${pct(r.ic_baixo, 2)} a ${pct(r.ic_alto, 2)}`);
     }
-    svg.append("text").attr("class", "muted").attr("x", esq - 12).attr("y", 26 - 8).attr("text-anchor", "end").text("urnas");
   })();
   (function gMargem() {
-    const svg = d3.select("#g-margem"), Wg = 680, esq = 0, dir = 10;
+    const svg = d3.select("#g-margem"), Wg = 680, dir = 10;
+    const pess = Math.round(M.aptos * 0.05 * (M.lula - M.flavio) / M.comparecimento);
     const linhas = [
       { rot: "Vantagem de Flávio sobre Lula no Brasil, 1º turno", v: N.nacional.margem_votos, cls: "b-margem", txt: fmt.format(N.nacional.margem_votos) + " votos" },
-      { rot: "Teto: se ninguém votasse nas 2.053 urnas", v: M.lula - M.flavio, cls: "b-teto", txt: fmt.format(M.lula - M.flavio) + " votos (1,6%)" },
-      { rot: "Estimativa a partir de 2022", v: Math.abs(M.efeito_margem_lo), cls: "b-est", txt: `de −${fmt.format(Math.round(Math.abs(M.efeito_margem_lo)))} a +${fmt.format(Math.round(M.efeito_margem_hi))} votos` },
+      { rot: "Caso extremo: ninguém vota nas 2.053 urnas", v: M.lula - M.flavio, cls: "b-teto", txt: fmt.format(M.lula - M.flavio) + " votos (1,6%)" },
+      { rot: "Pessimista: 5 pontos a mais de abstenção nessas urnas", v: pess, cls: "b-teto", txt: "cerca de " + fmt.format(Math.round(pess / 100) * 100) + " votos (0,1%)" },
+      { rot: "Estimativa com o efeito medido em 2022", v: Math.abs(M.efeito_margem_lo), cls: "b-teto", txt: `de −${fmt.format(Math.round(Math.abs(M.efeito_margem_lo)))} a +${fmt.format(Math.round(M.efeito_margem_hi))} votos` },
     ];
-    const lh = 58, Hg = linhas.length * lh + 6;
+    const lh = 56, Hg = linhas.length * lh + 4;
     svg.attr("viewBox", `0 0 ${Wg} ${Hg}`);
-    const xs = d3.scaleLinear([0, N.nacional.margem_votos], [esq, Wg - dir]);
+    const xs = d3.scaleLinear([0, N.nacional.margem_votos], [0, Wg - dir]);
     linhas.forEach((l, i) => {
-      const y = i * lh + 18;
+      const y = i * lh + 16;
       svg.append("text").attr("x", 0).attr("y", y).text(l.rot);
-      const w = Math.max(2, xs(l.v) - esq);
-      svg.append("rect").attr("class", l.cls).attr("x", esq).attr("y", y + 8).attr("width", w).attr("height", 16).attr("rx", 2);
-      svg.append("text").attr("class", "forte").attr("x", w > 360 ? esq + w - 8 : esq + w + 8).attr("y", y + 21)
-        .attr("text-anchor", w > 360 ? "end" : "start").style("fill", w > 360 ? "var(--papel)" : null).text(l.txt);
+      const w = Math.max(2, xs(l.v));
+      svg.append("rect").attr("class", l.cls).attr("x", 0).attr("y", y + 8).attr("width", w).attr("height", 16).attr("rx", 2);
+      const dentro = w > 360;
+      svg.append("text").attr("class", "forte").attr("x", dentro ? w - 8 : w + 8).attr("y", y + 21)
+        .attr("text-anchor", dentro ? "end" : "start").style("fill", dentro ? "var(--papel)" : null).text(l.txt);
     });
   })();
 
   mostrar(null); tabela();
 })();
 </script>
-
 </body>
 </html>

@@ -9,11 +9,16 @@ quais urnas mudam de prédio, em quem esses eleitores votaram no 1º turno e qua
 
 - **2.053 urnas votam em outro prédio no 2º turno**, com 609.969 eleitores aptos, em 336 municípios de 23 estados.
   Metade muda menos de 410 metros.
-- **O painel do TSE não mostra isso.** A lista "Seções alteradas" do painel de estatísticas tem 4.864 seções, mas
-  compara o local do 2º turno com o local *de cadastro*. 4.692 delas já votaram nesse mesmo prédio no 1º turno. E
-  1.881 urnas que voltam ao local de sempre, depois de terem sido deslocadas no 1º turno, ficam de fora da lista.
+- **O painel do TSE não mostra isso.** A lista "Seções alteradas" do painel de estatísticas tem 4.864 seções (4.863
+  urnas), mas compara o local do 2º turno com o local *de cadastro*. 4.691 delas já votaram nesse mesmo prédio no 1º
+  turno. E 1.881 urnas que voltam ao local de sempre, depois de terem sido deslocadas no 1º turno, ficam de fora da
+  lista. Só 172 urnas estão nas duas contas.
+- **Por que não 4,3 mil.** As reportagens de 17/10 (Agência Brasil e outras) falam em 4.352 seções, com dados até
+  16/10. As "499.248 seções instaladas" citadas nelas são urnas, a mesma unidade usada aqui. O critério delas não foi
+  divulgado; o total sugere o do painel (comparação com o local de cadastro), mas a distribuição por estado não fecha
+  com os dados de 17/10 (431 no Rio de Janeiro, onde nenhuma urna muda do 1º para o 2º turno e o painel tem 47).
 - **No 1º turno, essas urnas votaram mais em Lula** (50,7% contra 42,7% de Flávio; no país, 45,2% contra 47,0%).
-  É geografia: quase metade está no Nordeste. Comparadas com as urnas que não mudam da mesma zona eleitoral, votaram
+  É geografia: 48% dos eleitores estão no Nordeste. Comparadas com as urnas que não mudam da mesma zona eleitoral, votaram
   igual (−0,24 ponto para Lula, intervalo de 95% de −1,0 a +0,6).
 - **Mudar de lugar não fez o eleitor faltar em 2022.** As 1.382 urnas que trocaram de prédio entre os turnos de 2022
   tiveram abstenção 0,22 ponto menor que as vizinhas da mesma zona (intervalo de 95% de −0,40 a −0,04).

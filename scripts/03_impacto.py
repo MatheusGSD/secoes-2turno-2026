@@ -6,7 +6,9 @@
    si, igual para todos ali). Média ponderada pelos aptos; intervalo de 95% por 2.000 sorteios das
    zonas com reposição.
 2. Quem votou nessas urnas em 2026? Votos do 1º turno nas 2.053 urnas que trocam de local,
-   vencedor de cada uma e peso na margem nacional e de cada estado.
+   vencedor de cada uma e peso na margem nacional e de cada estado. Para ver se as mudanças
+   escolhem urnas de um lado, comparamos o % de Lula de cada uma com o das urnas que não mudam na
+   mesma zona (mesmo sorteio de zonas para o intervalo).
 3. Quanto isso pode mexer na margem? Eleitores a menos = aptos x efeito medido em 2022; supomos que
    quem deixa de votar se divide como os votos válidos daquela urna no 1º turno. É uma conta de
    ordem de grandeza, não uma previsão.
@@ -123,6 +125,24 @@ def votos_2026(res):
     return u, m
 
 
+def voto_vs_zona(u):
+    """As urnas que mudam votam diferente das que não mudam na mesma zona? (% de Lula nos válidos)"""
+    base = (u[~u.mudou].assign(p=lambda d: d.c13, v=lambda d: d.validos).groupby(ZONA)[["p", "v"]].sum()
+              .pipe(lambda g: (100 * g.p / g.v).rename("base")))
+    m = u[u.mudou].join(base, on=ZONA).dropna(subset=["base"])
+    m["dif"] = m.pct_lula - m.base
+    blocos = [g for _, g in m.groupby(ZONA)]
+    est = np.average(m.dif, weights=m.validos)
+    bs = []
+    for _ in range(SORTEIOS):
+        g = pd.concat([blocos[i] for i in rng.choice(len(blocos), len(blocos), replace=True)])
+        bs.append(np.average(g.dif, weights=g.validos))
+    lo, hi = np.percentile(bs, [2.5, 97.5])
+    r = {"dif_pp": est, "ic_baixo": lo, "ic_alto": hi, "pct_acima": 100 * (m.dif > 0).mean(), "urnas": len(m)}
+    print("voto de Lula nas urnas que mudam, menos o das vizinhas da zona:", {k: round(v, 2) for k, v in r.items()})
+    return r
+
+
 def resumo(u, m, res):
     nac = u[["c13", "c22", "validos", "comparecimento", "aptos"]].sum()
     mm = m[["c13", "c22", "outros", "validos", "comparecimento", "aptos", "brancos", "nulos"]].sum()
@@ -169,6 +189,7 @@ def resumo(u, m, res):
         "tipos": tipos.assign(pct_lula=100 * tipos.c13 / tipos.validos).reset_index().to_dict("records"),
         "faixas": faixas.reset_index().to_dict("records"),
         "efeito_2022": res.to_dict("records"),
+        "voto_vs_zona": voto_vs_zona(u),
         "painel_tse": {"secoes": 4864, "mudaram_1t_2t": int(pd.read_csv(SAIDA / "painel_tse_4864.csv").mudou_do_1t_para_2t.sum())},
     }
     print(json.dumps({k: n[k] for k in ["nacional", "mudadas", "resto"]}, indent=1, ensure_ascii=False, default=float))
