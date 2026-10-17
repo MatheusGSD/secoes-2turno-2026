@@ -63,7 +63,7 @@ def pares():
     out = []
     for r in g.itertuples():
         out.append({
-            "uf": r.SG_UF, "mun": nome_proprio(r.mun), "zona": int(r.zona), "secoes": r.secoes,
+            "uf": r.SG_UF, "cod": int(r.CD_MUNICIPIO), "mun": nome_proprio(r.mun), "zona": int(r.zona), "secoes": r.secoes,
             "tipo": tipo_curto[r.tipo], "dist": None if pd.isna(r.dist) else round(float(r.dist), 2),
             "de": r.de, "de_end": r.de_end, "de_bairro": r.de_bairro, "a": [coord(r.lon1), coord(r.lat1)],
             "para": r.para, "para_end": r.para_end, "para_bairro": r.para_bairro, "b": [coord(r.lon2), coord(r.lat2)],

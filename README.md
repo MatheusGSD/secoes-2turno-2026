@@ -41,6 +41,7 @@ local e a mesma coordenada, não conta. Os detalhes estão no cabeçalho de cada
 | `03_impacto.py` | Efeito da troca sobre a abstenção em 2022 e o peso das mudanças de 2026 na margem |
 | `04_exportar_web.py` | Dados da página (`docs/dados.json`) |
 | `05_imagem_x.py` | Cartão 1600 × 900 para redes sociais (`saida/imagem_x.png`) |
+| `06_contornos.py` | Contornos de estados e municípios do IBGE para o mapa (`docs/contornos.json`) |
 
 Para rodar do zero, baixe para `dados/` os arquivos do [portal de dados abertos do TSE](https://dadosabertos.tse.jus.br/)
 (cerca de 630 MB, fora do git) e rode os scripts em ordem com `python -P scripts/0N_....py`:
@@ -61,6 +62,8 @@ Principais saídas:
 ## Fontes
 
 - TSE, [dados abertos](https://dadosabertos.tse.jus.br/): votação por seção e cadastro de locais de votação, 2022 e 2026.
+- IBGE, [API de malhas](https://servicodados.ibge.gov.br/api/docs/malhas?versao=3): contornos de estados e municípios
+  (baixados por `06_contornos.py` para `dados/ibge/`).
 - TSE, [painel de estatísticas do eleitorado](https://sig.tse.jus.br/ords/dwapr/r/seai/sig-eleicao-eleitorado/home),
   Capilaridade › Seções alteradas.
 - Justiça Eleitoral, [Fato ou Boato](https://www.justicaeleitoral.jus.br/fato-ou-boato/checagens/2026/mudancas-de-locais-de-votacao-no-2o-turno-seguem-regras-e-atendem-a-necessidades-de-seguranca)

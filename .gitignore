@@ -6,3 +6,6 @@ saida/*.csv.gz
 
 __pycache__/
 *.pyc
+
+# rascunhos pessoais (textos para redes)
+rascunhos/
