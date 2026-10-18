@@ -900,6 +900,13 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
   const tema = () => { lerCores(); desenhar(false); };
   matchMedia("(prefers-color-scheme: dark)").addEventListener("change", tema);
   new MutationObserver(tema).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  // link direto para um estado ou município: ?uf=RN ou ?uf=RN&mun=Caraúbas
+  const q = new URLSearchParams(location.search), qUf = (q.get("uf") || "").toUpperCase();
+  if (pares.some(p => p.uf === qUf)) {
+    ufSel = qUf; selUf.value = ufSel;
+    munSel = pares.find(p => p.uf === ufSel && norm(p.mun) === norm(q.get("mun")))?.mun || "";
+    preencherMun();
+  }
   recalcular();
   new ResizeObserver(redimensionar).observe(wrap);
   mostrar(null); tabela();
