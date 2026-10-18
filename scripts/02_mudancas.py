@@ -1,11 +1,14 @@
 """Quais urnas mudam de prédio entre o 1º e o 2º turno, em 2026 e em 2022.
 
+Para o eleitor, o que importa é prédio do 1º turno x prédio do 2º turno, que comparamos aqui com o
+cadastro de locais do TSE (uma linha por seção e turno).
+
 O painel do TSE ("Seções eleitorais alteradas no segundo turno", em Estatísticas > Eleitorado >
-Capilaridade) lista 4.864 seções em 2026. Conferimos linha a linha: são as seções cujo local no 2º
-turno é diferente do local de CADASTRO (NR_LOCAL_VOTACAO_ORIGINAL), não do local onde votaram no
-1º turno. A maioria delas já tinha funcionado no local novo no 1º turno. Para o eleitor, o que importa é
-outra comparação: prédio do 1º turno x prédio do 2º turno, que fazemos aqui com o cadastro de locais
-do TSE (uma linha por seção e turno).
+Capilaridade) mudou de critério. Na atualização de 17/10 (6h28), listava 4.864 seções: as que tinham
+local no 2º turno diferente do local de CADASTRO (NR_LOCAL_VOTACAO_ORIGINAL). Na de 18/10 (7h09),
+lista 2.033: as que têm local no 2º turno diferente do local do 1º turno, pelo número ou pelo nome.
+A lista de 18/10, exportada pelo botão "Gerar arquivos" do painel, está em dados/ e é conferida aqui
+seção a seção.
 
 Unidade: a URNA, isto é, a seção principal (CD_TIPO_SECAO_AGREGADA 1). Seção agregada vota na urna
 da principal; seção "distribuída de ofício" (tipo 3, só em 2022) não tem urna e fica de fora. Aptos:
@@ -34,7 +37,7 @@ fica desconhecida.
 Uso: python -P scripts/02_mudancas.py
 Saídas: saida/urnas_2026.csv.gz e saida/urnas_2022.csv.gz (todas as urnas, com a classificação)
         saida/mesmo_predio_2026.csv (urnas retiradas: endereço reescrito no cadastro)
-        saida/painel_tse_4864.csv (as seções do painel, com o que de fato mudou para o eleitor)
+        saida/painel_tse.csv (as seções do painel de 18/10, com a classificação de cada uma aqui)
         saida/revisar_distancias.csv (mudanças de mais de 10 km, para conferência)
 """
 import sys
@@ -54,6 +57,7 @@ ARQ = {
     2026: (RAIZ / "dados/eleitorado_local_votacao_2026.zip", "eleitorado_local_votacao_2026_BRASIL.csv"),
     2022: (RAIZ / "dados/eleitorado_local_votacao_2022.zip", "eleitorado_local_votacao_2022.csv"),
 }
+PAINEL = RAIZ / "dados/painel_secoes_alteradas_2026.csv"  # exportado do painel, atualização de 18/10, 7h09
 REESCRITO = "mesmo prédio, endereço reescrito no cadastro"
 COLS = ["NR_TURNO", "SG_UF", "CD_MUNICIPIO", "NM_MUNICIPIO", "NR_ZONA", "NR_SECAO", "CD_TIPO_SECAO_AGREGADA",
         "NR_SECAO_PRINCIPAL", "NR_LOCAL_VOTACAO", "NM_LOCAL_VOTACAO", "DS_ENDERECO", "NM_BAIRRO",
@@ -206,20 +210,51 @@ def main():
         revisar.append(longe)
         u.to_csv(SAIDA / f"urnas_{ano}.csv.gz", index=False)
         if ano == 2026:
-            # as 4.864 do painel: local do 2º turno diferente do de cadastro, por seção (não por urna)
-            d["urna"] = d.NR_SECAO_PRINCIPAL.where(d.NR_SECAO_PRINCIPAL > 0, d.NR_SECAO)
-            s = d.pivot_table(index=SECAO + ["NM_MUNICIPIO", "urna"], columns="NR_TURNO",
-                              values="NR_LOCAL_VOTACAO", aggfunc="first")
-            s = s.join(d[d.NR_TURNO == 2].set_index(SECAO)[["NR_LOCAL_VOTACAO_ORIGINAL", "NM_LOCAL_VOTACAO_ORIGINAL"]],
-                       on=SECAO)
-            p = s[s[2] != s.NR_LOCAL_VOTACAO_ORIGINAL].reset_index()
-            mudou = u.set_index(URNA).mudou
-            p["mudou_do_1t_para_2t"] = [bool(mudou.get((a, b, c, e), False)) for a, b, c, e in
-                                        zip(p.SG_UF, p.CD_MUNICIPIO, p.NR_ZONA, p.urna)]
-            p.rename(columns={1: "local_1t", 2: "local_2t"}).to_csv(SAIDA / "painel_tse_4864.csv", index=False)
-            print("painel:", len(p), "seções,", p.groupby(["SG_UF", "CD_MUNICIPIO", "NR_ZONA", "urna"]).ngroups,
-                  "urnas | mudam do 1º para o 2º turno:", int(p.mudou_do_1t_para_2t.sum()))
+            conferir_painel(d, u)
     pd.concat(revisar).sort_values("dist_km", ascending=False).to_csv(SAIDA / "revisar_distancias.csv", index=False)
+
+
+def conferir_painel(d, u):
+    """Liga cada seção do painel do TSE ao cadastro e diz como ela foi classificada aqui.
+
+    O painel não traz o código do município nem o número dos locais; a ligação é por UF, nome do
+    município (normalizado), zona e seção. O exterior fica de fora, como no resto do levantamento.
+    """
+    p = pd.read_csv(PAINEL, sep=";", encoding="latin1", dtype=str)
+    ext = p[p.sg_uf == "ZZ"]
+    p = p[p.sg_uf != "ZZ"].copy()
+    p["NR_ZONA"], p["NR_SECAO"] = pd.to_numeric(p.nr_zona), pd.to_numeric(p.nr_secao)
+    p["mun"] = p.nm_municipio.map(ibge.norm)
+    s = d.pivot_table(index=SECAO + ["NM_MUNICIPIO", "NR_SECAO_PRINCIPAL", "NR_LOCAL_VOTACAO_ORIGINAL"],
+                      columns="NR_TURNO", values="NR_LOCAL_VOTACAO", aggfunc="first")
+    s = s.rename(columns={1: "local_1t", 2: "local_2t"}).reset_index()
+    s["mun"] = s.NM_MUNICIPIO.map(ibge.norm)
+    s["urna"] = s.NR_SECAO_PRINCIPAL.where(s.NR_SECAO_PRINCIPAL > 0, s.NR_SECAO)
+    p = p.merge(s, left_on=["sg_uf", "mun", "NR_ZONA", "NR_SECAO"], right_on=["SG_UF", "mun", "NR_ZONA", "NR_SECAO"],
+                how="left")
+    if p.CD_MUNICIPIO.isna().any():
+        print("AVISO: seções do painel sem par no cadastro:", int(p.CD_MUNICIPIO.isna().sum()))
+    c = u.set_index(URNA)
+    c = c.assign(nome=c.NM_LOCAL_VOTACAO.map(ibge.norm) != c.NM_LOCAL_VOTACAO_2.map(ibge.norm),
+                 end=c.DS_ENDERECO.map(ibge.norm) != c.DS_ENDERECO_2.map(ibge.norm))[["mudou", "tipo", "nome", "end"]]
+    p = p.join(c, on=["SG_UF", "CD_MUNICIPIO", "NR_ZONA", "urna"])
+    p["mesmo_numero_de_local"] = p.local_1t == p.local_2t
+    # por que a urna do painel não conta aqui
+    p["fora_daqui"] = np.select(
+        [p.mudou, p.tipo == REESCRITO, p.nome & ~p.end, ~p.nome & p.end, ~p.mesmo_numero_de_local & ~p.nome & ~p.end,
+         p.mesmo_numero_de_local & ~p.nome & ~p.end],
+        ["", "endereço reescrito no cadastro", "só o nome do local mudou", "só o endereço mudou", "local só renumerado",
+         "só a grafia do nome mudou"], "outro")
+    cols = ["SG_UF", "CD_MUNICIPIO", "NM_MUNICIPIO", "NR_ZONA", "NR_SECAO", "urna", "nm_local_votacao_inicial",
+            "nm_local_votacao_final", "local_1t", "local_2t", "NR_LOCAL_VOTACAO_ORIGINAL", "mesmo_numero_de_local",
+            "mudou", "tipo", "fora_daqui"]
+    p[cols].rename(columns={"mudou": "muda_de_predio_aqui", "tipo": "tipo_aqui"}).to_csv(SAIDA / "painel_tse.csv", index=False)
+    urnas = p.drop_duplicates(["SG_UF", "CD_MUNICIPIO", "NR_ZONA", "urna"])
+    nossas = int(u.mudou.sum())
+    print("painel:", len(p) + len(ext), "seções (", len(ext), "no exterior ) |", len(urnas), "urnas no Brasil",
+          "| mesmo número de local nos dois turnos:", int(p.mesmo_numero_de_local.sum()), "seções")
+    print("painel x aqui: nas duas listas:", int(urnas.mudou.sum()), "de", nossas, "| só no painel:",
+          urnas[~urnas.mudou].fora_daqui.value_counts().to_dict())
 
 
 if __name__ == "__main__":

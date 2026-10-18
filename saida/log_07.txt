@@ -1,0 +1,6 @@
+situacao          o_que_mudou_no_cadastro
+nas duas versões                             1789
+                  local do 2º turno             3
+saiu da lista     local do 2º turno           267
+saíram: 267 urnas, 83179 aptos | tipo em 17/10: {'voltou ao local de cadastro': 267} | tipo agora: {'igual, fora do cadastro nos dois turnos': 267} | ficam no prédio do 1º turno: 267
+por UF: {'SP': 98, 'PE': 53, 'PI': 29, 'AL': 27, 'BA': 20, 'PR': 17, 'MA': 12, 'GO': 7, 'MG': 2, 'SE': 2}

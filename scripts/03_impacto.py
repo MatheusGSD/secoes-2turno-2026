@@ -200,7 +200,7 @@ def main():
     pessimista = mm.aptos_2 * 0.05 * teto / mm.comparecimento
     tipos = m.groupby("tipo").agg(urnas=("aptos", "size"), aptos=("aptos", "sum"), c13=("c13", "sum"),
                                   c22=("c22", "sum"), validos=("validos", "sum"))
-    p = pd.read_csv(SAIDA / "painel_tse_4864.csv")
+    p = pd.read_csv(SAIDA / "painel_tse.csv").drop_duplicates(["SG_UF", "CD_MUNICIPIO", "NR_ZONA", "urna"])
     n = {
         "nacional": {"lula": int(nac.c13), "flavio": int(nac.c22), "validos": int(nac.validos),
                      "comparecimento": int(nac.comparecimento), "aptos": int(nac.aptos),
@@ -233,8 +233,8 @@ def main():
         "tipos": tipos.assign(pct_lula=100 * tipos.c13 / tipos.validos).reset_index().to_dict("records"),
         "efeito_2022": res.to_dict("records"), "sensibilidade_2022": sens,
         "voto_vs_vizinhas": voto_vs_vizinhas(u),
-        "painel_tse": {"secoes": len(p), "urnas": int(p.groupby(["SG_UF", "CD_MUNICIPIO", "NR_ZONA", "urna"]).ngroups),
-                       "mudam_1t_2t": int(p.groupby(["SG_UF", "CD_MUNICIPIO", "NR_ZONA", "urna"]).mudou_do_1t_para_2t.first().sum())},
+        "painel_tse": {"urnas": len(p), "nas_duas_listas": int(p.muda_de_predio_aqui.sum()),
+                       "so_no_painel": p[~p.muda_de_predio_aqui].fora_daqui.value_counts().to_dict()},
     }
     print(json.dumps({k: n[k] for k in ["nacional", "mudadas", "painel_tse"]}, indent=1, ensure_ascii=False, default=float))
     print(tipos.assign(pct_lula=100 * tipos.c13 / tipos.validos).round(1).to_string())
