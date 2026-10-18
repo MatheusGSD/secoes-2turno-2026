@@ -8,14 +8,14 @@ estado, mesorregião e município. Aqui a mesma conta é feita com três listas:
 - painel de 17/10: seções com local do 2º turno diferente do local de cadastro, no cadastro gerado em 17/10
   às 6h28, o mesmo que o painel usava (4.864 seções);
 - painel de 18/10: as urnas da lista exportada em 18/10, 7h09 (2º turno diferente do 1º);
-- as 1.792 urnas que mudam de prédio.
+- as urnas que mudam de prédio (a lista de 02_mudancas.py).
 
 A unidade é o local de cadastro, o mesmo do arquivo de votação por seção, e, como sensibilidade, o local do
 1º turno. Além dos votos em blocos de 10 mil, a regressão é feita com o percentual de Lula nos votos válidos,
 controlando o total de votos válidos do local, para separar o voto do tamanho do local. Mínimos quadrados,
 erro-padrão agrupado por município.
 
-A unidade vem do cadastro de 17/10, 6h28; as listas de 18/10 e das 1.792 urnas vêm do cadastro atual e entram
+A unidade vem do cadastro de 17/10, 6h28; as listas de 18/10 e das urnas que mudam de prédio vêm do cadastro atual e entram
 pela urna. Os votos ficam no local da urna principal. Uma seção agregada em outro local de cadastro (cerca de mil)
 marca o próprio local, sem votos: o efeito na conta é desprezível.
 
@@ -35,7 +35,7 @@ CADASTRO_17OUT = RAIZ / "dados/anteriores/eleitorado_local_votacao_2026_gerado_1
 SECAO = ["SG_UF", "CD_MUNICIPIO", "NR_ZONA", "NR_SECAO"]
 URNA = ["SG_UF", "CD_MUNICIPIO", "NR_ZONA", "urna"]
 LISTAS = {"painel_17out": "painel de 17/10 (2º turno x cadastro)", "painel_18out": "painel de 18/10 (2º x 1º turno)",
-          "mudam_de_predio": "1.792 urnas que mudam de prédio"}
+          "mudam_de_predio": "urnas que mudam de prédio"}
 UNIDADES = {"NR_LOCAL_VOTACAO_ORIGINAL": "local de cadastro", "NR_LOCAL_VOTACAO": "local do 1º turno"}
 
 
@@ -153,7 +153,7 @@ def main():
         if unidade == "NR_LOCAL_VOTACAO_ORIGINAL":
             fx = faixas(loc)
             fx.to_csv(SAIDA / "por_local_faixas.csv", index=False)
-            print("\n  % de locais na lista, por faixa de voto em Lula (1.792 urnas):")
+            print("\n  % de locais na lista, por faixa de voto em Lula (urnas que mudam de prédio):")
             for painel, g in fx[fx.lista == LISTAS["mudam_de_predio"]].groupby("painel", sort=False):
                 print(f"    {painel:9s} " + "  ".join(f"{r.faixa}: {r.pct:.2f}% ({r.locais})" for r in g.itertuples()))
     pd.DataFrame(linhas).to_csv(SAIDA / "por_local.csv", index=False)

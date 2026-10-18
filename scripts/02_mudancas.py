@@ -236,15 +236,17 @@ def conferir_painel(d, u):
         print("AVISO: seções do painel sem par no cadastro:", int(p.CD_MUNICIPIO.isna().sum()))
     c = u.set_index(URNA)
     c = c.assign(nome=c.NM_LOCAL_VOTACAO.map(ibge.norm) != c.NM_LOCAL_VOTACAO_2.map(ibge.norm),
-                 end=c.DS_ENDERECO.map(ibge.norm) != c.DS_ENDERECO_2.map(ibge.norm))[["mudou", "tipo", "nome", "end"]]
+                 end=c.DS_ENDERECO.map(ibge.norm) != c.DS_ENDERECO_2.map(ibge.norm),
+                 igual=(c.NR_LOCAL_VOTACAO == c.NR_LOCAL_VOTACAO_2) & (c.NM_LOCAL_VOTACAO == c.NM_LOCAL_VOTACAO_2)
+                 & (c.DS_ENDERECO == c.DS_ENDERECO_2))[["mudou", "tipo", "nome", "end", "igual"]]
     p = p.join(c, on=["SG_UF", "CD_MUNICIPIO", "NR_ZONA", "urna"])
     p["mesmo_numero_de_local"] = p.local_1t == p.local_2t
     # por que a urna do painel não conta aqui
     p["fora_daqui"] = np.select(
         [p.mudou, p.tipo == REESCRITO, p.nome & ~p.end, ~p.nome & p.end, ~p.mesmo_numero_de_local & ~p.nome & ~p.end,
-         p.mesmo_numero_de_local & ~p.nome & ~p.end],
+         p.igual, p.mesmo_numero_de_local & ~p.nome & ~p.end],
         ["", "endereço reescrito no cadastro", "só o nome do local mudou", "só o endereço mudou", "local só renumerado",
-         "só a grafia do nome mudou"], "outro")
+         "mesmo local nos dois turnos no cadastro atual", "só a grafia do nome mudou"], "outro")
     cols = ["SG_UF", "CD_MUNICIPIO", "NM_MUNICIPIO", "NR_ZONA", "NR_SECAO", "urna", "nm_local_votacao_inicial",
             "nm_local_votacao_final", "local_1t", "local_2t", "NR_LOCAL_VOTACAO_ORIGINAL", "mesmo_numero_de_local",
             "mudou", "tipo", "fora_daqui"]

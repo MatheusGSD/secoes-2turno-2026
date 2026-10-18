@@ -85,7 +85,7 @@ def main():
 
     x0 = 0.52
     t = lambda y, s, **k: fig.text(x0, y, s, family=k.pop("family", FONTE), color=k.pop("color", TINTA), **k)
-    t(0.925, "2º TURNO · 25/10/2026 · CADASTRO DO TSE DE 17/10, 23H37", size=7, color=TINTA2, family=DADOS)
+    t(0.925, "2º TURNO · 25/10/2026 · CADASTRO DO TSE DE 18/10, 11H27", size=7, color=TINTA2, family=DADOS)
     t(0.80, "Quanto o local de votação\nmuda de lugar", size=17, weight="bold", va="bottom", linespacing=1.05)
     t(0.765, metros(d["mediana"]), size=30, weight="bold", va="top")
     t(0.765, f"\n\n\n\n\n", size=1)

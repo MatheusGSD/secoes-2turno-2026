@@ -52,7 +52,7 @@ def main():
 
     x0 = 0.535
     t = lambda y, s, **k: fig.text(x0, y, s, family=k.pop("family", FONTE), color=k.pop("color", TINTA), **k)
-    t(0.905, "2º TURNO · 25/10/2026 · CADASTRO DO TSE DE 17/10, 23H37", size=7, color=TINTA2, family=DADOS)
+    t(0.905, "2º TURNO · 25/10/2026 · CADASTRO DO TSE DE 18/10, 11H27", size=7, color=TINTA2, family=DADOS)
     t(0.80, "Urnas que mudam de lugar", size=20, weight="bold")
     t(0.62, f"{m['urnas']:,}".replace(",", "."), size=34, weight="bold")
     fatia = f"{100 * m['validos'] / n['validos']:.1f}".replace(".", ",")

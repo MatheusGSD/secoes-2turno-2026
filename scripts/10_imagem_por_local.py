@@ -1,7 +1,8 @@
 """Cartão para o X (1600 x 900): locais de votação com urna que muda de prédio, por faixa de voto em Lula.
 
-Usa os mesmos dados da página (docs/dados.json, bloco "por_local_faixas", de 09_por_local.py), só com as 1.792
-urnas: no país, e comparando cada local com o resultado de Lula no próprio estado e no próprio município.
+Usa os mesmos dados da página (docs/dados.json, bloco "por_local_faixas", de 09_por_local.py), só com as urnas
+que mudam de prédio (a chave da lista, "urnas que mudam de prédio", vem de 09_por_local.py): no país, e
+comparando cada local com o resultado de Lula no próprio estado e no próprio município.
 
 Uso: python -P scripts/10_imagem_por_local.py   (depois de 09 e 04)
 Saída: saida/imagem_por_local.png
@@ -18,7 +19,7 @@ RAIZ = Path(__file__).resolve().parent.parent
 SAIDA = RAIZ / "saida"
 PAPEL, TINTA, TINTA2, TINTA3, LINHA = "#f8f8f6", "#121417", "#4c5058", "#80848c", "#dcdedf"
 FONTE, DADOS = "Segoe UI", "Consolas"
-LISTA = "1.792 urnas que mudam de prédio"
+LISTA = "urnas que mudam de prédio"
 PAINEIS = [("país", "No país", "Lula no local, em %", ["30%", "45%", "60%", "75%"]),
            ("estado", "Comparando com o estado", "pontos de Lula acima ou abaixo do estado", ["−10", "−5", "0", "+5", "+10"]),
            ("município", "Comparando com o município", "pontos de Lula acima ou abaixo do município", ["−10", "−5", "0", "+5", "+10"])]
