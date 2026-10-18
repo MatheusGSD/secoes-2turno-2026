@@ -6,6 +6,7 @@
 - pares: as urnas que trocam de local, juntas por (local do 1º turno -> local do 2º turno). "aviso" marca
   os pares com o mesmo endereço nos dois turnos.
 - ufs, efeito_2022, numeros: as tabelas de 03_impacto.py.
+- distancia: faixas de distância entre o prédio do 1º e o do 2º turno e a mediana por estado.
 
 Uso: python -P scripts/04_exportar_web.py   (depois de 02 e 03)
 """
@@ -78,6 +79,46 @@ def pares():
     return out
 
 
+def mediana_ponderada(x, w):
+    o = np.argsort(x)
+    x, w = np.asarray(x)[o], np.asarray(w)[o]
+    return float(x[np.searchsorted(np.cumsum(w) / w.sum(), 0.5)])
+
+
+def distancia():
+    """Distância entre o prédio do 1º e o do 2º turno: faixas e mediana por estado, ponderadas pelos eleitores.
+
+    "trajetos" conta pares (local do 1º turno -> local do 2º) com distância: urnas do mesmo prédio têm a
+    mesma distância, então é ele que diz quanto a mediana de um estado é confiável.
+    """
+    m = pd.read_csv(SAIDA / "urnas_mudadas_2026.csv")
+    d = m.dropna(subset=["dist_km"])
+    limites = [0, 0.3, 0.6, 1, 2, 5, 10, np.inf]
+    rotulos = ["até 300 m", "300 a 600 m", "600 m a 1 km", "1 a 2 km", "2 a 5 km", "5 a 10 km", "mais de 10 km"]
+    faixa = pd.cut(d.dist_km, limites, labels=rotulos, right=False)
+    g = d.groupby(faixa, observed=False).aptos.agg(["size", "sum"])
+    trajeto = ["CD_MUNICIPIO", "NR_ZONA", "NR_LOCAL_VOTACAO", "NR_LOCAL_VOTACAO_2"]
+    ufs = []
+    for uf, t in m.groupby("SG_UF"):
+        s = d[d.SG_UF == uf]
+        ufs.append({"uf": uf, "urnas": len(t), "com": len(s), "trajetos": len(s.drop_duplicates(trajeto)),
+                    "mediana": round(mediana_ponderada(s.dist_km, s.aptos), 3) if len(s) else None,
+                    "menos_1km": round(100 * s[s.dist_km < 1].aptos.sum() / s.aptos.sum(), 1) if len(s) else None})
+    sem = m.dist_km.isna()
+    mediana = mediana_ponderada(d.dist_km, d.aptos)
+    na_mediana = rotulos[np.searchsorted(limites, mediana, side="right") - 1]
+    return {
+        "mediana": round(mediana, 3),
+        "media": round(float((d.dist_km * d.aptos).sum() / d.aptos.sum()), 3),
+        "menos_1km": round(100 * d[d.dist_km < 1].aptos.sum() / d.aptos.sum(), 1),
+        "de_5km": round(100 * d[d.dist_km >= 5].aptos.sum() / d.aptos.sum(), 1),
+        "urnas_com": len(d), "aptos_com": int(d.aptos.sum()), "urnas_sem": int(sem.sum()), "aptos_sem": int(m[sem].aptos.sum()),
+        "faixas": [{"rot": r, "urnas": int(g.loc[r, "size"]), "aptos": int(g.loc[r, "sum"]), "med": r == na_mediana}
+                   for r in rotulos],
+        "ufs": ufs,
+    }
+
+
 def main():
     delta, rotulos = fundo()
     uf = pd.read_csv(SAIDA / "impacto_uf_2026.csv")
@@ -87,7 +128,7 @@ def main():
         "fundo": delta, "rotulos": rotulos, "pares": pares(),
         "ufs": uf[["SG_UF", "urnas", "aptos", "c13", "c22", "validos", "urnas_lula", "urnas_flavio", "c13_uf",
                    "c22_uf", "validos_uf", "gov_2t"]].to_dict("records"),
-        "numeros": numeros,
+        "numeros": numeros, "distancia": distancia(),
     }
     txt = json.dumps(dados, ensure_ascii=False, separators=(",", ":"), default=lambda x: None)
     (WEB / "dados.json").write_text(txt, encoding="utf-8")

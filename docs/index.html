@@ -16,6 +16,7 @@
   --papel: #f8f8f6; --painel: #ffffff; --tinta: #121417; --tinta2: #4c5058; --tinta3: #6a6e76;
   --linha: #dcdedf; --fundo2: #eff0ee; --ponto: rgba(70, 76, 86, .30); --sombra: 0 1px 2px rgba(0,0,0,.06), 0 4px 18px rgba(0,0,0,.07);
   --lula: #d4574a; --flavio: #3f74c2; --flavio-claro: #dbe5f5; --destaque: #121417;
+  --d1: #ebd3a2; --d2: #dbb56f; --d3: #c4923f; --d4: #94661c; --d5: #5a3b0a;
   --display: "Archivo", "Arial Narrow", "Helvetica Neue", Arial, sans-serif;
   --texto: "Public Sans", "Segoe UI", system-ui, -apple-system, sans-serif;
   --dados: "IBM Plex Mono", ui-monospace, "Cascadia Mono", Consolas, monospace;
@@ -24,11 +25,13 @@
 @media (prefers-color-scheme: dark) { :root:not([data-theme="light"]) {
   --papel: #161719; --painel: #1f2023; --tinta: #eceef0; --tinta2: #b2b6bd; --tinta3: #8d9199;
   --linha: #34363b; --fundo2: #26272b; --ponto: rgba(200, 206, 214, .26); --sombra: 0 1px 2px rgba(0,0,0,.4), 0 4px 18px rgba(0,0,0,.35);
-  --lula: #de6a5d; --flavio: #5a89d6; --flavio-claro: #23324a; --destaque: #eceef0; color-scheme: dark } }
+  --lula: #de6a5d; --flavio: #5a89d6; --flavio-claro: #23324a; --destaque: #eceef0;
+  --d1: #5a4520; --d2: #806024; --d3: #a97b2e; --d4: #d4a144; --d5: #f6d08a; color-scheme: dark } }
 :root[data-theme="dark"] {
   --papel: #161719; --painel: #1f2023; --tinta: #eceef0; --tinta2: #b2b6bd; --tinta3: #8d9199;
   --linha: #34363b; --fundo2: #26272b; --ponto: rgba(200, 206, 214, .26); --sombra: 0 1px 2px rgba(0,0,0,.4), 0 4px 18px rgba(0,0,0,.35);
-  --lula: #de6a5d; --flavio: #5a89d6; --flavio-claro: #23324a; --destaque: #eceef0; color-scheme: dark }
+  --lula: #de6a5d; --flavio: #5a89d6; --flavio-claro: #23324a; --destaque: #eceef0;
+  --d1: #5a4520; --d2: #806024; --d3: #a97b2e; --d4: #d4a144; --d5: #f6d08a; color-scheme: dark }
 
 html, body { margin: 0; } img { max-width: 100%; } [hidden] { display: none !important; }
 html { background: var(--papel); }
@@ -170,6 +173,18 @@ figcaption { font-size: .82rem; color: var(--tinta2); margin-top: .5rem; line-he
 .graf .forte { font-weight: 700; }
 .graf .b-margem { fill: var(--tinta3); }
 .graf .b-teto { fill: var(--tinta); }
+.graf .uf-forma { stroke: var(--papel); stroke-width: 1; stroke-linejoin: round; }
+.graf .uf-forma.vazio { fill: var(--fundo2); }
+.graf .uf-forma:hover { stroke: var(--tinta); stroke-width: 1.5; }
+.graf .b-dist { fill: var(--tinta3); }
+.graf .b-dist.med { fill: var(--tinta); }
+.graf .rot-dentro { fill: var(--papel); font-size: 11.5px; }
+.leg-dist { display: flex; flex-wrap: wrap; gap: .3rem 1rem; font-size: .8rem; color: var(--tinta2); margin: .2rem 0 0; }
+.leg-dist i { display: inline-block; width: 14px; height: 10px; border-radius: 2px; vertical-align: -1px; margin-right: .35rem; }
+.dist-mapas { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 1.4rem; align-items: start; }
+@media (max-width: 720px) { .dist-mapas { grid-template-columns: 1fr; } }
+.dist-mapas figure { margin: .6rem 0 0; }
+.aviso-dist { margin: 1rem 0; padding: .8rem 1rem; border-left: 3px solid var(--tinta); background: var(--fundo2); border-radius: 0 6px 6px 0; font-size: .92rem; line-height: 1.5; }
 .dica-g { position: fixed; pointer-events: none; background: var(--tinta); color: var(--papel); font-size: .78rem; line-height: 1.35; padding: .4rem .55rem; border-radius: 5px; max-width: 16rem; z-index: 5; }
 
 /* tabelas */
@@ -264,6 +279,35 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
     <p class="arraste">Arraste a tabela para o lado para ver todas as colunas.</p>
     <div class="tab-wrap"><table class="lista-pares" id="tab-pares"></table></div>
   </details>
+
+  <h2 id="t-distancia">Quanto o local muda de lugar</h2>
+  <p>Nas urnas com distância conhecida, metade dos eleitores vai votar num prédio a cerca de 420 m, em linha reta, do prédio do 1º turno. Para 87% deles, o prédio novo fica a menos de 1 km do antigo; para 1,8%, a 5 km ou mais. A conta vale para 1.418 urnas, com 420 mil eleitores. As outras 374 não têm coordenada confiável de um dos prédios.</p>
+  <p class="aviso-dist"><strong>Isso não é o deslocamento de cada eleitor.</strong> É a distância entre os dois prédios. O cadastro não diz onde o eleitor mora, e quem mora perto do prédio novo pode até andar menos que no 1º turno. Pelas ruas, o caminho também é maior que a linha reta.</p>
+  <div class="dist-mapas">
+    <figure>
+      <svg class="graf" id="g-dist-uf" role="img" aria-label="Mapa do Brasil com a mediana da distância entre o prédio do 1º e o do 2º turno em cada estado. A tabela equivalente está abaixo."></svg>
+      <div class="leg-dist" id="leg-dist"></div>
+      <figcaption>Mediana da distância em cada estado, ponderada pelos eleitores. Hachurado: menos de 5 trajetos com distância, número pouco confiável. Cinza: nenhuma urna muda de prédio ou, no Rio de Janeiro, nenhuma tem distância.</figcaption>
+    </figure>
+    <figure>
+      <svg class="graf" id="g-dist" role="img" aria-label="Percentual dos eleitores por faixa de distância entre o prédio do 1º e o do 2º turno"></svg>
+      <figcaption>Percentual dos eleitores das 1.418 urnas com distância conhecida, por faixa. As faixas têm larguras diferentes: as primeiras são estreitas porque é ali que está quase tudo.</figcaption>
+    </figure>
+  </div>
+  <details>
+    <summary>Distância por estado</summary>
+    <p class="arraste">Arraste a tabela para o lado para ver todas as colunas.</p>
+    <div class="tab-wrap"><table id="tab-dist"></table></div>
+  </details>
+  <h3>O que essa conta não mede</h3>
+  <ul class="notas">
+    <li><strong>Onde o eleitor mora.</strong> O endereço do eleitor não é público. Para medir quanto cada pessoa vai andar a mais (ou a menos), seria preciso saber de onde ela sai.</li>
+    <li><strong>O caminho.</strong> A distância é em linha reta, sem rotas. Um rio, uma rodovia ou uma estrada de terra podem deixar o trajeto bem maior.</li>
+    <li><strong>As 374 urnas sem distância</strong> (109 mil eleitores). Em 328, um dos prédios não tem coordenada no cadastro ou ela cai fora do município. Em 46, o prédio mudou sem trocar de número, e o cadastro manteve a coordenada antiga. No Norte, quase 4 em cada 10 urnas que mudam ficam de fora. Não dá para saber se elas mudam mais ou menos que as outras.</li>
+    <li><strong>Erros de coordenada.</strong> Pontos fora do município são descartados, mas um ponto errado dentro dele passa. Unaí (MG), com 73 km, pode ser um desses casos; não conferimos. As mudanças de mais de 10 km estão listadas no repositório para conferência.</li>
+    <li><strong>Estados com poucos trajetos.</strong> Urnas do mesmo prédio têm a mesma distância. Num estado com um ou dois trajetos, a mediana é a distância desses trajetos e diz pouco sobre o estado.</li>
+    <li><strong>Mediana, não média.</strong> A média, 760 m por eleitor, é puxada por poucos casos longos. A mediana descreve melhor o caso típico.</li>
+  </ul>
 
   <h2 id="t-painel">Por que 1.792 e não 4,3 mil</h2>
   <p>O TSE divulgou em 16 de outubro, e a imprensa reproduziu no dia 17, que 4.352 seções tiveram o local de votação alterado para o 2º turno, 0,87% das 499.248 do país. O painel de estatísticas do TSE já mostrou dois números, com critérios diferentes. Nós contamos 1.792 urnas.</p>
@@ -891,6 +935,68 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
         .attr("text-anchor", dentro ? "end" : "start").style("fill", dentro ? "var(--papel)" : null).text(l.txt);
     });
   }
+  // ---------- distância entre os prédios (sem o bloco no dados.json, de um cache antigo, a seção fica vazia) ----------
+  if (D.distancia) {
+  const DI = D.distancia, km10 = km => Math.round(km * 100) / 100; // arredondado a 10 m, como é mostrado
+  const metros = km => km10(km) < 1 ? fmt.format(Math.round(km * 100) * 10) + " m" : pct(km) + " km";
+  const CLASSES = [[0.3, "menos de 300 m"], [0.45, "300 a 450 m"], [0.6, "450 a 600 m"], [0.9, "600 a 900 m"], [Infinity, "900 m ou mais"]];
+  const classe = km => CLASSES.findIndex(([l]) => km10(km) < l);
+  const POUCOS = 5; // trajetos com distância
+  const distUf = Object.fromEntries(DI.ufs.map(u => [u.uf, u]));
+  document.getElementById("leg-dist").innerHTML = CLASSES.map(([, r], i) => `<span><i style="background:var(--d${i + 1})"></i>${r}</span>`).join("")
+    + `<span><i style="background:repeating-linear-gradient(45deg,var(--d3) 0 2px,var(--papel) 2px 4px)"></i>poucos trajetos</span>`
+    + `<span><i style="background:var(--fundo2);outline:1px solid var(--linha)"></i>sem dado</span>`;
+  function gDistUf() {
+    const svg = d3.select("#g-dist-uf"); svg.selectAll("*").remove();
+    const Wg = Math.max(260, svg.node().parentNode.clientWidth), Hg = Math.round(Wg * 0.96);
+    svg.attr("viewBox", `0 0 ${Wg} ${Hg}`).attr("height", Hg);
+    const pj = d3.geoMercator().fitExtent([[2, 2], [Wg - 2, Hg - 2]], caixaBR);
+    const caminho = polis => polis.map(poli => poli.map(anel => {
+      let s = "";
+      for (let i = 0; i < anel.length; i += 2) { const q = pj([anel[i], anel[i + 1]]); s += (i ? "L" : "M") + q[0].toFixed(1) + "," + q[1].toFixed(1); }
+      return s + "Z";
+    }).join("")).join("");
+    svg.append("defs").html(`<pattern id="hachura" patternUnits="userSpaceOnUse" width="5" height="5" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="5" style="stroke:var(--papel);stroke-width:2.2"/></pattern>`);
+    for (const [uf, polis] of Object.entries(C.uf)) {
+      const u = distUf[uf], d = caminho(polis);
+      const tem = u && u.mediana != null, pouco = tem && u.trajetos < POUCOS;
+      const forma = svg.append("path").attr("d", d).attr("fill-rule", "evenodd").attr("class", "uf-forma" + (tem ? "" : " vazio"))
+        .on("pointerenter", function () { d3.select(this).raise(); });
+      if (tem) forma.style("fill", `var(--d${classe(u.mediana) + 1})`);
+      if (pouco) svg.append("path").attr("d", d).attr("fill-rule", "evenodd").attr("fill", "url(#hachura)").style("pointer-events", "none");
+      dicaG(forma.node(), !u ? `<b>${UFNOME[uf]}</b><br>Nenhuma urna muda de prédio`
+        : !tem ? `<b>${UFNOME[uf]}</b><br>${fmt.format(u.urnas)} urnas mudam, nenhuma com distância conhecida`
+        : `<b>${UFNOME[uf]}</b><br>Mediana: ${metros(u.mediana)}<br>${fmt.format(u.com)} de ${fmt.format(u.urnas)} urnas com distância, em ${u.trajetos} ${u.trajetos === 1 ? "trajeto" : "trajetos"}<br>${pct(u.menos_1km, 0)}% dos eleitores a menos de 1 km${pouco ? "<br><i>Poucos trajetos: número pouco confiável</i>" : ""}`);
+    }
+  }
+  function gDist() {
+    const svg = d3.select("#g-dist"); svg.selectAll("*").remove();
+    const Wg = Math.max(260, svg.node().parentNode.clientWidth), esq = 92, dir = 50, lh = 34, bh = 18;
+    const Hg = DI.faixas.length * lh + 4;
+    svg.attr("viewBox", `0 0 ${Wg} ${Hg}`).attr("height", Hg);
+    const T = DI.faixas.reduce((s, f) => s + f.aptos, 0), max = Math.max(...DI.faixas.map(f => f.aptos)) / T;
+    const xs = v => Math.max(2, (Wg - esq - dir) * v / max), iMed = DI.faixas.findIndex(f => f.med);
+    let acum = 0;
+    DI.faixas.forEach((f, i) => {
+      const v = f.aptos / T, y = i * lh + 6, w = xs(v); acum += v;
+      svg.append("text").attr("x", esq - 8).attr("y", y + bh / 2 + 4).attr("text-anchor", "end").text(f.rot);
+      svg.append("path").attr("class", "b-dist" + (i === iMed ? " med" : ""))
+        .attr("d", `M${esq},${y}h${w - Math.min(4, w / 2)}a${Math.min(4, w / 2)},${Math.min(4, w / 2)} 0 0 1 ${Math.min(4, w / 2)},${Math.min(4, w / 2)}v${bh - 2 * Math.min(4, w / 2)}a${Math.min(4, w / 2)},${Math.min(4, w / 2)} 0 0 1 -${Math.min(4, w / 2)},${Math.min(4, w / 2)}h-${w - Math.min(4, w / 2)}z`);
+      svg.append("text").attr("class", "forte").attr("x", esq + w + 6).attr("y", y + bh / 2 + 4).text(pct(100 * v) + "%");
+      if (i === iMed && w > 110) svg.append("text").attr("class", "rot-dentro").attr("x", esq + w - 7).attr("y", y + bh / 2 + 4).attr("text-anchor", "end").text("mediana: " + metros(DI.mediana));
+      const alvo = svg.append("rect").attr("class", "alvo").attr("x", 0).attr("y", y - (lh - bh) / 2).attr("width", Wg).attr("height", lh);
+      dicaG(alvo.node(), `<b>${f.rot}</b><br>${fmt.format(f.urnas)} urnas, ${fmt.format(f.aptos)} eleitores<br>${pct(100 * v)}% dos eleitores · acumulado ${pct(100 * acum)}%`);
+    });
+  }
+  document.getElementById("tab-dist").innerHTML = `<caption style="caption-side:bottom;text-align:left;font-size:.8rem;color:var(--tinta2);padding-top:.4rem">* Menos de 5 trajetos com distância: número pouco confiável.</caption><thead><tr><th>Estado</th><th>Urnas que mudam</th><th>Com distância</th><th>Trajetos</th><th>Mediana</th><th>Menos de 1 km</th></tr></thead><tbody>` +
+    DI.ufs.slice().sort((a, b) => (a.mediana ?? Infinity) - (b.mediana ?? Infinity)).map(u => `<tr><td class="uf">${UFNOME[u.uf]}</td><td>${fmt.format(u.urnas)}</td><td>${fmt.format(u.com)}</td><td>${u.trajetos}</td><td>${u.mediana == null ? "–" : metros(u.mediana) + (u.trajetos < POUCOS ? "*" : "")}</td><td>${u.menos_1km == null ? "–" : pct(u.menos_1km, 0) + "%"}</td></tr>`).join("") +
+    `<tr class="nos"><td class="uf">Brasil</td><td>${fmt.format(DI.urnas_com + DI.urnas_sem)}</td><td>${fmt.format(DI.urnas_com)}</td><td>${fmt.format(DI.ufs.reduce((s, u) => s + u.trajetos, 0))}</td><td>${metros(DI.mediana)}</td><td>${pct(DI.menos_1km, 0)}%</td></tr></tbody>`;
+
+  let larguraDist = 0;
+  new ResizeObserver(() => { const w = document.getElementById("g-dist-uf").parentNode.clientWidth; if (w !== larguraDist) { larguraDist = w; gDistUf(); gDist(); } })
+    .observe(document.querySelector(".dist-mapas"));
+  }
+
   let larguraGraf = 0;
   new ResizeObserver(() => { const w = document.getElementById("g-2022").parentNode.clientWidth; if (w !== larguraGraf) { larguraGraf = w; g2022(); gMargem(); } })
     .observe(document.getElementById("g-2022").parentNode);

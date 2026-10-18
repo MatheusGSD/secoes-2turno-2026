@@ -16,7 +16,10 @@ ficam no prédio do 1º turno. Nenhuma urna entrou. A lista está em `saida/vers
 também dizia que nenhuma urna muda no exterior; 9 mudam, em Colônia e em Praga (fora da conta, como todo o exterior).
 
 - **1.792 urnas funcionam no 2º turno num prédio diferente do 1º**, com 528.489 eleitores aptos, em 297 municípios de 24
-  estados: 0,36% das urnas do país, com 0,3% dos votos válidos no 1º turno. Metade muda até 415 m.
+  estados: 0,36% das urnas do país, com 0,3% dos votos válidos no 1º turno.
+- **Metade dos eleitores vota no 2º turno a cerca de 420 m do prédio do 1º**, em linha reta. Para 87%, a distância é menor
+  que 1 km; para 1,8%, de 5 km ou mais. Vale para as 1.418 urnas com coordenada confiável nos dois prédios (374 ficam sem
+  distância). É a distância entre os prédios, não o deslocamento de cada eleitor: o endereço do eleitor não é público.
 - **O painel do TSE mudou de critério.** A lista "Seções alteradas" do painel de estatísticas tinha, em 17/10, 4.864
   seções (4.863 urnas): comparava o local do 2º turno com o local *de cadastro*. Em 18/10 (7h09), passou a comparar
   com o local do 1º turno e lista 2.033 seções (2.023 urnas, 9 no exterior). As 1.792 urnas daqui estão todas nela. As 222
