@@ -1,2 +1,2 @@
 pares: 533 | sem nenhuma coordenada: 4 | só uma: 92
-dados.json: 0.87 MB | pontos de fundo: 90805
+dados.json: 0.88 MB | pontos de fundo: 90805

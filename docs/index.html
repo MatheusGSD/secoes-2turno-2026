@@ -180,6 +180,10 @@ figcaption { font-size: .82rem; color: var(--tinta2); margin-top: .5rem; line-he
 .graf .b-dist { fill: var(--tinta3); }
 .graf .b-dist.med { fill: var(--tinta); }
 .graf .rot-dentro { fill: var(--papel); font-size: 11.5px; }
+.graf .linha-fx { fill: none; stroke: var(--tinta); stroke-width: 2; }
+.graf .media-fx { stroke: var(--tinta3); stroke-width: 1; stroke-dasharray: 3 3; }
+.graf .titulo-painel { font-weight: 700; font-size: 13px; }
+.seg-graf { box-shadow: none; margin: .2rem 0 .6rem; }
 .leg-dist { display: flex; flex-wrap: wrap; gap: .3rem 1rem; font-size: .8rem; color: var(--tinta2); margin: .2rem 0 0; }
 .leg-dist i { display: inline-block; width: 14px; height: 10px; border-radius: 2px; vertical-align: -1px; margin-right: .35rem; }
 .dist-mapas { display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr); gap: 1.4rem; align-items: start; }
@@ -343,7 +347,7 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
   </div>
   <p>Há um caso em que não dá para ter certeza. Em 33 das 162 urnas da primeira linha, o nome muda por completo, mas o número, o endereço e as coordenadas do local continuam iguais. Isso acontece em seis municípios: Iúna (ES), Goiânia (GO), São Bento (MA), Campina Verde (MG), Portel (PA) e Presidente Médici (RO). Pode ser um prédio que mudou de nome ou outro prédio com o cadastro desatualizado. Não contamos essas urnas, mas elas estão na lista do painel no repositório, com o nome do local nos dois turnos. Se for o seu caso, confirme o local no e-Título.</p>
 
-  <h3>A diferença está na comparação</h3>
+  <h3 id="t-comparacao">A diferença está na comparação</h3>
   <p>Toda seção tem um local de cadastro, onde costuma funcionar. Às vezes a Justiça Eleitoral a leva provisoriamente para outro prédio, por causa de reforma, chuva, falta de energia ou de acessibilidade. Até 17/10, o painel do TSE comparava o local do 2º turno com o de cadastro, e por isso o número era tão maior. Para quem vai votar, a pergunta que importa é outra: vou votar no mesmo prédio em que votei no dia 4?</p>
   <p>Essa diferença de critério separa as urnas em quatro situações. Os números abaixo são do cadastro atual:</p>
   <p class="arraste">Arraste a tabela para o lado para ver todas as colunas.</p>
@@ -387,9 +391,63 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
   <p>O número do TSE usa dados contabilizados até 16 de outubro. Os nossos são do cadastro gerado em 17 de outubro às 23h37 e do painel atualizado em 18 de outubro às 7h09. Cada nova versão do cadastro substitui a anterior no portal do TSE, então não é possível refazer a conta com a versão de 16/10. Guardamos as versões que baixamos.</p>
   <p>A data pode explicar parte da diferença no total, mas não a distribuição por estado. O TSE cita 982 seções em São Paulo, 514 em Minas, 431 no Rio de Janeiro e 312 na Bahia. No painel de 17/10, eram 315, 323, 47 e 167 seções nesses estados. No painel de 18/10, são 146, 264, 19 e 127, e as urnas que de fato mudam de prédio são 89, 164, 19 e 119. Testamos outras formas de contar, incluindo trocas de nome e de endereço, e nenhuma chega a 431 no Rio. O TSE não informou o critério desse número, e não conseguimos reproduzi-lo.</p>
 
-  <h2>Quem vota nessas urnas</h2>
+  <h2 id="t-quem-vota">Quem vota nessas urnas</h2>
   <p>No 1º turno, os eleitores dessas 1.792 urnas votaram mais em Lula que o resto do país: <span class="chip l"></span>Lula teve 50,3% dos votos válidos e <span class="chip f"></span>Flávio, 43,1%. No Brasil, Flávio ficou à frente, com 47,0% contra 45,2%. Lula venceu em 977 dessas urnas e Flávio em 806, com 9 empates. A abstenção foi praticamente a do país: 20,4%, contra 20,8%.</p>
-  <p>O motivo é geográfico: 47% desses eleitores estão no Nordeste, onde Lula vence com folga. Para saber se as mudanças atingem mais as urnas de um dos lados, comparamos cada urna que muda com as urnas do mesmo município e da mesma zona eleitoral que não mudam. Nas que mudam, Lula teve 0,6 ponto a menos que nas vizinhas, com intervalo de 95% de 1,4 ponto a menos a 0,2 a mais. Em 44% delas, Lula teve resultado melhor que nas vizinhas. A diferença fica dentro da margem de erro: os dados não mostram que as mudanças atinjam mais as urnas de um dos candidatos.</p>
+  <p>O motivo é geográfico: 47% desses eleitores estão no Nordeste, onde Lula vence com folga, e o mesmo acontecia em 2022 (<a href="#t-geografia">veja abaixo</a>). Para saber se as mudanças atingem mais as urnas de um dos lados, comparamos cada urna que muda com as urnas do mesmo município e da mesma zona eleitoral que não mudam. Nas que mudam, Lula teve 0,6 ponto a menos que nas vizinhas, com intervalo de 95% de 1,4 ponto a menos a 0,2 a mais. Em 44% delas, Lula teve resultado melhor que nas vizinhas. A diferença fica dentro da margem de erro: os dados não mostram que as mudanças atinjam mais as urnas de um dos candidatos.</p>
+
+  <h3 id="t-por-local">E por local de votação?</h3>
+  <p>Dá para fazer a mesma pergunta olhando os locais de votação: onde Lula foi melhor no 1º turno, há mais chance de alguma urna mudar de prédio? Como no resto da página, mudar aqui é trocar de prédio do 1º para o 2º turno; não contam as seções que já estavam fora do local de sempre no 1º turno e continuam no mesmo prédio no 2º. No país como um todo, há, um pouco, porque as mudanças se concentram em estados onde Lula vence, como os do Nordeste. Comparando locais do mesmo estado ou do mesmo município, essa associação não aparece.</p>
+  <p>Quem fez essa pergunta primeiro foi <a href="https://x.com/DavidDinizK" target="_blank" rel="noopener">@DavidDinizK</a>, numa <a href="https://x.com/DavidDinizK/status/2111616001443795222" target="_blank" rel="noopener">análise publicada no X em 17/10</a>, com os dados abertos. Ele encontrou mais chance de troca nos locais com mais votos em Lula, também entre locais do mesmo estado, e nenhuma diferença entre locais do mesmo município. A parte entre estados vale também para as urnas que mudam de fato.</p>
+  <p>Ele usou a lista do painel do TSE de 17/10, que comparava o 2º turno com o local de cadastro (<a href="#t-comparacao">veja as quatro situações</a>). Essa lista mede outra coisa: das 4.864 seções, 4.692, ou 96%, votam no 2º turno no mesmo local do dia 4. Elas já estavam fora do local de cadastro no 1º turno e continuam assim. O 1,5 milhão de eleitores citado na análise é o eleitorado dessas seções. Nas 1.792 urnas que mudam de prédio, são 528 mil. O TSE mudou o critério do painel em 18/10.</p>
+  <figure>
+    <div class="seg seg-graf" role="group" aria-label="Lista mostrada no gráfico" id="seg-faixas">
+      <button type="button" data-l="1.792 urnas que mudam de prédio" aria-pressed="true">1.792 urnas que mudam</button>
+      <button type="button" data-l="painel de 18/10 (2º x 1º turno)" aria-pressed="false">Painel de 18/10</button>
+      <button type="button" data-l="painel de 17/10 (2º turno x cadastro)" aria-pressed="false">Painel de 17/10<span class="longo">, usado na análise original</span></button>
+    </div>
+    <svg class="graf" id="g-faixas" role="img" aria-label="Percentual de locais de votação com urna na lista, por faixa de voto em Lula no 1º turno: no país, em relação à média do estado e em relação à média do município. Os números estão em saida/por_local_faixas.csv."></svg>
+    <figcaption>Percentual de locais de votação com alguma seção na lista, por faixa de voto em Lula no 1º turno, com intervalo de 95%. À esquerda, todos os locais do país. No meio e à direita, cada local comparado com o resultado de Lula no próprio estado ou no próprio município, em pontos acima ou abaixo. Na comparação por município, ficam de fora os municípios com um local só. A linha tracejada é a média da lista. A escala vertical muda com a lista escolhida.</figcaption>
+  </figure>
+  <p>Com as 1.792 urnas, a linha sobe no país: de 0,39% dos locais onde Lula teve menos de 30% para 0,75% onde teve de 60% a 75%, e recua um pouco acima de 75%. Comparando cada local com o próprio estado ou o próprio município, ela fica plana, entre 0,45% e 0,63%, sem direção. É assim que a geografia aparece: as mudanças estão mais em estados onde Lula vence, mas, dentro de cada lugar, não se concentram nos locais mais lulistas. A lista do painel de 18/10 tem o mesmo desenho. Na de 17/10, a usada na análise original, os locais pelo menos 5 pontos mais lulistas que o estado aparecem um pouco mais (1,5% a 1,6%, contra 1,2% a 1,3% nas outras faixas), como ele encontrou; comparando com o município, a linha cai. Use o seletor acima do gráfico para ver cada lista.</p>
+  <p>Refizemos a conta com a lista de 17/10, montada a partir do cadastro, e com as duas listas que medem a mudança do 1º para o 2º turno: a do painel de 18/10 e as 1.792 urnas desta página. Com a lista de 17/10, o resultado vai na mesma direção do dele em várias formas de medir. Com as outras duas, a associação dentro do estado ou do município não aparece em nenhuma das formas de medir que testamos. A diferença vem da lista e da forma de medir: na regressão com o percentual de Lula (abaixo), nem a lista de 17/10 mostra associação dentro do estado, e a diferença entre as listas fica dentro da margem de erro (<a href="#t-como">veja os detalhes</a>).</p>
+  <details id="det-local">
+    <summary>A conta com intervalos de confiança</summary>
+    <p>A mesma pergunta, numa regressão: quanto muda a chance de um local estar na lista quando Lula teve 10 pontos a mais nele, comparando todos os locais, locais do mesmo estado e locais do mesmo município.</p>
+    <figure>
+      <svg class="graf" id="g-local" role="img" aria-label="Quanto muda a chance de um local de votação estar em cada lista quando Lula teve 10 pontos a mais nele, comparando todos os locais, locais do mesmo estado e locais do mesmo município, com intervalo de 95%. Os números estão na tabela abaixo do gráfico."></svg>
+      <figcaption>Quanto muda a chance de um local de votação estar na lista quando Lula teve 10 pontos a mais nele no 1º turno, em pontos percentuais, com intervalo de 95%. À direita do zero, os locais mais lulistas aparecem mais na lista. Para comparar: de cada mil locais, 13 estão na lista de 17/10 e cerca de 5 em cada uma das outras duas. Em negrito, as 1.792 urnas desta página. O ponto negativo da lista de 17/10 entre locais do mesmo município aparece nesta medida, mas não em todas.</figcaption>
+    </figure>
+    <p class="arraste">Arraste a tabela para o lado para ver todas as colunas.</p>
+    <div class="tab-wrap">
+      <table>
+        <thead><tr><th>Lista</th><th>Locais na lista</th><th>Todos os locais</th><th>Mesmo estado</th><th>Mesmo município</th></tr></thead>
+        <tbody>
+          <tr><td class="txt">Painel de 17/10 (2º turno × cadastro)</td><td>1.268<br><small>1,34%</small></td><td>+0,13<br><small>+0,07 a +0,18</small></td><td>+0,01<br><small>−0,08 a +0,10</small></td><td>−0,15<br><small>−0,25 a −0,06</small></td></tr>
+          <tr><td class="txt">Painel de 18/10 (2º × 1º turno)</td><td>542<br><small>0,57%</small></td><td>+0,04<br><small>−0,01 a +0,08</small></td><td>−0,05<br><small>−0,11 a +0,01</small></td><td>−0,06<br><small>−0,12 a +0,01</small></td></tr>
+          <tr class="nos"><td class="txt">1.792 urnas que mudam de prédio</td><td>509<br><small>0,54%</small></td><td>+0,04<br><small>+0,003 a +0,08</small></td><td>−0,04<br><small>−0,10 a +0,02</small></td><td>−0,05<br><small>−0,12 a +0,01</small></td></tr>
+        </tbody>
+      </table>
+    </div>
+  </details>
+  <p>Entre todos os locais, há uma associação pequena: com as 1.792 urnas, 10 pontos a mais de Lula somam 0,04 ponto a uma chance de 0,54%. Entre locais do mesmo estado ou do mesmo município, ela fica perto de zero ou negativa. Mesmo no limite dos intervalos, na forma de medir mais desfavorável, 10 pontos a mais de Lula levariam essa chance de 0,54% para cerca de 0,6%. Ou seja, a associação vem de onde as mudanças acontecem, e não de quais locais são escolhidos em cada lugar. É a mesma conclusão da <a href="#t-quem-vota">comparação urna a urna</a> com as vizinhas: os dados não mostram que as mudanças atinjam mais os locais onde um dos candidatos foi melhor.</p>
+
+  <h3 id="t-geografia">As mudanças se concentram no Norte e no Nordeste, como em 2022</h3>
+  <p>Se a associação vem da geografia, a pergunta passa a ser outra: as mudanças se concentram em algumas regiões? Sim, e não é novidade de 2026. Contando do mesmo jeito em 2022, quando 1.506 urnas trocaram de prédio do 1º para o 2º turno, o desenho é parecido. Nas duas eleições, quase metade dos eleitores dessas urnas está no Nordeste, que tem 28% do eleitorado. O Norte também fica bem acima do seu peso, e o Sudeste, com 42% do eleitorado, bem abaixo.</p>
+  <p class="arraste">Arraste a tabela para o lado para ver todas as colunas.</p>
+  <div class="tab-wrap">
+    <table>
+      <thead><tr><th>Região</th><th>Eleitorado do país, 2026</th><th>Eleitores das urnas que mudam, 2022</th><th>Eleitores das urnas que mudam, 2026</th></tr></thead>
+      <tbody>
+        <tr><td class="txt">Norte</td><td>8%</td><td>26%</td><td>17%</td></tr>
+        <tr><td class="txt">Nordeste</td><td>28%</td><td>47%</td><td>47%</td></tr>
+        <tr><td class="txt">Centro-Oeste</td><td>8%</td><td>3%</td><td>4%</td></tr>
+        <tr><td class="txt">Sudeste</td><td>42%</td><td>10%</td><td>16%</td></tr>
+        <tr><td class="txt">Sul</td><td>14%</td><td>15%</td><td>15%</td></tr>
+      </tbody>
+    </table>
+  </div>
+  <p>Os estados também se repetem. Roraima e Amapá têm a maior proporção de urnas mudando de prédio nas duas eleições, e a ordem dos estados de 2022 se parece com a de 2026 (correlação de 0,79). A Justiça Eleitoral cita chuva, reformas de escolas e problemas de infraestrutura como motivos; os dados abertos não trazem o motivo de cada mudança.</p>
+  <p>A concentração no Nordeste, onde Lula vence com folga, explica a diferença de voto. No Norte, Lula teve menos que no país. Nas urnas que mudam em 2026, Lula teve 50,3% dos votos válidos no 1º turno, contra 45,2% no país. Se cada uma votasse como o próprio estado, seriam 50,0%; como o próprio município, 50,8%. Em 2022, Lula teve 51,1% nessas urnas, contra 48,4% no país e 52,2% esperados pelo estado (52,0% pelo município). Nas duas eleições, as urnas que mudam votaram perto dos lugares onde estão, um pouco abaixo deles.</p>
 
   <h2>O impacto, passo a passo</h2>
   <h3>1. Trocar de prédio faz o eleitor faltar?</h3>
@@ -422,7 +480,7 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
   <p class="arraste">Arraste a tabela para o lado para ver todas as colunas.</p>
   <div class="tab-wrap"><table id="tab-uf"></table></div>
 
-  <h2>Como foi feito</h2>
+  <h2 id="t-como">Como foi feito</h2>
   <ul class="notas">
     <li><strong>Lista das mudanças.</strong> Cadastro de locais de votação do TSE (eleitorado_local_votacao_2026, gerado em 17/10/2026 às 23h37 de Brasília e baixado em 18/10), com uma linha por seção e por turno. A primeira versão desta página usou o cadastro gerado em 17/10 às 6h32. Uma urna muda de prédio quando o número do local no 2º turno é diferente do 1º, salvo se o nome e o endereço continuarem iguais (8 urnas só renumeradas). Também muda quando o número é o mesmo, mas o nome e o endereço mudam juntos (46 urnas). Quando só o nome ou só o endereço muda, tratamos como correção de cadastro (331 urnas).</li>
     <li><strong>Mesmo endereço nos dois turnos.</strong> Quando o local muda de número e de nome, mas o endereço é idêntico, comparamos com o cadastro de 2022. Se o local do 2º turno tinha outro endereço em 2022, o cadastro reescreveu o endereço dele, e a urna não conta como mudança (20 urnas, 4.710 eleitores). As demais (71 urnas, 18.246 eleitores) contam, com aviso no mapa. Em 2022 não dá para fazer esse teste, porque faltaria o cadastro de 2020; lá, 92 das 1.506 urnas têm o mesmo endereço nos dois turnos, quase todas com endereço genérico.</li>
@@ -430,6 +488,8 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
     <li><strong>Urna e eleitores.</strong> A urna é a seção principal. Os eleitores de seção agregada votam nela; seção "distribuída de ofício" (só em 2022) não tem urna e fica de fora. Eleitores aptos: o eleitorado federal da urna em cada turno, que já inclui as agregadas e quem pediu transferência temporária para ela.</li>
     <li><strong>Votos do 1º turno.</strong> Votação por seção do TSE, presidente, 1º turno de 2026, sem o exterior. Comparecimento é a soma dos votos para presidente, incluindo brancos e nulos.</li>
     <li><strong>Comparação com as vizinhas.</strong> Urnas do mesmo município e da mesma zona eleitoral que não mudam. Média ponderada, com intervalo de 95% por 2.000 sorteios desses grupos. Como sensibilidade, a mesma conta com toda a zona eleitoral (que pode juntar vários municípios) e com as urnas do mesmo local de cadastro.</li>
+    <li><strong>Por local de votação.</strong> Unidade: o local de cadastro da seção no cadastro de 17/10, 6h28, o mesmo do arquivo de votação por seção (94.539 locais com voto no Brasil, mediana de 883 votos válidos). Um local está na lista se alguma seção dele está. A lista do painel de 17/10 foi refeita a partir desse cadastro, que reproduz as 4.864 seções do painel; as de 18/10 vêm do painel exportado e do cadastro atual. A comparação de 96% é pelo número do local no 1º e no 2º turno. Mínimos quadrados, comparando locais do mesmo estado ou do mesmo município (efeito fixo), com erro-padrão agrupado por município. Com os votos de Lula e de Flávio em blocos de 10 mil, como na análise original, a lista de 17/10 vai na mesma direção: entre locais do mesmo estado, +0,038 para Lula (lá, +0,041). Sem efeito fixo, não reproduzimos o coeficiente dele (+0,054 aqui, +0,038 lá), embora o número de locais fique perto (94.709 lá; 94.539 aqui, sem os 170 do exterior). No gráfico, usamos o percentual de Lula nos votos válidos, controlando o total de votos do local, porque 10 mil votos a mais de Lula, com os de Flávio fixos, significam ao mesmo tempo um local maior e mais lulista, e são mais que o total de quase todos os locais. Com a lista de 17/10, a associação entre locais do mesmo estado depende da medida: positiva com votos em blocos de 10 mil (+0,038; com o local do 1º turno como unidade, +0,078), com o percentual de Lula e o logaritmo dos votos válidos no local do 1º turno (+0,09, intervalo de 0,00 a +0,18) e com ponderação por eleitores (+0,12); perto de zero com o percentual e os votos válidos (+0,01). Entre locais do mesmo município, nenhuma medida que separa o voto do tamanho do local dá associação positiva com essa lista, como na análise original; na do gráfico, dá negativa (−0,15). Com os votos em blocos de 10 mil e o local do 1º turno, Lula dá +0,069, mas Flávio também sobe, e a diferença entre os dois não é significativa: é o tamanho do local. Com as duas listas de 18/10, nenhuma das medidas testadas (votos em blocos de 10 mil, percentual de Lula com os votos válidos ou com o logaritmo deles, margem, ponderação por eleitores, fração de seções, logit; efeito fixo de estado, mesorregião, zona ou município; local de cadastro ou do 1º turno como unidade) dá associação positiva significativa dentro do estado ou do município; algumas dão negativa. No limite dos intervalos, na medida mais desfavorável, 10 pontos a mais de Lula levariam a chance de 0,54% para cerca de 0,61%. A diferença entre as listas, porém, não é estatisticamente significativa. Entre todos os locais, sem efeito fixo, a associação é positiva nas três listas. No gráfico por faixa, o percentual de Lula do local é comparado com o do estado ou do município inteiro, somando todos os votos válidos do lugar; municípios com um local só ficam de fora da comparação por município. O intervalo de cada faixa é o de Wilson, para uma proporção. As tabelas completas estão em <code>saida/por_local.csv</code> e <code>saida/por_local_faixas.csv</code>.</li>
+    <li><strong>Geografia, 2022 e 2026.</strong> Urnas que trocam de prédio do 1º para o 2º turno, pelo mesmo critério nos dois anos (exceto o teste de endereço reescrito, só possível em 2026, que retira 20 urnas), sem o exterior. O peso de cada região é o dos eleitores aptos. O voto esperado é o percentual de Lula no estado ou no município, ponderado pelos votos válidos das urnas que mudam. A correlação entre os anos é a de Spearman, entre as proporções de urnas que mudam em cada estado. Detalhes em <code>saida/geografia.json</code>.</li>
     <li><strong>Efeito de 2022 aplicado a 2026.</strong> Por tipo de mudança (volta ao local de sempre ou sai dele). O intervalo sorteia os grupos de 2022 uma vez para os dois tipos ao mesmo tempo. É uma comparação entre urnas, não um experimento: as que mudam podem ser diferentes das outras por outros motivos.</li>
     <li><strong>Distância.</strong> Linha reta entre as coordenadas dos dois prédios. Um ponto só vale se cair dentro do município, pela malha do IBGE. 374 urnas ficam sem distância: sem coordenada, coordenada fora do município, ou prédio novo com o mesmo número de local, caso em que o cadastro não atualizou a coordenada. No mapa, aparecem no ponto que tem coordenada; 4 trajetos só aparecem na lista. Mudanças de mais de 10 km estão listadas no repositório para conferência.</li>
     <li><strong>Contornos.</strong> Malhas de estados e municípios do IBGE, em qualidade intermediária e simplificadas para a página. Os municípios do TSE foram ligados aos do IBGE pelo nome e pela UF.</li>
@@ -771,14 +831,14 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
   }
   selUf.addEventListener("change", () => { ufSel = selUf.value; munSel = ""; preencherMun(); atualizar(); });
   selMun.addEventListener("change", () => { munSel = selMun.value; atualizar(); });
-  document.querySelectorAll(".seg button").forEach(b => b.addEventListener("click", () => {
+  document.querySelectorAll("#ctrl .seg button").forEach(b => b.addEventListener("click", () => {
     filtro = b.dataset.f;
-    document.querySelectorAll(".seg button").forEach(o => o.setAttribute("aria-pressed", String(o === b)));
+    document.querySelectorAll("#ctrl .seg button").forEach(o => o.setAttribute("aria-pressed", String(o === b)));
     atualizar(false);
   }));
   function limparTudo() {
     inBusca.value = ""; termos = []; qBruto = ""; limpar.hidden = true; fecharRes();
-    filtro = "todas"; document.querySelectorAll(".seg button").forEach(o => o.setAttribute("aria-pressed", String(o.dataset.f === "todas")));
+    filtro = "todas"; document.querySelectorAll("#ctrl .seg button").forEach(o => o.setAttribute("aria-pressed", String(o.dataset.f === "todas")));
     ufSel = munSel = ""; selUf.value = ""; preencherMun(); atualizar();
   }
   document.getElementById("z-mais").onclick = () => sCv.transition().duration(300).call(zoom.scaleBy, 2);
@@ -936,6 +996,99 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
         .attr("text-anchor", dentro ? "end" : "start").style("fill", dentro ? "var(--papel)" : null).text(l.txt);
     });
   }
+  let listaFaixas = "1.792 urnas que mudam de prédio";
+  function gFaixas() {
+    const PF = D.por_local_faixas; if (!PF) return; // dados.json antigo, de cache
+    const svg = d3.select("#g-faixas"); svg.selectAll("*").remove();
+    const Wg = Math.max(300, svg.node().parentNode.clientWidth), lado = Wg >= 640;
+    const DIF = ["−10", "−5", "0", "+5", "+10"];
+    const PAINEIS = [["país", "No país", "Lula no local, em %", ["30%", "45%", "60%", "75%"]],
+      ["estado", "Comparando com o estado", "pontos de Lula acima ou abaixo do estado", DIF],
+      ["município", "Comparando com o município", "pontos acima ou abaixo do município", DIF]];
+    const dados = PF.filter(r => r.lista === listaFaixas);
+    const pais = dados.filter(r => r.painel === "país");
+    const media = 100 * d3.sum(pais, r => r.na_lista) / d3.sum(pais, r => r.locais);
+    const ymax = Math.ceil(d3.max(dados, r => r.ic[1]) * 4) / 4;
+    const gap = 26, esq = 34, pw = lado ? (Wg - esq - 2 * gap) / 3 : Wg - esq, ph = 190, topo = 26, base = 52;
+    const Hg = lado ? topo + ph + base : 3 * (topo + ph + base);
+    svg.attr("viewBox", `0 0 ${Wg} ${Hg}`).attr("height", Hg);
+    PAINEIS.forEach(([chave, titulo, eixo, limites], i) => {
+      const x0 = lado ? esq + i * (pw + gap) : esq, y0 = lado ? topo : i * (topo + ph + base) + topo;
+      const rs = dados.filter(r => r.painel === chave);
+      const xs = d3.scalePoint(rs.map(r => r.faixa), [x0 + 14, x0 + pw - 14]);
+      const ys = d3.scaleLinear([0, ymax], [y0 + ph, y0]);
+      const g = svg.append("g");
+      g.append("text").attr("class", "titulo-painel").attr("x", x0).attr("y", y0 - 10).text(titulo);
+      const ax = g.append("g").attr("class", "eixo");
+      for (const v of d3.range(0, ymax + 1e-9, ymax > 1.5 ? 0.5 : 0.25)) {
+        ax.append("line").attr("class", v === 0 ? "zero" : "grade").attr("x1", x0).attr("x2", x0 + pw).attr("y1", ys(v)).attr("y2", ys(v));
+        if (i === 0 || !lado) ax.append("text").attr("x", x0 - 6).attr("y", ys(v) + 4).attr("text-anchor", "end").text(pct(v, ymax > 1.5 ? 1 : 2) + "%");
+      }
+      // marcas nos limites entre as faixas, para os rótulos caberem no celular
+      limites.forEach((rot, j) => {
+        const xm = (xs(rs[j].faixa) + xs(rs[j + 1].faixa)) / 2;
+        ax.append("line").attr("class", "zero").attr("x1", xm).attr("x2", xm).attr("y1", y0 + ph).attr("y2", y0 + ph + 5);
+        ax.append("text").attr("x", xm).attr("y", y0 + ph + 18).attr("text-anchor", "middle").text(rot);
+      });
+      g.append("text").attr("class", "muted").attr("x", x0 + pw / 2).attr("y", y0 + ph + 38).attr("text-anchor", "middle").text(eixo);
+      g.append("line").attr("class", "media-fx").attr("x1", x0).attr("x2", x0 + pw).attr("y1", ys(media)).attr("y2", ys(media));
+      if (i === 0) g.append("text").attr("class", "muted").attr("x", x0 + 4).attr("y", ys(media) - 5).text("média");
+      g.append("path").attr("class", "linha-fx").attr("d", d3.line().x(r => xs(r.faixa)).y(r => ys(r.pct))(rs));
+      for (const r of rs) {
+        g.append("line").attr("class", "bigode").attr("x1", xs(r.faixa)).attr("x2", xs(r.faixa)).attr("y1", ys(r.ic[0])).attr("y2", ys(Math.min(ymax, r.ic[1])));
+        g.append("circle").attr("class", "ponto-ef").attr("cx", xs(r.faixa)).attr("cy", ys(r.pct)).attr("r", 5);
+        const alvo = g.append("rect").attr("class", "alvo").attr("x", xs(r.faixa) - xs.step() / 2).attr("y", y0).attr("width", xs.step()).attr("height", ph);
+        dicaG(alvo.node(), `<b>${titulo}: ${r.faixa}</b><br>${fmt.format(r.na_lista)} de ${fmt.format(r.locais)} locais na lista<br>${pct(r.pct, 2)}% (intervalo de 95%: ${pct(r.ic[0], 2)}% a ${pct(r.ic[1], 2)}%)`);
+      }
+    });
+  }
+  document.querySelectorAll("#seg-faixas button").forEach(b => b.addEventListener("click", () => {
+    listaFaixas = b.dataset.l;
+    document.querySelectorAll("#seg-faixas button").forEach(o => o.setAttribute("aria-pressed", String(o === b)));
+    gFaixas();
+  }));
+  document.getElementById("det-local").addEventListener("toggle", e => { if (e.target.open) gLocal(); });
+  function gLocal() {
+    const PL = D.por_local; if (!PL) return; // dados.json antigo, de cache
+    const sg2 = x => (x > 0.005 ? "+" : x < -0.005 ? "−" : "") + pct(Math.abs(x), 2);
+    const svg = d3.select("#g-local"); svg.selectAll("*").remove();
+    const Wg = Math.max(300, svg.node().parentNode.clientWidth), estr = Wg < 520;
+    const LISTAS = [["painel de 17/10 (2º turno x cadastro)", "Painel de 17/10"], ["painel de 18/10 (2º x 1º turno)", "Painel de 18/10"],
+      ["1.792 urnas que mudam de prédio", "1.792 urnas que mudam", true]];
+    const linhas = [];
+    for (const [ef, t] of [["nenhum", "Todos os locais"], ["estado", "Locais do mesmo estado"], ["município", "Locais do mesmo município"]]) {
+      linhas.push({ t });
+      for (const [lista, rot, forte] of LISTAS) linhas.push({ rot, forte, r: PL.find(p => p.lista === lista && p.ef === ef) });
+    }
+    const esq = estr ? 8 : 190, dir = 16, lh = estr ? 40 : 28;
+    let yy = 34; const rows = [];
+    for (const l of linhas) { if (l.t) { rows.push({ ...l, y: yy + 8 }); yy += 24; } else { rows.push({ ...l, y: yy + (estr ? 18 : 0) }); yy += lh; } }
+    const Hg = yy + 24;
+    svg.attr("viewBox", `0 0 ${Wg} ${Hg}`).attr("height", Hg);
+    const xs = d3.scaleLinear([-0.3, 0.2], [esq + (estr ? 0 : 50), Wg - dir]);
+    const ax = svg.append("g").attr("class", "eixo");
+    for (const v of [-0.3, -0.2, -0.1, 0, 0.1, 0.2]) {
+      ax.append("line").attr("class", v === 0 ? "zero" : "grade").attr("x1", xs(v)).attr("x2", xs(v)).attr("y1", 24).attr("y2", Hg - 20);
+      ax.append("text").attr("x", xs(v)).attr("y", Hg - 5).attr("text-anchor", "middle").text((v > 0 ? "+" : v < 0 ? "−" : "") + pct(Math.abs(v), v ? 1 : 0));
+    }
+    svg.append("text").attr("class", "muted").attr("x", xs(0) - 6).attr("y", 13).attr("text-anchor", "end").text("← menos na lista");
+    svg.append("text").attr("class", "muted").attr("x", xs(0) + 6).attr("y", 13).text("mais na lista →");
+    for (const l of rows) {
+      if (l.t) { svg.append("text").attr("class", "titulo-grupo").attr("x", 0).attr("y", l.y).text(l.t.toUpperCase()); continue; }
+      const r = l.r, y = l.y;
+      if (!r) continue;
+      if (estr) svg.append("text").attr("x", 0).attr("y", y - 11).attr("class", l.forte ? "forte" : null).text(`${l.rot} · ${fmt.format(r.trocados)} locais`);
+      else {
+        svg.append("text").attr("x", 0).attr("y", y + 4).attr("class", l.forte ? "forte" : null).text(l.rot);
+        svg.append("text").attr("class", "muted").attr("x", esq + 40).attr("y", y + 4).attr("text-anchor", "end").text(fmt.format(r.trocados));
+      }
+      svg.append("line").attr("class", "bigode").attr("x1", xs(Math.max(-0.3, r.ic[0]))).attr("x2", xs(Math.min(0.2, r.ic[1]))).attr("y1", y).attr("y2", y);
+      svg.append("circle").attr("class", "ponto-ef").attr("cx", xs(r.efeito)).attr("cy", y).attr("r", 5.5);
+      const alvo = svg.append("rect").attr("class", "alvo").attr("x", 0).attr("y", y - lh / 2 - (estr ? 8 : 0)).attr("width", Wg).attr("height", lh);
+      dicaG(alvo.node(), `<b>${l.rot}</b><br>${fmt.format(r.trocados)} de ${fmt.format(r.locais)} locais na lista (${pct(100 * r.trocados / r.locais, 2)}%)<br>10 pontos a mais de Lula: ${sg2(r.efeito)} ponto<br>Intervalo de 95%: ${sg2(r.ic[0])} a ${sg2(r.ic[1])}`);
+    }
+    if (!estr) svg.append("text").attr("class", "muted").attr("x", esq + 40).attr("y", 26).attr("text-anchor", "end").text("locais");
+  }
   // ---------- distância entre os prédios (sem o bloco no dados.json, de um cache antigo, a seção fica vazia) ----------
   if (D.distancia) {
   const DI = D.distancia, km10 = km => Math.round(km * 100) / 100; // arredondado a 10 m, como é mostrado
@@ -999,7 +1152,7 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
   }
 
   let larguraGraf = 0;
-  new ResizeObserver(() => { const w = document.getElementById("g-2022").parentNode.clientWidth; if (w !== larguraGraf) { larguraGraf = w; g2022(); gMargem(); } })
+  new ResizeObserver(() => { const w = document.getElementById("g-2022").parentNode.clientWidth; if (w !== larguraGraf) { larguraGraf = w; g2022(); gMargem(); gFaixas(); gLocal(); } })
     .observe(document.getElementById("g-2022").parentNode);
 
   // ---------- início ----------

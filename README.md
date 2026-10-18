@@ -37,7 +37,17 @@ também dizia que nenhuma urna muda no exterior; 9 mudam, em Colônia e em Praga
   continuam na conta com aviso no mapa.
 - **No 1º turno, os eleitores dessas urnas votaram mais em Lula** (50,3% contra 43,1% de Flávio; no país, 45,2% contra 47,0%).
   É geografia: 47% dos eleitores dessas urnas estão no Nordeste. Comparado com o das urnas do mesmo município e da mesma zona eleitoral
-  que não mudam, não há diferença detectável (−0,6 ponto para Lula, intervalo de 95% de −1,4 a +0,2).
+  que não mudam, não há diferença detectável (−0,6 ponto para Lula, intervalo de 95% de −1,4 a +0,2). Por local
+  de votação (`09_por_local.py`), locais mais lulistas têm mais chance de ter urna mudando entre todos os locais do país,
+  nas três listas (painel de 17/10, painel de 18/10 e as 1.792 urnas). Comparando locais do mesmo estado ou do mesmo
+  município, a associação não aparece com as duas listas que medem a mudança do 1º para o 2º turno, em nenhuma das
+  formas de medir testadas; algumas dão negativa. Com a lista do painel de 17/10, que comparava com o local de cadastro,
+  ela aparece dentro do estado em várias medidas, como na análise de
+  [@DavidDinizK](https://x.com/DavidDinizK/status/2111616001443795222), mas não com o percentual de Lula e os votos
+  válidos do local. A diferença vem da lista e da forma de medir, e a diferença entre as listas não é estatisticamente
+  significativa. As mudanças se concentram no Nordeste, como em 2022 (47% dos eleitores das urnas que mudam
+  estão lá nos dois anos), e o voto em Lula nessas urnas é o esperado pelos estados onde estão (50,3% contra
+  50,0%; `11_geografia.py`).
 - **Em 2022, trocar de prédio não mostrou aumento de abstenção.** Nas 1.506 urnas que trocaram de prédio entre os
   turnos, a abstenção variou 0,08 ponto a menos que nas vizinhas do mesmo município e zona (intervalo de −0,23 a
   +0,08). Em outras comparações, vai de −0,19 a +0,14 ponto. É uma comparação entre urnas, não um experimento:
@@ -67,6 +77,9 @@ município, pela malha do IBGE. Os detalhes estão no cabeçalho de cada script.
 | `05_imagem_x.py` | Cartão 1600 × 900 para redes sociais (`saida/imagem_x.png`) |
 | `06_contornos.py` | Contornos de estados e municípios para o mapa (`docs/contornos.json`) |
 | `07_versoes.py` | O que mudou entre a lista de 17/10 (commit `943ab33`) e a atual |
+| `09_por_local.py` | Locais de votação com urna na lista e voto no 1º turno, com as listas do painel de 17/10 e 18/10 e a daqui |
+| `10_imagem_por_local.py` | Cartão 1600 × 900 com os locais na lista por faixa de voto em Lula (`saida/imagem_por_local.png`) |
+| `11_geografia.py` | Onde ficam as urnas que mudam, em 2022 e 2026, e o voto esperado pela geografia |
 | `ibge.py` | Malhas e códigos de município do IBGE, usados por 02 e 06 |
 
 Para rodar do zero, baixe para `dados/` os arquivos do [portal de dados abertos do TSE](https://dadosabertos.tse.jus.br/)
@@ -79,6 +92,8 @@ Para rodar do zero, baixe para `dados/` os arquivos do [portal de dados abertos 
 - `painel_secoes_alteradas_2026.csv`: a lista do painel de estatísticas (Eleitorado › Capilaridade › Seções alteradas,
   atualização de 18/10, 7h09), exportada pelo botão "Gerar arquivos". O arquivo vem como
   `secoes_eleitorais_alteradas_2t-pais_2026.csv`.
+- Para `09_por_local.py`: o cadastro gerado em 17/10 às 6h28, em
+  `dados/anteriores/eleitorado_local_votacao_2026_gerado_17out_0932utc.zip`. O portal não guarda mais essa versão.
 
 As malhas do IBGE são baixadas sozinhas para `dados/ibge/` na primeira execução. Precisa de Python com pandas, numpy,
 shapely e matplotlib. As tabelas pequenas ficam em `saida/`; as tabelas completas por urna (`saida/urnas_*.csv.gz` e
@@ -93,6 +108,9 @@ Principais saídas:
   não contam, o motivo
 - `saida/versoes_17_18out.csv`: as urnas da lista de 17/10 e da atual, com o que mudou no cadastro
 - `saida/impacto_2022.csv` e `saida/impacto_uf_2026.csv`: efeito medido em 2022 e resumo por estado
+- `saida/geografia.json`, `saida/geografia_regioes.csv` e `saida/geografia_ufs.csv`: as urnas que mudam por região e estado, em 2022 e 2026
+- `saida/por_local_faixas.csv`: percentual de locais na lista por faixa de voto em Lula, no país e comparado com o estado e o município
+- `saida/por_local.csv`: regressão por local de votação (chance de o local estar na lista e voto no 1º turno), com as três listas
 - `saida/revisar_distancias.csv`: mudanças de mais de 10 km, para conferência
 - `saida/numeros.json`: todos os números da página
 
