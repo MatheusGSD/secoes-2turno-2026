@@ -828,6 +828,11 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
   function atualizar(enq = true) {
     sel = null; recalcular(); mostrar(null); tabela();
     if (enq) enquadrarArea(true); else desenhar(false);
+    // o endereço acompanha o estado e o município, para copiar e colar (sem âncora: o link já abre no mapa)
+    const q = new URLSearchParams();
+    if (ufSel) q.set("uf", ufSel);
+    if (munSel) q.set("mun", munSel);
+    history.replaceState(null, "", location.pathname + (ufSel ? "?" + q : ""));
   }
   selUf.addEventListener("change", () => { ufSel = selUf.value; munSel = ""; preencherMun(); atualizar(); });
   selMun.addEventListener("change", () => { munSel = selMun.value; atualizar(); });
