@@ -18,12 +18,22 @@ Quando a urna muda de prédio:
   a menos que dois locais do mesmo município tenham trocado nome e endereço entre si (correção).
 Troca só de nome ou só de endereço, com o mesmo número, é correção de cadastro e não conta.
 
+Mesmo endereço nos dois turnos: às vezes o número e o nome do local mudam, mas o endereço é idêntico.
+- Em 2026, se o local do 2º turno tinha outro endereço em 2022, o cadastro reescreveu o endereço dele
+  para o do local do 1º turno (caso de Timóteo-MG: a E.M. Limoeiro "passou" para a Rua Tuia, 101, onde
+  fica a E.E. Haydée, para onde as seções tinham ido no 1º turno). A urna quase certamente fica no
+  mesmo prédio, e não conta como mudança. Em 2022 não dá para fazer esse teste (faltaria o cadastro de
+  2020).
+- Nos demais casos (em geral endereço genérico, como "S/N", povoado ou aldeia, com dois prédios
+  diferentes), a urna conta, mas fica marcada (mesmo_endereco) para o mapa avisar.
+
 Coordenadas: um ponto só vale se cair dentro do município (malha do IBGE, com folga de ~1 km).
 Quando o prédio muda sem mudar o número, a coordenada não é atualizada no cadastro, e a distância
 fica desconhecida.
 
 Uso: python -P scripts/02_mudancas.py
 Saídas: saida/urnas_2026.csv.gz e saida/urnas_2022.csv.gz (todas as urnas, com a classificação)
+        saida/mesmo_predio_2026.csv (urnas retiradas: endereço reescrito no cadastro)
         saida/painel_tse_4864.csv (as seções do painel, com o que de fato mudou para o eleitor)
         saida/revisar_distancias.csv (mudanças de mais de 10 km, para conferência)
 """
@@ -44,6 +54,7 @@ ARQ = {
     2026: (RAIZ / "dados/eleitorado_local_votacao_2026.zip", "eleitorado_local_votacao_2026_BRASIL.csv"),
     2022: (RAIZ / "dados/eleitorado_local_votacao_2022.zip", "eleitorado_local_votacao_2022.csv"),
 }
+REESCRITO = "mesmo prédio, endereço reescrito no cadastro"
 COLS = ["NR_TURNO", "SG_UF", "CD_MUNICIPIO", "NM_MUNICIPIO", "NR_ZONA", "NR_SECAO", "CD_TIPO_SECAO_AGREGADA",
         "NR_SECAO_PRINCIPAL", "NR_LOCAL_VOTACAO", "NM_LOCAL_VOTACAO", "DS_ENDERECO", "NM_BAIRRO",
         "NR_LATITUDE", "NR_LONGITUDE", "QT_ELEITOR_SECAO", "QT_ELEITOR_ELEICAO_FEDERAL",
@@ -122,6 +133,27 @@ def urnas(d):
     return u.reset_index()
 
 
+def mesmo_endereco(u, anterior):
+    """Marca as mudanças com endereço idêntico nos dois turnos e retira as de endereço reescrito.
+
+    anterior: endereço de cada local (SG_UF, CD_MUNICIPIO, NR_ZONA, NR_LOCAL_VOTACAO) na eleição anterior,
+    ou None. Endereço só conta como reescrito se um não contém o outro ("PORTO DO MATO" e "POV. PORTO DO
+    MATO" são o mesmo).
+    """
+    igual = u.mudou & (u.DS_ENDERECO.map(ibge.norm) == u.DS_ENDERECO_2.map(ibge.norm))
+    reescrito = pd.Series(False, index=u.index)
+    if anterior is not None:
+        chaves = zip(u.SG_UF, u.CD_MUNICIPIO, u.NR_ZONA, u.NR_LOCAL_VOTACAO_2)
+        antes = [ibge.norm(anterior[k]) if isinstance(anterior.get(k), str) else None for k in chaves]
+        reescrito = igual & pd.Series([a is not None and a not in b and b not in a
+                                       for a, b in zip(antes, u.DS_ENDERECO_2.map(ibge.norm))], index=u.index)
+    u.loc[reescrito, ["mudou", "criterio", "tipo"]] = [False, "", REESCRITO]
+    u["mesmo_endereco"] = igual & ~reescrito
+    print("mesmo endereço nos dois turnos:", int(igual.sum()), "| retiradas (endereço reescrito):", int(reescrito.sum()),
+          int(u[reescrito].aptos.sum()), "aptos | marcadas:", int(u.mesmo_endereco.sum()))
+    return u
+
+
 def validar_coordenadas(u):
     """Anula, nas urnas que mudam, o ponto que cai fora do município (com folga)."""
     m = u[u.mudou]
@@ -148,9 +180,18 @@ def validar_coordenadas(u):
 
 def main():
     revisar = []
-    for ano in [2026, 2022]:
+    anterior = None
+    for ano in [2022, 2026]:
         d = ler(ano)
-        u = validar_coordenadas(urnas(d))
+        u = validar_coordenadas(mesmo_endereco(urnas(d), anterior))
+        if ano == 2022:
+            locais = d.drop_duplicates(["SG_UF", "CD_MUNICIPIO", "NR_ZONA", "NR_LOCAL_VOTACAO"])
+            anterior = dict(zip(zip(locais.SG_UF, locais.CD_MUNICIPIO, locais.NR_ZONA, locais.NR_LOCAL_VOTACAO),
+                                locais.DS_ENDERECO))
+        else:
+            u[u.tipo == REESCRITO][URNA + ["NM_MUNICIPIO", "NR_LOCAL_VOTACAO", "NM_LOCAL_VOTACAO", "DS_ENDERECO",
+                                   "NR_LOCAL_VOTACAO_2", "NM_LOCAL_VOTACAO_2", "DS_ENDERECO_2", "aptos"]].to_csv(
+                SAIDA / "mesmo_predio_2026.csv", index=False)
         u["dist_km"] = km(u.lat, u.lon, u.lat_2, u.lon_2).where(u.mudou, 0.0)
         u.loc[u.criterio == "predio_novo", "dist_km"] = np.nan  # coordenada não atualizada no cadastro
         print(ano, u.groupby("tipo").agg(urnas=("aptos", "size"), aptos=("aptos", "sum")).to_string())

@@ -34,6 +34,7 @@ BASES = {
     "local_cadastro": ["SG_UF", "CD_MUNICIPIO", "NR_LOCAL_VOTACAO_ORIGINAL"],
 }
 PRINCIPAL = "zona_municipio"
+REESCRITO = "mesmo prédio, endereço reescrito no cadastro"  # de 02_mudancas.py: não conta como mudança
 GRUPO = {"voltou ao local de cadastro": "volta", "saiu do local de cadastro": "sai",
          "local de sempre em outro prédio": "sai", "trocou de local provisório": "sai"}
 FAIXAS = [0, 0.3, 0.6, 1.2, np.inf]
@@ -180,7 +181,7 @@ def main():
                     "NM_LOCAL_VOTACAO_2", "DS_ENDERECO_2", "NM_BAIRRO_2", "lat_2", "lon_2", "NR_LOCAL_VOTACAO_ORIGINAL",
                     "NM_LOCAL_VOTACAO_ORIGINAL", "agregadas", "aptos", "aptos_2", "comparecimento", "abst", "validos",
                     "c13", "c22", "outros", "brancos", "nulos", "pct_lula", "pct_flavio", "vencedor", "ef",
-                    "efeito_margem"])
+                    "efeito_margem", "mesmo_endereco"])
     m[cols].to_csv(SAIDA / "urnas_mudadas_2026.csv", index=False)
 
     nac = u[["c13", "c22", "validos", "comparecimento", "aptos"]].sum()
@@ -220,6 +221,10 @@ def main():
                     "dist_mediana_km": float(m.dist_km.median()), "dist_p90_km": float(m.dist_km.quantile(0.9)),
                     "com_distancia": int(m.dist_km.notna().sum()), "sem_distancia": int(m.dist_km.isna().sum()),
                     "predio_novo_mesmo_numero": int((m.criterio == "predio_novo").sum()),
+                    "mesmo_endereco_urnas": int(m.mesmo_endereco.sum()),
+                    "mesmo_endereco_aptos": int(m[m.mesmo_endereco].aptos.sum()),
+                    "reescritas_urnas": int((u.tipo == REESCRITO).sum()),
+                    "reescritas_aptos": int(u[u.tipo == REESCRITO].aptos.sum()),
                     "pct_aptos_nordeste": 100 * m[m.SG_UF.isin(NORDESTE)].aptos.sum() / mm.aptos,
                     "pct_volta": 100 * (m.grupo == "volta").mean(),
                     "teto_votos": int(teto), "teto_pct_margem": 100 * teto / (nac.c22 - nac.c13),

@@ -3,7 +3,8 @@
 - fundo: todos os locais de votação do 2º turno, como pontos (lon, lat em milésimos de grau,
   ordenados e em diferenças, para o arquivo ficar pequeno). Desenham o Brasil sem depender de
   mapa de fundo externo.
-- pares: as urnas que trocam de local, juntas por (local do 1º turno -> local do 2º turno).
+- pares: as urnas que trocam de local, juntas por (local do 1º turno -> local do 2º turno). "aviso" marca
+  os pares com o mesmo endereço nos dois turnos.
 - ufs, efeito_2022, numeros: as tabelas de 03_impacto.py.
 
 Uso: python -P scripts/04_exportar_web.py   (depois de 02 e 03)
@@ -57,6 +58,7 @@ def pares():
         lula=("c13", "sum"), flavio=("c22", "sum"), outros=("outros", "sum"),
         urnas_lula=("vencedor", lambda s: int((s == "Lula").sum())),
         urnas_flavio=("vencedor", lambda s: int((s == "Flávio").sum())),
+        mesmo_end=("mesmo_endereco", "any"),
     ).reset_index()
     tipo_curto = {"voltou ao local de cadastro": "volta", "saiu do local de cadastro": "sai",
                   "trocou de local provisório": "troca", "local de sempre em outro prédio": "predio"}
@@ -69,6 +71,7 @@ def pares():
             "para": r.para, "para_end": r.para_end, "para_bairro": r.para_bairro, "b": [coord(r.lon2), coord(r.lat2)],
             "aptos": int(r.aptos), "comp": int(r.comp), "validos": int(r.validos), "lula": int(r.lula),
             "flavio": int(r.flavio), "outros": int(r.outros), "ul": r.urnas_lula, "uf_": r.urnas_flavio,
+            "aviso": bool(r.mesmo_end),  # mesmo endereço nos dois turnos: pode ser o mesmo prédio
         })
     print("pares:", len(out), "| sem nenhuma coordenada:", sum(p["a"][0] is None and p["b"][0] is None for p in out),
           "| só uma:", sum((p["a"][0] is None) != (p["b"][0] is None) for p in out))
