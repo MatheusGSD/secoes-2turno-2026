@@ -40,7 +40,7 @@ def main():
     t(0.045, 0.915, "2º TURNO · 25/10/2026 · LOCAIS DE VOTAÇÃO E VOTO NO 1º TURNO", size=7, color=TINTA2, family=DADOS)
     t(0.045, 0.80, "Onde Lula foi melhor, mais urnas mudam de prédio?", size=17, weight="bold")
     t(0.045, 0.735, "No país, um pouco: as mudanças estão mais em estados onde Lula vence. Comparando cada local "
-                    "com o próprio estado\nou município, a linha fica plana: as mudanças não se concentram nos locais mais lulistas.",
+                    "com o próprio estado\nou município, a linha varia pouco, dentro da margem de erro: as mudanças não se concentram nos locais mais lulistas.",
       size=8.2, color=TINTA2, linespacing=1.4, va="top")
 
     largura, x = 0.27, 0.075
