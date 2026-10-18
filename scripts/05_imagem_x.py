@@ -62,7 +62,7 @@ def main():
     mediana = int(round(m["dist_mediana_km"] * 1000 / 5) * 5)
     itens = [
         (f"Metade muda até {mediana} m", "do prédio onde a urna funcionou no 1º turno"),
-        ("Voto igual, em média, ao das vizinhas", "comparado com urnas do mesmo município e zona"),
+        ("Voto sem diferença detectável das vizinhas", "comparado com urnas do mesmo município e zona"),
         ("Efeito estimado: menos de 300 votos", "com base em 2022; a diferença no 1º turno foi de 2,24 milhões"),
     ]
     y = 0.405

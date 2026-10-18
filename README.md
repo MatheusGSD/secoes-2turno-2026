@@ -21,14 +21,15 @@ Dados do TSE de 17/10/2026, às 6h28. O TSE ainda pode mudar locais até o dia 2
   painel tem 47 e só 19 urnas mudam de prédio do 1º para o 2º turno.
 - **No 1º turno, os eleitores dessas urnas votaram mais em Lula** (50,6% contra 42,8% de Flávio; no país, 45,2% contra 47,0%).
   É geografia: 48% dos eleitores dessas urnas estão no Nordeste. Comparado com o das urnas do mesmo município e da mesma zona eleitoral
-  que não mudam, o voto foi, em média, o mesmo (−0,4 ponto para Lula, intervalo de 95% de −1,1 a +0,4).
+  que não mudam, não há diferença detectável (−0,4 ponto para Lula, intervalo de 95% de −1,1 a +0,4).
 - **Em 2022, trocar de prédio não mostrou aumento de abstenção.** Nas 1.506 urnas que trocaram de prédio entre os
   turnos, a abstenção variou 0,08 ponto a menos que nas vizinhas do mesmo município e zona (intervalo de −0,23 a
   +0,08). Em outras comparações, vai de −0,19 a +0,14 ponto. É uma comparação entre urnas, não um experimento:
-  essas urnas já tinham abstenção 0,8 ponto acima das vizinhas no 1º turno.
+  essas urnas já tinham abstenção 0,8 ponto acima das vizinhas no 1º turno, e a conta supõe que, sem a mudança, a
+  abstenção teria variado do mesmo jeito nos dois grupos.
 - **O efeito estimado no resultado é próximo de zero.** Se 2026 repetir 2022, a vantagem de Flávio cairia 48 votos
-  (intervalo de −116 a +23; entre −203 e +182 nas outras comparações), diante de 2,24 milhões no 1º turno. Mesmo que
-  ninguém votasse nessas urnas, e com a abstenção igual dos dois lados, Lula perderia 36.485 votos líquidos (1,6% da
+  (intervalo de −116 a +23; entre −203 e +182 nas outras comparações), diante de 2,24 milhões no 1º turno. A conta supõe que quem deixa de votar votaria como o resto da sua urna. Num
+  cenário limite, se ninguém votasse nessas urnas, e com a abstenção igual dos dois lados, Lula perderia 36.485 votos líquidos (1,6% da
   diferença).
 
 O voto para governador não foi calculado: o arquivo nacional de votação por seção do TSE traz só presidente. Os
