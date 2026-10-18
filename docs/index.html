@@ -96,6 +96,7 @@ select { font: 600 .82rem var(--texto); color: var(--tinta); background: var(--p
 .aviso-mapa { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); background: var(--tinta); color: var(--papel); font: 600 .85rem/1.35 var(--texto); padding: .6rem .8rem; border-radius: 6px; pointer-events: none; z-index: 4; max-width: 80%; text-align: center; transition: opacity .25s; }
 .dica { position: absolute; pointer-events: none; background: var(--tinta); color: var(--papel); font-size: .78rem; line-height: 1.35; padding: .4rem .55rem; border-radius: 5px; max-width: 15rem; z-index: 3; }
 .lado { padding: 1.1rem 1.1rem 1.2rem; overflow-y: auto; max-height: 52rem; min-width: 0; font-size: .9rem; scroll-margin-top: 12px; }
+#t-mapa { scroll-margin-top: 16px; }
 .lado h3 { margin: 0 0 .2rem; font: 700 1.15rem/1.25 var(--display); font-stretch: 85%; }
 .lado h3:focus { outline: none; } .lado h3:focus-visible { outline: 2px solid var(--destaque); }
 .lado .sub { color: var(--tinta2); font-size: .82rem; margin: 0 0 .9rem; }
@@ -1006,9 +1007,10 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
   const tema = () => { lerCores(); desenhar(false); };
   matchMedia("(prefers-color-scheme: dark)").addEventListener("change", tema);
   new MutationObserver(tema).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
-  // link direto para um estado ou município: ?uf=RN ou ?uf=RN&mun=Caraúbas
+  // link direto para um estado ou município: ?uf=RN ou ?uf=RN&mun=Caraúbas; a página abre no mapa
   const q = new URLSearchParams(location.search), qUf = (q.get("uf") || "").toUpperCase();
-  if (pares.some(p => p.uf === qUf)) {
+  const linkDireto = pares.some(p => p.uf === qUf);
+  if (linkDireto) {
     ufSel = qUf; selUf.value = ufSel;
     munSel = pares.find(p => p.uf === ufSel && norm(p.mun) === norm(q.get("mun")))?.mun || "";
     preencherMun();
@@ -1016,6 +1018,7 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
   recalcular();
   new ResizeObserver(redimensionar).observe(wrap);
   mostrar(null); tabela();
+  if (linkDireto && !location.hash) document.getElementById("t-mapa").scrollIntoView({ block: "start" });
 })();
 </script>
 </body>
