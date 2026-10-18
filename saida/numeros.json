@@ -262,5 +262,13 @@
    "endereço reescrito no cadastro": 20,
    "local só renumerado": 8
   }
+ },
+ "fora_do_cadastro_2t": {
+  "urnas": 5230,
+  "aptos": 1586902,
+  "faltaram_1t": 319598,
+  "abst": 20.139743979149316,
+  "ja_fora_no_1t_urnas": 5046,
+  "ja_fora_no_1t_abst": 20.10154937952937
  }
 }

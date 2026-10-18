@@ -201,6 +201,10 @@ def main():
     tipos = m.groupby("tipo").agg(urnas=("aptos", "size"), aptos=("aptos", "sum"), c13=("c13", "sum"),
                                   c22=("c22", "sum"), validos=("validos", "sum"))
     p = pd.read_csv(SAIDA / "painel_tse.csv").drop_duplicates(["SG_UF", "CD_MUNICIPIO", "NR_ZONA", "urna"])
+    # urnas que votam no 2º turno fora do local de cadastro (critério do painel de 17/10): referência de quem faltou no 1º
+    fc = u[u.tipo.isin(["igual, fora do cadastro nos dois turnos", "saiu do local de cadastro",
+                        "trocou de local provisório"])]
+    ja_fora = fc.tipo == "igual, fora do cadastro nos dois turnos"
     n = {
         "nacional": {"lula": int(nac.c13), "flavio": int(nac.c22), "validos": int(nac.validos),
                      "comparecimento": int(nac.comparecimento), "aptos": int(nac.aptos),
@@ -235,6 +239,11 @@ def main():
         "voto_vs_vizinhas": voto_vs_vizinhas(u),
         "painel_tse": {"urnas": len(p), "nas_duas_listas": int(p.muda_de_predio_aqui.sum()),
                        "so_no_painel": p[~p.muda_de_predio_aqui].fora_daqui.value_counts().to_dict()},
+        "fora_do_cadastro_2t": {"urnas": len(fc), "aptos": int(fc.aptos.sum()),
+                                "faltaram_1t": int((fc.aptos - fc.comparecimento).sum()),
+                                "abst": 100 * (1 - fc.comparecimento.sum() / fc.aptos.sum()),
+                                "ja_fora_no_1t_urnas": int(ja_fora.sum()),
+                                "ja_fora_no_1t_abst": 100 * (1 - fc[ja_fora].comparecimento.sum() / fc[ja_fora].aptos.sum())},
     }
     print(json.dumps({k: n[k] for k in ["nacional", "mudadas", "painel_tse"]}, indent=1, ensure_ascii=False, default=float))
     print(tipos.assign(pct_lula=100 * tipos.c13 / tipos.validos).round(1).to_string())

@@ -73,6 +73,11 @@ em Praga (fora da conta, como todo o exterior).
 O voto para governador não foi calculado: o arquivo nacional de votação por seção do TSE traz só presidente. Os
 estados com 2º turno para governador (AC, AM, ES, RN, TO e DF) têm 136 urnas mudando de prédio, com 39 mil eleitores.
 
+Para quem faltou no 1º turno, a referência é o último local onde votou (em geral o de 2024), e essa comparação não foi
+feita. O local de cadastro serve de aproximação: 5.230 urnas votam no 2º turno fora dele, com 1,59 milhão de eleitores,
+dos quais 320 mil faltaram no 1º turno. Em 5.046 dessas urnas a mudança já valia no dia 4, e a abstenção nelas foi de
+20,1%, perto dos 20,8% do país (`fora_do_cadastro_2t` em `saida/numeros.json`).
+
 ## Como foi feito
 
 A urna é a seção principal; os eleitores de seção agregada votam nela. Os aptos são o eleitorado federal de cada urna em cada turno.
