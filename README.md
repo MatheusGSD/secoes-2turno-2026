@@ -123,6 +123,14 @@ feita. O local de cadastro serve de aproximação: 6.504 urnas votam no 2º turn
 dos quais 395 mil faltaram no 1º turno. Em 6.260 dessas urnas a mudança já valia no dia 4, e a abstenção nelas foi de
 20,1%, perto dos 20,8% do país (`fora_do_cadastro_2t` em `saida/numeros.json`).
 
+**A saída do local de sempre no 1º turno teve efeito pequeno na abstenção** (`13_abstencao_1t.py`). Nas 6.588 urnas
+que votaram no 1º turno de 2026 fora do local de cadastro, a abstenção foi 0,66 ponto maior que nas vizinhas do mesmo
+município e zona que votaram no local de cadastro (intervalo de 95% de 0,49 a 0,83). Em 2022, as mesmas urnas tinham a
+abstenção das vizinhas (+0,03, de −0,18 a +0,23), e a variação de 2022 para 2026 foi 0,62 ponto maior (de 0,47 a
+0,76; 5.180 urnas com a mesma seção e o mesmo local de cadastro nos dois anos). São cerca de 12 mil eleitores a menos,
+em 1,98 milhão. Como essas urnas deram 50,1% a Lula e 43,0% a Flávio, equivale a cerca de 800 votos líquidos a menos
+para Lula no 1º turno (de 600 a 1.000), 0,04% da diferença nacional. Esse efeito já está no resultado do dia 4.
+
 ## Como foi feito
 
 A urna é a seção principal; os eleitores de seção agregada votam nela. Os aptos são o eleitorado federal de cada urna em cada turno.
@@ -144,6 +152,8 @@ município, pela malha do IBGE. Os detalhes estão no cabeçalho de cada script.
 | `10_imagem_por_local.py` | Cartão 1600 × 900 com os locais na lista por faixa de voto em Lula (`saida/imagem_por_local.png`) |
 | `11_geografia.py` | Onde ficam as urnas que mudam, em 2022 e 2026, e o voto esperado pela geografia |
 | `12_renovadas.py` | Como a lista encolheu entre as versões do cadastro: urnas que iam voltar ao local de sempre e passaram a ficar no prédio do 1º turno, por estado, e a taxa de volta comparada com 2022 (rode depois de 07 e antes de 04) |
+| `13_abstencao_1t.py` | Abstenção no 1º turno nas urnas que já votaram fora do local de cadastro, comparada com as vizinhas, em 2026 e desde 2022 (`saida/abstencao_1t.json`) |
+| `14_imagem_versoes.py` | Cartão 1600 × 900 com as urnas e o efeito estimado em cada versão do cadastro (`saida/imagem_versoes.png`) |
 | `ibge.py` | Malhas e códigos de município do IBGE, usados por 02 e 06 |
 
 Para rodar do zero, baixe para `dados/` os arquivos do [portal de dados abertos do TSE](https://dadosabertos.tse.jus.br/)
