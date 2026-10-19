@@ -52,7 +52,7 @@ def main():
 
     x0 = 0.535
     t = lambda y, s, **k: fig.text(x0, y, s, family=k.pop("family", FONTE), color=k.pop("color", TINTA), **k)
-    t(0.905, "2º TURNO · 25/10/2026 · CADASTRO DO TSE DE 18/10, 20H27", size=7, color=TINTA2, family=DADOS)
+    t(0.905, "2º TURNO · 25/10/2026 · CADASTRO DO TSE DE 19/10, 11H27", size=7, color=TINTA2, family=DADOS)
     t(0.80, "Urnas que mudam de lugar", size=20, weight="bold")
     t(0.62, f"{m['urnas']:,}".replace(",", "."), size=34, weight="bold")
     fatia = f"{100 * m['validos'] / n['validos']:.1f}".replace(".", ",")
@@ -63,7 +63,7 @@ def main():
     itens = [
         (f"Metade muda até {mediana} m", "do prédio onde a urna funcionou no 1º turno"),
         ("Voto sem diferença detectável das vizinhas", "comparado com urnas do mesmo município e zona"),
-        ("Efeito estimado: menos de 300 votos", "com base em 2022; a diferença no 1º turno foi de 2,24 milhões"),
+        ("Efeito estimado: menos de 30 votos", "com base em 2022; a diferença no 1º turno foi de 2,24 milhões"),
     ]
     y = 0.405
     fig.add_artist(plt.Line2D([x0, 0.955], [y + 0.035, y + 0.035], color=TINTA, linewidth=1.2))

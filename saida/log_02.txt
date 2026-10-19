@@ -15,18 +15,18 @@ voltou ao local de cadastro                 964     299958
 2022 distância (km): {'count': 922.0, 'mean': 0.879, 'std': 3.036, 'min': 0.0, '25%': 0.143, '50%': 0.417, '75%': 0.682, '90%': 1.225, 'max': 71.726} | sem distância: 584
 2026 seções por tipo: {1: 497897, 2: 16567}
 urnas: 497897 | aptos 1º turno: 157828968 | sem par no outro turno: 0 0
-mudou de número: 983 | só renumerada: 4 | mesmo número, prédio novo: 46 | desses, troca entre locais: 0 | só nome ou só endereço: 339
-mesmo endereço nos dois turnos: 45 | retiradas (endereço reescrito): 0 0 aptos | marcadas: 45
+mudou de número: 554 | só renumerada: 4 | mesmo número, prédio novo: 46 | desses, troca entre locais: 0 | só nome ou só endereço: 363
+mesmo endereço nos dois turnos: 21 | retiradas (endereço reescrito): 0 0 aptos | marcadas: 21
 pontos fora do município, anulados: 2
 2026                                           urnas      aptos
 tipo                                                      
-igual                                    491061  155772669
-igual, fora do cadastro nos dois turnos    5811    1746555
+igual                                    491041  155766632
+igual, fora do cadastro nos dois turnos    6260    1881243
 local de sempre em outro prédio              46      14490
-saiu do local de cadastro                   202      61781
+saiu do local de cadastro                   222      67818
 trocou de local provisório                   22       7788
-voltou ao local de cadastro                 755     225685
-2026 urnas que mudam: 1025 | aptos 1º turno: 309744 | 2º turno: 309749 | agregadas: 42 | municípios: 184 | UFs: 24
-2026 distância (km): {'count': 756.0, 'mean': 1.032, 'std': 3.603, 'min': 0.004, '25%': 0.205, '50%': 0.41, '75%': 0.735, '90%': 1.556, 'max': 73.026} | sem distância: 269
-painel: 2033 seções ( 18 no exterior ) | 2014 urnas no Brasil | mesmo número de local nos dois turnos: 1078 seções
-painel x aqui: nas duas listas: 979 de 1025 | só no painel: {'mesmo local nos dois turnos no cadastro atual': 837, 'só o nome do local mudou': 162, 'só a grafia do nome mudou': 32, 'local só renumerado': 4}
+voltou ao local de cadastro                 306      90997
+2026 urnas que mudam: 596 | aptos 1º turno: 181093 | 2º turno: 181098 | agregadas: 35 | municípios: 118 | UFs: 23
+2026 distância (km): {'count': 395.0, 'mean': 1.077, 'std': 4.448, 'min': 0.004, '25%': 0.174, '50%': 0.442, '75%': 0.827, '90%': 1.508, 'max': 73.026} | sem distância: 201
+painel: 2033 seções ( 18 no exterior ) | 2014 urnas no Brasil | mesmo número de local nos dois turnos: 1527 seções
+painel x aqui: nas duas listas: 530 de 596 | só no painel: {'mesmo local nos dois turnos no cadastro atual': 1280, 'só o nome do local mudou': 168, 'só a grafia do nome mudou': 32, 'local só renumerado': 4}

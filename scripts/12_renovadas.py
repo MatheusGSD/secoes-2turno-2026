@@ -1,6 +1,6 @@
 """Como a lista encolheu entre as versões do cadastro de locais do TSE.
 
-A cada versão do cadastro (17/10, 6h28; 17/10, 23h33; 18/10, 11h27; 18/10, 20h27), urnas saíram da lista, e
+A cada versão do cadastro (17/10, 6h28; 17/10, 23h33; 18/10, 11h27; 18/10, 20h27; 19/10, 11h27), urnas saíram da lista, e
 sempre do mesmo jeito: iam voltar ao local de sempre no 2º turno e passaram a ficar no prédio provisório do 1º
 turno. Aqui juntamos as comparações de 07_versoes.py (as anteriores estão no git) para contar essas urnas por
 estado, ver se algum prédio provisório ficou dividido (parte das urnas fica, parte volta) e acompanhar a taxa de
@@ -32,7 +32,8 @@ VERSOES = [
     ("17/10, 6h28", "943ab33", None),
     ("17/10, 23h33", "fa873d1", "fa873d1:saida/versoes_17_18out.csv"),
     ("18/10, 11h27", "2272612", "2272612:saida/versoes_18out.csv"),
-    ("18/10, 20h27", None, "versoes_18out_noite.csv"),
+    ("18/10, 20h27", "5e55ef8", "5e55ef8:saida/versoes_18out_noite.csv"),
+    ("19/10, 11h27", None, "versoes_19out.csv"),
 ]
 
 

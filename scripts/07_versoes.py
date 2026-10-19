@@ -6,11 +6,13 @@ Versões, todas no histórico do git:
   saida/versoes_17_18out.csv, gerada no commit fa873d1;
 - 2272612: cadastro gerado em 18/10, 11h27 (1.733 urnas). A comparação com a anterior está em
   saida/versoes_18out.csv, gerada nesse commit;
-- atual: cadastro gerado em 18/10, 20h27 (dados/eleitorado_local_votacao_2026.zip).
+- 5e55ef8: cadastro gerado em 18/10, 20h27 (1.025 urnas). A comparação com a anterior está em
+  saida/versoes_18out_noite.csv, gerada no commit 917ba7a;
+- atual: cadastro gerado em 19/10, 11h27 (dados/eleitorado_local_votacao_2026.zip).
 Para cada urna que está em uma das duas listas, compara o local do 1º e do 2º turno nas duas versões.
 
 Uso: python -P scripts/07_versoes.py (depois de 02_mudancas.py)
-Saída: saida/versoes_18out_noite.csv
+Saída: saida/versoes_19out.csv
 """
 import io
 import subprocess
@@ -20,8 +22,8 @@ import pandas as pd
 
 RAIZ = Path(__file__).resolve().parent.parent
 SAIDA = RAIZ / "saida"
-COMMIT_ANTES, ANTES, AGORA = "2272612", "18out_11h", "18out_20h"  # sufixos: data e hora do cadastro
-SAIDA_CSV = "versoes_18out_noite.csv"
+COMMIT_ANTES, ANTES, AGORA = "5e55ef8", "18out_20h", "19out_11h"  # sufixos: data e hora do cadastro
+SAIDA_CSV = "versoes_19out.csv"
 URNA = ["SG_UF", "CD_MUNICIPIO", "NR_ZONA", "NR_SECAO"]
 LOCAIS = ["NR_LOCAL_VOTACAO", "NM_LOCAL_VOTACAO", "NR_LOCAL_VOTACAO_2", "NM_LOCAL_VOTACAO_2"]
 
