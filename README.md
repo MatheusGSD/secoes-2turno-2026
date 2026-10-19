@@ -20,12 +20,12 @@ Jardim-CE. São 1.025 urnas. A lista está em `saida/versoes_18out_noite.csv`. A
 saído da conta por endereço reescrito no cadastro agora aparecem no mesmo prédio nos dois turnos.
 
 **Atualização de 18/10, à tarde.** A versão de 18/10 de manhã (commit `01b4452`) usava o cadastro gerado em 17/10 às
-23h37 e contava 1.792 urnas. No cadastro de 18/10, 11h27, 72 delas, com 22.247 eleitores, deixaram de mudar (40 em
+23h33 e contava 1.792 urnas. No cadastro de 18/10, 11h27, 72 delas, com 22.247 eleitores, deixaram de mudar (40 em
 Bacabal-MA, 20 em Alagoas, 9 em Pernambuco e 3 em Botucatu-SP), e entraram 13 urnas em Januária-MG (zona 148). Eram
 1.733. A lista está em `saida/versoes_18out.csv`.
 
-**Atualização de 18/10, de manhã.** A primeira versão (commit `943ab33`) usava o cadastro gerado em 17/10 às 6h32 e
-contava 2.059 urnas. No cadastro de 17/10, 23h37, 267 delas, com 83.179 eleitores, deixaram de mudar: iam voltar ao
+**Atualização de 18/10, de manhã.** A primeira versão (commit `943ab33`) usava o cadastro gerado em 17/10 às 6h28 e
+contava 2.059 urnas. No cadastro de 17/10, 23h33, 267 delas, com 83.179 eleitores, deixaram de mudar: iam voltar ao
 local de sempre e passaram a ficar no prédio do 1º turno. Nenhuma urna entrou. A lista está em
 `saida/versoes_17_18out.csv`. A primeira versão também dizia que nenhuma urna muda no exterior; 9 mudam, em Colônia e
 em Praga (fora da conta, como todo o exterior).
@@ -39,8 +39,8 @@ em Praga (fora da conta, como todo o exterior).
   seções (4.863 urnas): comparava o local do 2º turno com o local *de cadastro*. Em 18/10 (7h09), passou a comparar
   com o local do 1º turno e lista 2.033 seções (2.023 urnas, 9 no exterior). A exportação é anterior aos cadastros de
   18/10, 11h27 e 20h27: 979 das 1.025 urnas daqui estão nela; as 46 que entraram com esses cadastros, não. Das 1.035
-  urnas a mais no Brasil, 837 têm, no cadastro atual, o mesmo local nos dois turnos (quase todas saíram da lista com os
-  cadastros novos). As outras 198 têm o mesmo endereço de local nos dois turnos: 162 só mudam de nome, 32 só de grafia
+  urnas a mais no Brasil, 837 têm, no cadastro atual, o mesmo local nos dois turnos (entre elas, as 813 que saíram da lista com os
+  cadastros de 11h27 e 20h27). As outras 198 têm o mesmo endereço de local nos dois turnos: 162 só mudam de nome, 32 só de grafia
   e 4 só de número. Em 33 das 162, o nome muda por completo e não dá para saber se é o mesmo prédio.
 - **Por que não 4,3 mil.** O TSE divulgou em 16/10, e a imprensa reproduziu, que 4.352 seções mudaram de local, com
   dados até 16/10. As "499.248 seções instaladas" citadas são urnas, a mesma unidade usada aqui. O TSE não informou o
@@ -49,20 +49,23 @@ em Praga (fora da conta, como todo o exterior).
 - **Quando o cadastro não bate.** Quando o local muda de número e de nome, mas o cadastro reescreveu o endereço do
   local de sempre para o do prédio provisório, a urna quase certamente continua no mesmo prédio e fica de fora. Na
   primeira versão eram 32 urnas; as 12 de Timóteo-MG passaram a aparecer no mesmo prédio nos dois turnos no cadastro de
-  17/10, 23h37, e as 20 de São Paulo, no de 18/10, 20h27, o que confirma o critério. No cadastro atual, nenhuma urna
+  17/10, 23h33, e as 20 de São Paulo, no de 18/10, 20h27, o que confirma o critério. No cadastro atual, nenhuma urna
   está nesse caso. Outras 45 têm o mesmo endereço nos dois turnos, em geral genérico ("S/N", povoado, aldeia), e
   continuam na conta com aviso no mapa.
 - **No 1º turno, os eleitores dessas urnas votaram mais em Lula** (52,3% contra 41,2% de Flávio; no país, 45,2% contra 47,0%).
   É geografia: 49% dos eleitores dessas urnas estão no Nordeste. Comparado com o das urnas do mesmo município e da mesma zona eleitoral
   que não mudam, não há diferença detectável (+0,05 ponto para Lula, intervalo de 95% de −0,9 a +1,0). Por local
   de votação (`09_por_local.py`), locais mais lulistas têm mais chance de ter urna mudando entre todos os locais do país,
-  nas três listas (painel de 17/10, painel de 18/10 e as 1.025 urnas). Comparando locais do mesmo estado ou do mesmo
-  município, a associação não aparece com as duas listas que medem a mudança do 1º para o 2º turno, em nenhuma das
-  formas de medir testadas; algumas dão negativa. Com a lista do painel de 17/10, que comparava com o local de cadastro,
+  nas três listas (painel de 17/10, painel de 18/10 e as 1.025 urnas; na do painel de 18/10, com o local de cadastro
+  como unidade, a associação é positiva mas não significativa). Comparando locais do mesmo estado ou do mesmo
+  município, a associação não aparece com as duas listas que medem a mudança do 1º para o 2º turno: com a do painel de
+  18/10 e com as 1.733 urnas da versão anterior, em nenhuma das formas de medir testadas (algumas dão negativa); com as
+  1.025 urnas atuais, nas medidas do script (votos em blocos de 10 mil e percentual de Lula, com o local de cadastro ou
+  o do 1º turno como unidade). Com a lista do painel de 17/10, que comparava com o local de cadastro,
   ela aparece dentro do estado em várias medidas, como na análise de
   [@DavidDinizK](https://x.com/DavidDinizK/status/2111616001443795222), mas não com o percentual de Lula e os votos
   válidos do local. A diferença vem da lista e da forma de medir, e a diferença entre as listas não é estatisticamente
-  significativa. As mudanças se concentram no Nordeste, como em 2022 (lá estão 47% dos eleitores das urnas que mudam
+  significativa. As mudanças se concentram no Norte e no Nordeste, como em 2022 (lá estão 47% dos eleitores das urnas que mudam
   em 2022 e 49% em 2026), e o voto em Lula nessas urnas fica perto do esperado pelos lugares onde estão (52,3%, contra
   50,9% pelo estado e 52,4% pelo município; `11_geografia.py`).
 - **Em 2022, trocar de prédio não mostrou aumento de abstenção.** Nas 1.506 urnas que trocaram de prédio entre os
@@ -76,7 +79,8 @@ em Praga (fora da conta, como todo o exterior).
   diferença).
 
 O voto para governador não foi calculado: o arquivo nacional de votação por seção do TSE traz só presidente. Os
-estados com 2º turno para governador (AC, AM, ES, RN, TO e DF) têm 125 urnas mudando de prédio, com 36 mil eleitores.
+estados com 2º turno para governador (AC, AM, ES, RN, TO e DF) têm 125 urnas mudando de prédio, com 36 mil eleitores;
+o DF não tem nenhuma.
 
 Para quem faltou no 1º turno, a referência é o último local onde votou (em geral o de 2024), e essa comparação não foi
 feita. O local de cadastro serve de aproximação: 6.035 urnas votam no 2º turno fora dele, com 1,82 milhão de eleitores,
@@ -98,7 +102,7 @@ município, pela malha do IBGE. Os detalhes estão no cabeçalho de cada script.
 | `04_exportar_web.py` | Dados da página (`docs/dados.json`) |
 | `05_imagem_x.py` | Cartão 1600 × 900 para redes sociais (`saida/imagem_x.png`) |
 | `06_contornos.py` | Contornos de estados e municípios para o mapa (`docs/contornos.json`) |
-| `07_versoes.py` | O que mudou entre a lista do cadastro de 18/10, 11h27 (commit `2272612`) e a atual (`saida/versoes_18out_noite.csv`). As comparações anteriores ficam no git: entre os cadastros de 17/10, 23h37 e 18/10, 11h27 (`saida/versoes_18out.csv`, commit `2272612`) e entre os de 17/10, 6h32 e 23h37 (`saida/versoes_17_18out.csv`, commit `fa873d1`) |
+| `07_versoes.py` | O que mudou entre a lista do cadastro de 18/10, 11h27 (commit `2272612`) e a atual (`saida/versoes_18out_noite.csv`). As comparações anteriores ficam no git: entre os cadastros de 17/10, 23h33 e 18/10, 11h27 (`saida/versoes_18out.csv`, commit `2272612`) e entre os de 17/10, 6h28 e 23h33 (`saida/versoes_17_18out.csv`, commit `fa873d1`) |
 | `08_imagem_distancia.py` | Cartão 1600 × 900 com a distância entre o prédio do 1º e o do 2º turno (`saida/imagem_distancia.png`) |
 | `09_por_local.py` | Locais de votação com urna na lista e voto no 1º turno, com as listas do painel de 17/10 e 18/10 e a daqui |
 | `10_imagem_por_local.py` | Cartão 1600 × 900 com os locais na lista por faixa de voto em Lula (`saida/imagem_por_local.png`) |
@@ -117,11 +121,11 @@ Para rodar do zero, baixe para `dados/` os arquivos do [portal de dados abertos 
   `secoes_eleitorais_alteradas_2t-pais_2026.csv`.
 - Para `09_por_local.py`: o cadastro gerado em 17/10 às 6h28, em
   `dados/anteriores/eleitorado_local_votacao_2026_gerado_17out_0932utc.zip`. O portal não guarda mais essa versão.
-- Também ficam em `dados/anteriores/` (fora do git), para conferência: os cadastros gerados em 17/10 às 23h37
+- Também ficam em `dados/anteriores/` (fora do git), para conferência: os cadastros gerados em 17/10 às 23h33
   (`eleitorado_local_votacao_2026_gerado_18out_0233utc.zip`) e em 18/10 às 11h27
   (`eleitorado_local_votacao_2026_gerado_18out_1427utc.zip`), a exportação do painel de 18/10, 7h09
   (`painel_18out_0709.csv.zip`), e as listas de urnas das versões anteriores (`urnas_mudadas_2026_17out.csv`,
-  `urnas_mudadas_2026_18out_manha.csv`, a do cadastro de 17/10, 23h37, e `urnas_mudadas_2026_18out_tarde.csv`, a do
+  `urnas_mudadas_2026_18out_manha.csv`, a do cadastro de 17/10, 23h33, e `urnas_mudadas_2026_18out_tarde.csv`, a do
   de 18/10, 11h27).
 
 As malhas do IBGE são baixadas sozinhas para `dados/ibge/` na primeira execução. Precisa de Python com pandas, numpy,
@@ -136,8 +140,8 @@ Principais saídas:
 - `saida/painel_tse.csv`: as 2.015 seções do painel de 18/10 no Brasil, com a classificação de cada uma aqui e, quando
   não contam, o motivo
 - `saida/versoes_18out_noite.csv`: as urnas da lista do cadastro de 18/10, 11h27 e da atual, com o que mudou no cadastro
-- `saida/versoes_18out.csv` e `saida/versoes_17_18out.csv`: as comparações anteriores (17/10, 23h37 × 18/10, 11h27 e
-  17/10, 6h32 × 23h37)
+- `saida/versoes_18out.csv` e `saida/versoes_17_18out.csv`: as comparações anteriores (17/10, 23h33 × 18/10, 11h27 e
+  17/10, 6h28 × 23h33)
 - `saida/impacto_2022.csv` e `saida/impacto_uf_2026.csv`: efeito medido em 2022 e resumo por estado
 - `saida/geografia.json`, `saida/geografia_regioes.csv` e `saida/geografia_ufs.csv`: as urnas que mudam por região e estado, em 2022 e 2026
 - `saida/por_local_faixas.csv`: percentual de locais na lista por faixa de voto em Lula, no país e comparado com o estado e o município

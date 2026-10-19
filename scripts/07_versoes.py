@@ -1,8 +1,8 @@
 """O que mudou entre a versão anterior e a atual da lista de urnas que mudam de prédio.
 
 Versões, todas no histórico do git:
-- 943ab33: cadastro de locais gerado em 17/10, 6h32 de Brasília (2.059 urnas);
-- 01b4452: cadastro gerado em 17/10, 23h37 (1.792 urnas). A comparação com a anterior está em
+- 943ab33: cadastro de locais gerado em 17/10, 6h28 de Brasília (2.059 urnas);
+- 01b4452: cadastro gerado em 17/10, 23h33 (1.792 urnas). A comparação com a anterior está em
   saida/versoes_17_18out.csv, gerada no commit fa873d1;
 - 2272612: cadastro gerado em 18/10, 11h27 (1.733 urnas). A comparação com a anterior está em
   saida/versoes_18out.csv, gerada nesse commit;
