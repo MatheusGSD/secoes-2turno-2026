@@ -52,18 +52,20 @@ def main():
 
     x0 = 0.535
     t = lambda y, s, **k: fig.text(x0, y, s, family=k.pop("family", FONTE), color=k.pop("color", TINTA), **k)
-    t(0.905, "2º TURNO · 25/10/2026 · CADASTRO DO TSE DE 19/10, 11H27", size=7, color=TINTA2, family=DADOS)
+    t(0.905, "2º TURNO · 25/10/2026 · CADASTRO DO TSE DE 19/10, 15H27", size=7, color=TINTA2, family=DADOS)
     t(0.80, "Urnas que mudam de lugar", size=20, weight="bold")
     t(0.62, f"{m['urnas']:,}".replace(",", "."), size=34, weight="bold")
     fatia = f"{100 * m['validos'] / n['validos']:.1f}".replace(".", ",")
     t(0.555, f"urnas funcionam no 2º turno num prédio diferente do 1º.\nElas somam {fatia}% dos votos válidos do país",
       size=8.6, color=TINTA2, linespacing=1.35, va="top")
 
-    mediana = int(round(m["dist_mediana_km"] * 1000 / 5) * 5)
+    # mediana por eleitor, a mesma da página e do cartão da distância (numeros.json tem a mediana por urna)
+    dist = json.loads((RAIZ / "docs" / "dados.json").read_text(encoding="utf-8"))["distancia"]
+    mediana = int(round(dist["mediana"] * 100) * 10)
     itens = [
-        (f"Metade muda até {mediana} m", "do prédio onde a urna funcionou no 1º turno"),
+        (f"Metade dos eleitores vota a até {mediana} m", "do prédio onde a urna funcionou no 1º turno"),
         ("Voto sem diferença detectável das vizinhas", "comparado com urnas do mesmo município e zona"),
-        ("Efeito estimado: menos de 30 votos", "com base em 2022; a diferença no 1º turno foi de 2,24 milhões"),
+        ("Efeito estimado: próximo de zero", "com base em 2022; a diferença no 1º turno foi de 2,24 milhões"),
     ]
     y = 0.405
     fig.add_artist(plt.Line2D([x0, 0.955], [y + 0.035, y + 0.035], color=TINTA, linewidth=1.2))

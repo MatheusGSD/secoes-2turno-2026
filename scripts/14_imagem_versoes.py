@@ -26,7 +26,7 @@ VOLTA, SAI = "#c4923f", "#121417"
 FONTE, DADOS = "Segoe UI", "Consolas"
 VOLTA_TIPO = "voltou ao local de cadastro"
 VERSOES = [("17/10, 6h28", "943ab33"), ("17/10, 23h33", "fa873d1"), ("18/10, 11h27", "2272612"),
-           ("18/10, 20h27", "5e55ef8"), ("19/10, 11h27", None)]
+           ("18/10, 20h27", "5e55ef8"), ("19/10, 11h27", "e8cf919"), ("19/10, 15h27", None)]
 
 
 def numeros(commit):
@@ -57,7 +57,7 @@ def main():
 
     fig = plt.figure(figsize=(8, 4.5), dpi=200, facecolor=PAPEL)
     t = lambda x, y, s, **k: fig.text(x, y, s, family=k.pop("family", FONTE), color=k.pop("color", TINTA), **k)
-    t(0.045, 0.915, "2º TURNO · 25/10/2026 · CINCO VERSÕES DO CADASTRO DO TSE, DE 17/10 A 19/10", size=7, color=TINTA2, family=DADOS)
+    t(0.045, 0.915, "2º TURNO · 25/10/2026 · SEIS VERSÕES DO CADASTRO DO TSE, DE 17/10 A 19/10", size=7, color=TINTA2, family=DADOS)
     t(0.045, 0.80, "A lista encolheu. A conclusão, não.", size=20, weight="bold")
     t(0.045, 0.735, "Urnas que mudam de prédio do 1º para o 2º turno em cada versão do cadastro e o efeito estimado no resultado,\n"
                     "com base no que aconteceu em 2022, quando 1.506 urnas trocaram de prédio entre os turnos.",
@@ -95,7 +95,7 @@ def main():
         atual = l is linhas[-1]
         bx.plot(l["ic"], [y, y], color=TINTA, lw=2.2 if atual else 1.4, solid_capstyle="butt", zorder=2)
         bx.plot([l["margem"]], [y], "o", ms=5.5 if atual else 4.5, color=TINTA, mec=PAPEL, mew=0.8, zorder=3)
-        bx.text(lim * 1.08, y, f"{sinal(l['margem'])} votos", va="center", family=DADOS, size=7.4,
+        bx.text(lim * 1.08, y, f"{sinal(l['ic'][0])} a {sinal(l['ic'][1])}", va="center", family=DADOS, size=7.4,
                 weight="bold" if atual else "normal", color=TINTA)
     bx.set_xlim(-lim, lim)
     bx.set_ylim(-0.6, len(linhas) - 0.4)
@@ -109,7 +109,7 @@ def main():
         tick.set_fontfamily(DADOS)
     t(0.6, 0.635, "VARIAÇÃO ESTIMADA NA VANTAGEM DE FLÁVIO", size=6.5, color=TINTA2, family=DADOS)
     dif = linhas[-1]["diferenca"] / 1e6
-    t(0.6, 0.1, "Votos, com intervalo de 95%. A diferença no 1º turno foi de " + f"{dif:.2f}".replace(".", ",") + " milhões.",
+    t(0.6, 0.1, "Intervalo de 95%, em votos. A diferença no 1º turno foi de " + f"{dif:.2f}".replace(".", ",") + " milhões.",
       size=6.6, color=TINTA2)
 
     fig.text(0.955, 0.03, "matheusgsd.github.io/secoes-2turno-2026", family=DADOS, size=7.4, color=TINTA, ha="right")

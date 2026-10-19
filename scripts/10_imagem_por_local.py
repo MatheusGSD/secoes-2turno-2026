@@ -37,7 +37,7 @@ def main():
 
     fig = plt.figure(figsize=(8, 4.5), dpi=200, facecolor=PAPEL)
     t = lambda x, y, s, **k: fig.text(x, y, s, family=k.pop("family", FONTE), color=k.pop("color", TINTA), **k)
-    t(0.045, 0.915, "2º TURNO · 25/10/2026 · CADASTRO DO TSE DE 19/10, 11H27 · LOCAIS DE VOTAÇÃO E VOTO NO 1º TURNO", size=7,
+    t(0.045, 0.915, "2º TURNO · 25/10/2026 · CADASTRO DO TSE DE 19/10, 15H27 · LOCAIS DE VOTAÇÃO E VOTO NO 1º TURNO", size=7,
       color=TINTA2, family=DADOS)
     t(0.045, 0.80, "Onde Lula foi melhor, mais urnas mudam de prédio?", size=17, weight="bold")
     t(0.045, 0.735, "Não. No país, só os locais onde Lula teve menos de 30% aparecem menos. Comparando cada local "
