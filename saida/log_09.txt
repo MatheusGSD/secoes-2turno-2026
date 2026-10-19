@@ -1,3 +1,5 @@
+C:\dev\secoes-2turno-2026\scripts\09_por_local.py:119: FutureWarning: Downcasting object dtype arrays on .fillna, .ffill, .bfill is deprecated and will change in a future version. Call result.infer_objects(copy=False) instead. To opt-in to the future behavior, set `pd.set_option('future.no_silent_downcasting', True)`
+  s[["painel_18out", "mudam_de_predio"]] = s[["painel_18out", "mudam_de_predio"]].fillna(False).astype(bool)
 
 local de cadastro: 94539 locais, mediana de 883 votos válidos
   painel de 17/10 (2º turno x cadastro): 1268 locais trocados (1.34%), 1,906,729 eleitores nesses locais
@@ -8,15 +10,15 @@ local de cadastro: 94539 locais, mediana de 883 votos válidos
     EF nenhum    Lula +0.0111 (0.0092)  Flávio -0.0199 (0.0071)  |  +10 p.p. de Lula: +0.036 p.p. (0.021)
     EF estado    Lula -0.0062 (0.0090)  Flávio +0.0028 (0.0090)  |  +10 p.p. de Lula: -0.053 p.p. (0.030)
     EF município Lula -0.0061 (0.0101)  Flávio +0.0035 (0.0099)  |  +10 p.p. de Lula: -0.057 p.p. (0.034)
-  urnas que mudam de prédio: 495 locais trocados (0.52%), 680,613 eleitores nesses locais
-    EF nenhum    Lula +0.0121 (0.0089)  Flávio -0.0242 (0.0066)  |  +10 p.p. de Lula: +0.045 p.p. (0.021)
-    EF estado    Lula -0.0000 (0.0085)  Flávio -0.0071 (0.0081)  |  +10 p.p. de Lula: -0.010 p.p. (0.030)
-    EF município Lula -0.0025 (0.0098)  Flávio -0.0026 (0.0093)  |  +10 p.p. de Lula: -0.028 p.p. (0.027)
+  urnas que mudam de prédio: 288 locais trocados (0.30%), 418,415 eleitores nesses locais
+    EF nenhum    Lula +0.0136 (0.0068)  Flávio -0.0167 (0.0053)  |  +10 p.p. de Lula: +0.040 p.p. (0.013)
+    EF estado    Lula -0.0010 (0.0067)  Flávio -0.0036 (0.0062)  |  +10 p.p. de Lula: +0.016 p.p. (0.026)
+    EF município Lula -0.0046 (0.0072)  Flávio +0.0012 (0.0055)  |  +10 p.p. de Lula: +0.006 p.p. (0.020)
 
   % de locais na lista, por faixa de voto em Lula (urnas que mudam de prédio):
-    país      menos de 30%: 0.39% (16724)  30 a 45%: 0.42% (25735)  45 a 60%: 0.52% (18772)  60 a 75%: 0.71% (17502)  75% ou mais: 0.63% (15806)
-    estado    −10 ou menos: 0.45% (14315)  −10 a −5: 0.43% (12597)  −5 a 0: 0.53% (14665)  0 a +5: 0.52% (13510)  +5 a +10: 0.60% (11604)  +10 ou mais: 0.57% (27848)
-    município −10 ou menos: 0.52% (5399)  −10 a −5: 0.51% (11073)  −5 a 0: 0.56% (26870)  0 a +5: 0.49% (24160)  +5 a +10: 0.53% (12536)  +10 ou mais: 0.52% (14318)
+    país      menos de 30%: 0.12% (16724)  30 a 45%: 0.26% (25735)  45 a 60%: 0.36% (18772)  60 a 75%: 0.46% (17502)  75% ou mais: 0.34% (15806)
+    estado    −10 ou menos: 0.27% (14315)  −10 a −5: 0.29% (12597)  −5 a 0: 0.22% (14665)  0 a +5: 0.31% (13510)  +5 a +10: 0.29% (11604)  +10 ou mais: 0.38% (27848)
+    município −10 ou menos: 0.31% (5399)  −10 a −5: 0.25% (11073)  −5 a 0: 0.32% (26870)  0 a +5: 0.26% (24160)  +5 a +10: 0.34% (12536)  +10 ou mais: 0.35% (14318)
 
 local do 1º turno: 94087 locais, mediana de 892 votos válidos
   painel de 17/10 (2º turno x cadastro): 1279 locais trocados (1.36%), 2,253,086 eleitores nesses locais
@@ -27,9 +29,9 @@ local do 1º turno: 94087 locais, mediana de 892 votos válidos
     EF nenhum    Lula +0.0279 (0.0117)  Flávio -0.0176 (0.0087)  |  +10 p.p. de Lula: +0.049 p.p. (0.019)
     EF estado    Lula +0.0125 (0.0099)  Flávio +0.0063 (0.0088)  |  +10 p.p. de Lula: -0.041 p.p. (0.028)
     EF município Lula +0.0164 (0.0112)  Flávio +0.0132 (0.0085)  |  +10 p.p. de Lula: -0.060 p.p. (0.030)
-  urnas que mudam de prédio: 492 locais trocados (0.52%), 812,990 eleitores nesses locais
-    EF nenhum    Lula +0.0259 (0.0111)  Flávio -0.0198 (0.0083)  |  +10 p.p. de Lula: +0.057 p.p. (0.019)
-    EF estado    Lula +0.0137 (0.0091)  Flávio +0.0002 (0.0081)  |  +10 p.p. de Lula: -0.003 p.p. (0.028)
-    EF município Lula +0.0138 (0.0107)  Flávio +0.0109 (0.0079)  |  +10 p.p. de Lula: -0.035 p.p. (0.025)
+  urnas que mudam de prédio: 283 locais trocados (0.30%), 461,946 eleitores nesses locais
+    EF nenhum    Lula +0.0192 (0.0073)  Flávio -0.0156 (0.0053)  |  +10 p.p. de Lula: +0.041 p.p. (0.012)
+    EF estado    Lula +0.0067 (0.0065)  Flávio -0.0032 (0.0061)  |  +10 p.p. de Lula: +0.017 p.p. (0.025)
+    EF município Lula +0.0053 (0.0075)  Flávio +0.0030 (0.0053)  |  +10 p.p. de Lula: -0.001 p.p. (0.018)
 
 painel de 17/10: 4864 seções, 4692 no mesmo local nos dois turnos

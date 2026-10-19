@@ -110,7 +110,7 @@ def distancia():
     mediana = mediana_ponderada(d.dist_km, d.aptos)
     na_mediana = rotulos[np.searchsorted(limites, mediana, side="right") - 1]
     return {
-        "mediana": round(mediana, 3),
+        "mediana": round(mediana, 4),  # 4 casas: com 3, 414,6 m vira 0,415 e é arredondado de novo para 420 m
         "media": round(float((d.dist_km * d.aptos).sum() / d.aptos.sum()), 3),
         "menos_1km": round(100 * d[d.dist_km < 1].aptos.sum() / d.aptos.sum(), 1),
         "de_5km": round(100 * d[d.dist_km >= 5].aptos.sum() / d.aptos.sum(), 1),
