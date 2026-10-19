@@ -1,0 +1,289 @@
+{
+ "versoes": [
+  {
+   "cadastro": "17/10, 6h28",
+   "urnas": 2059,
+   "voltam": 1845,
+   "taxa_volta": 28.0
+  },
+  {
+   "cadastro": "17/10, 23h33",
+   "urnas": 1792,
+   "voltam": 1575,
+   "taxa_volta": 23.9,
+   "sairam": 267,
+   "entraram": 0
+  },
+  {
+   "cadastro": "18/10, 11h27",
+   "urnas": 1733,
+   "voltam": 1503,
+   "taxa_volta": 22.8,
+   "sairam": 72,
+   "entraram": 13
+  },
+  {
+   "cadastro": "18/10, 20h27",
+   "urnas": 1025,
+   "voltam": 755,
+   "taxa_volta": 11.5,
+   "sairam": 741,
+   "entraram": 33
+  }
+ ],
+ "renovadas": 1080,
+ "aptos_renovadas": 315806,
+ "entraram": 46,
+ "ufs_com_renovacao": 16,
+ "municipios": 171,
+ "zonas": 178,
+ "predios_divididos": 0,
+ "voltam_em_zona_com_renovacao": 1,
+ "fora_1t": 6588,
+ "taxa_volta_2022": 15.1,
+ "voltam_2022": 964,
+ "fora_1t_2022": 6397,
+ "outro_provisorio": 10,
+ "voto_renovadas": {
+  "urnas": 1080,
+  "pct_lula": 49.2,
+  "pct_flavio": 44.2,
+  "lula_esperado_pelo_municipio": 49.7
+ },
+ "voto_ainda_voltam": {
+  "urnas": 755,
+  "pct_lula": 53.3,
+  "pct_flavio": 40.3,
+  "lula_esperado_pelo_municipio": 53.0
+ },
+ "ufs": [
+  {
+   "uf": "PR",
+   "renovadas": 155,
+   "ainda_voltam": 93,
+   "outro_provisorio": 10,
+   "voltavam": 258,
+   "por_versao": {
+    "17/10, 23h33": 17,
+    "18/10, 11h27": 0,
+    "18/10, 20h27": 138
+   }
+  },
+  {
+   "uf": "PE",
+   "renovadas": 116,
+   "ainda_voltam": 82,
+   "outro_provisorio": 0,
+   "voltavam": 198,
+   "por_versao": {
+    "17/10, 23h33": 53,
+    "18/10, 11h27": 9,
+    "18/10, 20h27": 54
+   }
+  },
+  {
+   "uf": "MA",
+   "renovadas": 176,
+   "ainda_voltam": 3,
+   "outro_provisorio": 0,
+   "voltavam": 179,
+   "por_versao": {
+    "17/10, 23h33": 12,
+    "18/10, 11h27": 40,
+    "18/10, 20h27": 124
+   }
+  },
+  {
+   "uf": "SP",
+   "renovadas": 139,
+   "ainda_voltam": 24,
+   "outro_provisorio": 0,
+   "voltavam": 163,
+   "por_versao": {
+    "17/10, 23h33": 98,
+    "18/10, 11h27": 3,
+    "18/10, 20h27": 38
+   }
+  },
+  {
+   "uf": "MG",
+   "renovadas": 95,
+   "ainda_voltam": 63,
+   "outro_provisorio": 0,
+   "voltavam": 158,
+   "por_versao": {
+    "17/10, 23h33": 2,
+    "18/10, 11h27": 0,
+    "18/10, 20h27": 93
+   }
+  },
+  {
+   "uf": "PI",
+   "renovadas": 127,
+   "ainda_voltam": 7,
+   "outro_provisorio": 0,
+   "voltavam": 134,
+   "por_versao": {
+    "17/10, 23h33": 29,
+    "18/10, 11h27": 0,
+    "18/10, 20h27": 98
+   }
+  },
+  {
+   "uf": "BA",
+   "renovadas": 20,
+   "ainda_voltam": 107,
+   "outro_provisorio": 0,
+   "voltavam": 127,
+   "por_versao": {
+    "17/10, 23h33": 20,
+    "18/10, 11h27": 0,
+    "18/10, 20h27": 0
+   }
+  },
+  {
+   "uf": "AP",
+   "renovadas": 79,
+   "ainda_voltam": 33,
+   "outro_provisorio": 0,
+   "voltavam": 112,
+   "por_versao": {
+    "17/10, 23h33": 0,
+    "18/10, 11h27": 0,
+    "18/10, 20h27": 79
+   }
+  },
+  {
+   "uf": "AL",
+   "renovadas": 54,
+   "ainda_voltam": 47,
+   "outro_provisorio": 0,
+   "voltavam": 101,
+   "por_versao": {
+    "17/10, 23h33": 27,
+    "18/10, 11h27": 20,
+    "18/10, 20h27": 7
+   }
+  },
+  {
+   "uf": "PB",
+   "renovadas": 16,
+   "ainda_voltam": 80,
+   "outro_provisorio": 0,
+   "voltavam": 96,
+   "por_versao": {
+    "17/10, 23h33": 0,
+    "18/10, 11h27": 0,
+    "18/10, 20h27": 16
+   }
+  },
+  {
+   "uf": "GO",
+   "renovadas": 29,
+   "ainda_voltam": 44,
+   "outro_provisorio": 0,
+   "voltavam": 73,
+   "por_versao": {
+    "17/10, 23h33": 7,
+    "18/10, 11h27": 0,
+    "18/10, 20h27": 22
+   }
+  },
+  {
+   "uf": "SE",
+   "renovadas": 2,
+   "ainda_voltam": 68,
+   "outro_provisorio": 0,
+   "voltavam": 70,
+   "por_versao": {
+    "17/10, 23h33": 2,
+    "18/10, 11h27": 0,
+    "18/10, 20h27": 0
+   }
+  },
+  {
+   "uf": "RR",
+   "renovadas": 60,
+   "ainda_voltam": 0,
+   "outro_provisorio": 0,
+   "voltavam": 60,
+   "por_versao": {
+    "17/10, 23h33": 0,
+    "18/10, 11h27": 0,
+    "18/10, 20h27": 60
+   }
+  },
+  {
+   "uf": "AM",
+   "renovadas": 0,
+   "ainda_voltam": 48,
+   "outro_provisorio": 0,
+   "voltavam": 48,
+   "por_versao": {
+    "17/10, 23h33": 0,
+    "18/10, 11h27": 0,
+    "18/10, 20h27": 0
+   }
+  },
+  {
+   "uf": "TO",
+   "renovadas": 5,
+   "ainda_voltam": 32,
+   "outro_provisorio": 0,
+   "voltavam": 37,
+   "por_versao": {
+    "17/10, 23h33": 0,
+    "18/10, 11h27": 0,
+    "18/10, 20h27": 5
+   }
+  },
+  {
+   "uf": "AC",
+   "renovadas": 6,
+   "ainda_voltam": 7,
+   "outro_provisorio": 0,
+   "voltavam": 13,
+   "por_versao": {
+    "17/10, 23h33": 0,
+    "18/10, 11h27": 0,
+    "18/10, 20h27": 6
+   }
+  },
+  {
+   "uf": "RN",
+   "renovadas": 0,
+   "ainda_voltam": 9,
+   "outro_provisorio": 0,
+   "voltavam": 9,
+   "por_versao": {
+    "17/10, 23h33": 0,
+    "18/10, 11h27": 0,
+    "18/10, 20h27": 0
+   }
+  },
+  {
+   "uf": "RS",
+   "renovadas": 1,
+   "ainda_voltam": 7,
+   "outro_provisorio": 0,
+   "voltavam": 8,
+   "por_versao": {
+    "17/10, 23h33": 0,
+    "18/10, 11h27": 0,
+    "18/10, 20h27": 1
+   }
+  },
+  {
+   "uf": "MS",
+   "renovadas": 0,
+   "ainda_voltam": 1,
+   "outro_provisorio": 0,
+   "voltavam": 1,
+   "por_versao": {
+    "17/10, 23h33": 0,
+    "18/10, 11h27": 0,
+    "18/10, 20h27": 0
+   }
+  }
+ ]
+}

@@ -42,6 +42,14 @@ em Praga (fora da conta, como todo o exterior).
   urnas a mais no Brasil, 837 têm, no cadastro atual, o mesmo local nos dois turnos (entre elas, as 813 que saíram da lista com os
   cadastros de 11h27 e 20h27). As outras 198 têm o mesmo endereço de local nos dois turnos: 162 só mudam de nome, 32 só de grafia
   e 4 só de número. Em 33 das 162, o nome muda por completo e não dá para saber se é o mesmo prédio.
+- **Como a lista encolheu.** A cada versão do cadastro que baixamos, a lista diminuiu (2.059, 1.792, 1.733, 1.025), sempre do
+  mesmo jeito: 1.080 urnas que iam voltar ao local de sempre passaram a ficar no prédio provisório do 1º turno, e
+  nenhuma fez o caminho contrário. Não foi um estado só (16 estados; o Maranhão, o maior, tem 16%), mas a proporção
+  varia muito: em RR, MA e PI, quase todas as que iam voltar passaram a ficar no prédio do 1º turno; em SE, BA e AM,
+  quase nenhuma. Nenhum prédio provisório ficou dividido. Das 6.588 urnas fora do local de sempre no 1º turno, 28%
+  voltariam a ele pelo primeiro cadastro e 11,5% pelo atual; em 2022, pelo cadastro final, 15,1% (a comparação justa é
+  entre cadastros finais). O voto em Lula nas 1.080 (49,2%) e nas 755 que continuam voltando (53,3%) fica perto do
+  esperado pelos municípios (49,7% e 53,0%). O cadastro não diz o motivo nem quem decidiu (`12_renovadas.py`).
 - **Por que não 4,3 mil.** O TSE divulgou em 16/10, e a imprensa reproduziu, que 4.352 seções mudaram de local, com
   dados até 16/10. As "499.248 seções instaladas" citadas são urnas, a mesma unidade usada aqui. O TSE não informou o
   critério. A distribuição por estado não fecha com os dados seguintes: o TSE cita 431 seções no Rio de Janeiro, onde o
@@ -107,6 +115,7 @@ município, pela malha do IBGE. Os detalhes estão no cabeçalho de cada script.
 | `09_por_local.py` | Locais de votação com urna na lista e voto no 1º turno, com as listas do painel de 17/10 e 18/10 e a daqui |
 | `10_imagem_por_local.py` | Cartão 1600 × 900 com os locais na lista por faixa de voto em Lula (`saida/imagem_por_local.png`) |
 | `11_geografia.py` | Onde ficam as urnas que mudam, em 2022 e 2026, e o voto esperado pela geografia |
+| `12_renovadas.py` | Como a lista encolheu entre as versões do cadastro: urnas que iam voltar ao local de sempre e passaram a ficar no prédio do 1º turno, por estado, e a taxa de volta comparada com 2022 (rode depois de 07 e antes de 04) |
 | `ibge.py` | Malhas e códigos de município do IBGE, usados por 02 e 06 |
 
 Para rodar do zero, baixe para `dados/` os arquivos do [portal de dados abertos do TSE](https://dadosabertos.tse.jus.br/)
@@ -146,6 +155,8 @@ Principais saídas:
 - `saida/geografia.json`, `saida/geografia_regioes.csv` e `saida/geografia_ufs.csv`: as urnas que mudam por região e estado, em 2022 e 2026
 - `saida/por_local_faixas.csv`: percentual de locais na lista por faixa de voto em Lula, no país e comparado com o estado e o município
 - `saida/por_local.csv`: regressão por local de votação (chance de o local estar na lista e voto no 1º turno), com as três listas
+- `saida/renovadas_uf.csv` e `saida/renovadas.json`: as urnas que saíram da lista a cada versão do cadastro, por estado, e a
+  taxa de volta ao local de sempre em cada versão e em 2022
 - `saida/revisar_distancias.csv`: mudanças de mais de 10 km, para conferência
 - `saida/numeros.json`: todos os números da página
 

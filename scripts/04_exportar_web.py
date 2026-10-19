@@ -9,8 +9,9 @@
 - distancia: faixas de distância entre o prédio do 1º e o do 2º turno e a mediana por estado.
 - por_local, por_local_faixas: a regressão por local de votação e o percentual de locais na lista por faixa de
   voto em Lula, de 09_por_local.py (sem eles, os gráficos ficam vazios).
+- renovadas: as urnas que saíram da lista a cada versão do cadastro, por estado, de 12_renovadas.py.
 
-Uso: python -P scripts/04_exportar_web.py   (depois de 02 e 03, e de 09 para o gráfico por local)
+Uso: python -P scripts/04_exportar_web.py   (depois de 02 e 03, de 09 para o gráfico por local e de 12 para o das versões)
 """
 import json
 from pathlib import Path
@@ -144,6 +145,12 @@ def por_local_faixas():
              "pct": round(r.pct, 3), "ic": [round(r.ic_baixo, 3), round(r.ic_alto, 3)]} for r in d.itertuples()]
 
 
+def renovadas():
+    """Urnas que saíram da lista a cada versão do cadastro, por estado, de 12_renovadas.py."""
+    p = SAIDA / "renovadas.json"
+    return json.loads(p.read_text(encoding="utf-8")) if p.exists() else None
+
+
 def main():
     delta, rotulos = fundo()
     uf = pd.read_csv(SAIDA / "impacto_uf_2026.csv")
@@ -154,7 +161,7 @@ def main():
         "ufs": uf[["SG_UF", "urnas", "aptos", "c13", "c22", "validos", "urnas_lula", "urnas_flavio", "c13_uf",
                    "c22_uf", "validos_uf", "gov_2t"]].to_dict("records"),
         "numeros": numeros, "distancia": distancia(), "por_local": por_local(),
-        "por_local_faixas": por_local_faixas(),
+        "por_local_faixas": por_local_faixas(), "renovadas": renovadas(),
     }
     txt = json.dumps(dados, ensure_ascii=False, separators=(",", ":"), default=lambda x: None)
     (WEB / "dados.json").write_text(txt, encoding="utf-8")

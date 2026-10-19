@@ -236,7 +236,7 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
   </div>
   <aside class="atualizacao" aria-labelledby="t-atualizacao">
     <h2 id="t-atualizacao">Atualizado em 19/10: agora são 1.025 urnas</h2>
-    <p>O TSE publicou outro cadastro de locais, gerado em 18/10 às 20h27. Nele, 741 urnas, com 210 mil eleitores, deixaram de mudar: iam voltar ao local de sempre no 2º turno e agora ficam no mesmo prédio em que votaram no dia 4. As que mais saíram estão no Paraná (138), no Maranhão (124), no Piauí (98), em Minas Gerais (93), no Amapá (79, todas em Macapá) e em Roraima (60, todas as do estado). Entraram 33 urnas, com 10 mil eleitores, que votavam no local de sempre nos dois turnos e agora saem dele no 2º: 14 no Maranhão (12 em Santa Inês), 8 em Confresa (MT), 6 em Montes Claros (MG), 4 no Piauí e 1 em Jardim (CE). Confresa é o caso que o TSE citou como exemplo de escola atingida pela chuva, e até aqui não aparecia em nenhuma versão do cadastro. Eram 1.733 urnas; agora são 1.025. Todos os números, o mapa e as contas desta página foram refeitos com o cadastro novo.</p>
+    <p>O TSE publicou outro cadastro de locais, gerado em 18/10 às 20h27. Nele, 741 urnas, com 210 mil eleitores, deixaram de mudar: iam voltar ao local de sempre no 2º turno e agora ficam no mesmo prédio em que votaram no dia 4. As que mais saíram estão no Paraná (138), no Maranhão (124), no Piauí (98), em Minas Gerais (93), no Amapá (79, todas em Macapá) e em Roraima (60, todas as do estado). Entraram 33 urnas, com 10 mil eleitores, que votavam no local de sempre nos dois turnos e agora saem dele no 2º: 14 no Maranhão (12 em Santa Inês), 8 em Confresa (MT), 6 em Montes Claros (MG), 4 no Piauí e 1 em Jardim (CE). Confresa é o caso que o TSE citou como exemplo de escola atingida pela chuva, e até aqui não aparecia em nenhuma versão do cadastro. Eram 1.733 urnas; agora são 1.025 (<a href="#t-versoes">veja como a lista encolheu</a>). Todos os números, o mapa e as contas desta página foram refeitos com o cadastro novo.</p>
     <p>Com isso, as 20 urnas de São Paulo que tínhamos tirado da conta por terem o endereço reescrito no cadastro (<a href="#t-cadastro">veja abaixo</a>) aparecem no mesmo prédio nos dois turnos, como as de Timóteo (MG) antes delas. A lista das urnas que entraram e saíram está no <a href="https://github.com/MatheusGSD/secoes-2turno-2026/blob/main/saida/versoes_18out_noite.csv" target="_blank" rel="noopener">repositório</a>.</p>
     <p>O TSE ainda pode mudar locais até o dia 25. Se publicar outra versão do cadastro, a página será refeita e a mudança, registrada aqui.</p>
     <p><strong>Atualização anterior, de 18/10 à tarde: de 1.792 para 1.733 urnas.</strong> No cadastro gerado em 18/10 às 11h27, 72 urnas, com 22 mil eleitores, deixaram de mudar: 40 em Bacabal (MA), 20 em Alagoas, 9 em Pernambuco e 3 em Botucatu (SP). Entraram 13 urnas, todas em Januária (MG), que continuam na lista. A comparação está em <a href="https://github.com/MatheusGSD/secoes-2turno-2026/blob/main/saida/versoes_18out.csv" target="_blank" rel="noopener">saida/versoes_18out.csv</a>.</p>
@@ -389,6 +389,27 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
       <span><i class="seg-predio"></i>Local de sempre em outro prédio (46)</span>
     </div>
   </div>
+
+  <h3 id="t-versoes">Como a lista encolheu</h3>
+  <p>Baixamos quatro versões do cadastro de locais (o arquivo do TSE com o local de votação de cada seção) publicadas entre 17/10 e 18/10, e a lista desta página diminuiu a cada uma: 2.059, 1.792, 1.733 e 1.025 urnas. Os números desta seção valem para o cadastro de 18/10, 20h27; a lista ainda pode mudar até o dia 25.</p>
+  <p>As saídas foram sempre do mesmo tipo. Ao todo, 1.080 urnas que iam voltar ao local de sempre (o local de cadastro da seção) no 2º turno passaram a ficar no prédio provisório em que funcionaram no 1º. Para quem vota nelas, é como se a mudança do dia 4 valesse também para o dia 25. Nenhuma urna passou do prédio provisório de volta ao local de sempre. Entraram na lista 46 urnas que antes votavam no local de sempre nos dois turnos e agora saem dele no 2º.</p>
+  <p class="arraste">Arraste a tabela para o lado para ver todas as colunas.</p>
+  <div class="tab-wrap"><table id="tab-versoes"></table></div>
+  <p>Não foi um estado só. As 1.080 urnas estão em 16 estados, 171 municípios e 178 zonas eleitorais; o Maranhão, o que tem mais, reúne 16% delas. O que muda de um estado para outro é a proporção. Em Roraima (60 de 60), no Maranhão (176 de 179) e no Piauí (127 de 134), quase todas as urnas que iam voltar passaram a ficar no prédio do 1º turno; em Sergipe (2 de 70), na Bahia (20 de 127) e no Amazonas (0 de 48), quase nenhuma. Nenhum prédio provisório ficou com parte das urnas mantida nele e parte voltando ao local de sempre.</p>
+  <figure>
+    <div class="leg-barra" style="margin:0 0 .5rem"><span><i style="background:var(--d4)"></i>passaram a ficar no prédio do 1º turno</span><span><i style="background:var(--linha)"></i>continuam voltando ao local de sempre</span><span><i style="background:var(--tinta3)"></i>foram para outro prédio provisório</span></div>
+    <svg class="graf" id="g-versoes" role="img" aria-label="Por estado, urnas que voltavam ao local de sempre no 2º turno no primeiro cadastro, divididas entre as que passaram a ficar no prédio do 1º turno, as que continuam voltando e as que foram para outro prédio provisório. A tabela equivalente está abaixo."></svg>
+    <figcaption>Urnas que voltavam ao local de sempre no 2º turno pelo primeiro cadastro (17/10, 6h28), por estado, divididas pelo que diz o cadastro de 18/10, 20h27. Das 1.845, 1.080 passaram a ficar no prédio do 1º turno, 755 continuam voltando e 10, todas no Paraná, foram para outro prédio provisório.</figcaption>
+  </figure>
+  <details>
+    <summary>Urnas por estado e por versão do cadastro</summary>
+    <p class="arraste">Arraste a tabela para o lado para ver todas as colunas.</p>
+    <div class="tab-wrap"><table id="tab-renovadas"></table></div>
+  </details>
+  <p>Com isso, a volta ao local de sempre diminuiu. Das 6.588 urnas que funcionaram fora do local de sempre no 1º turno, 28% voltariam a ele no 2º pelo primeiro cadastro e 11,5% pelo atual (usamos o mesmo total, o do cadastro atual, em todas as versões: o local do 1º turno não muda entre elas). Em 2022, pelo cadastro final, foram 15,1% de 6.397. A comparação justa é entre cadastros finais, e não temos as versões intermediárias de 2022 para saber se lá a lista também encolheu ao longo da semana.</p>
+  <p>No 1º turno, as 1.080 urnas que saíram da lista deram 49,2% dos votos válidos a Lula e 44,2% a Flávio; as 755 que continuam voltando, 53,3% e 40,3%. Nos dois grupos, o voto em Lula fica perto do esperado pelos municípios onde as urnas estão (49,7% e 53,0%), como no resto da lista (<a href="#t-geografia">veja a geografia</a>).</p>
+  <p>Os dados não dizem por que isso aconteceu nem quem decidiu. A troca por prédio inteiro, e quase sempre por zona (só uma das 755 urnas que continuam voltando está numa zona onde houve saídas), é compatível com decisões administrativas locais e também com a correção de um registro do 2º turno que tinha começado com o local de sempre. O cadastro não distingue as duas coisas.</p>
+  <p>Para o eleitor, quem votou em 4/10 numa dessas 1.080 urnas vota no mesmo prédio em 25/10. Quem faltou ao 1º turno e pretende ir ao local de sempre deve conferir antes: a seção pode continuar no prédio provisório. Consulte o local no e-Título ou no site do TSE.</p>
 
   <h3>Seção ou urna?</h3>
   <p>Em geral, cada seção tem a sua urna. A exceção é a seção agregada, cujos eleitores votam na urna de outra seção, a principal. O país tem 517.179 seções e 499.248 urnas, contando as 1.351 do exterior. As "499.248 seções instaladas" citadas pelo TSE são, portanto, urnas, e por isso comparamos tudo em urnas. As 1.025 urnas que mudam também recebem os eleitores de 42 seções agregadas. No exterior, 9 urnas mudam de prédio: em Colônia (Alemanha), do Congress-Centrum Nord da Koelnmesse para o Gürzenich, e em Praga, do Art Nouveau Palace Hotel para a chancelaria da Embaixada do Brasil. Elas recebem 18 seções, com 6.275 eleitores, e ficam fora da conta, como todo o exterior. A primeira versão desta página dizia, por engano, que nenhuma urna mudava no exterior.</p>
@@ -1163,8 +1184,53 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
     .observe(document.querySelector(".dist-mapas"));
   }
 
+  // ---------- como a lista encolheu entre as versões do cadastro (de 12_renovadas.py) ----------
+  const RV = D.renovadas;
+  function gVersoes() {
+    if (!RV) return; // dados.json antigo, de cache
+    const svg = d3.select("#g-versoes"); svg.selectAll("*").remove();
+    const Wg = Math.max(300, svg.node().parentNode.clientWidth), esq = 34, dir = 104, lh = 22, bh = 14;
+    const ufs = RV.ufs.slice().sort((a, b) => b.voltavam - a.voltavam || b.renovadas - a.renovadas);
+    const max = Math.max(...ufs.map(u => u.voltavam)), Hg = ufs.length * lh + 22;
+    svg.attr("viewBox", `0 0 ${Wg} ${Hg}`).attr("height", Hg);
+    const xs = d3.scaleLinear([0, max], [esq, Wg - dir]);
+    const ax = svg.append("g").attr("class", "eixo");
+    for (const v of xs.ticks(Wg < 520 ? 3 : 6)) {
+      ax.append("line").attr("class", "grade").attr("x1", xs(v)).attr("x2", xs(v)).attr("y1", 0).attr("y2", Hg - 18);
+      ax.append("text").attr("x", xs(v)).attr("y", Hg - 4).attr("text-anchor", "middle").text(fmt.format(v));
+    }
+    ufs.forEach((u, i) => {
+      const y = i * lh + 4;
+      svg.append("text").attr("x", 0).attr("y", y + bh / 2 + 4).style("font-family", "var(--dados)").style("font-size", "11.5px").text(u.uf);
+      // partes da barra, com 2px de papel entre elas
+      let x0 = 0;
+      const partes = [[u.renovadas, "var(--d4)"], [u.ainda_voltam, "var(--linha)"], [u.outro_provisorio, "var(--tinta3)"]].filter(([n]) => n);
+      partes.forEach(([n, cor], j) => {
+        const xa = xs(x0) + (j ? 1 : 0), xb = xs(x0 + n) - (j < partes.length - 1 ? 1 : 0);
+        svg.append("rect").attr("x", xa).attr("y", y).attr("width", Math.max(2, xb - xa)).attr("height", bh).attr("rx", 2).style("fill", cor);
+        x0 += n;
+      });
+      svg.append("text").attr("class", "muted").attr("x", xs(u.voltavam) + 6).attr("y", y + bh / 2 + 4)
+        .text(`${fmt.format(u.renovadas)} de ${fmt.format(u.voltavam)}` + (u.voltavam ? ` (${pct(100 * u.renovadas / u.voltavam, 0)}%)` : ""));
+      const alvo = svg.append("rect").attr("class", "alvo").attr("x", 0).attr("y", y - (lh - bh) / 2).attr("width", Wg).attr("height", lh);
+      const pv = Object.entries(u.por_versao).filter(([, n]) => n).map(([c, n]) => `${fmt.format(n)} no cadastro de ${c}`).join("<br>");
+      dicaG(alvo.node(), `<b>${UFNOME[u.uf]}</b><br>${fmt.format(u.voltavam)} urnas voltavam ao local de sempre no primeiro cadastro<br>${fmt.format(u.renovadas)} passaram a ficar no prédio do 1º turno${pv ? ":<br>" + pv : ""}<br>${fmt.format(u.ainda_voltam)} continuam voltando${u.outro_provisorio ? `<br>${fmt.format(u.outro_provisorio)} foram para outro prédio provisório` : ""}`);
+    });
+  }
+  if (RV) {
+    document.getElementById("tab-versoes").innerHTML = `<thead><tr><th>Cadastro do TSE</th><th>Urnas que mudam de prédio</th><th>Saíram da lista</th><th>Entraram</th><th>Voltam ao local de sempre</th></tr></thead><tbody>` +
+      RV.versoes.map((v, i) => `<tr${i === RV.versoes.length - 1 ? ' class="nos"' : ""}><td class="txt">${v.cadastro}</td><td>${fmt.format(v.urnas)}</td><td>${v.sairam == null ? "–" : fmt.format(v.sairam)}</td><td>${v.entraram == null ? "–" : fmt.format(v.entraram)}</td><td>${fmt.format(v.voltam)} (${pct(v.taxa_volta)}%)</td></tr>`).join("") +
+      `<tr class="antiga"><td class="txt">2022, cadastro final</td><td>–</td><td>–</td><td>–</td><td>${fmt.format(RV.voltam_2022)} (${pct(RV.taxa_volta_2022)}%)</td></tr></tbody>` +
+      `<caption style="caption-side:bottom;text-align:left;font-size:.8rem;color:var(--tinta2);padding-top:.4rem">Percentual: urnas que voltam ao local de sempre no 2º turno, entre as ${fmt.format(RV.fora_1t)} que funcionaram fora dele no 1º (em 2022, ${fmt.format(RV.fora_1t_2022)}).</caption>`;
+    const cols = Object.keys(RV.ufs[0].por_versao);
+    const soma = k => fmt.format(RV.ufs.reduce((s, u) => s + u[k], 0));
+    document.getElementById("tab-renovadas").innerHTML = `<thead><tr><th>Estado</th><th>Voltavam no primeiro cadastro</th>${cols.map(c => `<th>Saíram em ${c}</th>`).join("")}<th>Passaram a ficar no prédio do 1º turno</th><th>Continuam voltando</th><th>Outro prédio provisório</th></tr></thead><tbody>` +
+      RV.ufs.map(u => `<tr><td class="uf">${UFNOME[u.uf]}</td><td>${fmt.format(u.voltavam)}</td>${cols.map(c => `<td>${fmt.format(u.por_versao[c])}</td>`).join("")}<td>${fmt.format(u.renovadas)}</td><td>${fmt.format(u.ainda_voltam)}</td><td>${fmt.format(u.outro_provisorio)}</td></tr>`).join("") +
+      `<tr class="nos"><td class="uf">Brasil</td><td>${soma("voltavam")}</td>${cols.map(c => `<td>${fmt.format(RV.ufs.reduce((s, u) => s + u.por_versao[c], 0))}</td>`).join("")}<td>${fmt.format(RV.renovadas)}</td><td>${soma("ainda_voltam")}</td><td>${soma("outro_provisorio")}</td></tr></tbody>`;
+  }
+
   let larguraGraf = 0;
-  new ResizeObserver(() => { const w = document.getElementById("g-2022").parentNode.clientWidth; if (w !== larguraGraf) { larguraGraf = w; g2022(); gMargem(); gFaixas(); gLocal(); } })
+  new ResizeObserver(() => { const w = document.getElementById("g-2022").parentNode.clientWidth; if (w !== larguraGraf) { larguraGraf = w; g2022(); gMargem(); gFaixas(); gLocal(); gVersoes(); } })
     .observe(document.getElementById("g-2022").parentNode);
 
   // ---------- início ----------
