@@ -12,6 +12,12 @@ versão em versoes.py (com o commit atual como o da anterior) e roda os scripts 
 mão em docs/index.html e no README, não faz commit e não publica: isso continua sendo feito depois, conferindo os
 números de saida/numeros.json e o resumo de 07 (saida/log_07.txt).
 
+Robustez (depois de 20/10, 15h27, quando o cadastro trouxe 15 seções repetidas e 07_versoes.py quebrou no meio):
+- antes de aplicar, a versão nova é conferida (colunas, os dois turnos, número de linhas); se não passa, nada muda;
+- se um script falha, tudo é desfeito: zip em uso, versoes.py, saida/ e docs/ voltam ao que eram, e a versão nova
+  volta para dados/novos/. No --automatico ela fica marcada em dados/novos/falhou.txt e não é tentada de novo a cada
+  20 minutos; depois de corrigir o script, aplica-se com --aplicar.
+
 --automatico junta os dois, para o Agendador de Tarefas do Windows (tarefa "Cadastro TSE 2o turno", a cada 20 minutos
 até 25/10): confere, aplica se saida/ e docs/ estão sem mudanças pendentes e avisa por notificação do Windows. Se há
 mudanças pendentes (uma atualização ainda sem texto ou sem commit), só baixa e avisa. O registro fica em
@@ -19,10 +25,12 @@ dados/novos/automatico.log.
 
 Uso: python -P scripts/00_atualizar.py --verificar   (sai com código 10 se há versão nova esperando)
      python -P scripts/00_atualizar.py --aplicar
+     python -P scripts/00_atualizar.py --rodar     (só os scripts, sem trocar o cadastro: depois de corrigir um deles)
      pythonw -P scripts/00_atualizar.py --automatico
 """
 import contextlib
 import os
+import shutil
 import subprocess
 import sys
 import time
@@ -36,6 +44,7 @@ from xml.sax.saxutils import escape
 RAIZ = Path(__file__).resolve().parent.parent
 DADOS = RAIZ / "dados"
 NOVOS, ANTERIORES = DADOS / "novos", DADOS / "anteriores"
+FALHOU = NOVOS / "falhou.txt"  # versão que falhou no --automatico: não é tentada de novo sozinha
 ATUAL = DADOS / "eleitorado_local_votacao_2026.zip"
 URL = "https://cdn.tse.jus.br/estatistica/sead/odsele/eleitorado_locais_votacao/eleitorado_local_votacao_2026.zip"
 REGISTRO = RAIZ / "scripts" / "versoes.py"
@@ -107,23 +116,30 @@ def pendencias():
                           text=True, check=True).stdout
 
 
-def aplicar():
-    sujo = pendencias()
-    if sujo:
-        sys.exit("saida/ ou docs/ têm mudanças sem commit: o commit atual precisa ser o da versão em uso.\n" + sujo)
-    atual, novas = pendentes()
-    if not novas:
-        sys.exit(f"nenhuma versão mais nova que a em uso ({rotulo(atual)}) em dados/novos/")
-    g, nova = novas[-1]
-    utc = atual + timedelta(hours=3)
-    os.replace(ATUAL, ANTERIORES / f"eleitorado_local_votacao_2026_gerado_{utc:%d}{MESES[utc.month - 1]}_{utc:%H%M}utc.zip")
-    for gi, a in novas[:-1]:  # versões intermediárias: guardadas, sem uso
-        u = gi + timedelta(hours=3)
-        os.replace(a, ANTERIORES / f"eleitorado_local_votacao_2026_gerado_{u:%d}{MESES[u.month - 1]}_{u:%H%M}utc.zip")
-    os.replace(nova, ATUAL)
-    registrar(g)
-    print(f"cadastro de {rotulo(atual)} -> {rotulo(g)}" + (f" ({len(novas) - 1} intermediária(s) guardada(s))" if novas[:-1] else ""))
+def conferir(arquivo):
+    """Antes de aplicar: o cadastro novo tem as colunas de sempre, os dois turnos e quase o mesmo número de linhas."""
+    def ler(a):
+        with zipfile.ZipFile(a) as z, z.open("eleitorado_local_votacao_2026_BRASIL.csv") as f:
+            cab = f.readline().decode("latin-1").strip().replace('"', "").split(";")
+            turnos, n = set(), 0
+            for linha in f:
+                turnos.add(linha.split(b";", 6)[5].strip(b'"'))
+                n += 1
+        return cab, turnos, n
+    cab, turnos, n = ler(arquivo)
+    cab0, _, n0 = ler(ATUAL)
+    problemas = []
+    if missing := [c for c in cab0 if c not in cab]:
+        problemas.append(f"colunas que sumiram: {missing}")
+    if turnos != {b"1", b"2"}:
+        problemas.append(f"turnos: {sorted(t.decode() for t in turnos)}")
+    if abs(n - n0) > .02 * n0:
+        problemas.append(f"{n} linhas, contra {n0} na versão em uso")
+    return problemas
 
+
+def rodar():
+    """Roda os scripts na ordem; para no primeiro que falhar."""
     amb = dict(os.environ, PYTHONIOENCODING="utf-8")
     for n in ORDEM:
         script = next((RAIZ / "scripts").glob(f"{n}_*.py"))
@@ -135,6 +151,51 @@ def aplicar():
         if n in COM_LOG:
             (RAIZ / "saida" / f"log_{n}.txt").write_text(r.stdout, encoding="utf-8")
     print((RAIZ / "saida" / "log_07.txt").read_text(encoding="utf-8"))
+
+
+def aplicar():
+    """Põe no lugar a versão mais nova e roda os scripts. Se um script falha, desfaz tudo: o zip em uso, versoes.py,
+    saida/ e docs/ voltam a ser os da versão anterior, e a nova volta para dados/novos/."""
+    sujo = pendencias()
+    if sujo:
+        sys.exit("saida/ ou docs/ têm mudanças sem commit: o commit atual precisa ser o da versão em uso.\n" + sujo)
+    atual, novas = pendentes()
+    if not novas:
+        sys.exit(f"nenhuma versão mais nova que a em uso ({rotulo(atual)}) em dados/novos/")
+    g, nova = novas[-1]
+    if problemas := conferir(nova):
+        sys.exit(f"o cadastro de {rotulo(g)} não passou na conferência, e nada foi aplicado: " + "; ".join(problemas))
+    movidos, registro = [], REGISTRO.read_text(encoding="utf-8")
+    copia = NOVOS / "antes_de_aplicar"  # tabelas completas (fora do git) da versão em uso, para desfazer
+    copia.mkdir(exist_ok=True)
+    for p in (RAIZ / "saida").glob("*.csv.gz"):
+        shutil.copy2(p, copia / p.name)
+
+    def mover(a, b):
+        os.replace(a, b)
+        movidos.append((a, b))
+    try:
+        utc = atual + timedelta(hours=3)
+        mover(ATUAL, ANTERIORES / f"eleitorado_local_votacao_2026_gerado_{utc:%d}{MESES[utc.month - 1]}_{utc:%H%M}utc.zip")
+        for gi, a in novas[:-1]:  # versões intermediárias: guardadas, sem uso
+            u = gi + timedelta(hours=3)
+            mover(a, ANTERIORES / f"eleitorado_local_votacao_2026_gerado_{u:%d}{MESES[u.month - 1]}_{u:%H%M}utc.zip")
+        mover(nova, ATUAL)
+        registrar(g)
+        print(f"cadastro de {rotulo(atual)} -> {rotulo(g)}" + (f" ({len(novas) - 1} intermediária(s) guardada(s))" if novas[:-1] else ""))
+        rodar()
+    except BaseException:
+        for a, b in reversed(movidos):
+            os.replace(b, a)
+        REGISTRO.write_text(registro, encoding="utf-8")
+        for p in copia.glob("*.csv.gz"):
+            shutil.copy2(p, RAIZ / "saida" / p.name)
+        subprocess.run(["git", "checkout", "--", "saida", "docs"], cwd=RAIZ, check=True)
+        subprocess.run(["git", "clean", "-fdq", "--", "saida", "docs"], cwd=RAIZ, check=True)  # o que os scripts criaram
+        print(f"desfeito: de volta ao cadastro de {rotulo(atual)}; o de {rotulo(g)} continua em dados/novos/")
+        raise
+    shutil.rmtree(copia)
+    FALHOU.unlink(missing_ok=True)
 
 
 def avisar(titulo, texto):
@@ -173,6 +234,9 @@ def automatico():
                     avisado.write_text(rotulo(g), encoding="utf-8")
                 print(f"versão nova não aplicada: branch {ramo}")
                 return
+            if FALHOU.exists() and FALHOU.read_text(encoding="utf-8") == rotulo(g):
+                print(f"versão de {rotulo(g)} já falhou uma vez: só com --aplicar, à mão")
+                return
             if pendencias():
                 if not avisado.exists() or avisado.read_text(encoding="utf-8") != rotulo(g):
                     avisar("Cadastro do TSE: versão nova", f"Gerada em {rotulo(g)} e guardada em dados/novos/. "
@@ -180,13 +244,20 @@ def automatico():
                     avisado.write_text(rotulo(g), encoding="utf-8")
                 print("versão nova não aplicada: mudanças sem commit em saida/ ou docs/")
                 return
-            aplicar()
+            try:
+                aplicar()
+            except (Exception, SystemExit):
+                FALHOU.write_text(rotulo(g), encoding="utf-8")
+                raise
+            avisos = [l for l in (RAIZ / "saida" / "log_02.txt").read_text(encoding="utf-8").splitlines() if "AVISO" in l]
             avisar("Cadastro do TSE: versão nova aplicada", f"Gerada em {rotulo(g)}. Scripts rodados; falta o texto "
-                   "da página e do README. Resumo em saida/log_07.txt.")
+                   "da página e do README. Resumo em saida/log_07.txt." + (f" Atenção: {len(avisos)} aviso(s) em "
+                   "saida/log_02.txt." if avisos else ""))
             avisado.write_text(rotulo(g), encoding="utf-8")
         except (Exception, SystemExit) as e:
             traceback.print_exc()
-            avisar("Cadastro do TSE: a conferência falhou", f"{type(e).__name__}: {e}"[:200])
+            avisar("Cadastro do TSE: a atualização falhou", (f"{e}".strip().splitlines() or [type(e).__name__])[0][:150]
+                   + " Nada foi mudado; detalhes em dados/novos/automatico.log.")
 
 
 if __name__ == "__main__":
@@ -194,6 +265,8 @@ if __name__ == "__main__":
         automatico()
     elif "--aplicar" in sys.argv:
         aplicar()
+    elif "--rodar" in sys.argv:
+        rodar()
     elif "--verificar" in sys.argv:
         sys.exit(verificar())
     else:

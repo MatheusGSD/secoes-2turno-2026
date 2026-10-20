@@ -42,6 +42,7 @@ Saídas: saida/urnas_2026.csv.gz e saida/urnas_2022.csv.gz (todas as urnas, com 
 """
 import sys
 import zipfile
+from datetime import datetime, timedelta
 from pathlib import Path
 
 import numpy as np
@@ -66,6 +67,7 @@ COLS = ["NR_TURNO", "SG_UF", "CD_MUNICIPIO", "NM_MUNICIPIO", "NR_ZONA", "NR_SECA
 SECAO = ["SG_UF", "CD_MUNICIPIO", "NR_ZONA", "NR_SECAO"]
 URNA = ["SG_UF", "CD_MUNICIPIO", "NR_ZONA", "NR_SECAO"]
 FOLGA_GRAUS = 0.01  # ~1 km além do limite do município
+MESES = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"]
 
 
 def ler(ano):
@@ -81,7 +83,60 @@ def ler(ano):
     sem = (d.lat == -1) | (d.lon == -1) | (d.lat == 0) | (d.lon == 0) | d.lat.isna() | d.lon.isna()
     d.loc[sem, ["lat", "lon"]] = np.nan
     print(ano, "seções por tipo:", d[d.NR_TURNO == 1].CD_TIPO_SECAO_AGREGADA.value_counts().sort_index().to_dict())
-    return d[d.CD_TIPO_SECAO_AGREGADA != 3]  # distribuída de ofício: sem urna
+    return uma_por_secao(d[d.CD_TIPO_SECAO_AGREGADA != 3], ano)  # distribuída de ofício: sem urna
+
+
+def anterior_2026():
+    """O zip da versão anterior do cadastro, em dados/anteriores/ (nome em UTC, como o 00_atualizar.py guarda)."""
+    from versoes import VERSOES
+    if len(VERSOES) < 2:
+        return None
+    dia, hora = VERSOES[-2][0].split(", ")
+    h, m = (int(x) for x in hora.split("h"))
+    g = datetime(2026, int(dia.split("/")[1]), int(dia.split("/")[0]), h, m) + timedelta(hours=3)
+    p = RAIZ / f"dados/anteriores/eleitorado_local_votacao_2026_gerado_{g.day:02d}{MESES[g.month - 1]}_{g:%H%M}utc.zip"
+    return p if p.exists() else None
+
+
+def uma_por_secao(d, ano):
+    """Uma linha por seção e turno.
+
+    O cadastro de 20/10, 15h27 trouxe 15 seções duas vezes no 2º turno, cada vez num local (o TSE parecia estar no
+    meio de uma mudança). Para não deixar um registro pela metade mexer na lista, fica o local que a seção tinha no
+    mesmo turno na versão anterior do cadastro; se não houver, o local do 1º turno; se não, a primeira linha.
+    As repetidas vão para saida/duplicadas_<ano>.csv.
+    """
+    chave = ["NR_TURNO"] + SECAO
+    rep = d.duplicated(chave, keep=False)
+    if not rep.any():
+        return d
+    r = d[rep].copy()
+    ant = anterior_2026() if ano == 2026 else None
+    if ant is not None:
+        with zipfile.ZipFile(ant) as z, z.open(ARQ[ano][1]) as f:
+            a = pd.read_csv(f, sep=";", encoding="latin1", dtype=str, usecols=chave + ["NR_LOCAL_VOTACAO"])
+        for c in ["NR_TURNO", "CD_MUNICIPIO", "NR_ZONA", "NR_SECAO", "NR_LOCAL_VOTACAO"]:
+            a[c] = pd.to_numeric(a[c])
+        a = a.drop_duplicates(chave, keep=False)
+        r = r.merge(a.rename(columns={"NR_LOCAL_VOTACAO": "local_anterior"}), on=chave, how="left")
+    else:
+        r["local_anterior"] = np.nan
+    t1 = d[(d.NR_TURNO == 1) & ~rep].set_index(SECAO).NR_LOCAL_VOTACAO
+    r["local_1t"] = r.set_index(SECAO).index.map(t1)
+    r["prioridade"] = np.select([r.NR_LOCAL_VOTACAO == r.local_anterior, r.NR_LOCAL_VOTACAO == r.local_1t],
+                                [0, 1], 2)
+    r["fica"] = False
+    r.loc[r.sort_values("prioridade", kind="stable").drop_duplicates(chave).index, "fica"] = True
+    (r.sort_values(chave + ["fica"], ascending=[True] * len(chave) + [False])
+     [chave + ["NR_LOCAL_VOTACAO", "NM_LOCAL_VOTACAO", "local_anterior", "local_1t", "fica"]]
+     .to_csv(SAIDA / f"duplicadas_{ano}.csv", index=False))
+    fica = r[r.fica]
+    print(f"AVISO: {ano}: {fica.shape[0]} seções com mais de uma linha no mesmo turno",
+          fica.groupby(["NR_TURNO", "SG_UF"]).size().to_dict(),
+          "| ficou o local da versão anterior:", int((fica.prioridade == 0).sum()),
+          "| o do 1º turno:", int((fica.prioridade == 1).sum()), "| a primeira linha:", int((fica.prioridade == 2).sum()),
+          "| cadastro anterior:", ant.name if ant is not None else "não achado")
+    return pd.concat([d[~rep], fica[d.columns]], ignore_index=True)
 
 
 def km(la1, lo1, la2, lo2):
