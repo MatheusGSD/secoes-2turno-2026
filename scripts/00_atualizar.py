@@ -31,6 +31,7 @@ import urllib.request
 import zipfile
 from datetime import datetime, timedelta
 from pathlib import Path
+from xml.sax.saxutils import escape
 
 RAIZ = Path(__file__).resolve().parent.parent
 DADOS = RAIZ / "dados"
@@ -137,13 +138,14 @@ def aplicar():
 
 
 def avisar(titulo, texto):
-    """Notificação do Windows, pelo PowerShell (o pythonw não tem console)."""
-    q = lambda s: s.replace("'", "''")
+    """Notificação do Windows, pelo PowerShell (o pythonw não tem console). É do tipo lembrete: fica na tela até ser
+    fechada, em vez de sumir em poucos segundos (o aviso de 20/10, 11h42, passou despercebido)."""
+    xml = (f"<toast scenario='reminder'><visual><binding template='ToastGeneric'><text>{escape(titulo)}</text>"
+           f"<text>{escape(texto)}</text></binding></visual>"
+           "<actions><action activationType='system' arguments='dismiss' content=''/></actions></toast>")
     ps = ("[Windows.UI.Notifications.ToastNotificationManager, Windows.UI.Notifications, ContentType = WindowsRuntime] > $null;"
-          "$x = [Windows.UI.Notifications.ToastNotificationManager]::GetTemplateContent("
-          "[Windows.UI.Notifications.ToastTemplateType]::ToastText02);"
-          f"$x.GetElementsByTagName('text')[0].AppendChild($x.CreateTextNode('{q(titulo)}')) > $null;"
-          f"$x.GetElementsByTagName('text')[1].AppendChild($x.CreateTextNode('{q(texto)}')) > $null;"
+          "[Windows.Data.Xml.Dom.XmlDocument, Windows.Data.Xml.Dom.XmlDocument, ContentType = WindowsRuntime] > $null;"
+          "$x = [Windows.Data.Xml.Dom.XmlDocument]::new(); $x.LoadXml('" + xml.replace("'", "''") + "');"
           "[Windows.UI.Notifications.ToastNotificationManager]::CreateToastNotifier("
           "'{1AC14E77-02E7-4E5D-B744-2EB1AE5198B7}\\WindowsPowerShell\\v1.0\\powershell.exe')"
           ".Show([Windows.UI.Notifications.ToastNotification]::new($x))")

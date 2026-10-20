@@ -5,27 +5,28 @@
 {'cadastro': '19/10, 11h27', 'urnas': 596, 'voltam': 306, 'taxa_volta': 4.6, 'sairam': 449, 'entraram': 20}
 {'cadastro': '19/10, 15h27', 'urnas': 475, 'voltam': 111, 'taxa_volta': 1.7, 'sairam': 195, 'entraram': 74}
 {'cadastro': '20/10, 6h27', 'urnas': 469, 'voltam': 54, 'taxa_volta': 0.8, 'sairam': 60, 'entraram': 54}
-renovadas: 1784 urnas, 527351 aptos | UFs: 17 | municípios: 279 | zonas: 295 | prédios divididos: 0 | ainda voltam em zona com renovação: 1
-foram para outro prédio provisório: 10 | voto no 1º turno: {'urnas': 1784, 'pct_lula': np.float64(50.9), 'pct_flavio': np.float64(42.6), 'lula_esperado_pelo_municipio': np.float64(51.1)} {'urnas': 54, 'pct_lula': np.float64(53.1), 'pct_flavio': np.float64(41.2), 'lula_esperado_pelo_municipio': np.float64(52.9)}
+{'cadastro': '20/10, 11h27', 'urnas': 470, 'voltam': 49, 'taxa_volta': 0.7, 'sairam': 5, 'entraram': 6}
+renovadas: 1789 urnas, 528820 aptos | UFs: 17 | municípios: 281 | zonas: 297 | prédios divididos: 0 | ainda voltam em zona com renovação: 1
+foram para outro prédio provisório: 10 | voto no 1º turno: {'urnas': 1789, 'pct_lula': np.float64(50.9), 'pct_flavio': np.float64(42.6), 'lula_esperado_pelo_municipio': np.float64(51.0)} {'urnas': 49, 'pct_lula': np.float64(53.7), 'pct_flavio': np.float64(40.6), 'lula_esperado_pelo_municipio': np.float64(53.2)}
 fora do local de sempre no 1º turno: 6592 | 2022: 964 de 6397 voltaram, 15.1 %
-       17/10, 23h33  18/10, 11h27  18/10, 20h27  19/10, 11h27  19/10, 15h27  20/10, 6h27  renovadas  ainda_voltam  outro_provisorio  voltavam_1o_cadastro
-SG_UF                                                                                                                                                    
-PR               17             0           138            20            42           25        242             6                10                   258
-PE               53             9            54            79             3            0        198             0                 0                   198
-MA               12            40           124             0             0            0        176             3                 0                   179
-SP               98             3            38             0            24            0        163             0                 0                   163
-MG                2             0            93             6            38            6        145            13                 0                   158
-PI               29             0            98             0             0            0        127             7                 0                   134
-BA               20             0             0           107             0            0        127             0                 0                   127
-AP                0             0            79             0             0           28        107             5                 0                   112
-AL               27            20             7            47             0            0        101             0                 0                   101
-PB                0             0            16            80             0            0         96             0                 0                    96
-GO                7             0            22            16            27            0         72             1                 0                    73
-SE                2             0             0            54            14            0         70             0                 0                    70
-RR                0             0            60             0             0            0         60             0                 0                    60
-AM                0             0             0             2            45            1         48             0                 0                    48
-TO                0             0             5            31             1            0         37             0                 0                    37
-AC                0             0             6             7             0            0         13             0                 0                    13
-RN                0             0             0             0             0            0          0             9                 0                     9
-RS                0             0             1             0             1            0          2             6                 0                     8
-MS                0             0             0             0             0            0          0             1                 0                     1
+       17/10, 23h33  18/10, 11h27  18/10, 20h27  19/10, 11h27  19/10, 15h27  20/10, 6h27  20/10, 11h27  renovadas  ainda_voltam  outro_provisorio  voltavam_1o_cadastro
+SG_UF                                                                                                                                                                  
+PR               17             0           138            20            42           25             0        242             6                10                   258
+PE               53             9            54            79             3            0             0        198             0                 0                   198
+MA               12            40           124             0             0            0             0        176             3                 0                   179
+SP               98             3            38             0            24            0             0        163             0                 0                   163
+MG                2             0            93             6            38            6             0        145            13                 0                   158
+PI               29             0            98             0             0            0             0        127             7                 0                   134
+BA               20             0             0           107             0            0             0        127             0                 0                   127
+AP                0             0            79             0             0           28             5        112             0                 0                   112
+AL               27            20             7            47             0            0             0        101             0                 0                   101
+PB                0             0            16            80             0            0             0         96             0                 0                    96
+GO                7             0            22            16            27            0             0         72             1                 0                    73
+SE                2             0             0            54            14            0             0         70             0                 0                    70
+RR                0             0            60             0             0            0             0         60             0                 0                    60
+AM                0             0             0             2            45            1             0         48             0                 0                    48
+TO                0             0             5            31             1            0             0         37             0                 0                    37
+AC                0             0             6             7             0            0             0         13             0                 0                    13
+RN                0             0             0             0             0            0             0          0             9                 0                     9
+RS                0             0             1             0             1            0             0          2             6                 0                     8
+MS                0             0             0             0             0            0             0          0             1                 0                     1
