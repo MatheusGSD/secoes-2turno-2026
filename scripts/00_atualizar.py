@@ -12,13 +12,21 @@ versão em versoes.py (com o commit atual como o da anterior) e roda os scripts 
 mão em docs/index.html e no README, não faz commit e não publica: isso continua sendo feito depois, conferindo os
 números de saida/numeros.json e o resumo de 07 (saida/log_07.txt).
 
+--automatico junta os dois, para o Agendador de Tarefas do Windows (tarefa "Cadastro TSE 2o turno", a cada 20 minutos
+até 25/10): confere, aplica se saida/ e docs/ estão sem mudanças pendentes e avisa por notificação do Windows. Se há
+mudanças pendentes (uma atualização ainda sem texto ou sem commit), só baixa e avisa. O registro fica em
+dados/novos/automatico.log.
+
 Uso: python -P scripts/00_atualizar.py --verificar   (sai com código 10 se há versão nova esperando)
      python -P scripts/00_atualizar.py --aplicar
+     pythonw -P scripts/00_atualizar.py --automatico
 """
+import contextlib
 import os
 import subprocess
 import sys
 import time
+import traceback
 import urllib.request
 import zipfile
 from datetime import datetime, timedelta
@@ -65,10 +73,14 @@ def verificar():
         modificado = r.headers["Last-Modified"]
     carimbo = datetime.strptime(modificado, "%a, %d %b %Y %H:%M:%S GMT").strftime("%Y%m%d_%H%M%S")
     destino = NOVOS / f"cdn_{carimbo}utc.zip"
-    if not destino.exists():
+    baixados = NOVOS / "baixados.txt"  # o zip sai de dados/novos/ quando é aplicado; o carimbo fica aqui
+    vistos = set(baixados.read_text(encoding="utf-8").split()) if baixados.exists() else set()
+    if carimbo not in vistos and not destino.exists():
         parcial = destino.with_suffix(".parcial")
         urllib.request.urlretrieve(f"{URL}?nc={int(time.time())}", parcial)
         os.replace(parcial, destino)
+        with open(baixados, "a", encoding="utf-8") as f:
+            f.write(carimbo + "\n")
         print(f"baixado: {destino.name} (gerado em {rotulo(geracao(destino))})")
     atual, novas = pendentes()
     print(f"{datetime.now():%d/%m %H:%M} | CDN: {modificado} | em uso: {rotulo(atual)} | novas:",
@@ -89,9 +101,13 @@ def registrar(g):
     REGISTRO.write_text("\n".join(linhas) + t[fim:], encoding="utf-8")
 
 
-def aplicar():
-    sujo = subprocess.run(["git", "status", "--porcelain", "--", "saida", "docs"], cwd=RAIZ, capture_output=True,
+def pendencias():
+    return subprocess.run(["git", "status", "--porcelain", "--", "saida", "docs"], cwd=RAIZ, capture_output=True,
                           text=True, check=True).stdout
+
+
+def aplicar():
+    sujo = pendencias()
     if sujo:
         sys.exit("saida/ ou docs/ têm mudanças sem commit: o commit atual precisa ser o da versão em uso.\n" + sujo)
     atual, novas = pendentes()
@@ -120,8 +136,53 @@ def aplicar():
     print((RAIZ / "saida" / "log_07.txt").read_text(encoding="utf-8"))
 
 
+def avisar(titulo, texto):
+    """Notificação do Windows, pelo PowerShell (o pythonw não tem console)."""
+    q = lambda s: s.replace("'", "''")
+    ps = ("[Windows.UI.Notifications.ToastNotificationManager, Windows.UI.Notifications, ContentType = WindowsRuntime] > $null;"
+          "$x = [Windows.UI.Notifications.ToastNotificationManager]::GetTemplateContent("
+          "[Windows.UI.Notifications.ToastTemplateType]::ToastText02);"
+          f"$x.GetElementsByTagName('text')[0].AppendChild($x.CreateTextNode('{q(titulo)}')) > $null;"
+          f"$x.GetElementsByTagName('text')[1].AppendChild($x.CreateTextNode('{q(texto)}')) > $null;"
+          "[Windows.UI.Notifications.ToastNotificationManager]::CreateToastNotifier("
+          "'{1AC14E77-02E7-4E5D-B744-2EB1AE5198B7}\\WindowsPowerShell\\v1.0\\powershell.exe')"
+          ".Show([Windows.UI.Notifications.ToastNotification]::new($x))")
+    subprocess.run(["powershell", "-NoProfile", "-NonInteractive", "-Command", ps], capture_output=True,
+                   creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+
+
+def automatico():
+    NOVOS.mkdir(exist_ok=True)
+    avisado = NOVOS / "ultimo_aviso.txt"  # avisa uma vez por versão, não a cada 20 minutos
+    with open(NOVOS / "automatico.log", "a", encoding="utf-8") as log, contextlib.redirect_stdout(log):
+        try:
+            try:
+                if verificar() != NOVA:
+                    return
+            except OSError as e:  # rede ou CDN fora do ar: só registra, sem notificação a cada 20 minutos
+                print(f"{datetime.now():%d/%m %H:%M} | conferência falhou: {e}")
+                return
+            g = pendentes()[1][-1][0]
+            if pendencias():
+                if not avisado.exists() or avisado.read_text(encoding="utf-8") != rotulo(g):
+                    avisar("Cadastro do TSE: versão nova", f"Gerada em {rotulo(g)} e guardada em dados/novos/. "
+                           "Não aplicada: saida/ ou docs/ têm mudanças sem commit.")
+                    avisado.write_text(rotulo(g), encoding="utf-8")
+                print("versão nova não aplicada: mudanças sem commit em saida/ ou docs/")
+                return
+            aplicar()
+            avisar("Cadastro do TSE: versão nova aplicada", f"Gerada em {rotulo(g)}. Scripts rodados; falta o texto "
+                   "da página e do README. Resumo em saida/log_07.txt.")
+            avisado.write_text(rotulo(g), encoding="utf-8")
+        except (Exception, SystemExit) as e:
+            traceback.print_exc()
+            avisar("Cadastro do TSE: a conferência falhou", f"{type(e).__name__}: {e}"[:200])
+
+
 if __name__ == "__main__":
-    if "--aplicar" in sys.argv:
+    if "--automatico" in sys.argv:
+        automatico()
+    elif "--aplicar" in sys.argv:
         aplicar()
     elif "--verificar" in sys.argv:
         sys.exit(verificar())
