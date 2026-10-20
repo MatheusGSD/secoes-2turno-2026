@@ -40,8 +40,8 @@ URL = "https://cdn.tse.jus.br/estatistica/sead/odsele/eleitorado_locais_votacao/
 REGISTRO = RAIZ / "scripts" / "versoes.py"
 MESES = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"]
 # ordem de 19/10: 09 antes de 04 (04 exporta por_local a partir dos CSVs de 09); 12 depois de 07
-ORDEM = ["02", "03", "07", "12", "09", "11", "13", "04", "06", "05", "08", "10", "14", "15"]
-COM_LOG = {"02", "03", "04", "07", "09", "11", "12", "13"}
+ORDEM = ["02", "03", "07", "12", "16", "09", "11", "13", "04", "06", "05", "08", "10", "14", "15", "17"]
+COM_LOG = {"02", "03", "04", "07", "09", "11", "12", "13", "16"}
 NOVA = 10
 
 

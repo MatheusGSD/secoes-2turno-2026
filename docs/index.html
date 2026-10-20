@@ -39,6 +39,21 @@ body { background: var(--papel); color: var(--tinta); font: 16px/1.6 var(--texto
   padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 .col { max-width: 44rem; margin: 0 auto; }
 .larga { max-width: 82rem; margin: 0 auto; }
+.evo-ctrl { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem; margin: 0 0 .7rem; }
+.evo-ctrl button { border: 1px solid var(--linha); background: var(--painel); color: var(--tinta2); font: 500 .74rem var(--dados);
+  padding: .4rem .45rem; border-radius: 4px; cursor: pointer; min-height: 32px; }
+.evo-ctrl button[aria-pressed="true"] { background: var(--tinta); color: var(--papel); border-color: var(--tinta); }
+.evo-ctrl .evo-play { font: 600 .8rem var(--texto); color: var(--tinta); padding: .4rem .65rem; }
+.evo-ctrl .evo-perdida { font: .7rem var(--dados); color: var(--tinta3); border: 1px dashed var(--tinta3); border-radius: 4px; padding: .35rem .4rem; }
+.evo-corpo { display: flex; flex-wrap: wrap; gap: .4rem 1.4rem; align-items: center; }
+.evo-corpo > svg { flex: 1 1 20rem; max-width: 28rem; }
+.evo-lado { flex: 1 1 13rem; }
+.evo-num { font: 800 3.4rem/1 var(--display); font-stretch: 75%; font-variant-numeric: tabular-nums; }
+.evo-lado p { margin: .3rem 0 0; font-size: .88rem; color: var(--tinta2); line-height: 1.45; }
+.evo-cab { display: flex; align-items: baseline; gap: .3rem .8rem; flex-wrap: wrap; margin-bottom: .3rem; }
+.evo-cab .evo-num { font-size: 2.4rem; }
+.evo-cab span { font-size: .88rem; color: var(--tinta2); }
+@media (max-width: 600px) { .evo-ctrl button { min-height: 40px; } }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 header.topo { padding-block: 2.6rem 1.4rem; }
 .chapeu { font: 500 .78rem/1.3 var(--dados); letter-spacing: .08em; text-transform: uppercase; color: var(--tinta2); margin: 0 0 .9rem; }
@@ -417,7 +432,29 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
 
   <h3 id="t-versoes">Como a lista encolheu</h3>
   <p>Baixamos sete versões do cadastro de locais (o arquivo do TSE com o local de votação de cada seção) publicadas entre 17/10 e 20/10, e a lista desta página diminuiu a cada uma: 2.059, 1.792, 1.733, 1.025, 596, 475 e 469 urnas. Uma oitava, publicada na noite de 19/10, foi substituída antes que a baixássemos. Os números desta seção valem para o cadastro de 20/10, 6h27; a lista ainda pode mudar até o dia 25.</p>
+  <figure class="evo" id="evo-mapa">
+    <div class="evo-ctrl" role="group" aria-label="Versão do cadastro mostrada nos gráficos"></div>
+    <div class="evo-corpo">
+      <svg class="graf" id="g-evo-mapa" role="img" aria-label="Mapa das urnas que mudam de prédio em cada versão do cadastro. Os números estão na tabela abaixo."></svg>
+      <div class="evo-lado">
+        <div class="evo-num" id="evo-num"></div>
+        <p id="evo-sub"></p>
+        <svg class="graf" id="g-evo-ic" aria-hidden="true" style="max-width:17rem;margin-top:.9rem"></svg>
+        <p id="evo-ic"></p>
+      </div>
+    </div>
+    <div class="leg-barra evo-leg"></div>
+    <figcaption>Cada círculo é um prédio do 1º turno, do tamanho do número de urnas dele na lista. Tracejado: urnas que saíram da lista e ficam no prédio do 1º turno. Anel em volta: urnas que entraram na lista naquela versão. O efeito usa a mesma escala em todas as versões. Uma versão publicada na noite de 19/10 foi substituída antes que a baixássemos. Ficam fora do mapa 16 urnas sem coordenada.</figcaption>
+    <p class="sr-only" aria-live="polite" id="evo-status"></p>
+  </figure>
   <p>As saídas foram sempre do mesmo tipo. Ao todo, 1.784 urnas que iam voltar ao local de sempre (o local de cadastro da seção) no 2º turno passaram a ficar no prédio provisório em que funcionaram no 1º. Para quem vota nelas, é como se a mudança do dia 4 valesse também para o dia 25. Até o cadastro de 19/10, 15h27, nenhuma urna tinha feito o caminho inverso; no de 20/10, 6h27, 3 fizeram: ficavam no prédio provisório do 1º turno e agora voltam ao local de sempre (2 em Vigia, no Pará, e 1 em Ipueiras, no Ceará). Entraram na lista outras 191 urnas que antes votavam no local de sempre nos dois turnos; em 189, a urna sai dele no 2º turno, e em 2, em Extremoz (RN), o local de sempre muda de prédio.</p>
+  <figure class="evo" id="evo-urnas">
+    <div class="evo-cab"><div class="evo-num" id="evo-num2"></div><span id="evo-sub2"></span></div>
+    <div class="evo-ctrl" role="group" aria-label="Versão do cadastro mostrada nos gráficos"></div>
+    <svg class="graf" id="g-evo-urnas" role="img" aria-label="Cada urna que passou pela lista é um quadrado, por estado, colorido pela situação na versão escolhida do cadastro. Os números por estado estão na tabela de urnas por estado e por versão."></svg>
+    <div class="leg-barra evo-leg"></div>
+    <figcaption>Cada quadrado é uma urna que esteve na lista em alguma versão do cadastro, agrupada por estado; ao lado do estado, quantas estão na lista na versão escolhida. Os dois gráficos mudam juntos.</figcaption>
+  </figure>
   <p class="arraste">Arraste a tabela para o lado para ver todas as colunas.</p>
   <div class="tab-wrap"><table id="tab-versoes"></table></div>
   <p>Não foi um estado só. As 1.784 urnas estão em 17 estados, 279 municípios e 295 zonas eleitorais; o Paraná, o que tem mais, reúne 14% delas. O que muda de um estado para outro é a proporção. Em Pernambuco (198 de 198), São Paulo (163 de 163), na Bahia (127 de 127), em Alagoas (101 de 101), na Paraíba (96 de 96), em Sergipe (70 de 70), em Roraima (60 de 60), no Amazonas (48 de 48), no Maranhão (176 de 179) e no Amapá (107 de 112), todas ou quase todas as urnas que iam voltar passaram a ficar no prédio do 1º turno; no Rio Grande do Norte (0 de 9) e no Rio Grande do Sul (2 de 8), quase nenhuma. Nenhum prédio provisório ficou dividido. O único caso, em Manaus, zona 62, se desfez: quatro urnas que iam voltar ao local de sempre tinham passado a ficar na E. M. João Goulart, e a quinta, que continuava voltando, também passou a ficar no cadastro de 20/10, 6h27.</p>
@@ -575,6 +612,8 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
   const TIPO = { volta: "Volta ao local de sempre", sai: "Sai do local de sempre", troca: "Troca de um local provisório por outro", predio: "O local de sempre passa para outro prédio" };
   const lado = document.getElementById("lado"), statusMapa = document.getElementById("status-mapa");
 
+  // a evolução entre as versões do cadastro vem de 16_evolucao.py e é opcional
+  const pedirEvolucao = fetch("evolucao.json").then(r => r.json()).catch(() => null);
   // contornos são opcionais: sem eles, o mapa funciona só com os pontos
   const pedirContornos = fetch("contornos.json").then(r => r.json()).catch(() => ({ uf: {}, mun: {} }));
   let D;
@@ -985,7 +1024,7 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
   // ---------- gráficos (redesenhados na largura real, para o texto não encolher no celular) ----------
   const dg = document.getElementById("dica-g");
   function dicaG(el, html) {
-    el.addEventListener("pointerenter", () => { dg.innerHTML = html; dg.hidden = false; });
+    el.addEventListener("pointerenter", () => { dg.innerHTML = typeof html === "function" ? html() : html; dg.hidden = false; });
     el.addEventListener("pointermove", e => { dg.style.left = Math.min(innerWidth - dg.offsetWidth - 8, e.clientX + 12) + "px"; dg.style.top = (e.clientY + 12) + "px"; });
     el.addEventListener("pointerleave", () => { dg.hidden = true; });
   }
@@ -1259,8 +1298,140 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
       `<tr class="nos"><td class="uf">Brasil</td><td>${soma("voltavam")}</td>${cols.map(c => `<td>${fmt.format(RV.ufs.reduce((s, u) => s + u.por_versao[c], 0))}</td>`).join("")}<td>${fmt.format(RV.renovadas)}</td><td>${soma("ainda_voltam")}</td><td>${soma("outro_provisorio")}</td></tr></tbody>`;
   }
 
+
+  // ---------- evolução da lista entre as versões do cadastro (de 16_evolucao.py) ----------
+  const EV = await pedirEvolucao;
+  const COR_EV = { sai: "var(--tinta)", predio: "var(--tinta3)", volta: "var(--d3)", saiu: "var(--d1)" };
+  const NOME_EV = { sai: "sai do local de sempre", predio: "local de sempre em outro prédio", volta: "volta ao local de sempre",
+                    saiu: "saiu da lista: fica no prédio do 1º turno", ainda: "ainda não estava na lista" };
+  let evoI = 0, evoTimer = null, gEvoMapa = () => {}, gEvoUrnas = () => {};
+  if (EV) {
+    const VE = EV.versoes, NV = VE.length, UE = EV.urnas, iPerdida = VE.findIndex(v => v.rot === EV.perdida_depois_de);
+    evoI = NV - 1;
+    // "ainda" (fora antes de entrar) e "saiu" (fora depois de sair)
+    for (const u of UE) { let ja = false; u.e = u.s.map(s => s ? (ja = true, s) : (ja ? "saiu" : "ainda")); }
+    const entrou = (u, i) => i > 0 && u.s[i] && !u.s[i - 1];
+    const dur = () => reduzido() ? 0 : 650;
+    document.querySelectorAll(".evo-leg").forEach((el, k) => {
+      el.innerHTML = ["sai", "predio", "volta", "saiu"].map(s => `<span><i style="${s === "saiu" && !k ? "border:1px dashed var(--d3);box-sizing:border-box;border-radius:50%" : "background:" + COR_EV[s]}"></i>${NOME_EV[s]}</span>`).join("")
+        + (k ? `<span><i style="outline:1px solid var(--linha);outline-offset:-1px"></i>${NOME_EV.ainda}</span>` : "");
+    });
+    // controles: os dois gráficos têm a mesma linha de botões, ligada ao mesmo estado
+    const ctrls = [...document.querySelectorAll(".evo-ctrl")];
+    for (const c of ctrls) {
+      c.innerHTML = `<button type="button" class="evo-play">▶ Ver desde 17/10</button>` + VE.map((v, i) =>
+        `<button type="button" data-i="${i}">${v.rot}</button>` + (i === iPerdida ? `<span class="evo-perdida" title="Versão publicada na noite de 19/10 e substituída antes que a baixássemos">19/10, noite: não baixada</span>` : "")).join("");
+      c.querySelectorAll("[data-i]").forEach(b => b.onclick = () => { parar(); irEvo(+b.dataset.i); });
+      c.querySelector(".evo-play").onclick = () => evoTimer ? parar() : tocar();
+    }
+    function parar() { clearInterval(evoTimer); evoTimer = null; ctrls.forEach(c => c.querySelector(".evo-play").textContent = "▶ Ver desde 17/10"); }
+    function tocar() {
+      ctrls.forEach(c => c.querySelector(".evo-play").textContent = "❚❚ Pausar");
+      irEvo(0);
+      evoTimer = setInterval(() => evoI >= NV - 1 ? parar() : irEvo(evoI + 1), 1500);
+    }
+    let atualizarMapa = () => {}, atualizarUrnas = () => {};
+    function irEvo(i) {
+      evoI = i;
+      ctrls.forEach(c => c.querySelectorAll("[data-i]").forEach(b => b.setAttribute("aria-pressed", +b.dataset.i === i)));
+      const v = VE[i], sai = i ? UE.filter(u => u.s[i - 1] && !u.s[i]).length : 0, ent = i ? UE.filter(u => entrou(u, i)).length : 0;
+      const sub = `urnas mudam de prédio pelo cadastro de <b>${v.rot}</b>` + (i ? `<br>${fmt.format(sai)} saíram e ${fmt.format(ent)} entraram na lista` : "<br>primeira versão baixada");
+      document.getElementById("evo-num").textContent = document.getElementById("evo-num2").textContent = fmt.format(v.urnas);
+      document.getElementById("evo-sub").innerHTML = sub;
+      document.getElementById("evo-sub2").innerHTML = `urnas na lista pelo cadastro de <b>${v.rot}</b>, entre as ${fmt.format(UE.length)} que passaram por ela`;
+      document.getElementById("evo-ic").innerHTML = `Efeito estimado na vantagem de Flávio: <b>${sg(v.ic[0])} a ${sg(v.ic[1])}</b> votos`;
+      document.getElementById("evo-status").textContent = `Cadastro de ${v.rot}: ${fmt.format(v.urnas)} urnas.`;
+      atualizarMapa(); atualizarUrnas();
+    }
+
+    gEvoMapa = function () {
+      const svg = d3.select("#g-evo-mapa"); svg.selectAll("*").remove();
+      const Wm = Math.min(450, svg.node().parentNode.clientWidth), Hm = Math.round(Wm * 0.98);
+      svg.attr("viewBox", `0 0 ${Wm} ${Hm}`).attr("height", Hm);
+      const pj = d3.geoMercator().fitExtent([[3, 3], [Wm - 3, Hm - 3]], caixaBR);
+      for (const polis of Object.values(C.uf)) {
+        const d = polis.map(poli => poli.map(anel => { let s = ""; for (let k = 0; k < anel.length; k += 2) { const q = pj([anel[k], anel[k + 1]]); s += (k ? "L" : "M") + q[0].toFixed(1) + "," + q[1].toFixed(1); } return s + "Z"; }).join("")).join("");
+        svg.append("path").attr("d", d).attr("fill-rule", "evenodd").attr("class", "uf-forma vazio").style("pointer-events", "none");
+      }
+      const locais = d3.groups(UE.filter(u => u.xy), u => `${u.uf}|${u.mun}|${u.local}`).map(([, us]) => ({ us, xy: pj(us[0].xy) }))
+        .sort((a, b) => b.us.length - a.us.length);
+      const raio = d3.scaleSqrt([0, 40], [0, Wm / 34]);
+      const aneis = svg.append("g").selectAll("circle").data(locais).join("circle").attr("cx", d => d.xy[0]).attr("cy", d => d.xy[1])
+        .style("fill", "none").style("stroke", "var(--tinta)").style("stroke-width", 1.4).style("pointer-events", "none");
+      const bolas = svg.append("g").selectAll("circle").data(locais).join("circle").attr("cx", d => d.xy[0]).attr("cy", d => d.xy[1]);
+      bolas.each(function (d) {
+        dicaG(this, () => {
+          const na = d.us.filter(u => u.s[evoI]), saiu = d.us.filter(u => u.e[evoI] === "saiu"), ent = d.us.filter(u => entrou(u, evoI));
+          const c = d3.rollup(na, q => q.length, u => u.s[evoI]);
+          return `<b>${esc(d.us[0].mun)} (${d.us[0].uf})</b><br>Cadastro de ${VE[evoI].rot}: ${na.length ? fmt.format(na.length) + " urna(s) na lista" : "nenhuma urna na lista"}`
+            + [...c].map(([s, n]) => `<br>${fmt.format(n)}: ${NOME_EV[s]}`).join("")
+            + (ent.length ? `<br>${fmt.format(ent.length)} entraram nesta versão` : "")
+            + (saiu.length ? `<br>${fmt.format(saiu.length)} saíram da lista e ficam no prédio do 1º turno` : "");
+        });
+      });
+      // efeito estimado, na mesma escala em todas as versões
+      const ic = d3.select("#g-evo-ic"); ic.selectAll("*").remove();
+      const Wi = 260, Hi = 40, xs = d3.scaleLinear([-120, 120], [8, Wi - 8]);
+      ic.attr("viewBox", `0 0 ${Wi} ${Hi}`).attr("height", Hi);
+      ic.append("line").attr("x1", xs(0)).attr("x2", xs(0)).attr("y1", 2).attr("y2", Hi - 14).style("stroke", "var(--tinta3)");
+      for (const tk of [-100, 0, 100]) ic.append("text").attr("x", xs(tk)).attr("y", Hi - 2).attr("text-anchor", "middle").attr("class", "muted").style("font", "10px var(--dados)").text(sg(tk));
+      const faixa = ic.append("line").attr("y1", 13).attr("y2", 13).style("stroke", "var(--tinta)").style("stroke-width", 3);
+      const ponto = ic.append("circle").attr("cy", 13).attr("r", 4.5).style("fill", "var(--tinta)").style("stroke", "var(--painel)");
+      atualizarMapa = () => {
+        const i = evoI, v = VE[i];
+        const n = d => d.us.filter(u => u.s[i]).length;
+        bolas.transition().duration(dur())
+          .attr("r", d => n(d) ? raio(n(d)) : (d.us.some(u => u.e[i] === "saiu") ? Math.max(2, raio(d.us.length) * .6) : 0))
+          .style("fill", d => { const na = d.us.filter(u => u.s[i]); if (!na.length) return "transparent";
+            return COR_EV[[...d3.rollup(na, q => q.length, u => u.s[i])].sort((a, b) => b[1] - a[1])[0][0]]; })
+          .style("stroke", d => n(d) ? "var(--papel)" : "var(--d3)").style("stroke-width", d => n(d) ? .8 : 1)
+          .style("stroke-dasharray", d => n(d) ? null : "2 2");
+        aneis.transition().duration(dur())
+          .attr("r", d => d.us.some(u => entrou(u, i)) ? raio(n(d)) + 3.5 : 0)
+          .style("opacity", d => d.us.some(u => entrou(u, i)) ? 1 : 0);
+        faixa.transition().duration(dur()).attr("x1", xs(v.ic[0])).attr("x2", xs(v.ic[1]));
+        ponto.transition().duration(dur()).attr("cx", xs(v.margem));
+      };
+      atualizarMapa();
+    };
+
+    gEvoUrnas = function () {
+      const svg = d3.select("#g-evo-urnas"); svg.selectAll("*").remove();
+      const W = Math.max(280, svg.node().parentNode.clientWidth), q = W < 500 ? 5 : 6, pad = 1, porLinha = 20;
+      const blocoW = porLinha * (q + pad), gapX = 14, gapY = 22;
+      const ufs = d3.groups(UE, u => u.uf).map(([uf, us]) => ({ uf, us: us.slice().sort((a, b) =>
+        d3.ascending(a.e.lastIndexOf("ainda"), b.e.lastIndexOf("ainda")) || d3.descending(a.e.indexOf("saiu") < 0 ? 99 : a.e.indexOf("saiu"), b.e.indexOf("saiu") < 0 ? 99 : b.e.indexOf("saiu"))) }))
+        .sort((a, b) => b.us.length - a.us.length);
+      const colunas = Math.max(1, Math.floor((W + gapX) / (blocoW + gapX))), alt = Array(colunas).fill(0), pos = [];
+      for (const u of ufs) { const c = alt.indexOf(Math.min(...alt)); pos.push({ ...u, x: c * (blocoW + gapX), y: alt[c] });
+        alt[c] += 16 + Math.ceil(u.us.length / porLinha) * (q + pad) + gapY; }
+      const H = Math.max(...alt) - gapY + 4;
+      svg.attr("viewBox", `0 0 ${W} ${H}`).attr("height", H);
+      const cel = [];
+      for (const p of pos) {
+        svg.append("text").attr("x", p.x).attr("y", p.y + 10).style("font", "600 11px var(--dados)").text(p.uf);
+        p.cont = svg.append("text").attr("x", p.x + 24).attr("y", p.y + 10).attr("class", "muted").style("font", "10.5px var(--dados)");
+        p.us.forEach((u, k) => cel.push({ u, x: p.x + (k % porLinha) * (q + pad), y: p.y + 15 + Math.floor(k / porLinha) * (q + pad) }));
+      }
+      const quad = svg.append("g").selectAll("rect").data(cel).join("rect").attr("x", d => d.x).attr("y", d => d.y)
+        .attr("width", q).attr("height", q).attr("rx", 1);
+      quad.each(function (d) {
+        dicaG(this, () => `<b>${esc(d.u.mun)} (${d.u.uf})</b>` + VE.map((v, i) => `<br>${v.rot}: ${d.u.s[i] ? NOME_EV[d.u.s[i]] : (d.u.e[i] === "saiu" ? "fora da lista, fica no prédio do 1º turno" : "fora da lista")}`).join(""));
+      });
+      atualizarUrnas = () => {
+        const i = evoI;
+        quad.transition().duration(dur()).delay(d => reduzido() ? 0 : (d.x + d.y) * .4)
+          .style("fill", d => COR_EV[d.u.e[i]] || "transparent")
+          .style("stroke", d => d.u.e[i] === "ainda" ? "var(--linha)" : "none");
+        for (const p of pos) p.cont.text(`${fmt.format(p.us.filter(u => u.s[i]).length)} de ${fmt.format(p.us.length)}`);
+      };
+      atualizarUrnas();
+    };
+    gEvoMapa(); gEvoUrnas(); irEvo(evoI);
+  } else document.querySelectorAll(".evo").forEach(el => el.hidden = true);
+
   let larguraGraf = 0;
-  new ResizeObserver(() => { const w = document.getElementById("g-2022").parentNode.clientWidth; if (w !== larguraGraf) { larguraGraf = w; g2022(); gMargem(); gFaixas(); gLocal(); gVersoes(); } })
+  new ResizeObserver(() => { const w = document.getElementById("g-2022").parentNode.clientWidth; if (w !== larguraGraf) { larguraGraf = w; g2022(); gMargem(); gFaixas(); gLocal(); gVersoes(); gEvoMapa(); gEvoUrnas(); } })
     .observe(document.getElementById("g-2022").parentNode);
 
   // ---------- início ----------

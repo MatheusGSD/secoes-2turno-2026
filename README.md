@@ -204,6 +204,8 @@ município, pela malha do IBGE. Os detalhes estão no cabeçalho de cada script.
 | `13_abstencao_1t.py` | Abstenção no 1º turno nas urnas que já votaram fora do local de cadastro, comparada com as vizinhas, em 2026 e desde 2022 (`saida/abstencao_1t.json`) |
 | `14_imagem_versoes.py` | Cartão 1600 × 900 com as urnas e o efeito estimado em cada versão do cadastro (`saida/imagem_versoes.png`) |
 | `15_capa_linkedin.py` | Capa 1920 × 1080 para o artigo no LinkedIn (`saida/capa_linkedin.png`) |
+| `16_evolucao.py` | A situação de cada urna em cada versão do cadastro (`docs/evolucao.json`), para o mapa e os quadrados animados da seção "Como a lista encolheu" (rode depois de 03) |
+| `17_gif_evolucao.py` | Cartão animado 1200 × 675 com o mapa da evolução da lista, versão por versão (`saida/evolucao.gif`) |
 | `ibge.py` | Malhas e códigos de município do IBGE, usados por 02 e 06 |
 
 Para rodar do zero, baixe para `dados/` os arquivos do [portal de dados abertos do TSE](https://dadosabertos.tse.jus.br/)
@@ -252,6 +254,7 @@ Principais saídas:
 - `saida/renovadas_uf.csv` e `saida/renovadas.json`: as urnas que saíram da lista a cada versão do cadastro, por estado, e a
   taxa de volta ao local de sempre em cada versão e em 2022
 - `saida/revisar_distancias.csv`: mudanças de mais de 10 km, para conferência
+- `docs/evolucao.json`: cada urna que esteve na lista em alguma versão do cadastro, com a situação dela em cada versão
 - `saida/numeros.json`: todos os números da página
 
 ## Fontes
