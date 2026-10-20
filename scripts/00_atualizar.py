@@ -163,6 +163,14 @@ def automatico():
                 print(f"{datetime.now():%d/%m %H:%M} | conferência falhou: {e}")
                 return
             g = pendentes()[1][-1][0]
+            ramo = subprocess.run(["git", "branch", "--show-current"], cwd=RAIZ, capture_output=True, text=True).stdout.strip()
+            if ramo != "main":  # um protótipo ou outro trabalho em andamento: não aplica fora do main
+                if not avisado.exists() or avisado.read_text(encoding="utf-8") != rotulo(g):
+                    avisar("Cadastro do TSE: versão nova", f"Gerada em {rotulo(g)} e guardada em dados/novos/. "
+                           f"Não aplicada: o projeto está no branch {ramo}, não no main.")
+                    avisado.write_text(rotulo(g), encoding="utf-8")
+                print(f"versão nova não aplicada: branch {ramo}")
+                return
             if pendencias():
                 if not avisado.exists() or avisado.read_text(encoding="utf-8") != rotulo(g):
                     avisar("Cadastro do TSE: versão nova", f"Gerada em {rotulo(g)} e guardada em dados/novos/. "
