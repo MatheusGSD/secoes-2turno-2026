@@ -154,6 +154,30 @@ abstenção das vizinhas (+0,03, de −0,18 a +0,23), e a variação de 2022 par
 em 1,98 milhão. Como essas urnas deram 50,1% a Lula e 43,0% a Flávio, equivale a cerca de 800 votos líquidos a menos
 para Lula no 1º turno (de 600 a 1.000), 0,04% da diferença nacional. Esse efeito já está no resultado do dia 4.
 
+## Como acompanhamos as atualizações do TSE
+
+O TSE troca o cadastro de locais (`eleitorado_local_votacao_2026.zip`) no portal de dados abertos sem aviso, às vezes
+mais de uma vez por dia, e o portal guarda só a última versão. Entre 17/10 e 20/10 baixamos sete versões; uma oitava,
+publicada na noite de 19/10, foi substituída antes que a baixássemos, e não dá mais para recuperá-la. O CDN do portal
+também pode entregar uma cópia antiga em cache a quem pede o endereço puro.
+
+Por isso, desde 20/10, `scripts/00_atualizar.py` roda a cada 20 minutos, até o dia 25, pelo Agendador de Tarefas do
+Windows, num computador nosso (não no GitHub):
+
+1. pergunta ao CDN a data do arquivo (`Last-Modified`), com um parâmetro que fura o cache;
+2. se a data é nova, baixa o arquivo e guarda em `dados/novos/`, para nenhuma versão se perder;
+3. lê de dentro do CSV a data e a hora de geração (`DT_GERACAO` e `HH_GERACAO`), que é a que citamos;
+4. se a versão é mais nova que a em uso, guarda a anterior em `dados/anteriores/`, registra a nova em
+   `scripts/versoes.py` e roda os scripts na ordem, refazendo os números, os dados da página e os cartões;
+5. avisa por notificação do Windows.
+
+O texto da página e deste README, o commit e a publicação continuam à mão: cada versão nova é conferida antes de ir
+ao ar, e a mudança fica registrada no alto da página e aqui. A comparação entre cada versão e a anterior fica em
+`saida/versoes_*.csv`, e a lista de urnas de cada versão, no histórico do git (os commits estão em `scripts/versoes.py`).
+
+Para fazer à mão: `python -P scripts/00_atualizar.py --verificar` (baixa a versão nova, se houver) e
+`python -P scripts/00_atualizar.py --aplicar` (põe no lugar e roda os scripts).
+
 ## Como foi feito
 
 A urna é a seção principal; os eleitores de seção agregada votam nela. Os aptos são o eleitorado federal de cada urna em cada turno.
