@@ -39,12 +39,23 @@ body { background: var(--papel); color: var(--tinta); font: 16px/1.6 var(--texto
   padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
 .col { max-width: 44rem; margin: 0 auto; }
 .larga { max-width: 82rem; margin: 0 auto; }
-.evo-ctrl { display: flex; flex-wrap: wrap; align-items: center; gap: .3rem; margin: 0 0 .7rem; }
-.evo-ctrl button { border: 1px solid var(--linha); background: var(--painel); color: var(--tinta2); font: 500 .74rem var(--dados);
-  padding: .4rem .45rem; border-radius: 4px; cursor: pointer; min-height: 32px; }
-.evo-ctrl button[aria-pressed="true"] { background: var(--tinta); color: var(--papel); border-color: var(--tinta); }
-.evo-ctrl .evo-play { font: 600 .8rem var(--texto); color: var(--tinta); padding: .4rem .65rem; }
-.evo-ctrl .evo-perdida { font: .7rem var(--dados); color: var(--tinta3); border: 1px dashed var(--tinta3); border-radius: 4px; padding: .35rem .4rem; }
+/* versões do cadastro: play fixo e uma linha do tempo que rola para o lado quando não cabe */
+.evo-ctrl { display: flex; align-items: stretch; gap: .4rem; margin: 0 0 .7rem; }
+.evo-play { flex: none; width: 2.9rem; min-height: 40px; border: 1px solid var(--linha); background: var(--painel); color: var(--tinta);
+  font: 600 1rem var(--texto); border-radius: 4px; cursor: pointer; padding: 0; }
+.evo-trilho { display: flex; overflow-x: auto; scrollbar-width: none; position: relative; flex: 1; min-width: 0; padding: 0 2rem 0 1.2rem;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 1.2rem, #000 calc(100% - 2rem), transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 1.2rem, #000 calc(100% - 2rem), transparent); }
+.evo-trilho::-webkit-scrollbar { display: none; }
+.evo-trilho::before { content: ""; position: absolute; left: 1.2rem; right: 2rem; top: 50%; border-top: 1px solid var(--linha); }
+.evo-trilho > * { flex: none; position: relative; display: flex; flex-direction: column; align-items: center; gap: .15rem;
+  min-width: 3.3rem; padding: .15rem .1rem; border: 0; background: none; color: var(--tinta3); font: 500 .66rem/1.1 var(--dados); cursor: pointer; }
+.evo-trilho .d { min-height: .8rem; color: var(--tinta2); }
+.evo-trilho i { width: 11px; height: 11px; border-radius: 50%; background: var(--tinta3); border: 2px solid var(--papel); box-sizing: content-box; }
+.evo-trilho [aria-pressed="true"] { color: var(--tinta); font-weight: 700; }
+.evo-trilho [aria-pressed="true"] i { background: var(--tinta); box-shadow: 0 0 0 2px var(--tinta); }
+.evo-trilho .evo-perdida { min-width: 4.6rem; cursor: default; white-space: nowrap; }
+.evo-trilho .evo-perdida i { background: var(--papel); border: 1px dashed var(--tinta3); width: 9px; height: 9px; }
 .evo-corpo { display: flex; flex-wrap: wrap; gap: .4rem 1.4rem; align-items: center; }
 .evo-corpo > svg { flex: 1 1 20rem; max-width: 28rem; }
 .evo-lado { flex: 1 1 13rem; }
@@ -53,7 +64,6 @@ body { background: var(--papel); color: var(--tinta); font: 16px/1.6 var(--texto
 .evo-cab { display: flex; align-items: baseline; gap: .3rem .8rem; flex-wrap: wrap; margin-bottom: .3rem; }
 .evo-cab .evo-num { font-size: 2.4rem; }
 .evo-cab span { font-size: .88rem; color: var(--tinta2); }
-@media (max-width: 600px) { .evo-ctrl button { min-height: 40px; } }
 .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 header.topo { padding-block: 2.6rem 1.4rem; }
 .chapeu { font: 500 .78rem/1.3 var(--dados); letter-spacing: .08em; text-transform: uppercase; color: var(--tinta2); margin: 0 0 .9rem; }
@@ -1322,22 +1332,31 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
     });
     // controles: os dois gráficos têm a mesma linha de botões, ligada ao mesmo estado
     const ctrls = [...document.querySelectorAll(".evo-ctrl")];
+    // um ponto por versão, com a hora embaixo e a data só no primeiro ponto de cada dia
+    const [dia, hora] = [v => v.rot.split(", ")[0], v => v.rot.split(", ")[1]];
     for (const c of ctrls) {
-      c.innerHTML = `<button type="button" class="evo-play">▶ Ver desde 17/10</button>` + VE.map((v, i) =>
-        `<button type="button" data-i="${i}">${v.rot}</button>` + (i === iPerdida ? `<span class="evo-perdida" title="Versão publicada na noite de 19/10 e substituída antes que a baixássemos">19/10, noite: não baixada</span>` : "")).join("");
+      c.innerHTML = `<button type="button" class="evo-play" aria-label="Ver desde 17/10" title="Ver desde 17/10">▶</button><div class="evo-trilho">` + VE.map((v, i) =>
+        `<button type="button" data-i="${i}" aria-label="${v.rot}"><span class="d">${i && dia(VE[i - 1]) === dia(v) ? "" : dia(v)}</span><i></i><span class="h">${hora(v)}</span></button>`
+        + (i === iPerdida ? `<span class="evo-perdida" title="Versão publicada na noite de 19/10 e substituída antes que a baixássemos"><span class="d"></span><i></i><span class="h">noite, não baixada</span></span>` : "")).join("") + `</div>`;
       c.querySelectorAll("[data-i]").forEach(b => b.onclick = () => { parar(); irEvo(+b.dataset.i); });
       c.querySelector(".evo-play").onclick = () => evoTimer ? parar() : tocar();
     }
-    function parar() { clearInterval(evoTimer); evoTimer = null; ctrls.forEach(c => c.querySelector(".evo-play").textContent = "▶ Ver desde 17/10"); }
+    // mantém a versão escolhida à vista dentro da linha, sem rolar a página
+    function centrar(c, suave) {
+      const t = c.querySelector(".evo-trilho"), b = t.querySelector('[aria-pressed="true"]');
+      if (b && t.scrollWidth > t.clientWidth) t.scrollTo({ left: b.offsetLeft - t.clientWidth / 2 + b.offsetWidth / 2, behavior: suave && !reduzido() ? "smooth" : "auto" });
+    }
+    const rotPlay = (txt, rot) => ctrls.forEach(c => { const p = c.querySelector(".evo-play"); p.textContent = txt; p.ariaLabel = p.title = rot; });
+    function parar() { clearInterval(evoTimer); evoTimer = null; rotPlay("▶", "Ver desde 17/10"); }
     function tocar() {
-      ctrls.forEach(c => c.querySelector(".evo-play").textContent = "❚❚ Pausar");
+      rotPlay("❚❚", "Pausar");
       irEvo(0);
       evoTimer = setInterval(() => evoI >= NV - 1 ? parar() : irEvo(evoI + 1), 1500);
     }
     let atualizarMapa = () => {}, atualizarUrnas = () => {};
-    function irEvo(i) {
+    function irEvo(i, suave = true) {
       evoI = i;
-      ctrls.forEach(c => c.querySelectorAll("[data-i]").forEach(b => b.setAttribute("aria-pressed", +b.dataset.i === i)));
+      ctrls.forEach(c => { c.querySelectorAll("[data-i]").forEach(b => b.setAttribute("aria-pressed", +b.dataset.i === i)); centrar(c, suave); });
       const v = VE[i], sai = i ? UE.filter(u => u.s[i - 1] && !u.s[i]).length : 0, ent = i ? UE.filter(u => entrou(u, i)).length : 0;
       const sub = `urnas mudam de prédio pelo cadastro de <b>${v.rot}</b>` + (i ? `<br>${fmt.format(sai)} ${sai === 1 ? "saiu" : "saíram"} e ${fmt.format(ent)} ${ent === 1 ? "entrou" : "entraram"} na lista` : "<br>primeira versão baixada");
       document.getElementById("evo-num").textContent = document.getElementById("evo-num2").textContent = fmt.format(v.urnas);
@@ -1431,7 +1450,7 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
       };
       atualizarUrnas();
     };
-    gEvoMapa(); gEvoUrnas(); irEvo(evoI);
+    gEvoMapa(); gEvoUrnas(); irEvo(evoI, false);
   } else document.querySelectorAll(".evo").forEach(el => el.hidden = true);
 
   let larguraGraf = 0;
