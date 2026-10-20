@@ -10,6 +10,7 @@ Saída: saida/imagem_versoes.png
 """
 import json
 import subprocess
+import sys
 from pathlib import Path
 
 import matplotlib
@@ -20,13 +21,14 @@ import numpy as np
 from matplotlib.transforms import blended_transform_factory
 
 RAIZ = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from versoes import POR_EXTENSO, VERSOES  # noqa: E402
+
 SAIDA = RAIZ / "saida"
 PAPEL, TINTA, TINTA2, TINTA3, LINHA = "#f8f8f6", "#121417", "#4c5058", "#6a6e76", "#dcdedf"
 VOLTA, SAI = "#c4923f", "#121417"
 FONTE, DADOS = "Segoe UI", "Consolas"
 VOLTA_TIPO = "voltou ao local de cadastro"
-VERSOES = [("17/10, 6h28", "943ab33"), ("17/10, 23h33", "fa873d1"), ("18/10, 11h27", "2272612"),
-           ("18/10, 20h27", "5e55ef8"), ("19/10, 11h27", "e8cf919"), ("19/10, 15h27", None)]
 
 
 def numeros(commit):
@@ -46,7 +48,7 @@ def sinal(v):
 
 def main():
     linhas = []
-    for rot, commit in VERSOES:
+    for rot, commit, _ in VERSOES:
         n = numeros(commit)
         voltam = next(t["urnas"] for t in n["tipos"] if t["tipo"] == VOLTA_TIPO)
         imp = n["impacto"][n["principal"]]
@@ -57,7 +59,9 @@ def main():
 
     fig = plt.figure(figsize=(8, 4.5), dpi=200, facecolor=PAPEL)
     t = lambda x, y, s, **k: fig.text(x, y, s, family=k.pop("family", FONTE), color=k.pop("color", TINTA), **k)
-    t(0.045, 0.915, "2º TURNO · 25/10/2026 · SEIS VERSÕES DO CADASTRO DO TSE, DE 17/10 A 19/10", size=7, color=TINTA2, family=DADOS)
+    de, a = (v[0].split(",")[0] for v in (VERSOES[0], VERSOES[-1]))
+    t(0.045, 0.915, f"2º TURNO · 25/10/2026 · {POR_EXTENSO[len(VERSOES)]} VERSÕES DO CADASTRO DO TSE, DE {de} A {a}", size=7,
+      color=TINTA2, family=DADOS)
     t(0.045, 0.80, "A lista encolheu. A conclusão, não.", size=20, weight="bold")
     t(0.045, 0.735, "Urnas que mudam de prédio do 1º para o 2º turno em cada versão do cadastro e o efeito estimado no resultado,\n"
                     "com base no que aconteceu em 2022, quando 1.506 urnas trocaram de prédio entre os turnos.",

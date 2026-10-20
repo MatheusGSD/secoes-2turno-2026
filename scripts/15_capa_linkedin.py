@@ -3,8 +3,8 @@
 À direita, o mapa da página (docs/dados.json): cada ponto claro é um local de votação do 2º turno, e os círculos são
 as urnas que mudam, na cor de quem venceu ali no 1º turno, do tamanho dos eleitores (como em 05_imagem_x.py). À
 esquerda, em letra grande, o número atual e o caminho desde as 4.352 seções divulgadas pelo TSE; um degradê deixa o
-texto legível onde ele encosta no mapa. A data do cadastro atual é escrita à mão em CADASTRO, como em
-14_imagem_versoes.py. Versão escolhida no protótipo rascunhos/prototipo_capa.py (variante A).
+texto legível onde ele encosta no mapa. A data do cadastro atual vem de versoes.py.
+Versão escolhida no protótipo rascunhos/prototipo_capa.py (variante A).
 
 No feed, o LinkedIn corta a capa para 1,91:1 (cerca de 37 px em cima e embaixo). Mapa e texto ficam dentro de
 MARGEM, com folga. Para conferir, rode com --corte: a saída ganha linhas tracejadas onde o feed corta.
@@ -24,11 +24,13 @@ import numpy as np
 from matplotlib.colors import LinearSegmentedColormap
 
 RAIZ = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from versoes import ATUAL as CADASTRO  # noqa: E402
+
 SAIDA = RAIZ / "saida"
 FUNDO, TINTA, TINTA2, PONTO = "#0e1014", "#f5f6f8", "#b4b9c1", "#d7dbe1"
 LULA, FLAVIO = "#ee6f61", "#5f97ea"
 FONTE, DADOS = "Segoe UI", "Consolas"
-CADASTRO = "19/10, 15h27"
 MARGEM = 0.075  # fração da altura livre em cima e embaixo (o corte do feed é ~0,035)
 
 

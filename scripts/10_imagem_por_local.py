@@ -8,6 +8,7 @@ Uso: python -P scripts/10_imagem_por_local.py   (depois de 09 e 04)
 Saída: saida/imagem_por_local.png
 """
 import json
+import sys
 from pathlib import Path
 
 import matplotlib
@@ -16,6 +17,8 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 
 RAIZ = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from versoes import cabecalho  # noqa: E402
 SAIDA = RAIZ / "saida"
 PAPEL, TINTA, TINTA2, TINTA3, LINHA = "#f8f8f6", "#121417", "#4c5058", "#80848c", "#dcdedf"
 FONTE, DADOS = "Segoe UI", "Consolas"
@@ -37,11 +40,11 @@ def main():
 
     fig = plt.figure(figsize=(8, 4.5), dpi=200, facecolor=PAPEL)
     t = lambda x, y, s, **k: fig.text(x, y, s, family=k.pop("family", FONTE), color=k.pop("color", TINTA), **k)
-    t(0.045, 0.915, "2º TURNO · 25/10/2026 · CADASTRO DO TSE DE 19/10, 15H27 · LOCAIS DE VOTAÇÃO E VOTO NO 1º TURNO", size=7,
+    t(0.045, 0.915, f"2º TURNO · 25/10/2026 · {cabecalho()} · LOCAIS DE VOTAÇÃO E VOTO NO 1º TURNO", size=7,
       color=TINTA2, family=DADOS)
     t(0.045, 0.80, "Onde Lula foi melhor, mais urnas mudam de prédio?", size=17, weight="bold")
-    t(0.045, 0.735, "Não. No país, só os locais onde Lula teve menos de 30% aparecem menos. Comparando cada local "
-                    "com o próprio estado\nou município, a linha varia pouco, dentro da margem de erro: as mudanças não se concentram nos locais mais lulistas.",
+    t(0.045, 0.735, "No país, um pouco, porque as mudanças estão mais em lugares onde Lula vence. Comparando cada local com o\n"
+                    "próprio estado ou município, a linha varia pouco, dentro da margem de erro: as mudanças não se concentram nos locais mais lulistas.",
       size=8.2, color=TINTA2, linespacing=1.4, va="top")
 
     largura, x = 0.27, 0.075

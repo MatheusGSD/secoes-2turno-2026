@@ -8,6 +8,7 @@ Uso: python -P scripts/08_imagem_distancia.py   (depois de 04 e 06)
 Saída: saida/imagem_distancia.png
 """
 import json
+import sys
 from pathlib import Path
 
 import matplotlib
@@ -20,6 +21,8 @@ from matplotlib.path import Path as MPath
 from matplotlib.transforms import blended_transform_factory
 
 RAIZ = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from versoes import cabecalho  # noqa: E402
 SAIDA = RAIZ / "saida"
 PAPEL, TINTA, TINTA2, TINTA3, VAZIO = "#f8f8f6", "#121417", "#4c5058", "#6a6e76", "#e6e7e4"
 RAMPA = ["#ebd3a2", "#dbb56f", "#c4923f", "#94661c", "#5a3b0a"]  # as mesmas cores da página (--d1 a --d5)
@@ -85,7 +88,7 @@ def main():
 
     x0 = 0.52
     t = lambda y, s, **k: fig.text(x0, y, s, family=k.pop("family", FONTE), color=k.pop("color", TINTA), **k)
-    t(0.925, "2º TURNO · 25/10/2026 · CADASTRO DO TSE DE 19/10, 15H27", size=7, color=TINTA2, family=DADOS)
+    t(0.925, f"2º TURNO · 25/10/2026 · {cabecalho()}", size=7, color=TINTA2, family=DADOS)
     t(0.80, "Quanto o local de votação\nmuda de lugar", size=17, weight="bold", va="bottom", linespacing=1.05)
     t(0.765, metros(d["mediana"]), size=30, weight="bold", va="top")
     t(0.765, f"\n\n\n\n\n", size=1)

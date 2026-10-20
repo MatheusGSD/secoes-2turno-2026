@@ -7,6 +7,7 @@ Uso: python -P scripts/05_imagem_x.py   (depois de 04)
 Saída: saida/imagem_x.png
 """
 import json
+import sys
 from pathlib import Path
 
 import matplotlib
@@ -16,6 +17,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 RAIZ = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from versoes import cabecalho  # noqa: E402
 SAIDA = RAIZ / "saida"
 PAPEL, TINTA, TINTA2, TINTA3, LINHA = "#f8f8f6", "#121417", "#4c5058", "#80848c", "#dcdedf"
 LULA, FLAVIO, PONTO = "#d4574a", "#3f74c2", "#9a9fa6"
@@ -52,7 +55,7 @@ def main():
 
     x0 = 0.535
     t = lambda y, s, **k: fig.text(x0, y, s, family=k.pop("family", FONTE), color=k.pop("color", TINTA), **k)
-    t(0.905, "2º TURNO · 25/10/2026 · CADASTRO DO TSE DE 19/10, 15H27", size=7, color=TINTA2, family=DADOS)
+    t(0.905, f"2º TURNO · 25/10/2026 · {cabecalho()}", size=7, color=TINTA2, family=DADOS)
     t(0.80, "Urnas que mudam de lugar", size=20, weight="bold")
     t(0.62, f"{m['urnas']:,}".replace(",", "."), size=34, weight="bold")
     fatia = f"{100 * m['validos'] / n['validos']:.1f}".replace(".", ",")
