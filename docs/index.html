@@ -1339,7 +1339,7 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
       evoI = i;
       ctrls.forEach(c => c.querySelectorAll("[data-i]").forEach(b => b.setAttribute("aria-pressed", +b.dataset.i === i)));
       const v = VE[i], sai = i ? UE.filter(u => u.s[i - 1] && !u.s[i]).length : 0, ent = i ? UE.filter(u => entrou(u, i)).length : 0;
-      const sub = `urnas mudam de prédio pelo cadastro de <b>${v.rot}</b>` + (i ? `<br>${fmt.format(sai)} saíram e ${fmt.format(ent)} entraram na lista` : "<br>primeira versão baixada");
+      const sub = `urnas mudam de prédio pelo cadastro de <b>${v.rot}</b>` + (i ? `<br>${fmt.format(sai)} ${sai === 1 ? "saiu" : "saíram"} e ${fmt.format(ent)} ${ent === 1 ? "entrou" : "entraram"} na lista` : "<br>primeira versão baixada");
       document.getElementById("evo-num").textContent = document.getElementById("evo-num2").textContent = fmt.format(v.urnas);
       document.getElementById("evo-sub").innerHTML = sub;
       document.getElementById("evo-sub2").innerHTML = `urnas na lista pelo cadastro de <b>${v.rot}</b>, entre as ${fmt.format(UE.length)} que passaram por ela`;

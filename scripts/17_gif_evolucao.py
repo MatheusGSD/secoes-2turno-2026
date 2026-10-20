@@ -108,7 +108,7 @@ def main():
         k = V.index(v)
         if k:
             sai = sum(1 for u in U if u["s"][k - 1] and not u["s"][k]); ent = sum(1 for u in U if u["s"][k] and not u["s"][k - 1])
-            T(.49, f"urnas mudam de prédio no 2º turno\n{fmt(sai)} saíram e {fmt(ent)} entraram na lista", size=8.4, color=TINTA2, va="top", linespacing=1.4)
+            T(.49, f"urnas mudam de prédio no 2º turno\n{fmt(sai)} {'saiu' if sai == 1 else 'saíram'} e {fmt(ent)} {'entrou' if ent == 1 else 'entraram'} na lista", size=8.4, color=TINTA2, va="top", linespacing=1.4)
         else:
             T(.49, "urnas mudam de prédio no 2º turno\nprimeira versão baixada", size=8.4, color=TINTA2, va="top", linespacing=1.4)
         # efeito estimado: a mesma escala em todas as versões
