@@ -469,8 +469,9 @@ def linha_por_local(pl, v):
 
 
 # --- aplicação nos arquivos -------------------------------------------------------------------------------------
-N = re.compile(r"<!--n:([a-z0-9_]+)-->(.*?)<!--/n-->", re.S)
-G = re.compile(r"<!--g:([a-z0-9_]+)-->.*?<!--/g:\1-->", re.S)
+# marcador logo depois de crase é exemplo de código (no README), não marcador
+N = re.compile(r"(?<!`)<!--n:([a-z0-9_]+)-->(.*?)<!--/n-->", re.S)
+G = re.compile(r"(?<!`)<!--g:([a-z0-9_]+)-->.*?<!--/g:\1-->", re.S)
 META = re.compile(r'(<meta name="versao-dados" content=")[^"]*(">)')
 DESCRICAO = re.compile(r'(<meta (?:name|property)="(?:og:)?description" content="As )[\d.]+( urnas [^"]*Atualizado em )\d\d/\d\d(\.">)')
 

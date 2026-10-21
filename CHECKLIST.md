@@ -49,3 +49,17 @@ Para rodar só os dois depois de mexer no texto: `python -P scripts/18_texto.py`
 - [ ] Commit no `main` ("Atualização de dd/mm, hhhmm: N urnas saíram e M entraram, T urnas"), push, e conferir a
       página publicada (o GitHub Pages leva um ou dois minutos).
 - [ ] Post no X, se for o caso: engatilhado no navegador para o autor publicar.
+
+## Mexer nos marcadores
+
+- **Número novo do estado atual no texto:** crie a chave em `valores()` do `scripts/18_texto.py`, já formatada (use
+  `inteiro`, `dec`, `pct`, `mil`, `votos`, `sinal` ou `fino`), e escreva `<!--n:chave--><!--/n-->` no texto; o 18
+  preenche. Na página, um marcador não pode ficar dentro de um atributo HTML (`aria-label`, `content`): ali, troque o
+  número por uma conta no JS ou trate no 18, como as descrições `<meta>`.
+- **Frase que depende de um limite** (um intervalo incluir o zero, um estado ser o primeiro, um efeito ser negativo):
+  se ela pode ser gerada, gere a frase inteira numa chave (como `local_pais_frase`); se não, acrescente uma regra em
+  `regras()` do `scripts/19_conferir.py`, com a condição e a frase que depende dela.
+- **História fora do quadro de versões:** marque com `<!--h-->...<!--/h-->`. O 19 deixa de olhar o trecho.
+- **Bloco gerado** (tabela inteira): função própria no 18, registrada em `blocos`, e `<!--g:chave-->` / `<!--/g:chave-->`
+  no lugar do conteúdo.
+- **Conferir:** `python -P scripts/18_texto.py` e depois `python -P scripts/19_conferir.py`, até `pendências: 0`.

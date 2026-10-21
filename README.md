@@ -287,7 +287,10 @@ Windows, num computador nosso (não no GitHub):
 3. lê de dentro do CSV a data e a hora de geração (`DT_GERACAO` e `HH_GERACAO`), que é a que citamos;
 4. se a versão é mais nova que a em uso, guarda a anterior em `dados/anteriores/`, registra a nova em
    `scripts/versoes.py` e roda os scripts na ordem, refazendo os números, os dados da página e os cartões;
-5. avisa por notificação do Windows, do tipo lembrete, que fica na tela até ser fechada.
+5. por último, `18_texto.py` reescreve os números da lista atual no texto da página e deste README, e
+   `19_conferir.py` procura o que ficou para trás (veja abaixo);
+6. avisa por notificação do Windows, do tipo lembrete, que fica na tela até ser fechada, com o número de pendências
+   que a conferência achou.
 
 As versões de <!--n:versoes_automaticas-->20/10, 11h27, 12h32, 15h27 e 20h27; e de 21/10, 6h27, 11h27 e 14h19<!--/n--> chegaram assim.
 
@@ -328,14 +331,47 @@ essas urnas entre as que iam voltar ao local de sempre e passaram a ficar no pr�
 o local do 1º turno de hoje com o da versão anterior à saída e conta à parte as que mudaram
 (`primeiro_turno_reescrito`).
 
-O texto da página e deste README, o commit e a publicação continuam à mão: cada versão nova é conferida antes de ir
-ao ar, e a mudança fica registrada no alto da página e aqui. Os números que descrevem a lista atual ficam entre
-marcadores de comentário HTML no texto da página e deste README, e o `18_texto.py`, que roda depois dos
-scripts de análise, os reescreve a cada versão; o histórico de cada versão continua escrito à mão. A comparação entre cada versão e a anterior fica em
-`saida/versoes_*.csv`, e a lista de urnas de cada versão, no histórico do git (os commits estão em `scripts/versoes.py`).
+A versão de 21/10, 14h19, foi a primeira atualizada com os números do texto preenchidos por script (abaixo). Na
+mesma rodada, o `07_versoes.py` passou a ler os locais da versão anterior no zip dela, em `dados/anteriores/`: antes,
+as urnas que entravam na lista não tinham local anterior para comparar e saíam todas como "os dois" turnos mudados.
+E o `12_renovadas.py` passou a contar como renovadas só as urnas que voltavam ao local de sempre no primeiro
+cadastro, com aviso se sair alguma que não voltava.
 
-Para fazer à mão: `python -P scripts/00_atualizar.py --verificar` (baixa a versão nova, se houver) e
-`python -P scripts/00_atualizar.py --aplicar` (põe no lugar e roda os scripts).
+### O texto a cada versão
+
+Uma revisão de 21/10 achou, na página, números que tinham ficado de versões anteriores: a média da distância, de
+uma versão de dois dias antes; o total de uma categoria que outro cadastro tinha mudado; "a versão anterior" apontando para uma
+versão que já não era a anterior; e frases cuja conclusão dependia de um intervalo que passou a incluir o zero. Por
+isso o texto passou a ter três partes:
+
+- **Números da lista atual, preenchidos por script.** Todo número que descreve a lista atual, na página e neste
+  README, fica entre marcadores de comentário HTML, invisíveis na página e no GitHub: `<!--n:urnas-->364<!--/n-->`.
+  O `18_texto.py` calcula cada valor a partir das saídas dos outros scripts (`numeros.json`, `renovadas.json`,
+  `abstencao_1t.json`, `geografia.json`, `docs/dados.json` e os `numeros.json` de cada versão no git), já no formato
+  do texto (1.234, 0,17%, "12 mil", "−5 e +2", listas de estados com a preposição certa), e reescreve o que está
+  entre os marcadores. Blocos inteiros vêm prontos entre `<!--g:chave-->` e `<!--/g:chave-->`: a tabela de versões do
+  alto da página, a tabela de fontes, a barra das quatro situações e a linha da regressão por local. A descrição da
+  página (`<meta>`) e a versão nos endereços dos JSON (`<meta name="versao-dados">`, para o cache do navegador não
+  misturar texto novo com dados velhos) também. Todos os valores ficam em `saida/texto.json`. Uma chave usada no
+  texto que o script não conhece faz ele parar, e ele lista as chaves que calculou e não foram usadas.
+- **História, escrita à mão e marcada.** O que mudou em cada versão (o quadro "O que mudou, versão por versão" e os
+  parágrafos "Atualização de..." deste README) continua escrito à mão e não muda depois. Um trecho de história fora
+  desses lugares é marcado com `<!--h-->...<!--/h-->`.
+- **Conferência.** O `19_conferir.py` grava `saida/log_19.txt` com quatro listas: marcadores com valor diferente do
+  que o `18_texto.py` calcularia agora; valores da versão anterior (o `texto.json` do commit dela) e o rótulo do
+  cadastro anterior que ainda aparecem no texto, fora dos marcadores e da história; regras de interpretação que
+  deixaram de valer (frases que dependem de um intervalo incluir o zero, da ordem dos estados, do sinal de um efeito
+  ou de uma contagem ser zero); e o que continua manual. Termina com `pendências: N`. No `00_atualizar.py`, ele roda
+  sem desfazer nada: o que ele acha é trabalho para o texto, não erro dos dados.
+
+O que continua à mão está em [`CHECKLIST.md`](CHECKLIST.md): o resumo do alto da página, o parágrafo da versão nova,
+o parágrafo e a linha da tabela deste README, o subtítulo do cartão 10, os achados da conferência, o commit, a
+publicação e o post. A comparação entre cada versão e a anterior fica em `saida/versoes_*.csv`, e a lista de urnas
+de cada versão, no histórico do git (os commits estão em `scripts/versoes.py`).
+
+Para fazer à mão: `python -P scripts/00_atualizar.py --verificar` (baixa a versão nova, se houver),
+`python -P scripts/00_atualizar.py --aplicar` (põe no lugar e roda os scripts, o 18 e o 19) e, depois de mexer no
+texto, `python -P scripts/18_texto.py` e `python -P scripts/19_conferir.py`, até `pendências: 0`.
 
 ## Como foi feito
 
@@ -368,6 +404,7 @@ município, pela malha do IBGE. Os detalhes estão no cabeçalho de cada script.
 | `16_evolucao.py` | A situação de cada urna em cada versão do cadastro (`docs/evolucao.json`), para o mapa e os quadrados animados da seção "Como a lista encolheu" (rode depois de 03) |
 | `17_gif_evolucao.py` | Cartão animado 1200 × 675 com o mapa da evolução da lista, versão por versão (`saida/evolucao.gif`) |
 | `18_texto.py` | Os números da lista atual no texto da página e deste README, entre marcadores, reescritos a partir das saídas dos outros scripts (rode depois deles); todos os valores ficam em `saida/texto.json` |
+| `19_conferir.py` | Confere o texto depois do 18: marcadores desatualizados, números e rótulo da versão anterior que ficaram no texto, regras de interpretação que deixaram de valer e o que falta do `CHECKLIST.md` (`saida/log_19.txt`) |
 | `ibge.py` | Malhas e códigos de município do IBGE, usados por 02 e 06 |
 
 Para rodar do zero, baixe para `dados/` os arquivos do [portal de dados abertos do TSE](https://dadosabertos.tse.jus.br/)
