@@ -1,8 +1,7 @@
 situacao          o_que_mudou_no_cadastro
-entrou na lista   os dois                      9
-nas duas versões                             454
-                  local do 2º turno            7
-saiu da lista     local do 2º turno           15
-saíram: 15 urnas, 4631 aptos | tipo antes: {'voltou ao local de cadastro': 15} | tipo agora: {'igual, fora do cadastro nos dois turnos': 15} | ficam no prédio do 1º turno: 15
-entraram: 9 urnas | por município: {'CE': 2, 'MG': 1, 'PA': 2, 'PR': 4}
-por UF: {'MG': 11, 'PR': 4}
+entrou na lista   os dois                     19
+nas duas versões                             469
+saiu da lista     local do 2º turno            1
+saíram: 1 urnas, 125 aptos | tipo antes: {'voltou ao local de cadastro': 1} | tipo agora: {'igual, fora do cadastro nos dois turnos': 1} | ficam no prédio do 1º turno: 1
+entraram: 19 urnas | por município: {'MG': 13, 'RS': 2, 'SP': 4}
+por UF: {'MG': 1}

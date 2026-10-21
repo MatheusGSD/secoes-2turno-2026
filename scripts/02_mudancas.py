@@ -40,6 +40,7 @@ Saídas: saida/urnas_2026.csv.gz e saida/urnas_2022.csv.gz (todas as urnas, com 
         saida/painel_tse.csv (as seções do painel de 18/10, com a classificação de cada uma aqui)
         saida/revisar_distancias.csv (mudanças de mais de 10 km, para conferência)
 """
+import io
 import sys
 import zipfile
 from datetime import datetime, timedelta
@@ -98,12 +99,30 @@ def anterior_2026():
     return p if p.exists() else None
 
 
+def escolha_anterior(ano):
+    """O local que ficou para cada seção repetida na versão anterior, do saida/duplicadas_<ano>.csv do commit dela."""
+    import subprocess
+    from versoes import VERSOES
+    if len(VERSOES) < 2 or not VERSOES[-2][1]:
+        return None
+    out = subprocess.run(["git", "show", f"{VERSOES[-2][1]}:saida/duplicadas_{ano}.csv"], cwd=RAIZ,
+                         capture_output=True)
+    if out.returncode:
+        return None
+    a = pd.read_csv(io.BytesIO(out.stdout))
+    a = a[a.fica]
+    return a.set_index(["NR_TURNO"] + SECAO).NR_LOCAL_VOTACAO
+
+
 def uma_por_secao(d, ano):
     """Uma linha por seção e turno.
 
     O cadastro de 20/10, 15h27 trouxe 15 seções duas vezes no 2º turno, cada vez num local (o TSE parecia estar no
     meio de uma mudança). Para não deixar um registro pela metade mexer na lista, fica o local que a seção tinha no
     mesmo turno na versão anterior do cadastro; se não houver, o local do 1º turno; se não, a primeira linha.
+    Se a seção já vinha repetida na versão anterior (as mesmas 15 voltaram em 20/10, 20h27), vale o local que ficou
+    naquela versão, lido do duplicadas_<ano>.csv do commit dela: sem isso a escolha virava o local do 1º turno e
+    11 urnas "saíam" e "entravam" da lista sem que o TSE tivesse mudado nada.
     As repetidas vão para saida/duplicadas_<ano>.csv.
     """
     chave = ["NR_TURNO"] + SECAO
@@ -119,6 +138,9 @@ def uma_por_secao(d, ano):
             a[c] = pd.to_numeric(a[c])
         a = a.drop_duplicates(chave, keep=False)
         r = r.merge(a.rename(columns={"NR_LOCAL_VOTACAO": "local_anterior"}), on=chave, how="left")
+        ja = escolha_anterior(ano)
+        if ja is not None:
+            r["local_anterior"] = r.local_anterior.fillna(pd.Series(r.set_index(chave).index.map(ja), index=r.index))
     else:
         r["local_anterior"] = np.nan
     t1 = d[(d.NR_TURNO == 1) & ~rep].set_index(SECAO).NR_LOCAL_VOTACAO
