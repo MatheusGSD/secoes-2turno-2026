@@ -1,8 +1,9 @@
 """Como a lista encolheu entre as versões do cadastro de locais do TSE.
 
 A cada versão do cadastro (todas em versoes.py), urnas saíram da lista, e
-sempre do mesmo jeito: iam voltar ao local de sempre no 2º turno e passaram a ficar no prédio provisório do 1º
-turno. Aqui juntamos as comparações de 07_versoes.py (as anteriores estão no git) para contar essas urnas por
+até 20/10 sempre do mesmo jeito: iam voltar ao local de sempre no 2º turno e passaram a ficar no prédio provisório do
+1º turno (as renovadas). No cadastro de 21/10, 6h27, saíram também urnas que votaram no local de sempre no 1º turno,
+iam sair dele no 2º e passaram a ficar nele; elas ficam fora da conta das renovadas e são contadas à parte. Aqui juntamos as comparações de 07_versoes.py (as anteriores estão no git) para contar essas urnas por
 estado, ver se algum prédio provisório ficou dividido (parte das urnas fica, parte volta) e acompanhar a taxa de
 volta ao local de sempre, comparada com a de 2022.
 
@@ -31,6 +32,7 @@ from versoes import VERSOES, ref  # noqa: E402
 SAIDA = RAIZ / "saida"
 URNA = ["SG_UF", "CD_MUNICIPIO", "NR_ZONA", "NR_SECAO"]
 VOLTA, FICA, TROCA = "voltou ao local de cadastro", "igual, fora do cadastro nos dois turnos", "trocou de local provisório"
+IGUAL = "igual"
 
 
 def git(ref):
@@ -52,9 +54,12 @@ def main():
             saidas.append(s[URNA].assign(cadastro=cadastro))
         versoes.append(v)
 
-    ren = pd.concat(saidas).merge(u[URNA + ["tipo", "aptos", "NR_LOCAL_VOTACAO", "NR_LOCAL_VOTACAO_ORIGINAL"]], on=URNA)
-    if not (ren.tipo == FICA).all():
-        print("AVISO: urnas que saíram da lista e hoje não ficam no prédio do 1º turno:", ren.tipo.value_counts().to_dict())
+    sairam = pd.concat(saidas).merge(u[URNA + ["tipo", "aptos", "NR_LOCAL_VOTACAO", "NR_LOCAL_VOTACAO_ORIGINAL"]], on=URNA)
+    if not sairam.tipo.isin([FICA, IGUAL]).all():
+        print("AVISO: urnas que saíram da lista e hoje não ficam no prédio do 1º turno:", sairam.tipo.value_counts().to_dict())
+    ren = sairam[sairam.tipo == FICA]
+    # votaram no local de sempre no 1º turno, iam sair dele no 2º e passaram a ficar nele: nunca voltavam
+    ficam = sairam[sairam.tipo == IGUAL]
     volta = u[u.tipo == VOLTA]
     # as que voltavam no primeiro cadastro e hoje vão para outro prédio provisório
     primeiro = pd.read_csv(io.BytesIO(git(f"{VERSOES[0][1]}:saida/urnas_mudadas_2026.csv")))
@@ -102,6 +107,8 @@ def main():
         "voltam_em_zona_com_renovacao": int(len(mesma_zona)), "fora_1t": fora_1t,
         "taxa_volta_2022": round(100 * voltam_22 / fora_1t_22, 1), "voltam_2022": voltam_22, "fora_1t_2022": fora_1t_22,
         "outro_provisorio": len(outras), "ainda_voltam_1o_cadastro": len(volta_1o), "voto_renovadas": voto(ren), "voto_ainda_voltam": voto(volta),
+        "ficam_no_local_de_sempre": len(ficam), "aptos_ficam_no_local_de_sempre": int(ficam.aptos.sum()),
+        "ficam_no_local_de_sempre_por_cadastro": ficam.groupby("cadastro").size().to_dict(),
         "ufs": [{"uf": uf, "renovadas": int(r.renovadas), "ainda_voltam": int(r.ainda_voltam),
                  "outro_provisorio": int(r.outro_provisorio), "voltavam": int(r.voltavam_1o_cadastro),
                  "por_versao": {c: int(r[c]) for c in t.columns[:len(saidas)]}}
@@ -113,6 +120,8 @@ def main():
     print("renovadas:", res["renovadas"], "urnas,", res["aptos_renovadas"], "aptos | UFs:", res["ufs_com_renovacao"],
           "| municípios:", res["municipios"], "| zonas:", res["zonas"], "| prédios divididos:", res["predios_divididos"],
           "| ainda voltam em zona com renovação:", res["voltam_em_zona_com_renovacao"])
+    print("iam sair do local de sempre e ficam nele:", len(ficam), "urnas,", int(ficam.aptos.sum()), "aptos |",
+          ficam.groupby(["cadastro", "SG_UF"]).size().to_dict())
     print("foram para outro prédio provisório:", len(outras), "| voto no 1º turno:", res["voto_renovadas"], res["voto_ainda_voltam"])
     print("fora do local de sempre no 1º turno:", fora_1t, "| 2022:", voltam_22, "de", fora_1t_22, "voltaram,", res["taxa_volta_2022"], "%")
     print(t.to_string())

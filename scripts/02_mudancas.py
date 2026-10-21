@@ -128,6 +128,8 @@ def uma_por_secao(d, ano):
     chave = ["NR_TURNO"] + SECAO
     rep = d.duplicated(chave, keep=False)
     if not rep.any():
+        # o de uma versão anterior não vale para esta (no cadastro de 21/10, 6h27, as 15 repetidas sumiram)
+        (SAIDA / f"duplicadas_{ano}.csv").unlink(missing_ok=True)
         return d
     r = d[rep].copy()
     ant = anterior_2026() if ano == 2026 else None

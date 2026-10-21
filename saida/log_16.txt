@@ -1,1 +1,1 @@
-2294 urnas em alguma versão | por versão: [2059, 1792, 1733, 1025, 596, 475, 469, 470, 476, 470, 488] | sem coordenada: 16
+2300 urnas em alguma versão | por versão: [2059, 1792, 1733, 1025, 596, 475, 469, 470, 476, 470, 488, 462] | sem coordenada: 16
