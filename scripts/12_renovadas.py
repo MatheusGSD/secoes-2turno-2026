@@ -3,13 +3,18 @@
 A cada versão do cadastro (todas em versoes.py), urnas saíram da lista, e
 até 20/10 sempre do mesmo jeito: iam voltar ao local de sempre no 2º turno e passaram a ficar no prédio provisório do
 1º turno (as renovadas). No cadastro de 21/10, 6h27, saíram também urnas que votaram no local de sempre no 1º turno,
-iam sair dele no 2º e passaram a ficar nele; elas ficam fora da conta das renovadas e são contadas à parte. Aqui juntamos as comparações de 07_versoes.py (as anteriores estão no git) para contar essas urnas por
+iam sair dele no 2º e passaram a ficar nele; elas ficam fora da conta das renovadas e são contadas à parte. No de
+21/10, 11h27, o TSE mudou pela primeira vez o local do 1º turno: em 68 urnas que funcionaram no local de sempre no dia 4
+e iam sair dele no 2º, o cadastro passou a dizer que elas já funcionaram no prédio do 2º turno no dia 4. Elas também são
+contadas à parte (1º turno reescrito: o local do 1º turno no cadastro atual difere do da versão anterior à saída).
+Aqui juntamos as comparações de 07_versoes.py (as anteriores estão no git) para contar essas urnas por
 estado, ver se algum prédio provisório ficou dividido (parte das urnas fica, parte volta) e acompanhar a taxa de
 volta ao local de sempre, comparada com a de 2022.
 
 Taxa de volta: urnas que voltam ao local de sempre no 2º turno / urnas que funcionaram fora dele no 1º turno. O
-denominador vem do cadastro atual (o local do 1º turno é histórico e não muda entre as versões); o numerador de
-cada versão, do numeros.json daquela versão no git. Em 2022 só existe o cadastro final.
+denominador vem do cadastro atual (o local do 1º turno quase não muda entre as versões: só em 68 urnas, até o
+cadastro de 21/10, 11h27); o numerador de cada versão, do numeros.json daquela versão no git. Em 2022 só existe o
+cadastro final.
 
 As versões e os commits estão em versoes.py, que 00_atualizar.py atualiza a cada cadastro novo (o arquivo de
 07_versoes.py da versão anterior fica no git). Precisa do histórico completo do git (não funciona em clone raso).
@@ -51,15 +56,23 @@ def main():
             c = pd.read_csv(io.BytesIO(git(ref(commit, comp))) if commit else SAIDA / comp)
             s = c[c.situacao == "saiu da lista"]
             v.update(sairam=len(s), entraram=int((c.situacao == "entrou na lista").sum()))
-            saidas.append(s[URNA].assign(cadastro=cadastro))
+            # tipo e local do 1º turno na versão anterior à saída (a primeira das duas colunas de cada um)
+            antes = {next(x for x in c.columns if x.startswith("tipo_")): "tipo_antes",
+                     next(x for x in c.columns if x.startswith("NR_LOCAL_VOTACAO_")
+                          and not x.startswith("NR_LOCAL_VOTACAO_2_")): "local_1t_antes"}
+            saidas.append(s[URNA + list(antes)].rename(columns=antes).assign(cadastro=cadastro))
         versoes.append(v)
 
     sairam = pd.concat(saidas).merge(u[URNA + ["tipo", "aptos", "NR_LOCAL_VOTACAO", "NR_LOCAL_VOTACAO_ORIGINAL"]], on=URNA)
     if not sairam.tipo.isin([FICA, IGUAL]).all():
-        print("AVISO: urnas que saíram da lista e hoje não ficam no prédio do 1º turno:", sairam.tipo.value_counts().to_dict())
-    ren = sairam[sairam.tipo == FICA]
+        print("AVISO: urnas que saíram da lista e hoje mudam de prédio:", sairam.tipo.value_counts().to_dict())
+    # o cadastro atual põe o 1º turno em outro local do que a versão anterior à saída: a urna deixou de trocar de
+    # prédio porque o registro do 1º turno mudou, não o do 2º
+    reescrito = sairam.local_1t_antes != sairam.NR_LOCAL_VOTACAO
+    reesc = sairam[reescrito]
+    ren = sairam[~reescrito & (sairam.tipo == FICA)]
     # votaram no local de sempre no 1º turno, iam sair dele no 2º e passaram a ficar nele: nunca voltavam
-    ficam = sairam[sairam.tipo == IGUAL]
+    ficam = sairam[~reescrito & (sairam.tipo == IGUAL)]
     volta = u[u.tipo == VOLTA]
     # as que voltavam no primeiro cadastro e hoje vão para outro prédio provisório
     primeiro = pd.read_csv(io.BytesIO(git(f"{VERSOES[0][1]}:saida/urnas_mudadas_2026.csv")))
@@ -109,6 +122,9 @@ def main():
         "outro_provisorio": len(outras), "ainda_voltam_1o_cadastro": len(volta_1o), "voto_renovadas": voto(ren), "voto_ainda_voltam": voto(volta),
         "ficam_no_local_de_sempre": len(ficam), "aptos_ficam_no_local_de_sempre": int(ficam.aptos.sum()),
         "ficam_no_local_de_sempre_por_cadastro": ficam.groupby("cadastro").size().to_dict(),
+        "primeiro_turno_reescrito": len(reesc), "aptos_primeiro_turno_reescrito": int(reesc.aptos.sum()),
+        "primeiro_turno_reescrito_por_cadastro": reesc.groupby("cadastro").size().to_dict(),
+        "voto_primeiro_turno_reescrito": voto(reesc),
         "ufs": [{"uf": uf, "renovadas": int(r.renovadas), "ainda_voltam": int(r.ainda_voltam),
                  "outro_provisorio": int(r.outro_provisorio), "voltavam": int(r.voltavam_1o_cadastro),
                  "por_versao": {c: int(r[c]) for c in t.columns[:len(saidas)]}}
@@ -122,6 +138,9 @@ def main():
           "| ainda voltam em zona com renovação:", res["voltam_em_zona_com_renovacao"])
     print("iam sair do local de sempre e ficam nele:", len(ficam), "urnas,", int(ficam.aptos.sum()), "aptos |",
           ficam.groupby(["cadastro", "SG_UF"]).size().to_dict())
+    print("1º turno reescrito:", len(reesc), "urnas,", int(reesc.aptos.sum()), "aptos |",
+          reesc.groupby(["cadastro", "SG_UF"]).size().to_dict(), "| tipo antes:", reesc.tipo_antes.value_counts().to_dict(),
+          "| voto:", res["voto_primeiro_turno_reescrito"])
     print("foram para outro prédio provisório:", len(outras), "| voto no 1º turno:", res["voto_renovadas"], res["voto_ainda_voltam"])
     print("fora do local de sempre no 1º turno:", fora_1t, "| 2022:", voltam_22, "de", fora_1t_22, "voltaram,", res["taxa_volta_2022"], "%")
     print(t.to_string())

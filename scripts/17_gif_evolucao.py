@@ -10,6 +10,7 @@ Saída: saida/evolucao.gif
 """
 import io
 import json
+import sys
 from pathlib import Path
 
 import matplotlib
@@ -20,6 +21,9 @@ import numpy as np
 from PIL import Image
 
 RAIZ = Path(__file__).resolve().parent.parent
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from versoes import POR_EXTENSO  # noqa: E402
+
 PAPEL, TINTA, TINTA2, TINTA3, LINHA = "#f8f8f6", "#121417", "#4c5058", "#80848c", "#dcdedf"
 VOLTA, PREDIO, PONTO, SAIU = "#c4923f", "#80848c", "#b4b8be", "#d6b97c"
 COR = {"sai": TINTA, "predio": PREDIO, "volta": VOLTA}
@@ -27,7 +31,6 @@ FONTE, DADOS = "Segoe UI", "Consolas"
 PASSOS = 9                # quadros de transição entre duas versões
 MS_PASSO, MS_PARADO = 70, 1700
 MS_PRIMEIRO, MS_ULTIMO = 2200, 4200
-EXTENSO = {5: "CINCO", 6: "SEIS", 7: "SETE", 8: "OITO", 9: "NOVE", 10: "DEZ"}
 
 
 def merc(lon, lat):
@@ -101,7 +104,7 @@ def main():
 
         x0 = .55
         T = lambda y, s, **k: fig.text(x0, y, s, family=k.pop("family", FONTE), color=k.pop("color", TINTA), **k)
-        T(.935, f"2º TURNO · 25/10/2026 · {EXTENSO.get(nv, nv)} VERSÕES DO CADASTRO DO TSE", size=6.6, color=TINTA2, family=DADOS)
+        T(.935, f"2º TURNO · 25/10/2026 · {POR_EXTENSO.get(nv, nv)} VERSÕES DO CADASTRO DO TSE", size=6.6, color=TINTA2, family=DADOS)
         T(.78, "A lista encolheu.\nA conclusão, não.", size=17, weight="bold", va="bottom", linespacing=1.05)
         T(.715, f"CADASTRO DE {v['rot'].upper()}", size=7.4, color=TINTA2, family=DADOS)
         T(.555, fmt(num), size=40, weight="bold")
