@@ -188,16 +188,18 @@ def urnas(d):
     end = u.DS_ENDERECO.map(ibge.norm) != u.DS_ENDERECO_2.map(ibge.norm)
     renumerada = num & ~nome & ~end
     predio_novo = ~num & nome & end
-    # dois locais do mesmo município que trocaram nome e endereço entre si: correção do cadastro
+    # dois locais da mesma zona que trocaram nome e endereço entre si: correção do cadastro (o número do local só é
+    # único dentro da zona)
     r = u.reset_index()
-    chave1 = r.CD_MUNICIPIO.astype(str) + "|" + r.NM_LOCAL_VOTACAO.map(ibge.norm) + "|" + r.DS_ENDERECO.map(ibge.norm)
-    chave2 = r.CD_MUNICIPIO.astype(str) + "|" + r.NM_LOCAL_VOTACAO_2.map(ibge.norm) + "|" + r.DS_ENDERECO_2.map(ibge.norm)
+    zona = r.CD_MUNICIPIO.astype(str) + "|" + r.NR_ZONA.astype(str)
+    chave1 = zona + "|" + r.NM_LOCAL_VOTACAO.map(ibge.norm) + "|" + r.DS_ENDERECO.map(ibge.norm)
+    chave2 = zona + "|" + r.NM_LOCAL_VOTACAO_2.map(ibge.norm) + "|" + r.DS_ENDERECO_2.map(ibge.norm)
     local1 = dict(zip(chave1, r.NR_LOCAL_VOTACAO))
-    destino_de = dict(zip(r.CD_MUNICIPIO.astype(str) + "|" + r.NR_LOCAL_VOTACAO.astype(str), chave2))
+    destino_de = dict(zip(zona + "|" + r.NR_LOCAL_VOTACAO.astype(str), chave2))
     troca = []
-    for c1, c2, m, n in zip(chave1, chave2, r.CD_MUNICIPIO, r.NR_LOCAL_VOTACAO):
+    for c1, c2, z, n in zip(chave1, chave2, zona, r.NR_LOCAL_VOTACAO):
         outro = local1.get(c2)
-        troca.append(outro is not None and outro != n and destino_de.get(f"{m}|{outro}") == c1)
+        troca.append(outro is not None and outro != n and destino_de.get(f"{z}|{outro}") == c1)
     troca = pd.Series(troca, index=u.index) & predio_novo
     u["criterio"] = np.select([num & ~renumerada, predio_novo & ~troca], ["numero", "predio_novo"], "")
     u["mudou"] = u.criterio != ""

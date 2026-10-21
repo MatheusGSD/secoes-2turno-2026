@@ -11,9 +11,10 @@ eleitoral que votaram no local de cadastro, de duas formas:
 Média ponderada pelos aptos; intervalo de 95% por 2.000 sorteios dos grupos de comparação (município e zona). É uma
 comparação entre urnas, não um experimento. Para a ordem de grandeza no resultado, aplicamos a variação desde 2022 (e
 os limites do intervalo) a todas as urnas fora do local de cadastro, com quem deixou de votar dividido como os votos
-da própria urna.
+da própria urna. Como sensibilidade para o 2º turno, aplicamos a mesma variação às urnas da lista que saem do local
+de cadastro só no 2º turno (a mesma mudança, um turno depois), no lugar do efeito medido em 2022.
 
-Uso: python -P scripts/13_abstencao_1t.py (depois de 02_mudancas.py e 01_votos_1t.py)
+Uso: python -P scripts/13_abstencao_1t.py (depois de 02_mudancas.py, 01_votos_1t.py e 03_impacto.py)
 Saída: saida/abstencao_1t.json
 """
 import json
@@ -72,11 +73,20 @@ def main():
         faltaram = pp / 100 * f.aptos
         efeito[nome] = {"eleitores_a_menos": float(faltaram.sum()),
                         "votos_liquidos_lula": float(-(faltaram * (f.c13 - f.c22) / f.comparecimento).sum())}
+    # sensibilidade: a variação medida no 1º turno aplicada às urnas que saem do local de cadastro no 2º
+    m = pd.read_csv(SAIDA / "urnas_mudadas_2026.csv")
+    m = m[m.tipo == "saiu do local de cadastro"]
+    por_pp = m.aptos_2 / 100 * (m.c13 - m.c22) / m.comparecimento  # margem (Flávio - Lula) por ponto de abstenção
+    sens_2t = {"urnas": len(m), "aptos": int(m.aptos.sum()),
+               **{nome: float(pp * por_pp.sum()) for nome, pp in
+                  [("margem", variacao["dif_pp"]), ("margem_ic_baixo", variacao["ic"][0]), ("margem_ic_alto", variacao["ic"][1])]},
+               "eleitores_a_menos": float(variacao["dif_pp"] / 100 * m.aptos_2.sum())}
     res = {"fora_no_1t_2026": int(a26.fora.sum()), "aptos_fora": int(f.aptos.sum()),
            "pct_lula_fora": float(100 * f.c13.sum() / f.validos.sum()), "pct_flavio_fora": float(100 * f.c22.sum() / f.validos.sum()),
            "efeito_no_resultado_1t": efeito,
            "abst_pais_1t_2026": float(100 * (1 - a26.comparecimento.sum() / a26.aptos.sum())),
-           "nivel_2026": nivel, "variacao_desde_2022": variacao, "nivel_2022_mesmas_urnas": nivel_22}
+           "nivel_2026": nivel, "variacao_desde_2022": variacao, "nivel_2022_mesmas_urnas": nivel_22,
+           "sensibilidade_2t": sens_2t}
     (SAIDA / "abstencao_1t.json").write_text(json.dumps(res, indent=1, ensure_ascii=False), encoding="utf-8")
     print(json.dumps(res, indent=1, ensure_ascii=False))
 

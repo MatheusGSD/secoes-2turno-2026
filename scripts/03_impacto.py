@@ -4,7 +4,8 @@
    prédio entre os turnos. Para cada urna, a variação da abstenção do 1º para o 2º turno (em pontos)
    menos a variação média das urnas que NÃO mudaram na mesma comparação (o efeito do turno em si,
    igual para todos ali). Comparação principal: urnas do mesmo município e da mesma zona eleitoral.
-   Sensibilidade: só a mesma zona (que pode juntar vários municípios) e o mesmo local de cadastro.
+   Sensibilidade: só a mesma zona (que pode juntar vários municípios) e o mesmo local de cadastro (com a zona: o
+   número do local se repete entre zonas do mesmo município, em prédios diferentes).
    Média ponderada pelos aptos; intervalo de 95% por 2.000 sorteios dos grupos de comparação.
    É uma comparação observacional: urnas que mudam já tinham abstenção maior no 1º turno (parte
    delas tinha sido deslocada), e parte da variação pode ser volta ao normal.
@@ -14,7 +15,9 @@
 3. Quanto isso pode mexer na margem? Eleitores a mais ou a menos = aptos x efeito de 2022 do mesmo
    tipo de mudança (volta ao local de sempre, ou sai dele); quem deixa de votar se divide como os
    votos daquela urna no 1º turno. O intervalo sorteia os grupos de 2022 uma vez para os dois tipos
-   ao mesmo tempo (bootstrap conjunto). É uma conta de ordem de grandeza, não uma previsão.
+   ao mesmo tempo (bootstrap conjunto): é o intervalo do efeito médio, que supõe o mesmo efeito em todas as urnas
+   do tipo. A faixa de previsão sorteia, para cada urna de 2026, o efeito de uma urna de 2022 do mesmo tipo, e assim
+   inclui a variação de uma urna para outra. É uma conta de ordem de grandeza, não uma previsão.
 
 Uso: python -P scripts/03_impacto.py
 Saídas: saida/impacto_2022.csv, saida/urnas_mudadas_2026.csv, saida/impacto_uf_2026.csv, saida/numeros.json
@@ -31,7 +34,7 @@ URNA = ["SG_UF", "CD_MUNICIPIO", "NR_ZONA", "NR_SECAO"]
 BASES = {
     "zona_municipio": ["SG_UF", "CD_MUNICIPIO", "NR_ZONA"],
     "zona": ["SG_UF", "NR_ZONA"],
-    "local_cadastro": ["SG_UF", "CD_MUNICIPIO", "NR_LOCAL_VOTACAO_ORIGINAL"],
+    "local_cadastro": ["SG_UF", "CD_MUNICIPIO", "NR_ZONA", "NR_LOCAL_VOTACAO_ORIGINAL"],
 }
 PRINCIPAL = "zona_municipio"
 REESCRITO = "mesmo prédio, endereço reescrito no cadastro"  # de 02_mudancas.py: não conta como mudança
@@ -93,7 +96,7 @@ def efeito_2022():
     u["delta"] = u.abst2 - u.abst1
     u = u[u.delta.between(-60, 60)]
     print("2022: urnas que mudaram, com votos nos dois turnos:", int(u.mudou.sum()))
-    res, sens, draws = [], {}, {}
+    res, sens, draws, efs = [], {}, {}, {}
     for nome, base in BASES.items():
         b = com_base(u, base, "delta", "aptos")
         m = b[b.mudou & b.base.notna()].assign(ef=lambda d: d.delta - d.base)
@@ -108,6 +111,7 @@ def efeito_2022():
                       **{f"{g}_ic": list(np.percentile(bs[g], [2.5, 97.5])) for g in ["volta", "sai"]}}
         if nome != PRINCIPAL:
             continue
+        efs = {g: m[m.grupo == g].ef.to_numpy() for g in ["volta", "sai"]}
         linhas = [("todas", m)] + [(g, m[m.grupo == g]) for g in ["sai", "volta"]] + \
                  [(f, m[m.faixa == f]) for f in ROTULOS + ["sem distância"]]
         for rot, d in linhas:
@@ -122,7 +126,7 @@ def efeito_2022():
     print(res.round(2).to_string(index=False))
     print(json.dumps({k: {a: (round(b, 2) if isinstance(b, float) else b) for a, b in v.items()}
                       for k, v in sens.items()}, indent=1, default=str))
-    return res, sens, draws
+    return res, sens, draws, efs
 
 
 def votos_2026():
@@ -137,6 +141,17 @@ def votos_2026():
     # votos de margem (Flávio - Lula) que mudam por +1 ponto de abstenção em cada urna
     u["margem_por_pp"] = u.aptos_2 / 100 * (u.c13 - u.c22) / u.comparecimento
     return u
+
+
+def previsao(m, efs):
+    """Faixa de 95% da margem quando cada urna de 2026 recebe o efeito de uma urna de 2022 do mesmo tipo, sorteada."""
+    r = np.random.default_rng(25)  # gerador próprio: não mexe nos sorteios das outras contas
+    tot = np.zeros(SORTEIOS)
+    for g, ef in efs.items():
+        a = m[m.grupo == g].margem_por_pp.to_numpy()
+        if len(a):
+            tot += r.choice(ef, size=(SORTEIOS, len(a))) @ a
+    return list(np.percentile(tot, [2.5, 97.5]))
 
 
 def aplicar(m, draws, sens):
@@ -169,10 +184,12 @@ def voto_vs_vizinhas(u):
 
 
 def main():
-    res, sens, draws = efeito_2022()
+    res, sens, draws, efs = efeito_2022()
     u = votos_2026()
     m = u[u.mudou].copy()
     impacto = aplicar(m, draws, sens)
+    impacto[PRINCIPAL]["margem_previsao"] = previsao(m, efs)
+    print("faixa de previsão da margem:", np.round(impacto[PRINCIPAL]["margem_previsao"], 1))
     ef = sens[PRINCIPAL]
     m["ef"] = m.grupo.map({g: ef[f"{g}_pp"] for g in ["volta", "sai"]})
     m["efeito_margem"] = m.ef * m.margem_por_pp

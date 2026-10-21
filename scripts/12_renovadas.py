@@ -70,16 +70,23 @@ def main():
     # prédio porque o registro do 1º turno mudou, não o do 2º
     reescrito = sairam.local_1t_antes != sairam.NR_LOCAL_VOTACAO
     reesc = sairam[reescrito]
-    ren = sairam[~reescrito & (sairam.tipo == FICA)]
+    primeiro = pd.read_csv(io.BytesIO(git(f"{VERSOES[0][1]}:saida/urnas_mudadas_2026.csv")))
+    voltavam = primeiro[primeiro.tipo == VOLTA][URNA]
+    # renovadas: voltavam ao local de sempre no primeiro cadastro e saíram da lista para ficar no prédio do 1º turno
+    fica = sairam[~reescrito & (sairam.tipo == FICA)]
+    ren = fica.merge(voltavam, on=URNA)
+    if len(ren) < len(fica):
+        print("AVISO: saíram para ficar no prédio do 1º turno sem voltar no primeiro cadastro:", len(fica) - len(ren),
+              fica.merge(voltavam, on=URNA, how="left", indicator=True).query("_merge == 'left_only'")
+              .groupby(["cadastro", "SG_UF"]).size().to_dict())
     # votaram no local de sempre no 1º turno, iam sair dele no 2º e passaram a ficar nele: nunca voltavam
     ficam = sairam[~reescrito & (sairam.tipo == IGUAL)]
     volta = u[u.tipo == VOLTA]
     # as que voltavam no primeiro cadastro e hoje vão para outro prédio provisório
-    primeiro = pd.read_csv(io.BytesIO(git(f"{VERSOES[0][1]}:saida/urnas_mudadas_2026.csv")))
-    outras = primeiro[primeiro.tipo == VOLTA][URNA].merge(u[URNA + ["tipo"]], on=URNA)
+    outras = voltavam.merge(u[URNA + ["tipo"]], on=URNA)
     outras = outras[outras.tipo == TROCA]
     # as que ainda voltam e já voltavam no primeiro cadastro (as outras entraram na lista depois)
-    volta_1o = volta.merge(primeiro[primeiro.tipo == VOLTA][URNA], on=URNA)
+    volta_1o = volta.merge(voltavam, on=URNA)
 
     # prédio provisório dividido: parte das urnas ficou nele, parte ainda volta ao local de sempre
     predio = ["SG_UF", "CD_MUNICIPIO", "NR_ZONA", "NR_LOCAL_VOTACAO"]
@@ -114,6 +121,7 @@ def main():
     fora_1t_22, voltam_22 = int(u22.tipo.isin([VOLTA, FICA, TROCA]).sum()), int((u22.tipo == VOLTA).sum())
     res = {
         "versoes": versoes, "renovadas": len(ren), "aptos_renovadas": int(ren.aptos.sum()),
+        "ficam_sem_voltar_no_primeiro": len(fica) - len(ren),
         "entraram": sum(v.get("entraram", 0) for v in versoes),
         "ufs_com_renovacao": int((t.renovadas > 0).sum()), "municipios": int(ren.groupby(["SG_UF", "CD_MUNICIPIO"]).ngroups),
         "zonas": int(ren.groupby(zona).ngroups), "predios_divididos": int(len(divididos)),
