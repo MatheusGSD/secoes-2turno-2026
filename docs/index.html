@@ -7,6 +7,16 @@
 <meta name="description" content="As 407 urnas que funcionam em outro prédio no 2º turno de 2026: onde ficam, em quem os eleitores delas votaram no 1º turno, por que o número difere das 4.352 seções divulgadas pelo TSE e quanto a mudança pode pesar no resultado. Atualizado em 21/10.">
 <meta property="og:title" content="Urnas que mudam de lugar">
 <meta property="og:description" content="As 407 urnas que funcionam em outro prédio no 2º turno de 2026: onde ficam, em quem os eleitores delas votaram no 1º turno e quanto a mudança pode pesar no resultado. Atualizado em 21/10.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://matheusgsd.github.io/secoes-2turno-2026/">
+<meta property="og:image" content="https://matheusgsd.github.io/secoes-2turno-2026/card.png">
+<meta property="og:image:width" content="1600">
+<meta property="og:image:height" content="900">
+<meta property="og:image:alt" content="Mapa do Brasil com as urnas que mudam de prédio no 2º turno, na cor de quem venceu ali no 1º turno, e os números principais">
+<meta name="twitter:card" content="summary_large_image">
+<!-- versão dos dados: entra no endereço dos .json, para o cache do GitHub Pages não misturar texto novo e dados antigos -->
+<meta name="versao-dados" content="21out1127">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23121417'/%3E%3Ccircle cx='11' cy='20' r='4' fill='none' stroke='%23f8f8f6' stroke-width='2.5'/%3E%3Ccircle cx='22' cy='11' r='4.5' fill='%23f8f8f6'/%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..100,500..800&family=Public+Sans:ital,wght@0,400;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -43,17 +53,22 @@ body { background: var(--papel); color: var(--tinta); font: 16px/1.6 var(--texto
 .evo-ctrl { display: flex; align-items: stretch; gap: .4rem; margin: 0 0 .7rem; }
 .evo-play { flex: none; width: 2.9rem; min-height: 40px; border: 1px solid var(--linha); background: var(--painel); color: var(--tinta);
   font: 600 1rem var(--texto); border-radius: 4px; cursor: pointer; padding: 0; }
-.evo-trilho { display: flex; overflow-x: auto; scrollbar-width: none; position: relative; flex: 1; min-width: 0; padding: 0 2rem 0 1.2rem;
+.evo-trilho { display: flex; overflow-x: auto; scrollbar-width: none; flex: 1; min-width: 0; padding: 0 2rem 0 1.2rem;
   -webkit-mask-image: linear-gradient(90deg, transparent, #000 1.2rem, #000 calc(100% - 2rem), transparent);
   mask-image: linear-gradient(90deg, transparent, #000 1.2rem, #000 calc(100% - 2rem), transparent); }
 .evo-trilho::-webkit-scrollbar { display: none; }
-.evo-trilho::before { content: ""; position: absolute; left: 1.2rem; right: 2rem; top: 50%; border-top: 1px solid var(--linha); }
+/* a linha que liga os pontos é o fundo de cada item (rola junto); o ponto fica no meio da altura */
 .evo-trilho > * { flex: none; position: relative; display: flex; flex-direction: column; align-items: center; gap: .15rem;
-  min-width: 3.3rem; padding: .15rem .1rem; border: 0; background: none; color: var(--tinta3); font: 500 .66rem/1.1 var(--dados); cursor: pointer; }
-.evo-trilho .d { min-height: .8rem; color: var(--tinta2); }
+  min-width: 3.3rem; padding: .15rem .1rem; border: 0; color: var(--tinta3); font: 500 .66rem/1.1 var(--dados); cursor: pointer;
+  background: linear-gradient(var(--linha), var(--linha)) center / 100% 1px no-repeat; }
+.evo-trilho > :first-child { background-position: right center; background-size: 50% 1px; }
+.evo-trilho > :last-child { background-position: left center; background-size: 50% 1px; }
+.evo-trilho .d, .evo-trilho .h { min-height: .8rem; }
+.evo-trilho .d { color: var(--tinta2); }
+.evo-trilho .d.rep { color: var(--tinta3); font-weight: 400; }
 .evo-trilho i { width: 11px; height: 11px; border-radius: 50%; background: var(--tinta3); border: 2px solid var(--papel); box-sizing: content-box; }
-.evo-trilho [aria-pressed="true"] { color: var(--tinta); font-weight: 700; }
-.evo-trilho [aria-pressed="true"] i { background: var(--tinta); box-shadow: 0 0 0 2px var(--tinta); }
+.evo-trilho [aria-current="true"], .evo-trilho [aria-current="true"] .d { color: var(--tinta); font-weight: 700; }
+.evo-trilho [aria-current="true"] i { background: var(--tinta); box-shadow: 0 0 0 2px var(--tinta); }
 .evo-trilho .evo-perdida { min-width: 4.6rem; cursor: default; white-space: nowrap; }
 .evo-trilho .evo-perdida i { background: var(--papel); border: 1px dashed var(--tinta3); width: 9px; height: 9px; }
 .evo-corpo { display: flex; flex-wrap: wrap; gap: .4rem 1.4rem; align-items: center; }
@@ -152,8 +167,9 @@ select { font: 600 .82rem var(--texto); color: var(--tinta); background: var(--p
   .zoom button { width: 42px; height: 42px; }
   .busca { flex-basis: 100%; max-width: none; }
 }
+.curto { display: none; }
 @media (max-width: 560px) {
-  .longo { display: none; }
+  .longo { display: none; } .curto { display: inline; }
   .leg-mapa { font-size: .72rem; padding: .35rem .5rem; }
   #leg-zoom { display: none; }
   .ctrl { gap: .35rem; }
@@ -187,6 +203,7 @@ select { font: 600 .82rem var(--texto); color: var(--tinta); background: var(--p
 .atualizacao summary::before { content: "▸"; font-size: .8rem; transition: transform .15s; }
 .atualizacao details[open] > summary::before { transform: rotate(90deg); }
 tr.antiga td { color: var(--tinta3); }
+.atualizacao tr.antiga td { color: var(--tinta2); }
 
 /* gráficos */
 figure { margin: 1.4rem 0 1.6rem; }
@@ -325,11 +342,12 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
           <button type="button" data-f="todas" aria-pressed="true">Todas</button>
           <button type="button" data-f="volta" aria-pressed="false">Voltam<span class="longo"> ao local de sempre</span></button>
           <button type="button" data-f="sai" aria-pressed="false">Saem<span class="longo"> do local de sempre</span></button>
+          <button type="button" data-f="predio" aria-pressed="false"><span class="longo">Local de sempre em outro prédio</span><span class="curto">Outro prédio</span></button>
         </div>
         <select id="sel-uf" aria-label="Estado"><option value="">Brasil inteiro</option></select>
         <select id="sel-mun" aria-label="Município" hidden><option value="">Todos os municípios</option></select>
         <div class="busca" role="search">
-          <input type="text" enterkeyhint="search" id="busca" placeholder="Buscar escola, local, endereço ou município" aria-label="Buscar escola, local, endereço ou município" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="resultados" aria-autocomplete="list">
+          <input type="text" enterkeyhint="search" id="busca" placeholder="Buscar escola ou município" aria-label="Buscar escola, local, endereço ou município" autocomplete="off" role="combobox" aria-expanded="false" aria-controls="resultados" aria-autocomplete="list">
           <button type="button" class="limpar" id="limpar-busca" aria-label="Limpar busca" hidden>×</button>
           <div class="resultados" id="resultados" role="listbox" aria-label="Resultados da busca" hidden></div>
         </div>
@@ -647,12 +665,21 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
   const TIPO = { volta: "Volta ao local de sempre", sai: "Sai do local de sempre", troca: "Troca de um local provisório por outro", predio: "O local de sempre passa para outro prédio" };
   const lado = document.getElementById("lado"), statusMapa = document.getElementById("status-mapa");
 
+  // o quadro "O que mudou" abre pelo link da página e também por quem chega com a âncora no endereço
+  const detAtu = document.getElementById("det-atualizacao");
+  const abrirAtu = () => { if (/^#(t|det)-atualizacao$/.test(location.hash)) detAtu.open = true; };
+  abrirAtu(); addEventListener("hashchange", abrirAtu);
+  document.querySelectorAll('a[href="#t-atualizacao"]').forEach(a => a.addEventListener("click", () => detAtu.open = true));
+
+  // a versão dos dados (meta versao-dados) entra no endereço, para o cache não servir .json de uma versão anterior ao texto
+  const versao = document.querySelector('meta[name="versao-dados"]')?.content;
+  const comVersao = u => versao ? u + "?v=" + encodeURIComponent(versao) : u;
   // a evolução entre as versões do cadastro vem de 16_evolucao.py e é opcional
-  const pedirEvolucao = fetch("evolucao.json").then(r => r.json()).catch(() => null);
+  const pedirEvolucao = fetch(comVersao("evolucao.json")).then(r => r.json()).catch(() => null);
   // contornos são opcionais: sem eles, o mapa funciona só com os pontos
-  const pedirContornos = fetch("contornos.json").then(r => r.json()).catch(() => ({ uf: {}, mun: {} }));
+  const pedirContornos = fetch(comVersao("contornos.json")).then(r => r.json()).catch(() => ({ uf: {}, mun: {} }));
   let D;
-  try { D = await (await fetch("dados.json")).json(); }
+  try { D = await (await fetch(comVersao("dados.json"))).json(); }
   catch (e) { lado.innerHTML = "<p>Não foi possível carregar os dados do mapa. Recarregue a página.</p>"; return; }
   const C = await pedirContornos;
   const N = D.numeros, M = N.mudadas, IMP = N.impacto[N.principal];
@@ -706,7 +733,8 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
     munXY = Object.fromEntries(Object.entries(C.mun).map(([k, v]) => [k, projAneis(v)]));
     recalcular();
   }
-  const doTipo = p => filtro === "todas" || (filtro === "volta" ? p.tipo === "volta" : p.tipo !== "volta");
+  // "sai" junta quem sai do local de sempre e quem troca de um local provisório por outro, como na conta do texto
+  const doTipo = p => filtro === "todas" || filtro === (p.tipo === "troca" ? "sai" : p.tipo);
   const casa = p => termos.every(q => p.busca.includes(q));
   const naArea = p => (!ufSel || p.uf === ufSel) && (!munSel || p.mun === munSel);
   const daArea = () => pares.filter(p => naArea(p) && doTipo(p) && casa(p));
@@ -892,7 +920,7 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
       const l = daArea();
       const s = l.reduce((a, q) => (a.aptos += q.aptos, a.urnas += q.secoes.length, a.lula += q.lula, a.flavio += q.flavio, a.validos += q.validos, a.ul += q.ul, a.uf += q.uf_, a), { aptos: 0, urnas: 0, lula: 0, flavio: 0, validos: 0, ul: 0, uf: 0 });
       const onde = munSel ? `${munSel} (${ufSel})` : ufSel ? UFNOME[ufSel] : "Brasil";
-      const nomeF = { todas: "", volta: " · voltam ao local de sempre", sai: " · saem do local de sempre" }[filtro];
+      const nomeF = { todas: "", volta: " · voltam ao local de sempre", sai: " · saem do local de sempre", predio: " · local de sempre em outro prédio" }[filtro];
       const nomeQ = termos.length ? ` · busca "${esc(qBruto)}"` : "";
       statusMapa.textContent = `${fmt.format(s.urnas)} urnas em ${fmt.format(l.length)} trajetos`;
       if (!s.urnas) {
@@ -992,10 +1020,11 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
     const ms = muns.filter(m => termos.every(q => m.n.includes(q)) && (!ufSel || m.uf === ufSel)).slice(0, 4);
     const ps = daArea().filter(p => p.pp).sort((a, b) => b.aptos - a.aptos);
     let h = "";
-    if (ms.length) h += '<div class="grupo">Municípios</div>' + ms.map(m => `<button type="button" role="option" data-uf="${m.uf}" data-mun="${esc(m.mun)}">${esc(m.mun)} (${m.uf})</button>`).join("");
-    if (ps.length) h += `<div class="grupo">Trajetos no mapa (${fmt.format(ps.length)})</div>` + ps.slice(0, 6).map(p => `<button type="button" role="option" data-id="${p.id}">${esc(p.de)} → ${esc(p.para)}<small>${esc(p.mun)} (${p.uf}) · ${fmt.format(p.aptos)} eleitores</small></button>`).join("")
-      + (ps.length > 6 ? `<button type="button" role="option" class="todos" data-todos="1">Ver os ${fmt.format(ps.length)} no mapa</button>` : "");
-    res.innerHTML = h || '<div class="grupo">Nada encontrado</div>';
+    const grupo = (t, o) => `<div role="group" aria-label="${t}"><div class="grupo" aria-hidden="true">${t}</div>${o}</div>`;
+    if (ms.length) h += grupo("Municípios", ms.map(m => `<button type="button" role="option" data-uf="${m.uf}" data-mun="${esc(m.mun)}">${esc(m.mun)} (${m.uf})</button>`).join(""));
+    if (ps.length) h += grupo(`Trajetos no mapa (${fmt.format(ps.length)})`, ps.slice(0, 6).map(p => `<button type="button" role="option" data-id="${p.id}">${esc(p.de)} → ${esc(p.para)}<small>${esc(p.mun)} (${p.uf}) · ${fmt.format(p.aptos)} eleitores</small></button>`).join("")
+      + (ps.length > 6 ? `<button type="button" role="option" class="todos" data-todos="1">Ver os ${fmt.format(ps.length)} no mapa</button>` : ""));
+    res.innerHTML = h || '<div class="grupo" role="option" aria-disabled="true">Nada encontrado</div>';
     res.hidden = false; inBusca.setAttribute("aria-expanded", "true");
   }
   function buscar() {
@@ -1032,10 +1061,10 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
 
   // ---------- lista dos locais (tabela equivalente ao mapa) ----------
   function tabela() {
-    const L = daArea().sort((a, b) => b.aptos - a.aptos), tudo = ufSel || munSel || termos.length, lim = tudo ? L.length : 40;
+    const L = daArea().sort((a, b) => b.aptos - a.aptos), tudo = ufSel || munSel || termos.length || L.length <= 40, lim = tudo ? L.length : 40;
     const onde = [munSel || (ufSel && UFNOME[ufSel]), termos.length && `com "${qBruto}"`].filter(Boolean).join(", ");
     document.getElementById("sum-lista").textContent = tudo
-      ? `Lista dos ${fmt.format(L.length)} trajetos ${munSel || ufSel ? "em " : ""}${onde}`
+      ? `${L.length === 1 ? "Lista do único trajeto" : L.length ? `Lista dos ${fmt.format(L.length)} trajetos` : "Nenhum trajeto"}${onde ? " " : ""}${munSel || ufSel ? "em " : ""}${onde}`
       : `Lista dos 40 maiores trajetos (de ${fmt.format(L.length)}; escolha um estado ou busque um local para ver todos)`;
     const dist = p => p.dist == null ? "–" : p.dist < 1 ? Math.round(p.dist * 100) * 10 + " m" : pct(p.dist) + " km";
     document.getElementById("tab-pares").innerHTML = `<thead><tr><th>Município</th><th style="text-align:left">Do prédio do 1º turno → ao do 2º</th><th>Distância</th><th>Urnas</th><th>Eleitores</th><th>Lula</th><th>Flávio</th></tr></thead><tbody>` +
@@ -1057,13 +1086,27 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
   })();
 
   // ---------- gráficos (redesenhados na largura real, para o texto não encolher no celular) ----------
+  // com o mouse, o balão segue o ponteiro; no toque, abre e fecha com um toque e fica acima do dedo
   const dg = document.getElementById("dica-g");
-  function dicaG(el, html) {
-    el.addEventListener("pointerenter", () => { dg.innerHTML = typeof html === "function" ? html() : html; dg.hidden = false; });
-    el.addEventListener("pointermove", e => { dg.style.left = Math.min(innerWidth - dg.offsetWidth - 8, e.clientX + 12) + "px"; dg.style.top = (e.clientY + 12) + "px"; });
-    el.addEventListener("pointerleave", () => { dg.hidden = true; });
+  let dgAlvo = null, ponteiro = "mouse";
+  addEventListener("pointerdown", e => { ponteiro = e.pointerType; }, true);
+  const fecharDg = () => { dg.hidden = true; dgAlvo = null; };
+  function posDg(x, y, acima) {
+    dg.style.left = Math.max(8, Math.min(innerWidth - dg.offsetWidth - 8, acima ? x - dg.offsetWidth / 2 : x + 12)) + "px";
+    dg.style.top = (acima && y - dg.offsetHeight - 16 > 8 ? y - dg.offsetHeight - 16 : y + 12) + "px";
   }
-  addEventListener("scroll", () => { dg.hidden = true; }, { passive: true });
+  function dicaG(el, html) {
+    const abrir = () => { dg.innerHTML = typeof html === "function" ? html() : html; dg.hidden = false; dgAlvo = el; };
+    el.addEventListener("pointerenter", e => { if (e.pointerType === "mouse") abrir(); });
+    el.addEventListener("pointermove", e => { if (e.pointerType === "mouse") posDg(e.clientX, e.clientY); });
+    el.addEventListener("pointerleave", e => { if (e.pointerType === "mouse") fecharDg(); });
+    el.addEventListener("click", e => {
+      if (ponteiro === "mouse") return;
+      if (dgAlvo === el) fecharDg(); else { abrir(); posDg(e.clientX, e.clientY, true); }
+    });
+  }
+  document.addEventListener("click", e => { if (dgAlvo && ponteiro !== "mouse" && !dgAlvo.contains(e.target)) fecharDg(); });
+  addEventListener("scroll", fecharDg, { passive: true });
   function g2022() {
     const svg = d3.select("#g-2022"); svg.selectAll("*").remove();
     const Wg = Math.max(300, svg.node().parentNode.clientWidth), estr = Wg < 520;
@@ -1334,12 +1377,34 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
   }
 
 
-  // ---------- evolução da lista entre as versões do cadastro (de 16_evolucao.py) ----------
+  let evoI = 0, evoTimer = null, gEvoMapa = () => {}, gEvoUrnas = () => {};
+  let larguraGraf = 0;
+  new ResizeObserver(() => { const w = document.getElementById("g-2022").parentNode.clientWidth; if (w !== larguraGraf) { larguraGraf = w; g2022(); gMargem(); gFaixas(); gLocal(); gVersoes(); gEvoMapa(); gEvoUrnas(); } })
+    .observe(document.getElementById("g-2022").parentNode);
+
+  // ---------- início ----------
+  lerCores();
+  const tema = () => { lerCores(); desenhar(false); };
+  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", tema);
+  new MutationObserver(tema).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
+  // link direto para um estado ou município: ?uf=RN ou ?uf=RN&mun=Caraúbas; a página abre no mapa
+  const q = new URLSearchParams(location.search), qUf = (q.get("uf") || "").toUpperCase();
+  const linkDireto = pares.some(p => p.uf === qUf);
+  if (linkDireto) {
+    ufSel = qUf; selUf.value = ufSel;
+    munSel = pares.find(p => p.uf === ufSel && norm(p.mun) === norm(q.get("mun")))?.mun || "";
+    preencherMun();
+  }
+  recalcular();
+  new ResizeObserver(redimensionar).observe(wrap);
+  mostrar(null); tabela();
+  if (linkDireto && !location.hash) document.getElementById("t-mapa").scrollIntoView({ block: "start" });
+
+  // ---------- evolução da lista entre as versões do cadastro (de 16_evolucao.py); chega depois do mapa ----------
   const EV = await pedirEvolucao;
   const COR_EV = { sai: "var(--tinta)", predio: "var(--tinta3)", volta: "var(--d3)", saiu: "var(--d1)" };
   const NOME_EV = { sai: "sai do local de sempre", predio: "local de sempre em outro prédio", volta: "volta ao local de sempre",
                     saiu: "saiu da lista: fica no prédio do 1º turno", ainda: "ainda não estava na lista" };
-  let evoI = 0, evoTimer = null, gEvoMapa = () => {}, gEvoUrnas = () => {};
   if (EV) {
     const VE = EV.versoes, NV = VE.length, UE = EV.urnas, iPerdida = VE.findIndex(v => v.rot === EV.perdida_depois_de);
     evoI = NV - 1;
@@ -1353,18 +1418,25 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
     });
     // controles: os dois gráficos têm a mesma linha de botões, ligada ao mesmo estado
     const ctrls = [...document.querySelectorAll(".evo-ctrl")];
-    // um ponto por versão, com a hora embaixo e a data só no primeiro ponto de cada dia
+    // um ponto por versão, com a data em cima (mais clara quando repete o dia anterior) e a hora embaixo
     const [dia, hora] = [v => v.rot.split(", ")[0], v => v.rot.split(", ")[1]];
     for (const c of ctrls) {
       c.innerHTML = `<button type="button" class="evo-play" aria-label="Ver desde 17/10" title="Ver desde 17/10">▶</button><div class="evo-trilho">` + VE.map((v, i) =>
-        `<button type="button" data-i="${i}" aria-label="${v.rot}"><span class="d">${i && dia(VE[i - 1]) === dia(v) ? "" : dia(v)}</span><i></i><span class="h">${hora(v)}</span></button>`
+        `<button type="button" data-i="${i}" tabindex="-1" aria-label="${v.rot}"><span class="d${i && dia(VE[i - 1]) === dia(v) ? " rep" : ""}">${dia(v)}</span><i></i><span class="h">${hora(v)}</span></button>`
         + (i === iPerdida ? `<span class="evo-perdida" title="Versão publicada na noite de 19/10 e substituída antes que a baixássemos"><span class="d"></span><i></i><span class="h">noite, não baixada</span></span>` : "")).join("") + `</div>`;
       c.querySelectorAll("[data-i]").forEach(b => b.onclick = () => { parar(); irEvo(+b.dataset.i); });
       c.querySelector(".evo-play").onclick = () => evoTimer ? parar() : tocar();
+      // Tab entra só na versão escolhida; setas, Home e End andam entre as versões
+      c.querySelector(".evo-trilho").addEventListener("keydown", e => {
+        const j = { ArrowLeft: evoI - 1, ArrowRight: evoI + 1, Home: 0, End: NV - 1 }[e.key];
+        if (j == null) return;
+        e.preventDefault(); parar(); irEvo(Math.max(0, Math.min(NV - 1, j)));
+        c.querySelector(`[data-i="${evoI}"]`).focus({ preventScroll: true });
+      });
     }
     // mantém a versão escolhida à vista dentro da linha, sem rolar a página
     function centrar(c, suave) {
-      const t = c.querySelector(".evo-trilho"), b = t.querySelector('[aria-pressed="true"]');
+      const t = c.querySelector(".evo-trilho"), b = t.querySelector('[aria-current="true"]');
       if (b && t.scrollWidth > t.clientWidth) t.scrollTo({ left: b.offsetLeft - t.clientWidth / 2 + b.offsetWidth / 2, behavior: suave && !reduzido() ? "smooth" : "auto" });
     }
     const rotPlay = (txt, rot) => ctrls.forEach(c => { const p = c.querySelector(".evo-play"); p.textContent = txt; p.ariaLabel = p.title = rot; });
@@ -1377,7 +1449,7 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
     let atualizarMapa = () => {}, atualizarUrnas = () => {};
     function irEvo(i, suave = true) {
       evoI = i;
-      ctrls.forEach(c => { c.querySelectorAll("[data-i]").forEach(b => b.setAttribute("aria-pressed", +b.dataset.i === i)); centrar(c, suave); });
+      ctrls.forEach(c => { c.querySelectorAll("[data-i]").forEach(b => { const s = +b.dataset.i === i; b.tabIndex = s ? 0 : -1; s ? b.setAttribute("aria-current", "true") : b.removeAttribute("aria-current"); }); centrar(c, suave); });
       const v = VE[i], sai = i ? UE.filter(u => u.s[i - 1] && !u.s[i]).length : 0, ent = i ? UE.filter(u => entrou(u, i)).length : 0;
       const sub = `urnas mudam de prédio pelo cadastro de <b>${v.rot}</b>` + (i ? `<br>${fmt.format(sai)} ${sai === 1 ? "saiu" : "saíram"} e ${fmt.format(ent)} ${ent === 1 ? "entrou" : "entraram"} na lista` : "<br>primeira versão baixada");
       document.getElementById("evo-num").textContent = document.getElementById("evo-num2").textContent = fmt.format(v.urnas);
@@ -1473,30 +1545,6 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
     };
     gEvoMapa(); gEvoUrnas(); irEvo(evoI, false);
   } else document.querySelectorAll(".evo").forEach(el => el.hidden = true);
-
-  document.querySelectorAll('a[href="#t-atualizacao"]').forEach(a => a.addEventListener("click", () => document.getElementById("det-atualizacao").open = true));
-
-  let larguraGraf = 0;
-  new ResizeObserver(() => { const w = document.getElementById("g-2022").parentNode.clientWidth; if (w !== larguraGraf) { larguraGraf = w; g2022(); gMargem(); gFaixas(); gLocal(); gVersoes(); gEvoMapa(); gEvoUrnas(); } })
-    .observe(document.getElementById("g-2022").parentNode);
-
-  // ---------- início ----------
-  lerCores();
-  const tema = () => { lerCores(); desenhar(false); };
-  matchMedia("(prefers-color-scheme: dark)").addEventListener("change", tema);
-  new MutationObserver(tema).observe(document.documentElement, { attributes: true, attributeFilter: ["data-theme"] });
-  // link direto para um estado ou município: ?uf=RN ou ?uf=RN&mun=Caraúbas; a página abre no mapa
-  const q = new URLSearchParams(location.search), qUf = (q.get("uf") || "").toUpperCase();
-  const linkDireto = pares.some(p => p.uf === qUf);
-  if (linkDireto) {
-    ufSel = qUf; selUf.value = ufSel;
-    munSel = pares.find(p => p.uf === ufSel && norm(p.mun) === norm(q.get("mun")))?.mun || "";
-    preencherMun();
-  }
-  recalcular();
-  new ResizeObserver(redimensionar).observe(wrap);
-  mostrar(null); tabela();
-  if (linkDireto && !location.hash) document.getElementById("t-mapa").scrollIntoView({ block: "start" });
 })();
 </script>
 </body>

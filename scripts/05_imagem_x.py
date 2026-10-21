@@ -4,7 +4,7 @@ Usa os mesmos dados da página (docs/dados.json). Fundo: todos os locais de vota
 círculos: as urnas que mudam, na cor de quem venceu ali no 1º turno, do tamanho dos eleitores.
 
 Uso: python -P scripts/05_imagem_x.py   (depois de 04)
-Saída: saida/imagem_x.png
+Saída: saida/imagem_x.png e uma cópia em docs/card.png (a imagem de compartilhamento da página, og:image)
 """
 import json
 import sys
@@ -88,6 +88,7 @@ def main():
 
     out = SAIDA / "imagem_x.png"
     fig.savefig(out, dpi=200, facecolor=PAPEL)
+    (RAIZ / "docs" / "card.png").write_bytes(out.read_bytes())
     print(out, fig.get_size_inches() * 200)
 
 
