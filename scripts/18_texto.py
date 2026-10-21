@@ -248,6 +248,8 @@ def valores():
     v["sens_2t_urnas"] = inteiro(s2t["urnas"])
     v["sens_2t_margem"] = votos(s2t["margem"])
     v["sens_2t_ic"] = f"{votos(s2t['margem_ic_baixo'])} a {votos(s2t['margem_ic_alto'])}"
+    v["sens_2t_votos"] = inteiro(abs(s2t["margem"]))
+    v["sens_2t_ic_abs"] = f"de {inteiro(abs(s2t['margem_ic_baixo']))} a {inteiro(abs(s2t['margem_ic_alto']))}"
     v["pct_volta"] = pct(m["pct_volta"], 0)
 
     # quem vota
@@ -365,7 +367,11 @@ def valores():
     fx = [x for x in web["por_local_faixas"] if x["lista"].startswith("urnas")]
     for painel, k in [("país", "pais"), ("estado", "estado"), ("município", "municipio")]:
         ps = [x["pct"] for x in fx if x["painel"] == painel]
-        v[f"faixas_{k}"] = f"entre {pct(min(ps), 2)} e {pct(max(ps), 2)}"
+        v[f"faixas_{k}"] = f"de {pct(min(ps), 2)} a {pct(max(ps), 2)}"
+    baixa = next(x for x in fx if x["painel"] == "país" and x["faixa"] == "menos de 30%")["pct"]
+    outras_f = [x["pct"] for x in fx if x["painel"] == "país" and x["faixa"] != "menos de 30%"]
+    v["faixas_pais_frase"] = (f"é de {pct(baixa, 2)} onde Lula teve menos de 30% e fica entre {pct(min(outras_f), 2)} "
+                              f"e {pct(max(outras_f), 2)} nas outras faixas")
 
     # geografia
     reg = pd.read_csv(SAIDA / "geografia_regioes.csv").query("ano == 2026").set_index("regiao")
