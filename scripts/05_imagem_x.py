@@ -58,7 +58,8 @@ def main():
     t(0.905, f"2º TURNO · 25/10/2026 · {cabecalho()}", size=7, color=TINTA2, family=DADOS)
     t(0.80, "Urnas que mudam de lugar", size=20, weight="bold")
     t(0.62, f"{m['urnas']:,}".replace(",", "."), size=34, weight="bold")
-    fatia = f"{100 * m['validos'] / n['validos']:.1f}".replace(".", ",")
+    pv = 100 * m['validos'] / n['validos']
+    fatia = f"{pv:.{1 if pv >= 1 else 2}f}".replace(".", ",")  # como na página: duas casas abaixo de 1%
     t(0.555, f"urnas funcionam no 2º turno num prédio diferente do 1º.\nElas somam {fatia}% dos votos válidos do país",
       size=8.6, color=TINTA2, linespacing=1.35, va="top")
 
@@ -66,7 +67,7 @@ def main():
     dist = json.loads((RAIZ / "docs" / "dados.json").read_text(encoding="utf-8"))["distancia"]
     mediana = int(round(dist["mediana"] * 100) * 10)
     itens = [
-        (f"Metade dos eleitores vota a até {mediana} m", "do prédio onde a urna funcionou no 1º turno"),
+        (f"Metade dos eleitores vota a até {mediana} m", "do prédio registrado para o 1º turno"),
         ("Voto sem diferença detectável das vizinhas", "comparado com urnas do mesmo município e zona"),
         ("Efeito estimado: próximo de zero", "com base em 2022; a diferença no 1º turno foi de 2,24 milhões"),
     ]

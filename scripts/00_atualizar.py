@@ -8,9 +8,10 @@ O CDN serve cópia velha a quem pede o endereço puro: a conferência vai sempre
 A data de cada versão é a de geração (DT_GERACAO e HH_GERACAO, de dentro do CSV, em Brasília), não a do arquivo.
 
 --aplicar põe no lugar a versão mais nova de dados/novos/, guarda a anterior em dados/anteriores/, acrescenta a
-versão em versoes.py (com o commit atual como o da anterior) e roda os scripts na ordem. Não mexe no texto escrito à
-mão em docs/index.html e no README, não faz commit e não publica: isso continua sendo feito depois, conferindo os
-números de saida/numeros.json e o resumo de 07 (saida/log_07.txt).
+versão em versoes.py (com o commit atual como o da anterior) e roda os scripts na ordem. O último, 18_texto.py,
+preenche os números marcados no texto da página e do README; depois, 19_conferir.py procura o que ficou para trás
+(saida/log_19.txt), sem desfazer nada se encontrar. O resto do texto, o commit e a publicação continuam à mão, pelo
+CHECKLIST.md.
 
 Robustez (depois de 20/10, 15h27, quando o cadastro trouxe 15 seções repetidas e 07_versoes.py quebrou no meio):
 - antes de aplicar, a versão nova é conferida (colunas, os dois turnos, número de linhas); se não passa, nada muda;
@@ -30,6 +31,7 @@ Uso: python -P scripts/00_atualizar.py --verificar   (sai com código 10 se há 
 """
 import contextlib
 import os
+import re
 import shutil
 import subprocess
 import sys
@@ -50,8 +52,8 @@ URL = "https://cdn.tse.jus.br/estatistica/sead/odsele/eleitorado_locais_votacao/
 REGISTRO = RAIZ / "scripts" / "versoes.py"
 MESES = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"]
 # ordem de 19/10: 09 antes de 04 (04 exporta por_local a partir dos CSVs de 09); 12 depois de 07
-ORDEM = ["02", "03", "07", "12", "16", "09", "11", "13", "04", "06", "05", "08", "10", "14", "15", "17"]
-COM_LOG = {"02", "03", "04", "07", "09", "11", "12", "13", "16"}
+ORDEM = ["02", "03", "07", "12", "16", "09", "11", "13", "04", "06", "05", "08", "10", "14", "15", "17", "18"]
+COM_LOG = {"02", "03", "04", "07", "09", "11", "12", "13", "16", "18"}
 NOVA = 10
 
 
@@ -151,6 +153,11 @@ def rodar():
         if n in COM_LOG:
             (RAIZ / "saida" / f"log_{n}.txt").write_text(r.stdout, encoding="utf-8")
     print((RAIZ / "saida" / "log_07.txt").read_text(encoding="utf-8"))
+    # a conferência do texto não desfaz nada: o que ela acha é trabalho para o texto escrito à mão
+    r = subprocess.run([sys.executable, "-P", str(RAIZ / "scripts" / "19_conferir.py")], cwd=RAIZ, env=amb,
+                       capture_output=True, text=True, encoding="utf-8")
+    (RAIZ / "saida" / "log_19.txt").write_text(r.stdout + r.stderr, encoding="utf-8")
+    print(r.stdout + r.stderr)
 
 
 def aplicar():
@@ -250,9 +257,11 @@ def automatico():
                 FALHOU.write_text(rotulo(g), encoding="utf-8")
                 raise
             avisos = [l for l in (RAIZ / "saida" / "log_02.txt").read_text(encoding="utf-8").splitlines() if "AVISO" in l]
-            avisar("Cadastro do TSE: versão nova aplicada", f"Gerada em {rotulo(g)}. Scripts rodados; falta o texto "
-                   "da página e do README. Resumo em saida/log_07.txt." + (f" Atenção: {len(avisos)} aviso(s) em "
-                   "saida/log_02.txt." if avisos else ""))
+            pend = re.search(r"pendências: (\d+)", (RAIZ / "saida" / "log_19.txt").read_text(encoding="utf-8"))
+            avisar("Cadastro do TSE: versão nova aplicada", f"Gerada em {rotulo(g)}. Scripts rodados e números do texto "
+                   f"preenchidos; falta o texto à mão (CHECKLIST.md). Conferência: {pend.group(1) if pend else '?'} "
+                   "pendência(s) em saida/log_19.txt." + (f" Atenção: {len(avisos)} aviso(s) em saida/log_02.txt."
+                                                          if avisos else ""))
             avisado.write_text(rotulo(g), encoding="utf-8")
         except (Exception, SystemExit) as e:
             traceback.print_exc()
