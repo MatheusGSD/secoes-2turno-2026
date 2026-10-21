@@ -1,59 +1,59 @@
 {
- "fora_no_1t_2026": 6737,
- "aptos_fora": 2019500,
- "pct_lula_fora": 50.25157404197358,
- "pct_flavio_fora": 42.82893874058464,
+ "fora_no_1t_2026": 6767,
+ "aptos_fora": 2027039,
+ "pct_lula_fora": 50.32366331255335,
+ "pct_flavio_fora": 42.76694948136269,
  "efeito_no_resultado_1t": {
   "estimativa": {
-   "eleitores_a_menos": 12677.02403458075,
-   "votos_liquidos_lula": -872.1685397140054
+   "eleitores_a_menos": 12642.677825578734,
+   "votos_liquidos_lula": -885.0171492747294
   },
   "ic_baixo": {
-   "eleitores_a_menos": 9726.718326264729,
-   "votos_liquidos_lula": -669.1900004044064
+   "eleitores_a_menos": 9802.199998274562,
+   "votos_liquidos_lula": -686.1770282196208
   },
   "ic_alto": {
-   "eleitores_a_menos": 15678.470266408298,
-   "votos_liquidos_lula": -1078.6655038202748
+   "eleitores_a_menos": 15750.0554288317,
+   "votos_liquidos_lula": -1102.5408816747674
   }
  },
  "abst_pais_1t_2026": 20.84211752559898,
  "nivel_2026": {
-  "dif_pp": 0.6638625116863441,
+  "dif_pp": 0.6580194114882452,
   "ic": [
-   0.49086152621392054,
-   0.8449543309705462
+   0.49185293668130586,
+   0.8299919731222906
   ],
-  "urnas": 6704,
-  "aptos": 2010434,
-  "abst_fora": 20.210710722162485
+  "urnas": 6734,
+  "aptos": 2017973,
+  "abst_fora": 20.194868811426115
  },
  "variacao_desde_2022": {
-  "dif_pp": 0.6277308261738426,
+  "dif_pp": 0.623701755396849,
   "ic": [
-   0.48163992702474523,
-   0.7763540612234859
+   0.4835723436142355,
+   0.7769981450199873
   ],
-  "urnas": 5301,
-  "aptos": 1617971,
-  "abst_fora": 20.333120927383742
+  "urnas": 5319,
+  "aptos": 1622850,
+  "abst_fora": 20.319129925747916
  },
  "nivel_2022_mesmas_urnas": {
-  "dif_pp": 0.0296096800319162,
+  "dif_pp": 0.02665333758898479,
   "ic": [
-   -0.182090525175819,
-   0.23598140053335362
+   -0.18472598776085977,
+   0.23190513772740337
   ],
-  "urnas": 5301,
-  "aptos": 1617971,
-  "abst_fora": 20.333120927383742
+  "urnas": 5319,
+  "aptos": 1622850,
+  "abst_fora": 20.319129925747916
  },
  "sensibilidade_2t": {
-  "urnas": 291,
-  "aptos": 92697,
-  "margem": 13.723060767023924,
-  "margem_ic_baixo": 10.529312423084834,
-  "margem_ic_alto": 16.97216946287934,
-  "eleitores_a_menos": 581.9755262540311
+  "urnas": 292,
+  "aptos": 92849,
+  "margem": 9.002450277279424,
+  "margem_ic_baixo": 6.979836021280225,
+  "margem_ic_alto": 11.215115406609806,
+  "eleitores_a_menos": 579.1881611141758
  }
 }
