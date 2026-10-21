@@ -55,6 +55,18 @@ MESES = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "
 ORDEM = ["02", "03", "07", "12", "16", "09", "11", "13", "04", "06", "05", "08", "10", "14", "15", "17", "18"]
 COM_LOG = {"02", "03", "04", "07", "09", "11", "12", "13", "16", "18"}
 NOVA = 10
+# no Agendador, o script roda com pythonw, sem console: cada processo filho que precisa de console (git, python) abriria
+# uma janela. Os filhos rodam com python.exe num console oculto (CREATE_NO_WINDOW), que os netos (o git chamado pelos
+# scripts) herdam, e nada aparece na tela.
+SEM_JANELA = getattr(subprocess, "CREATE_NO_WINDOW", 0)
+PYTHON = sys.executable
+if Path(PYTHON).name.lower() == "pythonw.exe":
+    PYTHON = str(Path(PYTHON).with_name("python.exe"))
+
+
+def executar(*args, **kw):
+    """subprocess.run sem janela."""
+    return subprocess.run(*args, creationflags=SEM_JANELA, **kw)
 
 
 def geracao(arquivo):
@@ -102,7 +114,7 @@ def verificar():
 
 def registrar(g):
     """Acrescenta a versão nova em versoes.py; a que era a atual ganha o commit de agora."""
-    commit = subprocess.run(["git", "rev-parse", "--short=7", "HEAD"], cwd=RAIZ, capture_output=True, text=True,
+    commit = executar(["git", "rev-parse", "--short=7", "HEAD"], cwd=RAIZ, capture_output=True, text=True,
                             check=True).stdout.strip()
     t = REGISTRO.read_text(encoding="utf-8")
     fim = t.index("\n]\n")
@@ -114,7 +126,7 @@ def registrar(g):
 
 
 def pendencias():
-    return subprocess.run(["git", "status", "--porcelain", "--", "saida", "docs"], cwd=RAIZ, capture_output=True,
+    return executar(["git", "status", "--porcelain", "--", "saida", "docs"], cwd=RAIZ, capture_output=True,
                           text=True, check=True).stdout
 
 
@@ -146,7 +158,7 @@ def rodar():
     for n in ORDEM:
         script = next((RAIZ / "scripts").glob(f"{n}_*.py"))
         print(f"rodando {script.name}", flush=True)
-        r = subprocess.run([sys.executable, "-P", str(script)], cwd=RAIZ, env=amb, capture_output=True, text=True,
+        r = executar([PYTHON, "-P", str(script)], cwd=RAIZ, env=amb, capture_output=True, text=True,
                            encoding="utf-8")
         if r.returncode:
             sys.exit(f"{script.name} falhou:\n{r.stdout[-2000:]}\n{r.stderr[-4000:]}")
@@ -154,7 +166,7 @@ def rodar():
             (RAIZ / "saida" / f"log_{n}.txt").write_text(r.stdout, encoding="utf-8")
     print((RAIZ / "saida" / "log_07.txt").read_text(encoding="utf-8"))
     # a conferência do texto não desfaz nada: o que ela acha é trabalho para o texto escrito à mão
-    r = subprocess.run([sys.executable, "-P", str(RAIZ / "scripts" / "19_conferir.py")], cwd=RAIZ, env=amb,
+    r = executar([PYTHON, "-P", str(RAIZ / "scripts" / "19_conferir.py")], cwd=RAIZ, env=amb,
                        capture_output=True, text=True, encoding="utf-8")
     (RAIZ / "saida" / "log_19.txt").write_text(r.stdout + r.stderr, encoding="utf-8")
     print(r.stdout + r.stderr)
@@ -197,8 +209,8 @@ def aplicar():
         REGISTRO.write_text(registro, encoding="utf-8")
         for p in copia.glob("*.csv.gz"):
             shutil.copy2(p, RAIZ / "saida" / p.name)
-        subprocess.run(["git", "checkout", "--", "saida", "docs"], cwd=RAIZ, check=True)
-        subprocess.run(["git", "clean", "-fdq", "--", "saida", "docs"], cwd=RAIZ, check=True)  # o que os scripts criaram
+        executar(["git", "checkout", "--", "saida", "docs"], cwd=RAIZ, check=True)
+        executar(["git", "clean", "-fdq", "--", "saida", "docs"], cwd=RAIZ, check=True)  # o que os scripts criaram
         print(f"desfeito: de volta ao cadastro de {rotulo(atual)}; o de {rotulo(g)} continua em dados/novos/")
         raise
     shutil.rmtree(copia)
@@ -217,8 +229,7 @@ def avisar(titulo, texto):
           "[Windows.UI.Notifications.ToastNotificationManager]::CreateToastNotifier("
           "'{1AC14E77-02E7-4E5D-B744-2EB1AE5198B7}\\WindowsPowerShell\\v1.0\\powershell.exe')"
           ".Show([Windows.UI.Notifications.ToastNotification]::new($x))")
-    subprocess.run(["powershell", "-NoProfile", "-NonInteractive", "-Command", ps], capture_output=True,
-                   creationflags=getattr(subprocess, "CREATE_NO_WINDOW", 0))
+    executar(["powershell", "-NoProfile", "-NonInteractive", "-Command", ps], capture_output=True)
 
 
 def automatico():
@@ -233,7 +244,7 @@ def automatico():
                 print(f"{datetime.now():%d/%m %H:%M} | conferência falhou: {e}")
                 return
             g = pendentes()[1][-1][0]
-            ramo = subprocess.run(["git", "branch", "--show-current"], cwd=RAIZ, capture_output=True, text=True).stdout.strip()
+            ramo = executar(["git", "branch", "--show-current"], cwd=RAIZ, capture_output=True, text=True).stdout.strip()
             if ramo != "main":  # um protótipo ou outro trabalho em andamento: não aplica fora do main
                 if not avisado.exists() or avisado.read_text(encoding="utf-8") != rotulo(g):
                     avisar("Cadastro do TSE: versão nova", f"Gerada em {rotulo(g)} e guardada em dados/novos/. "

@@ -80,7 +80,10 @@ def sobras(v):
         antes = {"urnas": texto.inteiro(m["urnas"]), "aptos_mil": texto.mil(m["aptos"]),
                  "teto_votos": texto.inteiro(m["teto_votos"]), "municipios": texto.inteiro(m["municipios"])}
         print(f"(sem saida/texto.json no commit {commit_ant}: conferindo só {', '.join(antes)})")
-    suspeitos = {k: a for k, a in antes.items() if k in v and a != v[k] and re.search(r"\d", a) and len(a) >= 3}
+    # valores curtos ("126", "0,02") aparecem por acaso em número de seção e em intervalos antigos: só o total de urnas
+    # entra mesmo curto
+    suspeitos = {k: a for k, a in antes.items() if k in v and a != v[k] and re.search(r"\d", a)
+                 and (len(a) >= 5 or k == "urnas")}
     achados = []
     for arq in ARQUIVOS:
         t = corrido(arq.read_text(encoding="utf-8"), arq)
