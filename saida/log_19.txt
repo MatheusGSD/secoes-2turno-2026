@@ -2,10 +2,22 @@
       ok
 
 2. números da versão anterior fora dos marcadores
-      nenhum
+   index.html:656: '+0,03' era abst1t_2022 na versão de 21/10, 15h27 (agora '−0,01'): …a lista de 17/10 vai na mesma direção: entre locais do mesmo estado, +0,038 para Lula (lá, +0,041). Sem efeito fixo, não reproduzimos o coeficie…
+   index.html:519: '21/10, 15h27' era cadastro na versão de 21/10, 15h27 (agora '21/10, 20h28'): …ovisório. E 2 urnas de Serra do Ramalho (BA) entraram, no cadastro de 21/10, 15h27, como urnas que voltam ao local de sempre, porque o registro do 1º tu…
+   index.html:519: cita o cadastro anterior, 21/10, 15h27: …ovisório. E 2 urnas de Serra do Ramalho (BA) entraram, no cadastro de 21/10, 15h27, como urnas que voltam ao local de sempre, porque o registro do 1º tu…
+   README.md:240: '+0,03' era abst1t_2022 na versão de 21/10, 15h27 (agora '−0,01'): …da significância (+0,02, de +0,00 a +0,03); com as 596 do de 19/10, 11h27, não aparecia (+0,01, de −0,01 a…
+   README.md:124: '21/10, 15h27' era cadastro na versão de 21/10, 15h27 (agora '21/10, 20h28'): …21/10, 15h27, quando o registro do 1º turno delas mudou; as 3 de Recife que voltav…
+   README.md:307: '21/10, 15h27' era cadastro na versão de 21/10, 15h27 (agora '21/10, 20h28'): …ama o `pythonw`, e os scripts e o `git` rodam num console oculto (até 21/10, 15h27,…
+   README.md:366: '0,17%' era local_estado_limite na versão de 21/10, 15h27 (agora '0,15%'): …do texto (1.234, 0,17%, "12 mil", "−5 e +2", listas de estados com a preposição certa), e re…
+   README.md:124: cita o cadastro anterior, 21/10, 15h27: …21/10, 15h27, quando o registro do 1º turno delas mudou; as 3 de Recife que voltav…
+   README.md:307: cita o cadastro anterior, 21/10, 15h27: …ama o `pythonw`, e os scripts e o `git` rodam num console oculto (até 21/10, 15h27,…
 
 3. regras de interpretação
-    todas valem
+   FALHOU: Quem vota: 'Lula venceu em menos urnas, mas por margens maiores'
+   FALHOU: Por local: 'desde a de 21/10, 11h27, o intervalo inclui o zero'; e o subtítulo do cartão 10 (10_imagem_por_local.py)
+   FALHOU: Geografia: Nordeste 'abaixo do peso da região'
+   FALHOU: Geografia: 'o Sudeste fica perto do seu'
+   FALHOU: Geografia: 'O Amapá ... é o segundo em 2026, atrás do Rio Grande do Norte'
 
 4. continua manual (CHECKLIST.md):
    - Ler `saida/log_07.txt` (o que saiu e o que entrou, por estado e município) e `saida/log_02.txt` (avisos de seções repetidas).
@@ -21,4 +33,4 @@
    - Commit no `main` ("Atualização de dd/mm, hhhmm: N urnas saíram e M entraram, T urnas"), push, e conferir a página publicada (o GitHub Pages leva um ou dois minutos).
    - Post no X, se for o caso: engatilhado no navegador para o autor publicar.
 
-pendências: 0
+pendências: 14
