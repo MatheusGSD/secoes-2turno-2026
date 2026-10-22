@@ -2,7 +2,8 @@
       ok
 
 2. números da versão anterior fora dos marcadores
-      nenhum
+   index.html:666: '−0,01' era abst1t_2022 na versão de 22/10, 6h28 (agora '−0,02'): …mo unidade, não é estatisticamente significativa (+0,04, intervalo de −0,01 a +0,08); com as 313 urnas, <!--n:local_pais_f…
+   index.html:286: '339' era urnas na versão de 22/10, 6h28 (agora '313'): …/10: a lista foi de 367 para 340 urnas e depois para 339. Na de 20h28, saíram 68 urnas em que o eleitor passa a votar no 2º tu…
 
 3. regras de interpretação
     todas valem
@@ -21,4 +22,4 @@
    - Commit no `main` ("Atualização de dd/mm, hhhmm: N urnas saíram e M entraram, T urnas"), push, e conferir a página publicada (o GitHub Pages leva um ou dois minutos).
    - Post no X, se for o caso: engatilhado no navegador para o autor publicar.
 
-pendências: 0
+pendências: 2

@@ -1,3 +1,3 @@
-index.html: 236 números e 4 blocos marcados (sem mudança)
-README.md: 118 números e 0 blocos marcados (sem mudança)
+index.html: 236 números e 4 blocos marcados
+README.md: 118 números e 0 blocos marcados
 chaves sem uso no texto: abst1t_no_mesmo_predio, cadastro_dia, faixas_pais, local_estado, local_municipio, local_municipio_limite, local_trocados, outro_provisorio, versao_anterior, versao_anterior_urnas, versao_atual_ordinal, versao_meta
