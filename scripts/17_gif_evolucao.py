@@ -29,7 +29,8 @@ VOLTA, PREDIO, PONTO, SAIU = "#c4923f", "#80848c", "#b4b8be", "#d6b97c"
 COR = {"sai": TINTA, "predio": PREDIO, "volta": VOLTA}
 FONTE, DADOS = "Segoe UI", "Consolas"
 PASSOS = 9                # quadros de transição entre duas versões
-MS_PASSO, MS_PARADO = 70, 1700
+# metade do tempo de antes (70 e 1700) desde 22/10, quando a lista passou de 17 versões e o GIF, de 40 segundos
+MS_PASSO, MS_PARADO = 35, 850
 MS_PRIMEIRO, MS_ULTIMO = 2200, 4200
 
 
