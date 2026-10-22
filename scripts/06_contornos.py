@@ -27,7 +27,9 @@ def aneis(geom, tol, casas):
 
 
 def main():
-    m = pd.read_csv(RAIZ / "saida/urnas_mudadas_2026.csv", usecols=["SG_UF", "CD_MUNICIPIO", "NM_MUNICIPIO"])
+    # também os municípios das urnas que não contam (registro reescrito), que o mapa mostra no filtro "Podem confundir"
+    arqs = [RAIZ / "saida/urnas_mudadas_2026.csv", RAIZ / "saida/urnas_reescritas_2026.csv"]
+    m = pd.concat([pd.read_csv(a, usecols=["SG_UF", "CD_MUNICIPIO", "NM_MUNICIPIO"]) for a in arqs if a.exists()])
     m = m.drop_duplicates("CD_MUNICIPIO").copy()
     m["ibge"] = ibge.codigos(m.SG_UF, m.NM_MUNICIPIO)
     falta = m[m.ibge.isna()]
