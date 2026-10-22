@@ -453,6 +453,7 @@ município, pela malha do IBGE. Os detalhes estão no cabeçalho de cada script.
 | `17_gif_evolucao.py` | Cartão animado 1200 × 675 com o mapa da evolução da lista, versão por versão (`saida/evolucao.gif`) |
 | `18_texto.py` | Os números da lista atual no texto da página e deste README, entre marcadores, reescritos a partir das saídas dos outros scripts (rode depois deles); todos os valores ficam em `saida/texto.json` |
 | `19_conferir.py` | Confere o texto depois do 18: marcadores desatualizados, números e rótulo da versão anterior que ficaram no texto, regras de interpretação que deixaram de valer e o que falta do `CHECKLIST.md` (`saida/log_19.txt`) |
+| `20_imagem_reescritos.py` | Cartão 1600 × 900 com as urnas que não contam porque o cadastro só reescreveu o nome e o endereço do local (mesmo número), com os registros dos dois turnos e um mapa com fundo do OpenStreetMap (`saida/imagem_reescritos.png`); avulso, fora do `00_atualizar.py` |
 | `ibge.py` | Malhas e códigos de município do IBGE, usados por 02 e 06 |
 
 Para rodar do zero, baixe para `dados/` os arquivos do [portal de dados abertos do TSE](https://dadosabertos.tse.jus.br/)
