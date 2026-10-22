@@ -63,7 +63,8 @@ def fundo(lat0, lat1, lon0, lon1, z):
         for j, y in enumerate(ty):
             img.paste(tile(z, x, y), (256 * i, 256 * j))
     cinza = ImageOps.grayscale(img)
-    cinza = ImageOps.autocontrast(cinza).point(lambda v: 150 + v * 105 // 255)  # claro, com pouco contraste
+    # contraste forte (água e mata escuras, estradas e povoados claros), sem ficar preto
+    cinza = ImageOps.autocontrast(cinza, cutoff=2).point(lambda v: 55 + v * 170 // 255)
     caixa = ((x0 - tx[0]) * 256, (y0 - ty[0]) * 256, (x1 - tx[0]) * 256, (y1 - ty[0]) * 256)
     return cinza.crop(tuple(round(c) for c in caixa)), tx[0], ty[0], caixa
 
@@ -144,13 +145,14 @@ def main():
     for row in locais.itertuples():
         px, py = tile_xy(row.lat, row.lon, ZOOM)
         px, py = (px - tx0) * 256 - caixa[0], (py - ty0) * 256 - caixa[1]
-        ax.scatter(px, py, s=18 + row.aptos / 9, facecolor=PAPEL, edgecolor=TINTA, linewidth=1.4, zorder=3)
+        ax.scatter(px, py, s=30 + row.aptos / 6, facecolor=DESTAQUE, edgecolor="white", linewidth=1.6, zorder=3)
     ax.set_xlim(0, img.width)
     ax.set_ylim(img.height, 0)
     ax.set_xticks([])
     ax.set_yticks([])
     for s in ax.spines.values():
-        s.set_color(LINHA)
+        s.set_color(TINTA)
+        s.set_linewidth(1)
     t(0.6, 0.83, f"OS {len(locais)} LOCAIS EM {locais.mun.iloc[0].upper()}", size=6.5, color=TINTA3, family=DADOS)
     t(0.96, 0.065, "Mapa: © colaboradores do OpenStreetMap", size=5.5, color=TINTA3, ha="right")
     t(0.6, 0.065, "Tamanho: eleitores", size=5.5, color=TINTA3)
