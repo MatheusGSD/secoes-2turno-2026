@@ -9,15 +9,15 @@ Sudeste                   9.9            42.8
 Sul                      15.0            14.5
 {'urnas_mudam': 1505, 'aptos_mudam': 482660, 'lula_nas_que_mudam': 51.1, 'lula_no_pais': 48.4, 'lula_esperado_pela_regiao': 54.0, 'lula_esperado_pelo_estado': 52.2, 'lula_esperado_pelo_municipio': 52.0}
 
-2026: 313 urnas mudam, 98,966 eleitores
+2026: 319 urnas mudam, 100,311 eleitores
               pct_aptos_mudam  pct_eleitorado
 regiao                                       
-Norte                    21.5             8.3
-Nordeste                 32.7            27.6
-Centro-Oeste              8.4             7.6
-Sudeste                  29.1            42.0
-Sul                       8.4            14.5
-{'urnas_mudam': 313, 'aptos_mudam': 98966, 'lula_nas_que_mudam': 50.3, 'lula_no_pais': 45.2, 'lula_esperado_pela_regiao': 47.5, 'lula_esperado_pelo_estado': 47.9, 'lula_esperado_pelo_municipio': 51.1}
+Norte                    23.3             8.3
+Nordeste                 32.4            27.6
+Centro-Oeste              5.7             7.6
+Sudeste                  30.4            42.0
+Sul                       8.2            14.5
+{'urnas_mudam': 319, 'aptos_mudam': 100311, 'lula_nas_que_mudam': 50.8, 'lula_no_pais': 45.2, 'lula_esperado_pela_regiao': 47.7, 'lula_esperado_pelo_estado': 48.4, 'lula_esperado_pelo_municipio': 51.8}
 
 correlação (Spearman) da taxa por estado, 2022 x 2026: 0.07
 estados com mais urnas mudando: {'2022': {'RR': 7.73, 'AP': 2.53, 'AC': 1.74, 'MA': 1.3, 'AM': 1.19}, '2026': {'RN': 0.32, 'PI': 0.26, 'AP': 0.26, 'AM': 0.26, 'RO': 0.26}}
