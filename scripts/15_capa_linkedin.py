@@ -48,7 +48,7 @@ def main():
     m = d["numeros"]["mudadas"]
     f = np.cumsum(np.array(d["fundo"]).reshape(-1, 2), axis=0) / 1000
     bx, by = merc(f[:, 0], f[:, 1])
-    pares = [p for p in d["pares"] if (p["b"][0] if p["b"][0] is not None else p["a"][0]) is not None]
+    pares = [p for p in d["pares"] if p["tipo"] != "confusao" and (p["b"][0] if p["b"][0] is not None else p["a"][0]) is not None]
     pos = np.array([p["b"] if p["b"][0] is not None else p["a"] for p in pares], dtype=float)
     px, py = merc(pos[:, 0], pos[:, 1])
     aptos = np.array([p["aptos"] for p in pares])

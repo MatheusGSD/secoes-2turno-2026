@@ -18,7 +18,10 @@ transferência temporária para aquela urna.
 Quando a urna muda de prédio:
 - o número do local mudou, a menos que nome E endereço continuem iguais (só renumeração); ou
 - o número é o mesmo, mas nome E endereço mudaram (o cadastro trocou o prédio sem trocar o número),
-  a menos que dois locais do mesmo município tenham trocado nome e endereço entre si (correção).
+  a menos que dois locais do mesmo município tenham trocado nome e endereço entre si (correção), ou que o
+  nome seja o mesmo tirando a sigla e o endereço seja o mesmo lugar escrito de outro jeito (caso de
+  Tracuateua-PA, 22/10: "EMEF Benjamin Ramos", na "Vila da Flexeira", virou "EMEIF Benjamin Ramos", em
+  "Flexeira"). Nesse caso o registro foi reescrito, a urna fica no mesmo prédio e não conta (NOME_REESCRITO).
 Troca só de nome ou só de endereço, com o mesmo número, é correção de cadastro e não conta.
 
 Mesmo endereço nos dois turnos: às vezes o número e o nome do local mudam, mas o endereço é idêntico.
@@ -36,12 +39,14 @@ fica desconhecida.
 
 Uso: python -P scripts/02_mudancas.py
 Saídas: saida/urnas_2026.csv.gz e saida/urnas_2022.csv.gz (todas as urnas, com a classificação)
-        saida/mesmo_predio_2026.csv (urnas retiradas: endereço reescrito no cadastro)
+        saida/mesmo_predio_2026.csv (urnas retiradas: endereço ou nome e endereço reescritos no cadastro)
         saida/painel_tse.csv (as seções do painel de 18/10, com a classificação de cada uma aqui)
         saida/revisar_distancias.csv (mudanças de mais de 10 km, para conferência)
 """
 import io
+import re
 import sys
+import unicodedata
 import zipfile
 from datetime import datetime, timedelta
 from pathlib import Path
@@ -61,6 +66,14 @@ ARQ = {
 }
 PAINEL = RAIZ / "dados/painel_secoes_alteradas_2026.csv"  # exportado do painel, atualização de 18/10, 7h09
 REESCRITO = "mesmo prédio, endereço reescrito no cadastro"
+NOME_REESCRITO = "mesmo prédio, nome e endereço reescritos no cadastro"
+# palavras que não distinguem um local de outro: siglas e tipos de escola, títulos, preposições ("EMEF Prof.ª
+# Maria das Dores" e "EMEIF Prof Maria das Dores" ficam iguais)
+GENERICAS_NOME = set("""ESCOLA ESCOLAS MUNICIPAL ESTADUAL MUNIC EST E M EM EE EMEF EMEIF EMQEIF EMEI EMEB EMEIEF EEEF
+    EEF EMF UE MUN PROF PROFA PROFESSOR PROFESSORA DE DA DO DAS DOS ENSINO FUNDAMENTAL INFANTIL""".split())
+# e no endereço: tipos de logradouro e de povoação ("Vila da Flexeira" e "Flexeira" são o mesmo lugar)
+GENERICAS_END = set("""RUA R AV AVENIDA VILA POVOADO POV COMUNIDADE LOCALIDADE QUILOMBO QUILOMBOLA DE DA DO DAS DOS
+    S N SN NO CENTRO""".split())
 COLS = ["NR_TURNO", "SG_UF", "CD_MUNICIPIO", "NM_MUNICIPIO", "NR_ZONA", "NR_SECAO", "CD_TIPO_SECAO_AGREGADA",
         "NR_SECAO_PRINCIPAL", "NR_LOCAL_VOTACAO", "NM_LOCAL_VOTACAO", "DS_ENDERECO", "NM_BAIRRO",
         "NR_LATITUDE", "NR_LONGITUDE", "QT_ELEITOR_SECAO", "QT_ELEITOR_ELEICAO_FEDERAL",
@@ -201,10 +214,15 @@ def urnas(d):
         outro = local1.get(c2)
         troca.append(outro is not None and outro != n and destino_de.get(f"{z}|{outro}") == c1)
     troca = pd.Series(troca, index=u.index) & predio_novo
-    u["criterio"] = np.select([num & ~renumerada, predio_novo & ~troca], ["numero", "predio_novo"], "")
+    reescrito = predio_novo & ~troca & pd.Series(
+        [palavras(a, GENERICAS_NOME) == palavras(b, GENERICAS_NOME)
+         and contido(palavras(c, GENERICAS_END), palavras(d, GENERICAS_END))
+         for a, b, c, d in zip(u.NM_LOCAL_VOTACAO, u.NM_LOCAL_VOTACAO_2, u.DS_ENDERECO, u.DS_ENDERECO_2)], index=u.index)
+    u["criterio"] = np.select([num & ~renumerada, predio_novo & ~troca & ~reescrito], ["numero", "predio_novo"], "")
     u["mudou"] = u.criterio != ""
     print("mudou de número:", int(num.sum()), "| só renumerada:", int(renumerada.sum()),
           "| mesmo número, prédio novo:", int(predio_novo.sum()), "| desses, troca entre locais:", int(troca.sum()),
+          "| nome e endereço reescritos:", int(reescrito.sum()),
           "| só nome ou só endereço:", int((~num & (nome ^ end)).sum()))
 
     orig = u.NR_LOCAL_VOTACAO_ORIGINAL
@@ -215,7 +233,26 @@ def urnas(d):
         ["igual", "igual, fora do cadastro nos dois turnos", "local de sempre em outro prédio",
          "saiu do local de cadastro", "voltou ao local de cadastro"],
         "trocou de local provisório")
+    u.loc[reescrito, "tipo"] = NOME_REESCRITO
+    # contam, mas podem ser o mesmo prédio: mesmo número e um nome contido no outro (Jacaraci-BA, 22/10: "Colégio
+    # Estadual Zuleide Freire de Abreu" e "Colégio Estadual de Tempo Integral Zuleide Freire de Abreu", noutra rua).
+    # O nome menor precisa de 3 palavras próprias: "Escola Municipal de Bom Jesus" -> "Creche Municipal de Bom Jesus
+    # de Realeza" (Manhuaçu-MG) só repete o nome do lugar
+    u["nome_parecido"] = (u.criterio == "predio_novo") & pd.Series(
+        [contido(x, y) and min(len(x), len(y)) >= 3
+         for x, y in ((palavras(a, GENERICAS_NOME), palavras(b, GENERICAS_NOME))
+                      for a, b in zip(u.NM_LOCAL_VOTACAO, u.NM_LOCAL_VOTACAO_2))], index=u.index)
     return u.reset_index()
+
+
+def palavras(s, genericas):
+    """As palavras que identificam o local, sem acento nem pontuação."""
+    s = unicodedata.normalize("NFKD", str(s)).encode("ascii", "ignore").decode().upper()
+    return frozenset(re.findall(r"[A-Z0-9]+", s)) - genericas
+
+
+def contido(a, b):
+    return bool(a) and bool(b) and (a <= b or b <= a)
 
 
 def mesmo_endereco(u, anterior):
@@ -274,8 +311,9 @@ def main():
             anterior = dict(zip(zip(locais.SG_UF, locais.CD_MUNICIPIO, locais.NR_ZONA, locais.NR_LOCAL_VOTACAO),
                                 locais.DS_ENDERECO))
         else:
-            u[u.tipo == REESCRITO][URNA + ["NM_MUNICIPIO", "NR_LOCAL_VOTACAO", "NM_LOCAL_VOTACAO", "DS_ENDERECO",
-                                   "NR_LOCAL_VOTACAO_2", "NM_LOCAL_VOTACAO_2", "DS_ENDERECO_2", "aptos"]].to_csv(
+            u[u.tipo.isin([REESCRITO, NOME_REESCRITO])][
+                URNA + ["NM_MUNICIPIO", "tipo", "NR_LOCAL_VOTACAO", "NM_LOCAL_VOTACAO", "DS_ENDERECO",
+                        "NR_LOCAL_VOTACAO_2", "NM_LOCAL_VOTACAO_2", "DS_ENDERECO_2", "aptos"]].to_csv(
                 SAIDA / "mesmo_predio_2026.csv", index=False)
         u["dist_km"] = km(u.lat, u.lon, u.lat_2, u.lon_2).where(u.mudou, 0.0)
         u.loc[u.criterio == "predio_novo", "dist_km"] = np.nan  # coordenada não atualizada no cadastro
@@ -324,9 +362,9 @@ def conferir_painel(d, u):
     p["mesmo_numero_de_local"] = p.local_1t == p.local_2t
     # por que a urna do painel não conta aqui
     p["fora_daqui"] = np.select(
-        [p.mudou, p.tipo == REESCRITO, p.nome & ~p.end, ~p.nome & p.end, ~p.mesmo_numero_de_local & ~p.nome & ~p.end,
+        [p.mudou, p.tipo == REESCRITO, p.tipo == NOME_REESCRITO, p.nome & ~p.end, ~p.nome & p.end, ~p.mesmo_numero_de_local & ~p.nome & ~p.end,
          p.igual, p.mesmo_numero_de_local & ~p.nome & ~p.end],
-        ["", "endereço reescrito no cadastro", "só o nome do local mudou", "só o endereço mudou", "local só renumerado",
+        ["", "endereço reescrito no cadastro", "nome e endereço reescritos no cadastro", "só o nome do local mudou", "só o endereço mudou", "local só renumerado",
          "mesmo local nos dois turnos no cadastro atual", "só a grafia do nome mudou"], "outro")
     cols = ["SG_UF", "CD_MUNICIPIO", "NM_MUNICIPIO", "NR_ZONA", "NR_SECAO", "urna", "nm_local_votacao_inicial",
             "nm_local_votacao_final", "local_1t", "local_2t", "NR_LOCAL_VOTACAO_ORIGINAL", "mesmo_numero_de_local",

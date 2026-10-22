@@ -20,7 +20,7 @@
    inclui a variação de uma urna para outra. É uma conta de ordem de grandeza, não uma previsão.
 
 Uso: python -P scripts/03_impacto.py
-Saídas: saida/impacto_2022.csv, saida/urnas_mudadas_2026.csv, saida/impacto_uf_2026.csv, saida/numeros.json
+Saídas: saida/impacto_2022.csv, saida/urnas_mudadas_2026.csv, saida/urnas_reescritas_2026.csv, saida/impacto_uf_2026.csv, saida/numeros.json
 """
 import json
 from pathlib import Path
@@ -38,6 +38,7 @@ BASES = {
 }
 PRINCIPAL = "zona_municipio"
 REESCRITO = "mesmo prédio, endereço reescrito no cadastro"  # de 02_mudancas.py: não conta como mudança
+NOME_REESCRITO = "mesmo prédio, nome e endereço reescritos no cadastro"  # idem
 GRUPO = {"voltou ao local de cadastro": "volta", "saiu do local de cadastro": "sai",
          "local de sempre em outro prédio": "sai", "trocou de local provisório": "sai"}
 FAIXAS = [0, 0.3, 0.6, 1.2, np.inf]
@@ -198,8 +199,11 @@ def main():
                     "NM_LOCAL_VOTACAO_2", "DS_ENDERECO_2", "NM_BAIRRO_2", "lat_2", "lon_2", "NR_LOCAL_VOTACAO_ORIGINAL",
                     "NM_LOCAL_VOTACAO_ORIGINAL", "agregadas", "aptos", "aptos_2", "comparecimento", "abst", "validos",
                     "c13", "c22", "outros", "brancos", "nulos", "pct_lula", "pct_flavio", "vencedor", "ef",
-                    "efeito_margem", "mesmo_endereco"])
+                    "efeito_margem", "mesmo_endereco", "nome_parecido"])
     m[cols].to_csv(SAIDA / "urnas_mudadas_2026.csv", index=False)
+    # as que não contam porque o cadastro reescreveu o registro: o mapa as mostra à parte
+    u[u.tipo.isin([REESCRITO, NOME_REESCRITO])][[c for c in cols if c in u.columns]].to_csv(
+        SAIDA / "urnas_reescritas_2026.csv", index=False)
 
     nac = u[["c13", "c22", "validos", "comparecimento", "aptos"]].sum()
     mm = m[["c13", "c22", "outros", "validos", "comparecimento", "aptos", "aptos_2"]].sum()
@@ -246,6 +250,9 @@ def main():
                     "mesmo_endereco_aptos": int(m[m.mesmo_endereco].aptos.sum()),
                     "reescritas_urnas": int((u.tipo == REESCRITO).sum()),
                     "reescritas_aptos": int(u[u.tipo == REESCRITO].aptos.sum()),
+                    "nome_reescrito_urnas": int((u.tipo == NOME_REESCRITO).sum()),
+                    "nome_reescrito_aptos": int(u[u.tipo == NOME_REESCRITO].aptos.sum()),
+                    "nome_parecido_urnas": int(m.nome_parecido.sum()),
                     "pct_aptos_nordeste": 100 * m[m.SG_UF.isin(NORDESTE)].aptos.sum() / mm.aptos,
                     "pct_volta": 100 * (m.grupo == "volta").mean(),
                     "teto_votos": int(teto), "teto_pct_margem": 100 * teto / (nac.c22 - nac.c13),

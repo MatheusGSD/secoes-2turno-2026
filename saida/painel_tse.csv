@@ -1566,9 +1566,9 @@ PR,84670,SANTA TEREZINHA DE ITAIPU,147,481,481,ESCOLA MUNICIPAL CECILIA MEIRELES
 PR,78590,SANTO ANTÔNIO DA PLATINA,22,69,69,CENTRO DE CONVIVÊNCIA DO IDOSO,ESCOLA ESTADUAL JOAQUIM DE CIMA,1279,1279,1201,True,False,"igual, fora do cadastro nos dois turnos",mesmo local nos dois turnos no cadastro atual
 PR,78573,SANTO ANTÔNIO DO SUDOESTE,83,75,75,CMEI EDIL MARIA CANTELMO TRAIANO,CENTRO DE REFERÊNCIA DE ASSISTÊNCIA SOCIAL - ANTIGO AFONSO ADAMANTE,1384,1384,1309,True,False,"igual, fora do cadastro nos dois turnos",mesmo local nos dois turnos no cadastro atual
 PR,78573,SANTO ANTÔNIO DO SUDOESTE,83,106,106,CMEI EDIL MARIA CANTELMO TRAIANO,CENTRO DE REFERÊNCIA DE ASSISTÊNCIA SOCIAL - ANTIGO AFONSO ADAMANTE,1384,1384,1309,True,False,"igual, fora do cadastro nos dois turnos",mesmo local nos dois turnos no cadastro atual
-PR,78654,SANTO INÁCIO,159,61,61,CMEI BOM PASTOR,ESCOLA MUNICIPAL OMAR DE OLIVEIRA,1066,1031,1058,False,True,trocou de local provisório,
-PR,78654,SANTO INÁCIO,159,62,62,CMEI BOM PASTOR,ESCOLA MUNICIPAL OMAR DE OLIVEIRA,1066,1031,1058,False,True,trocou de local provisório,
-PR,78654,SANTO INÁCIO,159,63,63,CMEI BOM PASTOR,ESCOLA MUNICIPAL OMAR DE OLIVEIRA,1066,1031,1058,False,True,trocou de local provisório,
+PR,78654,SANTO INÁCIO,159,61,61,CMEI BOM PASTOR,ESCOLA MUNICIPAL OMAR DE OLIVEIRA,1031,1031,1058,True,False,"igual, fora do cadastro nos dois turnos",mesmo local nos dois turnos no cadastro atual
+PR,78654,SANTO INÁCIO,159,62,62,CMEI BOM PASTOR,ESCOLA MUNICIPAL OMAR DE OLIVEIRA,1031,1031,1058,True,False,"igual, fora do cadastro nos dois turnos",mesmo local nos dois turnos no cadastro atual
+PR,78654,SANTO INÁCIO,159,63,63,CMEI BOM PASTOR,ESCOLA MUNICIPAL OMAR DE OLIVEIRA,1031,1031,1058,True,False,"igual, fora do cadastro nos dois turnos",mesmo local nos dois turnos no cadastro atual
 PR,78697,SÃO JERÔNIMO DA SERRA,63,20,20,ESCOLA ESTADUAL JOAO XXIII,COLEGIO ESTADUAL JOSE FERREIRA DE MELLO,1023,1023,1015,True,False,"igual, fora do cadastro nos dois turnos",mesmo local nos dois turnos no cadastro atual
 PR,78697,SÃO JERÔNIMO DA SERRA,63,21,21,ESCOLA ESTADUAL JOAO XXIII,COLEGIO ESTADUAL JOSE FERREIRA DE MELLO,1023,1023,1015,True,False,"igual, fora do cadastro nos dois turnos",mesmo local nos dois turnos no cadastro atual
 PR,78697,SÃO JERÔNIMO DA SERRA,63,22,22,ESCOLA ESTADUAL JOAO XXIII,COLEGIO ESTADUAL JOSE FERREIRA DE MELLO,1023,1023,1015,True,False,"igual, fora do cadastro nos dois turnos",mesmo local nos dois turnos no cadastro atual

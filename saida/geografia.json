@@ -1,23 +1,23 @@
 {
  "2022": {
-  "urnas_mudam": 1506,
-  "aptos_mudam": 482841,
-  "lula_nas_que_mudam": 51.083989036014785,
+  "urnas_mudam": 1505,
+  "aptos_mudam": 482660,
+  "lula_nas_que_mudam": 51.08768904616778,
   "lula_no_pais": 48.433863601394506,
-  "lula_esperado_pela_regiao": 54.000502208731426,
-  "lula_esperado_pelo_estado": 52.20764824952372,
-  "lula_esperado_pelo_municipio": 51.98105099283505
+  "lula_esperado_pela_regiao": 54.00497052001329,
+  "lula_esperado_pelo_estado": 52.20918832391474,
+  "lula_esperado_pelo_municipio": 51.9887127064457
  },
  "2026": {
-  "urnas_mudam": 340,
-  "aptos_mudam": 106648,
-  "lula_nas_que_mudam": 50.22247009977071,
+  "urnas_mudam": 339,
+  "aptos_mudam": 106584,
+  "lula_nas_que_mudam": 50.46580576333842,
   "lula_no_pais": 45.15413986576965,
-  "lula_esperado_pela_regiao": 46.71882127224279,
-  "lula_esperado_pelo_estado": 47.490656706240934,
-  "lula_esperado_pelo_municipio": 50.69213711922437
+  "lula_esperado_pela_regiao": 47.1235419531288,
+  "lula_esperado_pelo_estado": 47.902775087591365,
+  "lula_esperado_pelo_municipio": 51.04475690798088
  },
- "correlacao_ufs_2022_2026": 0.0877717123339831,
+ "correlacao_ufs_2022_2026": 0.0889992887302626,
  "ufs_mais_mudam": {
   "2022": {
    "RR": 7.73,
@@ -28,8 +28,8 @@
   },
   "2026": {
    "RN": 0.32,
-   "PA": 0.27,
    "AP": 0.26,
+   "PA": 0.26,
    "AM": 0.26,
    "RO": 0.26
   }

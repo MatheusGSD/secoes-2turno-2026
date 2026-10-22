@@ -81,9 +81,10 @@ def sobras(v):
                  "teto_votos": texto.inteiro(m["teto_votos"]), "municipios": texto.inteiro(m["municipios"])}
         print(f"(sem saida/texto.json no commit {commit_ant}: conferindo só {', '.join(antes)})")
     # valores curtos ("126", "0,02") aparecem por acaso em número de seção e em intervalos antigos: só o total de urnas
-    # entra mesmo curto
+    # entra mesmo curto. Datas e rótulos de versão ("21/10", "21/10, 15h27") no texto citam versões passadas; o rótulo
+    # da anterior é conferido abaixo
     suspeitos = {k: a for k, a in antes.items() if k in v and a != v[k] and re.search(r"\d", a)
-                 and (len(a) >= 5 or k == "urnas")}
+                 and (len(a) >= 5 or k == "urnas") and not re.fullmatch(r"\d\d/\d\d(, \d{1,2}h\d\d)?", a)}
     achados = []
     for arq in ARQUIVOS:
         t = corrido(arq.read_text(encoding="utf-8"), arq)
@@ -102,6 +103,14 @@ def trecho(linha, valor, folga=70):
     return re.sub(r"<[^>]+>", "", linha[max(0, i - folga): i + len(valor) + folga]).strip()
 
 
+NOME_REESCRITO = "mesmo prédio, nome e endereço reescritos no cadastro"  # de 02_mudancas.py
+
+
+def municipios(arquivo, coluna, valor):
+    u = __import__("pandas").read_csv(arquivo)
+    return set(u[u[coluna] == valor].NM_MUNICIPIO)
+
+
 def regras():
     """Cada regra: (vale?, frase que depende dela)."""
     n = json.loads((SAIDA / "numeros.json").read_text(encoding="utf-8"))
@@ -113,27 +122,16 @@ def regras():
     pri = n["impacto"][n["principal"]]
     pl = {x["ef"]: x for x in web["por_local"] if x["lista"].startswith("urnas")}
     fx = [x for x in web["por_local_faixas"] if x["lista"].startswith("urnas") and x["painel"] == "país"]
-    reg = {r["regiao"]: r for r in __import__("pandas").read_csv(SAIDA / "geografia_regioes.csv").query("ano == 2026").to_dict("records")}
-    uf26 = list(geo["ufs_mais_mudam"]["2026"])
     log02 = (SAIDA / "log_02.txt").read_text(encoding="utf-8")
     ufs = {u["uf"]: u for u in ren["ufs"]}
     inclui = lambda lo, hi: lo <= 0 <= hi  # noqa: E731
     return [
         (m["pct_lula"] > nac["pct_lula"], "Quem vota: 'votaram mais em Lula que o resto do país'"),
-        (m["urnas_lula"] < m["urnas_flavio"] and m["lula"] > m["flavio"],
-         "Quem vota: 'Lula venceu em menos urnas, mas por margens maiores'"),
         (m["abst"] > nac["abst"], "Quem vota: 'A abstenção foi um pouco maior que a do país'"),
         (inclui(vz["ic_baixo"], vz["ic_alto"]), "Quem vota: 'A diferença fica dentro da margem de erro' (urna a urna)"),
         (all(inclui(*pl[e]["ic"]) for e in ("estado", "município")),
          "Por local: 'dentro do estado e do município, não aparece' / 'não é estatisticamente significativa'"),
-        (pl["nenhum"]["ic"][0] <= 0, "Por local: 'desde a de 21/10, 11h27, o intervalo inclui o zero'; e o subtítulo "
-                                    "do cartão 10 (10_imagem_por_local.py)"),
-        (reg["Nordeste"]["pct_aptos_mudam"] < reg["Nordeste"]["pct_eleitorado"],
-         "Geografia: Nordeste 'abaixo do peso da região'"),
-        (reg["Norte"]["pct_aptos_mudam"] > 2 * reg["Norte"]["pct_eleitorado"], "Geografia: 'o Norte continua bem acima do seu peso'"),
-        (abs(reg["Sudeste"]["pct_aptos_mudam"] - reg["Sudeste"]["pct_eleitorado"]) < 5, "Geografia: 'o Sudeste fica perto do seu'"),
-        (reg["Sul"]["pct_aptos_mudam"] < reg["Sul"]["pct_eleitorado"], "Geografia: 'e o Sul, abaixo'"),
-        (uf26[:2] == ["RN", "AP"], "Geografia: 'O Amapá ... é o segundo em 2026, atrás do Rio Grande do Norte'"),
+        (pl["nenhum"]["ic"][1] < 0.05, "Cartão 10 (10_imagem_por_local.py): subtítulo 'No país, pouco'"),
         (m["pct_lula"] - geo["2026"]["lula_esperado_pelo_municipio"] < 1.5,
          "Geografia: 'em 2026, perto do esperado pelo município'"),
         (inclui(s22[n["principal"]]["ic_baixo"], s22[n["principal"]]["ic_alto"]),
@@ -150,11 +148,14 @@ def regras():
         (ab["sensibilidade_2t"]["margem"] > 0, "Impacto: 'a vantagem de Flávio cresceria' (com o efeito de 2026)"),
         (m["pessimista_votos"] > 0, "Impacto: 5 pontos, 'a vantagem de Flávio cresceria'"),
         (m["teto_votos"] > 0, "Impacto e quadro: cenário extremo 'Lula perderia ... vantagem dele ali' / 'de Lula, em todas as versões'"),
+        (municipios(SAIDA / "urnas_reescritas_2026.csv", "tipo", NOME_REESCRITO) == {"TRACUATEUA"},
+         "Quando o cadastro não bate: nome e endereço reescritos 'todas em Tracuateua (PA)'"),
+        (municipios(SAIDA / "urnas_mudadas_2026.csv", "nome_parecido", True) == {"JACARACI"},
+         "Quando o cadastro não bate: nome parecido 'em Jacaraci (BA)'"),
         (m["reescritas_urnas"] == 0, "Quando o cadastro não bate e Como foi feito: 'No cadastro atual, nenhuma urna está nesse caso'"),
         ("só renumerada: 0 " in log02, "Como foi feito: '(só renumerada; nenhuma urna no cadastro atual)'"),
         (max(ufs, key=lambda u: ufs[u]["renovadas"]) == "PR", "Como a lista encolheu: 'o Paraná, o que tem mais'"),
         (ren["predios_divididos"] == 0, "Como a lista encolheu: 'Nenhum prédio provisório ficou dividido'"),
-        (ren["outro_provisorio"] == 3, "Como a lista encolheu: '3, todas no Paraná, foram para outro prédio provisório'"),
         (min(fx, key=lambda r: r["pct"])["faixa"] == "menos de 30%" and
          min(fx, key=lambda r: r["pct"])["ic"][1] < 100 * pl["nenhum"]["trocados"] / pl["nenhum"]["locais"],
          "Por local e cartão 10: 'só os locais onde Lula teve menos de 30% ficam abaixo da média'"),

@@ -4,7 +4,9 @@
   ordenados e em diferenças, para o arquivo ficar pequeno). Desenham o Brasil sem depender de
   mapa de fundo externo.
 - pares: as urnas que trocam de local, juntas por (local do 1º turno -> local do 2º turno). "aviso" marca
-  os pares com o mesmo endereço nos dois turnos.
+  os que contam mas podem ser o mesmo prédio: "endereco" (mesmo endereço nos dois turnos) ou "nome" (mesmo
+  número de local e um nome contido no outro). Vêm junto, com tipo "confusao", as urnas que não contam porque o
+  cadastro reescreveu o registro do local (saida/urnas_reescritas_2026.csv), para o modo "Podem confundir" do mapa.
 - ufs, efeito_2022, numeros: as tabelas de 03_impacto.py.
 - distancia: faixas de distância entre o prédio do 1º e o do 2º turno e a mediana por estado.
 - por_local, por_local_faixas: a regressão por local de votação e o percentual de locais na lista por faixa de
@@ -50,6 +52,10 @@ def fundo():
 
 def pares():
     m = pd.read_csv(SAIDA / "urnas_mudadas_2026.csv")
+    r = SAIDA / "urnas_reescritas_2026.csv"
+    if r.exists():
+        r = pd.read_csv(r)
+        m = pd.concat([m, r.assign(tipo="confusao", dist_km=np.nan, mesmo_endereco=False, nome_parecido=False)])
     chave = ["SG_UF", "CD_MUNICIPIO", "NR_ZONA", "NR_LOCAL_VOTACAO", "NR_LOCAL_VOTACAO_2", "tipo"]
     g = m.groupby(chave, dropna=False).agg(
         mun=("NM_MUNICIPIO", "first"), dist=("dist_km", "first"),
@@ -62,10 +68,11 @@ def pares():
         lula=("c13", "sum"), flavio=("c22", "sum"), outros=("outros", "sum"),
         urnas_lula=("vencedor", lambda s: int((s == "Lula").sum())),
         urnas_flavio=("vencedor", lambda s: int((s == "Flávio").sum())),
-        mesmo_end=("mesmo_endereco", "any"),
+        mesmo_end=("mesmo_endereco", "any"), nome_parecido=("nome_parecido", "any"),
     ).reset_index()
     tipo_curto = {"voltou ao local de cadastro": "volta", "saiu do local de cadastro": "sai",
-                  "trocou de local provisório": "troca", "local de sempre em outro prédio": "predio"}
+                  "trocou de local provisório": "troca", "local de sempre em outro prédio": "predio",
+                  "confusao": "confusao"}
     out = []
     for r in g.itertuples():
         out.append({
@@ -75,9 +82,10 @@ def pares():
             "para": r.para, "para_end": r.para_end, "para_bairro": r.para_bairro, "b": [coord(r.lon2), coord(r.lat2)],
             "aptos": int(r.aptos), "comp": int(r.comp), "validos": int(r.validos), "lula": int(r.lula),
             "flavio": int(r.flavio), "outros": int(r.outros), "ul": r.urnas_lula, "uf_": r.urnas_flavio,
-            "aviso": bool(r.mesmo_end),  # mesmo endereço nos dois turnos: pode ser o mesmo prédio
+            # contam, mas podem ser o mesmo prédio
+            "aviso": "endereco" if r.mesmo_end else "nome" if r.nome_parecido else None,
         })
-    print("pares:", len(out), "| sem nenhuma coordenada:", sum(p["a"][0] is None and p["b"][0] is None for p in out),
+    print("pares:", len(out), "| não contam (registro reescrito):", sum(p["tipo"] == "confusao" for p in out), "| sem nenhuma coordenada:", sum(p["a"][0] is None and p["b"][0] is None for p in out),
           "| só uma:", sum((p["a"][0] is None) != (p["b"][0] is None) for p in out))
     return out
 

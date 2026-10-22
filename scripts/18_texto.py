@@ -256,6 +256,12 @@ def valores():
     v["pct_lula"], v["pct_flavio"] = pct(m["pct_lula"]), pct(m["pct_flavio"])
     v["urnas_lula"], v["urnas_flavio"] = inteiro(m["urnas_lula"]), inteiro(m["urnas_flavio"])
     v["urnas_empate"] = f"{m['urnas_empate']} empate" + ("s" if m["urnas_empate"] != 1 else "")
+    lado = "Lula" if m["lula"] > m["flavio"] else "Flávio"
+    v["urnas_vitorias_frase"] = (
+        f"{lado} venceu em menos urnas, mas por margens maiores"
+        if (m["urnas_lula"] < m["urnas_flavio"]) == (lado == "Lula") and m["urnas_lula"] != m["urnas_flavio"] else
+        f"os dois venceram no mesmo número de urnas, e {lado} teve margens maiores"
+        if m["urnas_lula"] == m["urnas_flavio"] else f"{lado} venceu em mais urnas e somou mais votos")
     v["abst"] = pct(m["abst"])
     vz = n["voto_vs_vizinhas"]
     v["vizinhas_dif"] = dec(abs(vz["dif_pp"])) + (" ponto a mais" if vz["dif_pp"] >= 0 else " ponto a menos")
@@ -282,7 +288,7 @@ def valores():
     v["trajeto_mais_longo"] = (f"{dec(km) if km < 10 else inteiro(km)} km em {longe.NM_MUNICIPIO.title()} ({longe.SG_UF})")
     sem = [u["uf"] for u in dist["ufs"] if u["com"] == 0]
     v["ufs_sem_distancia"] = lista(NOME_UF[u] for u in sem) if sem else "em nenhum estado"
-    so_lista = [p for p in web["pares"] if not any(c is not None for c in (p["a"] or [None]) + (p["b"] or [None]))]
+    so_lista = [p for p in web["pares"] if p["tipo"] != "confusao" and not any(c is not None for c in (p["a"] or [None]) + (p["b"] or [None]))]
     v["trajetos_so_na_lista"] = f"{len(so_lista)} trajeto" + ("s só aparecem" if len(so_lista) != 1 else " só aparece")
 
     # as quatro situações e o critério do painel de 17/10
@@ -299,6 +305,12 @@ def valores():
     v["mesmo_endereco_urnas"] = inteiro(m["mesmo_endereco_urnas"])
     v["mesmo_endereco_aptos"] = inteiro(m["mesmo_endereco_aptos"])
     v["reescritas"] = "nenhuma urna" if m["reescritas_urnas"] == 0 else f"{m['reescritas_urnas']} urnas"
+    v["nome_reescrito_urnas"] = inteiro(m["nome_reescrito_urnas"])
+    v["nome_reescrito_aptos"] = inteiro(m["nome_reescrito_aptos"])
+    v["nome_parecido_urnas"] = inteiro(m["nome_parecido_urnas"])
+    n22 = int((pd.read_csv(SAIDA / "urnas_2022.csv.gz", usecols=["tipo"]).tipo
+               == "mesmo prédio, nome e endereço reescritos no cadastro").sum())
+    v["nome_reescrito_2022"] = "nenhuma urna" if n22 == 0 else "1 urna" if n22 == 1 else f"{inteiro(n22)} urnas"
     v["agregadas"] = inteiro(m["agregadas"])
     log02 = (SAIDA / "log_02.txt").read_text(encoding="utf-8")
     v["correcoes_cadastro"] = inteiro(int(re.search(r"só nome ou só endereço: (\d+)", log02).group(1)))
@@ -330,6 +342,12 @@ def valores():
     v["renovadas_pr_pct"] = pct(100 * ufs.set_index("uf").renovadas.get("PR", 0) / ren["renovadas"], 0)
     v["ainda_voltam_1o"] = inteiro(ren["ainda_voltam_1o_cadastro"])
     v["outro_provisorio"] = inteiro(ren["outro_provisorio"])
+    com_outro = [u["uf"] for u in ren["ufs"] if u["outro_provisorio"]]
+    v["outro_provisorio_frase"] = (
+        "nenhuma foi para outro prédio provisório" if not ren["outro_provisorio"] else
+        f"{inteiro(ren['outro_provisorio'])}" + (f", {'todas ' if ren['outro_provisorio'] > 1 else ''}{NOME_UF[com_outro[0]]},"
+                                                     if len(com_outro) == 1 else "")
+        + (" foi" if ren["outro_provisorio"] == 1 else " foram") + " para outro prédio provisório")
     v["voltavam_1o"] = inteiro(ren["renovadas"] + ren["ainda_voltam_1o_cadastro"] + ren["outro_provisorio"])
     v["ficam_no_local_de_sempre"] = inteiro(ren["ficam_no_local_de_sempre"])
     v["primeiro_turno_reescrito"] = inteiro(ren["primeiro_turno_reescrito"])
@@ -378,6 +396,27 @@ def valores():
     for r in REGIOES:
         v[f"regiao_{r.lower().replace('-', '_')}"] = pct(reg.loc[r, "pct_aptos_mudam"], 0)
     v["pct_nordeste"] = v["regiao_nordeste"]
+
+    def peso(r):  # a parte da região nas urnas que mudam, comparada com a parte dela no eleitorado
+        a, e = reg.loc[r, "pct_aptos_mudam"], reg.loc[r, "pct_eleitorado"]
+        return ("bem acima" if a > 2 * e else "bem abaixo" if a < e / 2 else "perto" if abs(a - e) < 5 else
+                "acima" if a > e else "abaixo")
+    v["nordeste_peso"] = f"{peso('Nordeste')} do peso da região"
+    grupos = {}
+    for r in ["Norte", "Sudeste", "Sul"]:
+        grupos.setdefault(peso(r), []).append(r)
+    # "o Norte fica bem acima do seu peso, e o Sudeste e o Sul, abaixo"
+    partes = [f"{lista('o ' + r for r in rs)} {'ficam' if len(rs) > 1 else 'fica'} {p} do seu peso" if i == 0
+              else f"{lista('o ' + r for r in rs)}, {p}" for i, (p, rs) in enumerate(grupos.items())]
+    v["regioes_frase"] = ", ".join(partes[:-1]) + ", e " + partes[-1] if len(partes) > 1 else partes[0]
+    ordem = list(geo["ufs_mais_mudam"]["2026"])  # os cinco estados com maior proporção de urnas mudando
+    de = lambda u: NOME_UF[u].replace("no ", "do ", 1).replace("na ", "da ", 1).replace("em ", "de ", 1)  # noqa: E731
+    if "AP" not in ordem:
+        v["amapa_2026"] = f"fica fora dos {CARDINAIS[len(ordem)]} primeiros em 2026"
+    else:
+        i = ordem.index("AP")
+        v["amapa_2026"] = (f"é o {['primeiro', 'segundo', 'terceiro', 'quarto', 'quinto'][i]} em 2026"
+                           + (f", atrás {lista(de(u) for u in ordem[:i])}" if i else ""))
     v["correlacao"] = dec(geo["correlacao_ufs_2022_2026"], 2)
 
     # estado por estado
