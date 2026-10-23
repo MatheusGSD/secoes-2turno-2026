@@ -25,12 +25,14 @@ VERSOES = [
     ("22/10, 6h28", "17f4ce6", "versoes_22out_06h28.csv"),
     ("22/10, 11h27", "f287d0c", "versoes_22out_11h27.csv"),
     ("22/10, 15h27", "ace92f5", "versoes_22out_15h27.csv"),
-    ("22/10, 20h28", None, "versoes_22out_20h28.csv"),
+    ("22/10, 20h28", "1412e2e", "versoes_22out_20h28.csv"),
+    ("23/10, 6h27", None, "versoes_23out_06h27.csv"),
 ]
 ATUAL = VERSOES[-1][0]
 POR_EXTENSO = {5: "CINCO", 6: "SEIS", 7: "SETE", 8: "OITO", 9: "NOVE", 10: "DEZ", 11: "ONZE", 12: "DOZE",
                13: "TREZE", 14: "CATORZE", 15: "QUINZE", 16: "DEZESSEIS", 17: "DEZESSETE", 18: "DEZOITO",
-               19: "DEZENOVE", 20: "VINTE"}
+               19: "DEZENOVE", 20: "VINTE", 21: "VINTE E UMA", 22: "VINTE E DUAS", 23: "VINTE E TRÊS",
+               24: "VINTE E QUATRO", 25: "VINTE E CINCO", 26: "VINTE E SEIS"}
 
 
 def cabecalho():

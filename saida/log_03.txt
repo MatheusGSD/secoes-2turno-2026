@@ -61,12 +61,12 @@ mais de 1,2 km      -0.30     -1.00     0.42     94  25856
   ]
  }
 }
-efeito na margem (Flávio - Lula): {"zona_municipio": {"margem": -2.929599730557042, "margem_ic": [-27.26316096221906, 18.837912745405724], "eleitores_a_mais": 40.04901366095818, "eleitores_ic": [-242.00982073507706, 355.9359773515044]}, "zona": {"margem": -11.102939435033797, "margem_ic": [-31.82686705184993, 9.546470154420307], "eleitores_a_mais": 148.19774298795218, "eleitores_ic": [-118.96098147044742, 417.56418875172204]}, "local_cadastro": {"margem": 14.59412057019823, "margem_ic": [-15.231428028217524, 43.274525396648585], "eleitores_a_mais": -194.81002016160681, "eleitores_ic": [-569.5201099521329, 192.3271716718565]}}
-faixa de previsão da margem: [-93.9  97.4]
+efeito na margem (Flávio - Lula): {"zona_municipio": {"margem": -2.958852043560375, "margem_ic": [-27.658854982873148, 19.140045734309986], "eleitores_a_mais": 40.30587287191828, "eleitores_ic": [-244.662795258019, 359.53195516681444]}, "zona": {"margem": -11.240153418257524, "margem_ic": [-32.27267222282486, 9.760241495043923], "eleitores_a_mais": 149.40259388160712, "eleitores_ic": [-120.45317315275175, 421.3122147982826]}, "local_cadastro": {"margem": 14.774381715582521, "margem_ic": [-15.452254084671354, 43.86142179413596], "eleitores_a_mais": -196.3928603139359, "eleitores_ic": [-575.1146570412251, 194.89742004718727]}}
+faixa de previsão da margem: [-95.1 103.5]
        urnas  aptos  urnas_lula  urnas_flavio  efeito
 SG_UF                                                
 MG        50  15274          24            26    -0.2
-PA        32  10184          16            15    -0.3
+PA        35  11126          19            15    -0.3
 SP        27   8896           1            26     0.5
 RN        26   8241          26             0    -1.7
 AM        21   7906           5            16    -0.1
@@ -86,7 +86,7 @@ AP         5   1710           2             3     0.0
 GO         5   1608           0             5     0.1
 SE         2    749           2             0    -0.0
 MS         1     72           0             0     0.0
-voto de Lula nas urnas que mudam, menos o das vizinhas: {'dif_pp': -0.35, 'ic_baixo': -2.09, 'ic_alto': 1.42, 'pct_acima': 42.51, 'urnas': 334.0, 'abst_acima_pp': 0.28}
+voto de Lula nas urnas que mudam, menos o das vizinhas: {'dif_pp': -0.38, 'ic_baixo': -2.01, 'ic_alto': 1.46, 'pct_acima': 42.14, 'urnas': 337.0, 'abst_acima_pp': 0.29}
 {
  "nacional": {
   "lula": 53722151,
@@ -101,44 +101,44 @@ voto de Lula nas urnas que mudam, menos o das vizinhas: {'dif_pp': -0.35, 'ic_ba
   "urnas": 497897
  },
  "mudadas": {
-  "urnas": 334,
-  "aptos": 104536,
-  "aptos_2": 104543,
-  "comparecimento": 82220,
-  "validos": 78533,
-  "lula": 39988,
-  "flavio": 33414,
-  "outros": 5131,
-  "pct_lula": 50.91872206588313,
-  "pct_flavio": 42.547718793373484,
-  "abst": 21.347669702303516,
-  "margem_votos": -6574,
-  "pct_validos_pais": 0.06600796878141547,
-  "pct_urnas_pais": 0.06708214751243731,
-  "urnas_lula": 171,
+  "urnas": 337,
+  "aptos": 105478,
+  "aptos_2": 105485,
+  "comparecimento": 82973,
+  "validos": 79257,
+  "lula": 40372,
+  "flavio": 33712,
+  "outros": 5173,
+  "pct_lula": 50.938087487540535,
+  "pct_flavio": 42.53504422322319,
+  "abst": 21.336202810064652,
+  "margem_votos": -6660,
+  "pct_validos_pais": 0.06661649983712128,
+  "pct_urnas_pais": 0.06768468177153106,
+  "urnas_lula": 174,
   "urnas_flavio": 161,
   "urnas_empate": 2,
-  "municipios": 87,
+  "municipios": 88,
   "ufs": 21,
   "agregadas": 25,
   "dist_mediana_km": 0.2474054057650569,
   "dist_p90_km": 1.127761516869664,
   "com_distancia": 200,
-  "sem_distancia": 134,
-  "predio_novo_mesmo_numero": 11,
+  "sem_distancia": 137,
+  "predio_novo_mesmo_numero": 14,
   "mesmo_endereco_urnas": 17,
   "mesmo_endereco_aptos": 5354,
   "reescritas_urnas": 0,
   "reescritas_aptos": 0,
-  "nome_reescrito_urnas": 17,
-  "nome_reescrito_aptos": 4608,
-  "nome_parecido_urnas": 4,
-  "pct_aptos_nordeste": 32.61651488482437,
-  "pct_volta": 15.269461077844312,
-  "teto_votos": 6574,
-  "teto_pct_margem": 0.2936851002389151,
-  "pessimista_votos": 417.94312940890296,
-  "pessimista_pct_margem": 0.01867107846891079
+  "nome_reescrito_urnas": 64,
+  "nome_reescrito_aptos": 17877,
+  "nome_parecido_urnas": 7,
+  "pct_aptos_nordeste": 32.325224217372345,
+  "pct_volta": 15.133531157270031,
+  "teto_votos": 6660,
+  "teto_pct_margem": 0.2975270410086971,
+  "pessimista_votos": 423.3486194304171,
+  "pessimista_pct_margem": 0.01891256187000736
  },
  "painel_tse": {
   "urnas": 2014,
@@ -153,7 +153,7 @@ voto de Lula nas urnas que mudam, menos o das vizinhas: {'dif_pp': -0.35, 'ic_ba
 }
                                  urnas  aptos    c13    c22  validos  pct_lula
 tipo                                                                          
-local de sempre em outro prédio     11   3947   1631   1100     2948      55.3
+local de sempre em outro prédio     14   4889   2015   1398     3672      54.9
 saiu do local de cadastro          256  80968  30606  26092    60607      50.5
 trocou de local provisório          16   5493   2376   1647     4349      54.6
 voltou ao local de cadastro         51  14128   5375   4575    10629      50.6

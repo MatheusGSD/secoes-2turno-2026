@@ -2,11 +2,11 @@
       ok
 
 2. números da versão anterior fora dos marcadores
-   index.html:653: '36 mil' era dist_aptos_sem na versão de 22/10, 15h27 (agora '41 mil'): …is um lado que o outro. Com as 2.059 urnas da primeira versão, seriam 36 mil votos, 1,6% da diferença.…
-   index.html:533: cita o cadastro anterior, 22/10, 15h27: …udava de prédio (as 2 de Manhuaçu passaram a sair dele no cadastro de 22/10, 15h27, quando o local do 2º turno ganhou outro número), e 4 urnas de Cuiabá…
+      nenhum
 
 3. regras de interpretação
-    todas valem
+   FALHOU: Quando o cadastro não bate: nome e endereço reescritos 'todas em Tracuateua (PA)'
+   FALHOU: Quando o cadastro não bate: nome parecido 'em Jacaraci (BA)'
 
 4. continua manual (CHECKLIST.md):
    - Ler `saida/log_07.txt` (o que saiu e o que entrou, por estado e município) e `saida/log_02.txt` (avisos de seções repetidas).

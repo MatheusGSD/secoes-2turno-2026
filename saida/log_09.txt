@@ -8,15 +8,15 @@ local de cadastro: 94539 locais, mediana de 883 votos válidos
     EF nenhum    Lula +0.0111 (0.0092)  Flávio -0.0199 (0.0071)  |  +10 p.p. de Lula: +0.036 p.p. (0.021)
     EF estado    Lula -0.0062 (0.0090)  Flávio +0.0028 (0.0090)  |  +10 p.p. de Lula: -0.053 p.p. (0.030)
     EF município Lula -0.0061 (0.0101)  Flávio +0.0035 (0.0099)  |  +10 p.p. de Lula: -0.057 p.p. (0.034)
-  urnas que mudam de prédio: 98 locais trocados (0.10%), 143,535 eleitores nesses locais
-    EF nenhum    Lula +0.0031 (0.0023)  Flávio -0.0045 (0.0020)  |  +10 p.p. de Lula: +0.014 p.p. (0.005)
+  urnas que mudam de prédio: 99 locais trocados (0.10%), 144,477 eleitores nesses locais
+    EF nenhum    Lula +0.0030 (0.0023)  Flávio -0.0045 (0.0020)  |  +10 p.p. de Lula: +0.014 p.p. (0.005)
     EF estado    Lula +0.0020 (0.0023)  Flávio -0.0022 (0.0022)  |  +10 p.p. de Lula: +0.015 p.p. (0.008)
-    EF município Lula +0.0005 (0.0037)  Flávio +0.0019 (0.0030)  |  +10 p.p. de Lula: -0.004 p.p. (0.014)
+    EF município Lula +0.0005 (0.0037)  Flávio +0.0019 (0.0030)  |  +10 p.p. de Lula: -0.005 p.p. (0.014)
 
   % de locais na lista, por faixa de voto em Lula (urnas que mudam de prédio):
     país      menos de 30%: 0.04% (16724)  30 a 45%: 0.10% (25735)  45 a 60%: 0.11% (18772)  60 a 75%: 0.15% (17502)  75% ou mais: 0.13% (15806)
-    estado    −10 ou menos: 0.06% (14315)  −10 a −5: 0.07% (12597)  −5 a 0: 0.07% (14665)  0 a +5: 0.13% (13510)  +5 a +10: 0.13% (11604)  +10 ou mais: 0.13% (27848)
-    município −10 ou menos: 0.11% (5399)  −10 a −5: 0.10% (11073)  −5 a 0: 0.12% (26870)  0 a +5: 0.08% (24160)  +5 a +10: 0.08% (12536)  +10 ou mais: 0.13% (14318)
+    estado    −10 ou menos: 0.06% (14315)  −10 a −5: 0.07% (12597)  −5 a 0: 0.07% (14665)  0 a +5: 0.14% (13510)  +5 a +10: 0.13% (11604)  +10 ou mais: 0.13% (27848)
+    município −10 ou menos: 0.11% (5399)  −10 a −5: 0.10% (11073)  −5 a 0: 0.13% (26870)  0 a +5: 0.08% (24160)  +5 a +10: 0.08% (12536)  +10 ou mais: 0.13% (14318)
 
 local do 1º turno: 94087 locais, mediana de 892 votos válidos
   painel de 17/10 (2º turno x cadastro): 1279 locais trocados (1.36%), 2,253,086 eleitores nesses locais
@@ -27,9 +27,9 @@ local do 1º turno: 94087 locais, mediana de 892 votos válidos
     EF nenhum    Lula +0.0279 (0.0117)  Flávio -0.0176 (0.0087)  |  +10 p.p. de Lula: +0.049 p.p. (0.019)
     EF estado    Lula +0.0125 (0.0099)  Flávio +0.0063 (0.0088)  |  +10 p.p. de Lula: -0.041 p.p. (0.028)
     EF município Lula +0.0164 (0.0112)  Flávio +0.0132 (0.0085)  |  +10 p.p. de Lula: -0.060 p.p. (0.030)
-  urnas que mudam de prédio: 98 locais trocados (0.10%), 143,371 eleitores nesses locais
+  urnas que mudam de prédio: 99 locais trocados (0.11%), 144,313 eleitores nesses locais
     EF nenhum    Lula +0.0033 (0.0023)  Flávio -0.0048 (0.0020)  |  +10 p.p. de Lula: +0.014 p.p. (0.005)
-    EF estado    Lula +0.0024 (0.0024)  Flávio -0.0026 (0.0022)  |  +10 p.p. de Lula: +0.015 p.p. (0.009)
-    EF município Lula +0.0013 (0.0036)  Flávio +0.0012 (0.0029)  |  +10 p.p. de Lula: -0.006 p.p. (0.014)
+    EF estado    Lula +0.0024 (0.0024)  Flávio -0.0027 (0.0022)  |  +10 p.p. de Lula: +0.014 p.p. (0.009)
+    EF município Lula +0.0013 (0.0036)  Flávio +0.0012 (0.0029)  |  +10 p.p. de Lula: -0.008 p.p. (0.014)
 
 painel de 17/10: 4864 seções, 4692 no mesmo local nos dois turnos

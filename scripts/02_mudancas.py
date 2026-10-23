@@ -22,6 +22,10 @@ Quando a urna muda de prédio:
   nome seja o mesmo tirando a sigla e o endereço seja o mesmo lugar escrito de outro jeito (caso de
   Tracuateua-PA, 22/10: "EMEF Benjamin Ramos", na "Vila da Flexeira", virou "EMEIF Benjamin Ramos", em
   "Flexeira"). Nesse caso o registro foi reescrito, a urna fica no mesmo prédio e não conta (NOME_REESCRITO).
+  Na mesma zona, em Bragança-PA (23/10, 6h27), a reescrita trocou também a grafia ("Souza" e "Sousa",
+  "Eliseu" e "Elizeu", "Abacateiro 2" e "II", "Nona Travessa" e "9ª Travessa") e acrescentou o nome do lugar
+  ("UBS do KM 18" virou "UBS KM 18 do Montenegro"): a comparação ignora essas grafias e aceita um nome contido
+  no outro quando o menor tem 3 palavras próprias, como em nome_parecido.
 Troca só de nome ou só de endereço, com o mesmo número, é correção de cadastro e não conta.
 
 Mesmo endereço nos dois turnos: às vezes o número e o nome do local mudam, mas o endereço é idêntico.
@@ -72,8 +76,11 @@ NOME_REESCRITO = "mesmo prédio, nome e endereço reescritos no cadastro"
 GENERICAS_NOME = set("""ESCOLA ESCOLAS MUNICIPAL ESTADUAL MUNIC EST E M EM EE EMEF EMEIF EMQEIF EMEI EMEB EMEIEF EEEF
     EEF EMF UE MUN PROF PROFA PROFESSOR PROFESSORA DE DA DO DAS DOS ENSINO FUNDAMENTAL INFANTIL""".split())
 # e no endereço: tipos de logradouro e de povoação ("Vila da Flexeira" e "Flexeira" são o mesmo lugar)
-GENERICAS_END = set("""RUA R AV AVENIDA VILA POVOADO POV COMUNIDADE LOCALIDADE QUILOMBO QUILOMBOLA DE DA DO DAS DOS
-    S N SN NO CENTRO""".split())
+GENERICAS_END = set("""RUA R AV AVENIDA ROD RODOVIA TRAV TRAVESSA VILA POVOADO POV COMUNIDADE LOCALIDADE QUILOMBO
+    QUILOMBOLA DE DA DO DAS DOS S N SN NO CENTRO""".split())
+# grafias do mesmo nome: "Souza" e "Sousa", "Abacateiro 2" e "II", "Nona Travessa" e "9ª Travessa"
+ROMANOS = dict(zip("I II III IV V VI VII VIII IX X".split(), map(str, range(1, 11))))
+ORDINAIS = dict(zip("PRIMEIRA SEGUNDA TERCEIRA QUARTA QUINTA SEXTA SETIMA OITAVA NONA DECIMA".split(), map(str, range(1, 11))))
 COLS = ["NR_TURNO", "SG_UF", "CD_MUNICIPIO", "NM_MUNICIPIO", "NR_ZONA", "NR_SECAO", "CD_TIPO_SECAO_AGREGADA",
         "NR_SECAO_PRINCIPAL", "NR_LOCAL_VOTACAO", "NM_LOCAL_VOTACAO", "DS_ENDERECO", "NM_BAIRRO",
         "NR_LATITUDE", "NR_LONGITUDE", "QT_ELEITOR_SECAO", "QT_ELEITOR_ELEICAO_FEDERAL",
@@ -215,7 +222,7 @@ def urnas(d):
         troca.append(outro is not None and outro != n and destino_de.get(f"{z}|{outro}") == c1)
     troca = pd.Series(troca, index=u.index) & predio_novo
     reescrito = predio_novo & ~troca & pd.Series(
-        [palavras(a, GENERICAS_NOME) == palavras(b, GENERICAS_NOME)
+        [mesmo_nome(palavras(a, GENERICAS_NOME), palavras(b, GENERICAS_NOME))
          and contido(palavras(c, GENERICAS_END), palavras(d, GENERICAS_END))
          for a, b, c, d in zip(u.NM_LOCAL_VOTACAO, u.NM_LOCAL_VOTACAO_2, u.DS_ENDERECO, u.DS_ENDERECO_2)], index=u.index)
     u["criterio"] = np.select([num & ~renumerada, predio_novo & ~troca & ~reescrito], ["numero", "predio_novo"], "")
@@ -237,22 +244,32 @@ def urnas(d):
     # contam, mas podem ser o mesmo prédio: mesmo número e um nome contido no outro (Jacaraci-BA, 22/10: "Colégio
     # Estadual Zuleide Freire de Abreu" e "Colégio Estadual de Tempo Integral Zuleide Freire de Abreu", noutra rua).
     # O nome menor precisa de 3 palavras próprias: "Escola Municipal de Bom Jesus" -> "Creche Municipal de Bom Jesus
-    # de Realeza" (Manhuaçu-MG) só repete o nome do lugar
+    # de Realeza" (Manhuaçu-MG) só repete o nome do lugar. Nome igual também avisa, com qualquer número de palavras
+    # (Bragança-PA, 23/10: "EMEF Josefa Alvão" e "EMEIF Josefa Alvao", noutra rua do mesmo povoado)
     u["nome_parecido"] = (u.criterio == "predio_novo") & pd.Series(
-        [contido(x, y) and min(len(x), len(y)) >= 3
-         for x, y in ((palavras(a, GENERICAS_NOME), palavras(b, GENERICAS_NOME))
-                      for a, b in zip(u.NM_LOCAL_VOTACAO, u.NM_LOCAL_VOTACAO_2))], index=u.index)
+        [mesmo_nome(palavras(a, GENERICAS_NOME), palavras(b, GENERICAS_NOME))
+         for a, b in zip(u.NM_LOCAL_VOTACAO, u.NM_LOCAL_VOTACAO_2)], index=u.index)
     return u.reset_index()
 
 
 def palavras(s, genericas):
-    """As palavras que identificam o local, sem acento nem pontuação."""
+    """As palavras que identificam o local, sem acento nem pontuação, com uma grafia só."""
     s = unicodedata.normalize("NFKD", str(s)).encode("ascii", "ignore").decode().upper()
-    return frozenset(re.findall(r"[A-Z0-9]+", s)) - genericas
+    return frozenset(grafia(w) for w in re.findall(r"[A-Z0-9]+", s) if w not in genericas)
+
+
+def grafia(w):
+    w = re.sub(r"^(\d+)[AO]$", r"\1", w)  # 9ª, 1º
+    return ROMANOS.get(w) or ORDINAIS.get(w) or w.replace("Z", "S").replace("Y", "I")
 
 
 def contido(a, b):
     return bool(a) and bool(b) and (a <= b or b <= a)
+
+
+def mesmo_nome(a, b):
+    """Nome igual, ou um contido no outro com 3 palavras próprias no menor."""
+    return bool(a) and a == b or contido(a, b) and min(len(a), len(b)) >= 3
 
 
 def mesmo_endereco(u, anterior):
