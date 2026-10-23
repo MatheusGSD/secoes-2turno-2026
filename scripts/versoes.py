@@ -27,7 +27,8 @@ VERSOES = [
     ("22/10, 15h27", "ace92f5", "versoes_22out_15h27.csv"),
     ("22/10, 20h28", "1412e2e", "versoes_22out_20h28.csv"),
     ("23/10, 6h27", "ee712d0", "versoes_23out_06h27.csv"),
-    ("23/10, 10h00", None, "versoes_23out_10h00.csv"),
+    ("23/10, 10h00", "b651268", "versoes_23out_10h00.csv"),
+    ("23/10, 10h47", None, "versoes_23out_10h47.csv"),
 ]
 ATUAL = VERSOES[-1][0]
 POR_EXTENSO = {5: "CINCO", 6: "SEIS", 7: "SETE", 8: "OITO", 9: "NOVE", 10: "DEZ", 11: "ONZE", 12: "DOZE",
@@ -42,9 +43,10 @@ def cabecalho():
 
 
 def sufixo(cadastro):
-    """'19/10, 15h27' -> '19out_15h', para nomes de coluna."""
+    """'19/10, 15h27' -> '19out_15h27', para nomes de coluna. Com os minutos desde 23/10, quando vieram dois cadastros
+    na mesma hora (10h00 e 10h47); os CSVs de antes têm só a hora ('19out_15h')."""
     data, hora = cadastro.split(", ")
-    return f"{data.split('/')[0]}out_{hora.split('h')[0]}h"
+    return f"{data.split('/')[0]}out_{hora}"
 
 
 def ref(commit, arquivo):
