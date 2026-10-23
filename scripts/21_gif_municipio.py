@@ -2,18 +2,24 @@
 
 O mesmo desenho do mapa de "Como a lista encolheu" (um círculo por prédio do 1º turno, do tamanho do número de urnas
 dele na lista, anel nas que entram), mais perto, com fundo do OpenStreetMap (tiles de 20_imagem_reescritos.py, em
-dados/osm/). Quando o prédio do 2º turno tem coordenada no cadastro, uma seta liga os dois; os destinos sem coordenada
-ficam só na lista à direita. A lista de cada versão vem de saida/urnas_mudadas_2026.csv no commit dela (versoes.py).
+dados/osm/). Uma seta liga o prédio do 1º turno ao do 2º, da espessura do número de urnas. Quando o prédio do 2º turno
+não tem coordenada no cadastro (Tucumã-PA, 23/10: duas EMEIs novas com -1), a seta é tracejada e vai até o meio da rua
+dele, pelo Nominatim do OpenStreetMap; sem a rua, fica só na lista à direita. A lista de cada versão vem de
+saida/urnas_mudadas_2026.csv no commit dela (versoes.py).
 
 Uso: python -P scripts/21_gif_municipio.py PA TUCUMÃ 5   (estado, município, quantas versões, das mais recentes)
 Saída: saida/gif_<município>.gif
 """
 import importlib
 import io
+import json
 import math
 import subprocess
 import sys
+import time
 import unicodedata
+import urllib.parse
+import urllib.request
 from pathlib import Path
 
 import matplotlib
@@ -36,12 +42,39 @@ COR = {"saiu do local de cadastro": TINTA, "voltou ao local de cadastro": VOLTA,
 FONTE, DADOS = "Segoe UI", "Consolas"
 PASSOS, MS_PASSO, MS_PARADO, MS_PRIMEIRO, MS_ULTIMO = 9, 35, 1300, 2200, 5000
 SIGLAS = {"EM", "EE", "EMEF", "EMEI", "EMEIF", "UBS", "CE", "EEEF"}
+UF_NOME = {"AC": "Acre", "AL": "Alagoas", "AP": "Amapá", "AM": "Amazonas", "BA": "Bahia", "CE": "Ceará",
+           "DF": "Distrito Federal", "ES": "Espírito Santo", "GO": "Goiás", "MA": "Maranhão", "MT": "Mato Grosso",
+           "MS": "Mato Grosso do Sul", "MG": "Minas Gerais", "PA": "Pará", "PB": "Paraíba", "PR": "Paraná",
+           "PE": "Pernambuco", "PI": "Piauí", "RJ": "Rio de Janeiro", "RN": "Rio Grande do Norte",
+           "RS": "Rio Grande do Sul", "RO": "Rondônia", "RR": "Roraima", "SC": "Santa Catarina", "SP": "São Paulo",
+           "SE": "Sergipe", "TO": "Tocantins"}
 
 
 def nome(s):
     pequenas = {"DE", "DA", "DO", "DAS", "DOS", "E"}
     ps = s.replace(".", " ").split()
     return " ".join(p if p in SIGLAS else p.lower() if i and p in pequenas else p.capitalize() for i, p in enumerate(ps))
+
+
+def rua_no_osm(endereco, mun, uf):
+    """Ponto do meio da rua de um endereço ("RUA SAFIRA, S/N"), pelo Nominatim do OpenStreetMap, guardado em
+    dados/osm/ruas.json para não repetir a consulta. None se a rua não está no OpenStreetMap daquele município."""
+    rua = nome(str(endereco).split(",")[0].strip())
+    arq = osm.CACHE / "ruas.json"
+    memo = json.loads(arq.read_text(encoding="utf-8")) if arq.exists() else {}
+    chave = f"{rua}|{mun}|{uf}"
+    if chave not in memo:
+        q = urllib.parse.urlencode({"q": f"{rua}, {nome(mun)}, {UF_NOME[uf]}, Brasil", "format": "json", "limit": 1})
+        req = urllib.request.Request(f"https://nominatim.openstreetmap.org/search?{q}",
+                                     headers={"User-Agent": "secoes-2turno-2026 (cartao estatico, github.com/MatheusGSD)"})
+        r = json.load(urllib.request.urlopen(req, timeout=30))
+        achou = r and nome(mun) in r[0]["display_name"]
+        memo[chave] = [float(r[0]["lat"]), float(r[0]["lon"]), r[0]["display_name"].split(",")[0]] if achou else None
+        arq.parent.mkdir(parents=True, exist_ok=True)
+        arq.write_text(json.dumps(memo, ensure_ascii=False, indent=1), encoding="utf-8")
+        time.sleep(1.1)  # política de uso do Nominatim: uma consulta por segundo
+    m = memo[chave]
+    return (m[:2], m[2]) if m else (None, rua)  # o nome da rua como está no OpenStreetMap, com acento
 
 
 def lista_da_versao(commit):
@@ -71,7 +104,15 @@ def main():
     todas = pd.concat([l for _, _, l in listas])
     predios = todas.groupby("NR_LOCAL_VOTACAO").agg(nm=("NM_LOCAL_VOTACAO", "first"), lat=("lat", "first"), lon=("lon", "first"))
     trajetos = (todas.groupby(["NR_LOCAL_VOTACAO", "NR_LOCAL_VOTACAO_2"])
-                .agg(nm2=("NM_LOCAL_VOTACAO_2", "first"), lat2=("lat_2", "first"), lon2=("lon_2", "first")).reset_index())
+                .agg(nm2=("NM_LOCAL_VOTACAO_2", "first"), end2=("DS_ENDERECO_2", "first"), lat2=("lat_2", "first"),
+                     lon2=("lon_2", "first")).reset_index())
+    # prédio do 2º turno sem coordenada no cadastro: a ponta da seta vai para o meio da rua dele, pelo OpenStreetMap
+    trajetos["rua"] = None
+    for k, r in trajetos[trajetos.lat2.isna()].iterrows():
+        pos, rua = rua_no_osm(r.end2, mun, uf)
+        o = predios.loc[r.NR_LOCAL_VOTACAO]
+        if pos and math.hypot((pos[0] - o.lat) * 111.3, (pos[1] - o.lon) * 111.3) < 10:  # km, para não pegar homônima
+            trajetos.loc[k, ["lat2", "lon2", "rua"]] = [pos[0], pos[1], rua]
 
     def contagem(l, chave):
         return l.groupby(chave).size().to_dict() if len(l) else {}
@@ -103,6 +144,13 @@ def main():
         x, y = osm.tile_xy(lat, lon, z)
         return (x - tx0) * 256 - caixa[0], (y - ty0) * 256 - caixa[1]
 
+    # lado do rótulo de cada destino: embaixo; com outro destino perto, o da esquerda à esquerda e o outro à direita
+    pos2 = {k: px(r.lat2, r.lon2) for k, r in trajetos.iterrows() if pd.notna(r.lat2)}
+    lado = {}
+    for k, (x, y) in pos2.items():
+        perto = [x_ for k_, (x_, y_) in pos2.items() if k_ != k and abs(x - x_) < 150 and abs(y - y_) < 60]
+        lado[k] = "baixo" if not perto else "esq" if x < min(perto) else "dir"
+
     area = lambda u: 26 * u + 20  # noqa: E731
     quadros, tempos = [], []
 
@@ -114,19 +162,25 @@ def main():
         ax = fig.add_axes([0.02, 0.1, 0.48, 0.85]); ax.set_facecolor(PAPEL)
         ax.imshow(fundo, cmap="gray", vmin=0, vmax=255, alpha=.5, interpolation="lanczos")
         ax.set_xlim(0, fundo.shape[1]); ax.set_ylim(fundo.shape[0], 0); ax.axis("off")
-        # setas para os prédios do 2º turno com coordenada
+        # setas para os prédios do 2º turno, da espessura do número de urnas; tracejada se a ponta é a rua
         for r in trajetos.itertuples():
             if pd.isna(r.lat2):
                 continue
-            q = a["trajeto"].get((r.NR_LOCAL_VOTACAO, r.NR_LOCAL_VOTACAO_2), 0) * (1 - e) + \
-                b["trajeto"].get((r.NR_LOCAL_VOTACAO, r.NR_LOCAL_VOTACAO_2), 0) * e
+            chave = (r.NR_LOCAL_VOTACAO, r.NR_LOCAL_VOTACAO_2)
+            q = a["trajeto"].get(chave, 0) * (1 - e) + b["trajeto"].get(chave, 0) * e
             if q <= 0:
                 continue
+            al = min(1, q)
             p1, p2 = px(*predios.loc[r.NR_LOCAL_VOTACAO, ["lat", "lon"]]), px(r.lat2, r.lon2)
-            ax.annotate("", xy=p2, xytext=p1, arrowprops=dict(arrowstyle="-|>", color=TINTA, lw=1.1, alpha=min(1, q),
-                                                              shrinkA=7, shrinkB=3, mutation_scale=9))
-            ax.plot(*p2, "s", ms=5, color=PAPEL, mec=TINTA, mew=1, alpha=min(1, q))
-            ax.text(p2[0] + 9, p2[1] + 4, nome(r.nm2), size=6.4, color=TINTA, family=FONTE, va="top", alpha=min(1, q))
+            ax.annotate("", xy=p2, xytext=p1, arrowprops=dict(arrowstyle="-|>", color=TINTA, lw=.7 + .16 * q, alpha=al,
+                                                              ls="--" if r.rua else "-", shrinkA=8, shrinkB=4,
+                                                              mutation_scale=8 + .5 * q))
+            ax.plot(*p2, "o" if r.rua else "s", ms=5, color=PAPEL, mec=TINTA, mew=1, alpha=al)
+            texto = nome(r.nm2) + (f"\n{r.rua}, posição aproximada" if r.rua else "")
+            xy, ha, va = {"baixo": ((0, -7), "center", "top"), "esq": ((-7, 0), "right", "center"),
+                          "dir": ((7, 0), "left", "center")}[lado[r.Index]]
+            ax.annotate(texto, p2, xytext=xy, textcoords="offset points", ha=ha, va=va, size=6.2, color=TINTA,
+                        family=FONTE, alpha=al, linespacing=1.25)
         for loc, p in predios.iterrows():
             x, y = px(p.lat, p.lon)
             u = a["predio"].get(loc, 0) * (1 - e) + b["predio"].get(loc, 0) * e
@@ -160,11 +214,13 @@ def main():
             fig.text(.955, y, f"{u} urna{'s' if u != 1 else ''}" if u else "", ha="right", size=7.2, family=DADOS,
                      color=TINTA2)
             y -= .045
-        sem = trajetos.lat2.isna().sum()
+        sem, aprox = trajetos.lat2.isna().sum(), trajetos.rua.notna().sum()
         lat_fl = ultima.c22.sum() - ultima.c13.sum()
         T(y - .02, (f"No 1º turno, essas urnas deram a {'Flávio' if lat_fl > 0 else 'Lula'} {fmt(abs(lat_fl))} votos de vantagem."
-                    + ("\nOs prédios do 2º turno sem seta não têm coordenada no cadastro." if sem else "")),
-          size=6.6, color=TINTA2, va="top", linespacing=1.4)
+                    + ("\nSeta tracejada: o cadastro do TSE não tem a coordenada do prédio do 2º turno;\n"
+                       "a ponta fica no meio da rua dele, pelo OpenStreetMap." if aprox else "")
+                    + ("\nSem seta: prédio do 2º turno sem coordenada no cadastro." if sem else "")),
+          size=6.4, color=TINTA2, va="top", linespacing=1.4)
         # linha do tempo das versões mostradas
         tl = fig.add_axes([x0, .075, .4, .06]); tl.set_xlim(-.5, len(vers) - .5); tl.set_ylim(-1, 1); tl.axis("off")
         tl.plot([0, len(vers) - 1], [0, 0], color=LINHA, lw=1.2, zorder=1)
