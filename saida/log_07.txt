@@ -1,6 +1,6 @@
 situacao          o_que_mudou_no_cadastro
-entrou na lista   local do 2º turno            3
-nas duas versões                             334
+entrou na lista   local do 2º turno            1
+nas duas versões                             337
 saíram: 0 urnas, 0 aptos | tipo antes: {} | tipo agora: {} | ficam no prédio do 1º turno: 0
-entraram: 3 urnas | por município: {('PA', 'BRAGANÇA'): 3}
+entraram: 1 urnas | por município: {('PA', 'TUCUMÃ'): 1}
 por UF: {}
