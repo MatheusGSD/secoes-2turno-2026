@@ -7,7 +7,7 @@ quais urnas mudam de prédio, em quem os eleitores dessas urnas votaram no 1º t
 
 ## O que os números mostram
 
-Cadastro de locais do TSE gerado em <!--n:cadastro_extenso-->23/10 às 10h47<!--/n--> (Brasília), baixado no mesmo dia. O TSE ainda pode mudar locais
+Cadastro de locais do TSE gerado em <!--n:cadastro_extenso-->23/10 às 11h27<!--/n--> (Brasília), baixado no mesmo dia. O TSE ainda pode mudar locais
 até o dia 25; se publicar outra versão, a página e este README serão refeitos, com a mudança registrada aqui.
 
 **Atualização de 22/10, cadastros de 11h27 e 15h27.** O TSE publicou mais duas versões do cadastro. A de 11h27 foi
@@ -232,14 +232,14 @@ todo o exterior).
 - **O painel do TSE mudou de critério.** A lista "Seções alteradas" do painel de estatísticas tinha, em 17/10, 4.864
   seções (4.863 urnas): comparava o local do 2º turno com o local *de cadastro*. Em 18/10 (7h09), passou a comparar
   com o local do 1º turno e listava 2.033 seções (2.023 urnas, 9 no exterior). Essa exportação é anterior aos
-  <!--n:n_cadastros_depois_do_painel-->21<!--/n--> cadastros que baixamos depois (de <!--n:cadastros_depois_do_painel-->18/10, 11h27 e 20h27; de 19/10, 11h27 e 15h27; de 20/10, 6h27, 11h27, 12h32, 15h27 e 20h27; de 21/10, 6h27, 11h27, 14h19, 15h27 e 20h28; de 22/10, 6h28, 11h27, 15h27 e 20h28; e de 23/10, 6h27, 10h00 e 10h47<!--/n-->):
+  <!--n:n_cadastros_depois_do_painel-->22<!--/n--> cadastros que baixamos depois (de <!--n:cadastros_depois_do_painel-->18/10, 11h27 e 20h27; de 19/10, 11h27 e 15h27; de 20/10, 6h27, 11h27, 12h32, 15h27 e 20h27; de 21/10, 6h27, 11h27, 14h19, 15h27 e 20h28; de 22/10, 6h28, 11h27, 15h27 e 20h28; e de 23/10, 6h27, 10h00, 10h47 e 11h27<!--/n-->):
   <!--n:painel_nas_duas-->173<!--/n--> das <!--n:urnas-->358<!--/n--> urnas daqui estão nela; as outras <!--n:painel_fora-->185<!--/n--> entraram com esses cadastros. Das <!--n:painel_so-->1.841<!--/n--> urnas
   a mais no Brasil, <!--n:painel_mesmo_local-->1.635<!--/n--> têm, no cadastro atual, o mesmo local nos dois turnos (entre elas, <!--n:painel_sairam-->1.613<!--/n--> que
   saíram da lista com esses cadastros). As outras <!--n:painel_outras-->206<!--/n--> têm o mesmo número de local nos dois turnos: <!--n:painel_so_nome-->167<!--/n--> só
   mudam de nome, <!--n:painel_so_grafia-->32<!--/n--> só de grafia do nome e <!--n:painel_so_endereco-->7<!--/n-->, em Candeias-BA, só de grafia do endereço. Em 32 das <!--n:painel_so_nome-->167<!--/n-->, o
   nome muda por completo e não dá para saber se é o mesmo prédio. Havia um 33º caso, em Presidente Médici-RO, que no cadastro de
   20/10, 6h27, passou a mudar também o número do local e entrou na lista.
-- **Como a lista encolheu.** Nas <!--n:n_versoes-->23<!--/n--> versões do cadastro que baixamos, a lista teve <!--n:serie_urnas-->2.059, 1.792, 1.733, 1.025, 596, 475, 469, 470, 476, 470, 488, 462, 407, 364, 367, 340, 339, 313, 319, 334, 337, 338 e 358<!--/n-->
+- **Como a lista encolheu.** Nas <!--n:n_versoes-->24<!--/n--> versões do cadastro que baixamos, a lista teve <!--n:serie_urnas-->2.059, 1.792, 1.733, 1.025, 596, 475, 469, 470, 476, 470, 488, 462, 407, 364, 367, 340, 339, 313, 319, 334, 337, 338, 358 e 358<!--/n-->
   urnas: encolheu muito até o cadastro de 19/10, 15h27, e desde então muda menos a cada versão. Quase todas as saídas
   foram do mesmo jeito: <!--n:renovadas-->1.814<!--/n--> urnas que iam voltar ao local de sempre passaram a ficar no prédio provisório do 1º
   turno. Nos cadastros de 21/10 apareceram dois outros tipos de saída. No de 6h27, urnas que votaram no local de
@@ -274,7 +274,7 @@ todo o exterior).
   com um nome contido no outro (<!--h-->Jacaraci-BA<!--/h-->), que continuam na conta.
 - **No 1º turno, os eleitores dessas urnas votaram mais em Lula que o país** (<!--n:pct_lula-->49,1%<!--/n--> para Lula e <!--n:pct_flavio-->44,4%<!--/n--> para
   Flávio; no país, 45,2% contra 47,0%), perto do esperado pelos municípios onde estão (<!--n:lula_esperado_municipio-->49,9%<!--/n-->). O percentual
-  muda de uma versão da lista para outra: <!--n:serie_lula-->52,3% nas 1.025 urnas de 18/10, 20h27; 46,7% nas 596 de 19/10, 11h27; 48,5% nas 475 de 19/10, 15h27; 50,0% nas 469 de 20/10, 6h27; 50,2% nas 470 de 20/10, 11h27; 50,4% nas 476 de 20/10, 12h32; 50,7% nas 470 de 20/10, 15h27; 50,7% nas 488 de 20/10, 20h27; 50,8% nas 462 de 21/10, 6h27; 48,7% nas 407 de 21/10, 11h27; 48,8% nas 364 de 21/10, 14h19; 48,6% nas 367 de 21/10, 15h27; 50,2% nas 340 de 21/10, 20h28; 50,5% nas 339 de 22/10, 6h28; 50,3% nas 313 de 22/10, 11h27; 50,8% nas 319 de 22/10, 15h27; 50,9% nas 334 de 22/10, 20h28; 50,9% nas 337 de 23/10, 6h27; 50,8% nas 338 de 23/10, 10h00<!--/n-->. Comparado com o das urnas do mesmo
+  muda de uma versão da lista para outra: <!--n:serie_lula-->52,3% nas 1.025 urnas de 18/10, 20h27; 46,7% nas 596 de 19/10, 11h27; 48,5% nas 475 de 19/10, 15h27; 50,0% nas 469 de 20/10, 6h27; 50,2% nas 470 de 20/10, 11h27; 50,4% nas 476 de 20/10, 12h32; 50,7% nas 470 de 20/10, 15h27; 50,7% nas 488 de 20/10, 20h27; 50,8% nas 462 de 21/10, 6h27; 48,7% nas 407 de 21/10, 11h27; 48,8% nas 364 de 21/10, 14h19; 48,6% nas 367 de 21/10, 15h27; 50,2% nas 340 de 21/10, 20h28; 50,5% nas 339 de 22/10, 6h28; 50,3% nas 313 de 22/10, 11h27; 50,8% nas 319 de 22/10, 15h27; 50,9% nas 334 de 22/10, 20h28; 50,9% nas 337 de 23/10, 6h27; 50,8% nas 338 de 23/10, 10h00; 49,1% nas 358 de 23/10, 10h47<!--/n-->. Comparado com o das urnas do mesmo
   município e da mesma zona eleitoral que não mudam, não há diferença detectável (<!--n:vizinhas_dif-->0,6 ponto a menos<!--/n--> para Lula,
   intervalo de 95% de <!--n:vizinhas_ic-->2,3 ponto a menos a 1,2 a mais<!--/n-->). Por local de votação (`09_por_local.py`), com as <!--n:urnas-->358<!--/n--> urnas, a
   associação entre voto em Lula e mudança entre todos os locais do país é pequena (<!--n:local_pais-->+0,01<!--/n--> ponto por 10 pontos de
@@ -302,7 +302,7 @@ todo o exterior).
 - **O efeito estimado no resultado é próximo de zero.** Se 2026 repetir 2022, a vantagem de Flávio praticamente não
   mudaria (<!--n:margem-->−2<!--/n--> votos), diante de 2,24 milhões no 1º turno. O intervalo de 95% do efeito médio fica entre <!--n:margem_ic-->−15 e +9<!--/n-->
   votos e supõe que a troca de prédio tem o mesmo efeito em todas as urnas do mesmo tipo; se cada urna puder ter um
-  efeito diferente, como as de 2022 tiveram, a faixa de previsão vai de <!--n:margem_previsao-->−100 a +106<!--/n--> votos. Nas outras comparações,
+  efeito diferente, como as de 2022 tiveram, a faixa de previsão vai de <!--n:margem_previsao-->−102 a +103<!--/n--> votos. Nas outras comparações,
   o intervalo fica entre <!--n:outras_comparacoes-->−17 e +24<!--/n--> votos. A conta supõe que quem deixa de votar votaria como o resto da sua
   urna. Se, em vez do efeito de 2022, valesse o medido no 1º turno de 2026 nas urnas que saíram do local de sempre
   (<!--n:abst1t_var-->0,64<!--/n--> ponto a mais de abstenção, veja abaixo), aplicado às <!--n:sens_2t_urnas-->277<!--/n--> urnas que saem do local de sempre só no 2º
@@ -332,7 +332,7 @@ diferença nacional. Esse efeito já está no resultado do dia 4.
 ## Como acompanhamos as atualizações do TSE
 
 O TSE troca o cadastro de locais (`eleitorado_local_votacao_2026.zip`) no portal de dados abertos sem aviso, às vezes
-mais de uma vez por dia, e o portal guarda só a última versão. Entre <!--n:primeira_data-->17/10<!--/n--> e <!--n:ultima_data-->23/10<!--/n--> baixamos <!--n:n_versoes-->23<!--/n--> versões; outra,
+mais de uma vez por dia, e o portal guarda só a última versão. Entre <!--n:primeira_data-->17/10<!--/n--> e <!--n:ultima_data-->23/10<!--/n--> baixamos <!--n:n_versoes-->24<!--/n--> versões; outra,
 publicada na noite de 19/10, foi substituída antes que a baixássemos, e não dá mais para recuperá-la. O CDN do portal
 também pode entregar uma cópia antiga em cache a quem pede o endereço puro.
 
@@ -352,7 +352,7 @@ Windows, num computador nosso (não no GitHub):
 Tudo roda sem abrir janela: o Agendador chama o `pythonw`, e os scripts e o `git` rodam num console oculto (até 21/10, 15h27,
 cada `git` chamado pelos scripts abria um terminal na tela a cada rodada).
 
-As versões de <!--n:versoes_automaticas-->20/10, 11h27, 12h32, 15h27 e 20h27; de 21/10, 6h27, 11h27, 14h19, 15h27 e 20h28; de 22/10, 6h28, 11h27, 15h27 e 20h28; e de 23/10, 6h27, 10h00 e 10h47<!--/n--> chegaram assim.
+As versões de <!--n:versoes_automaticas-->20/10, 11h27, 12h32, 15h27 e 20h27; de 21/10, 6h27, 11h27, 14h19, 15h27 e 20h28; de 22/10, 6h28, 11h27, 15h27 e 20h28; e de 23/10, 6h27, 10h00, 10h47 e 11h27<!--/n--> chegaram assim.
 
 Se uma versão nova chega quando a anterior ainda não tem texto nem commit (`saida/` ou `docs/` com mudanças
 pendentes), o script só baixa e avisa: o commit em uso precisa ser o da versão anterior, porque é dele que as
@@ -478,7 +478,7 @@ Para rodar do zero, baixe para `dados/` os arquivos do [portal de dados abertos 
 
 - `votacao_secao_2026_BR.zip` e `votacao_secao_2022_BR.zip` (Resultados › Votação por seção eleitoral)
 - `eleitorado_local_votacao_2026.zip` e `eleitorado_local_votacao_2022.zip` (Eleitorado › Eleitorado por local de
-  votação). O de 2026 usado aqui foi gerado em <!--n:cadastro_extenso-->23/10 às 10h47<!--/n--> (Brasília) e já traz o 2º turno. O portal guarda só
+  votação). O de 2026 usado aqui foi gerado em <!--n:cadastro_extenso-->23/10 às 11h27<!--/n--> (Brasília) e já traz o 2º turno. O portal guarda só
   a versão mais recente, então o resultado pode mudar se o TSE publicar outra. O CDN pode entregar uma cópia antiga em
   cache: baixe com um parâmetro qualquer no fim do endereço (por exemplo, `?x=1`) e confira `DT_GERACAO` e `HH_GERACAO`.
 - `painel_secoes_alteradas_2026.csv`: a lista do painel de estatísticas (Eleitorado › Capilaridade › Seções alteradas,

@@ -62,7 +62,7 @@ mais de 1,2 km      -0.30     -1.00     0.42     94  25856
  }
 }
 efeito na margem (Flávio - Lula): {"zona_municipio": {"margem": -1.9984488380002716, "margem_ic": [-14.78054994402922, 9.128813993510862], "eleitores_a_mais": 42.2486774134159, "eleitores_ic": [-264.7290834490609, 385.93763972263093]}, "zona": {"margem": -6.735184894205341, "margem_ic": [-17.36504403642798, 3.9267346435610784], "eleitores_a_mais": 158.51571767915635, "eleitores_ic": [-131.88540375867265, 450.82105017331725]}, "local_cadastro": {"margem": 8.856101617687935, "margem_ic": [-6.662959485626157, 24.14148231873809], "eleitores_a_mais": -208.36497930050143, "eleitores_ic": [-614.427572089123, 214.3061433213049]}}
-faixa de previsão da margem: [-100.   105.5]
+faixa de previsão da margem: [-102.2  102.9]
        urnas  aptos  urnas_lula  urnas_flavio  efeito
 SG_UF                                                
 PA        56  18253          19            36     0.7
