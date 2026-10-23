@@ -12,84 +12,84 @@
   "urnas": 497897
  },
  "mudadas": {
-  "urnas": 358,
-  "aptos": 112605,
-  "aptos_2": 112610,
-  "comparecimento": 88315,
-  "validos": 84498,
-  "lula": 41527,
-  "flavio": 37509,
-  "outros": 5462,
-  "pct_lula": 49.14554190631731,
-  "pct_flavio": 44.39039977277569,
-  "abst": 21.57097819812619,
-  "margem_votos": -4018,
-  "pct_validos_pais": 0.0710216258909254,
-  "pct_urnas_pais": 0.0719024215851873,
-  "urnas_lula": 174,
-  "urnas_flavio": 182,
+  "urnas": 375,
+  "aptos": 117930,
+  "aptos_2": 117936,
+  "comparecimento": 92608,
+  "validos": 88650,
+  "lula": 43452,
+  "flavio": 39280,
+  "outros": 5918,
+  "pct_lula": 49.015228426395936,
+  "pct_flavio": 44.30908065425832,
+  "abst": 21.47205969643009,
+  "margem_votos": -4172,
+  "pct_validos_pais": 0.07451143382364714,
+  "pct_urnas_pais": 0.07531678238671854,
+  "urnas_lula": 184,
+  "urnas_flavio": 189,
   "urnas_empate": 2,
-  "municipios": 89,
+  "municipios": 91,
   "ufs": 21,
   "agregadas": 25,
-  "dist_mediana_km": 0.2474054057650569,
+  "dist_mediana_km": 0.2625597530661156,
   "dist_p90_km": 1.125204295110252,
-  "com_distancia": 201,
-  "sem_distancia": 157,
+  "com_distancia": 233,
+  "sem_distancia": 142,
   "predio_novo_mesmo_numero": 14,
-  "mesmo_endereco_urnas": 17,
-  "mesmo_endereco_aptos": 5354,
+  "mesmo_endereco_urnas": 16,
+  "mesmo_endereco_aptos": 4987,
   "reescritas_urnas": 0,
   "reescritas_aptos": 0,
   "nome_reescrito_urnas": 64,
   "nome_reescrito_aptos": 17877,
   "nome_parecido_urnas": 7,
-  "pct_aptos_nordeste": 30.27929488033391,
-  "pct_volta": 14.24581005586592,
-  "teto_votos": 4018,
-  "teto_pct_margem": 0.17949904666260433,
-  "pessimista_votos": 256.1665515484346,
-  "pessimista_pct_margem": 0.011443915328469612
+  "pct_aptos_nordeste": 30.239972865259052,
+  "pct_volta": 14.399999999999999,
+  "teto_votos": 4172,
+  "teto_pct_margem": 0.18637880106430693,
+  "pessimista_votos": 265.6514512785073,
+  "pessimista_pct_margem": 0.011867641176961012
  },
  "impacto": {
   "zona_municipio": {
-   "margem": -1.9984488380002716,
+   "margem": -1.747587602027397,
    "margem_ic": [
-    -14.78054994402922,
-    9.128813993510862
+    -16.104462506705346,
+    11.090699479794825
    ],
-   "eleitores_a_mais": 42.2486774134159,
+   "eleitores_a_mais": 44.62152399785521,
    "eleitores_ic": [
-    -264.7290834490609,
-    385.93763972263093
+    -275.5483711371944,
+    403.67579336876383
    ],
    "margem_previsao": [
-    -102.22614037385209,
-    102.93909350417103
+    -110.89263177582745,
+    104.03983856965426
    ]
   },
   "zona": {
-   "margem": -6.735184894205341,
+   "margem": -6.589327762052175,
    "margem_ic": [
-    -17.36504403642798,
-    3.9267346435610784
+    -18.815569259048203,
+    5.562811213913814
    ],
-   "eleitores_a_mais": 158.51571767915635,
+   "eleitores_a_mais": 166.48297846131342,
    "eleitores_ic": [
-    -131.88540375867265,
-    450.82105017331725
+    -136.4565094804608,
+    471.30438466286995
    ]
   },
   "local_cadastro": {
-   "margem": 8.856101617687935,
+   "margem": 8.661385982063148,
    "margem_ic": [
-    -6.662959485626157,
-    24.14148231873809
+    -8.996770460849412,
+    25.590887419010354
    ],
-   "eleitores_a_mais": -208.36497930050143,
+   "eleitores_a_mais": -218.84126317482117,
    "eleitores_ic": [
-    -614.427572089123,
-    214.3061433213049
+    -643.628148826765,
+    221.4593899896913
    ]
   }
  },
@@ -106,12 +106,12 @@
   },
   {
    "tipo": "saiu do local de cadastro",
-   "urnas": 277,
-   "aptos": 88095,
-   "c13": 31761,
-   "c22": 29889,
-   "validos": 65848,
-   "pct_lula": 48.2338112015551
+   "urnas": 291,
+   "aptos": 92293,
+   "c13": 33477,
+   "c22": 31148,
+   "validos": 69104,
+   "pct_lula": 48.44437369761519
   },
   {
    "tipo": "trocou de local provisório",
@@ -124,12 +124,12 @@
   },
   {
    "tipo": "voltou ao local de cadastro",
-   "urnas": 51,
-   "aptos": 14128,
-   "c13": 5375,
-   "c22": 4575,
-   "validos": 10629,
-   "pct_lula": 50.569197478596294
+   "urnas": 54,
+   "aptos": 15255,
+   "c13": 5584,
+   "c22": 5087,
+   "validos": 11525,
+   "pct_lula": 48.45119305856833
   }
  ],
  "efeito_2022": [
@@ -252,12 +252,12 @@
   }
  },
  "voto_vs_vizinhas": {
-  "dif_pp": -0.5924342321887216,
-  "ic_baixo": -2.301442650015322,
-  "ic_alto": 1.1722797843385382,
-  "pct_acima": 40.78212290502793,
-  "urnas": 358,
-  "abst_acima_pp": 0.2345635620135629
+  "dif_pp": -0.8572199997914542,
+  "ic_baixo": -2.436206145249823,
+  "ic_alto": 0.8582065079013217,
+  "pct_acima": 39.2,
+  "urnas": 375,
+  "abst_acima_pp": 0.21174304030595947
  },
  "painel_tse": {
   "urnas": 2014,
@@ -270,11 +270,11 @@
   }
  },
  "fora_do_cadastro_2t": {
-  "urnas": 7213,
-  "aptos": 2166381,
-  "faltaram_1t": 439739,
-  "abst": 20.29832240958539,
-  "ja_fora_no_1t_urnas": 6920,
-  "ja_fora_no_1t_abst": 20.241770403508696
+  "urnas": 7234,
+  "aptos": 2172725,
+  "faltaram_1t": 440904,
+  "abst": 20.292673946311655,
+  "ja_fora_no_1t_urnas": 6927,
+  "ja_fora_no_1t_abst": 20.236739489691026
  }
 }

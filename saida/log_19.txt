@@ -5,8 +5,7 @@
       nenhum
 
 3. regras de interpretação
-   FALHOU: Quando o cadastro não bate: nome e endereço reescritos 'todas em Tracuateua (PA)'
-   FALHOU: Quando o cadastro não bate: nome parecido 'em Jacaraci (BA)'
+    todas valem
 
 4. continua manual (CHECKLIST.md):
    - Ler `saida/log_07.txt` (o que saiu e o que entrou, por estado e município) e `saida/log_02.txt` (avisos de seções repetidas).
@@ -22,4 +21,4 @@
    - Commit no `main` ("Atualização de dd/mm, hhhmm: N urnas saíram e M entraram, T urnas"), push, e conferir a página publicada (o GitHub Pages leva um ou dois minutos).
    - Post no X, se for o caso: engatilhado no navegador para o autor publicar.
 
-pendências: 2
+pendências: 0
