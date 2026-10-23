@@ -1,9 +1,7 @@
 situacao          o_que_mudou_no_cadastro
-entrou na lista   local do 2º turno           11
-                  os dois                      3
-nas duas versões                             303
-                  local do 2º turno            2
-saiu da lista     local do 1º turno            8
-saíram: 8 urnas, 2550 aptos | tipo antes: {'saiu do local de cadastro': 8} | tipo agora: {'igual, fora do cadastro nos dois turnos': 8} | ficam no prédio do 1º turno: 0
-entraram: 14 urnas | por município: {('CE', 'ARACATI'): 1, ('MG', 'ENTRE RIOS DE MINAS'): 2, ('MG', 'JANUÁRIA'): 3, ('MG', 'JOÃO PINHEIRO'): 1, ('PA', 'ALMEIRIM'): 7}
-por UF: {'MT': 8}
+entrou na lista   local do 1º turno            9
+                  local do 2º turno            6
+nas duas versões                             319
+saíram: 0 urnas, 0 aptos | tipo antes: {} | tipo agora: {} | ficam no prédio do 1º turno: 0
+entraram: 15 urnas | por município: {('MT', 'ALTO ARAGUAIA'): 9, ('PE', 'LIMOEIRO'): 4, ('PI', 'REDENÇÃO DO GURGUÉIA'): 2}
+por UF: {}
