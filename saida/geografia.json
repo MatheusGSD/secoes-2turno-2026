@@ -9,15 +9,15 @@
   "lula_esperado_pelo_municipio": 51.9887127064457
  },
  "2026": {
-  "urnas_mudam": 375,
-  "aptos_mudam": 117930,
-  "lula_nas_que_mudam": 49.01522842639594,
+  "urnas_mudam": 374,
+  "aptos_mudam": 117256,
+  "lula_nas_que_mudam": 49.1326594284288,
   "lula_no_pais": 45.15413986576965,
-  "lula_esperado_pela_regiao": 47.3050907325311,
-  "lula_esperado_pelo_estado": 48.190844993705625,
-  "lula_esperado_pelo_municipio": 50.0361620147195
+  "lula_esperado_pela_regiao": 47.383668530696795,
+  "lula_esperado_pelo_estado": 48.26284340925708,
+  "lula_esperado_pelo_municipio": 50.13865534948215
  },
- "correlacao_ufs_2022_2026": 0.08470277134328441,
+ "correlacao_ufs_2022_2026": 0.07103523805834006,
  "ufs_mais_mudam": {
   "2022": {
    "RR": 7.73,
