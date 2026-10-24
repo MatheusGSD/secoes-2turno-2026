@@ -43,7 +43,7 @@ def main():
     t(0.045, 0.915, f"2º TURNO · 25/10/2026 · {cabecalho()} · LOCAIS DE VOTAÇÃO E VOTO NO 1º TURNO", size=7,
       color=TINTA2, family=DADOS)
     t(0.045, 0.80, "Onde Lula foi melhor, mais urnas mudam de prédio?", size=17, weight="bold")
-    t(0.045, 0.735, "No país, pouco: só os locais onde Lula teve menos de 30% ficam abaixo da média. Comparando cada local com o\n"
+    t(0.045, 0.735, "No país, pouco: os locais onde Lula teve menos de 30% têm a menor fração na lista. Comparando cada local com o\n"
                     "próprio estado ou município, a linha varia pouco, dentro da margem de erro: as mudanças não se concentram onde Lula teve mais votos.",
       size=8.2, color=TINTA2, linespacing=1.4, va="top")
 

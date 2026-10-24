@@ -1,5 +1,6 @@
 situacao          o_que_mudou_no_cadastro
+entrou na lista   local do 2º turno            2
 nas duas versões                             374
 saíram: 0 urnas, 0 aptos | tipo antes: {} | tipo agora: {} | ficam no prédio do 1º turno: 0
-entraram: 0 urnas | por município: {}
+entraram: 2 urnas | por município: {('RO', 'CACAULÂNDIA'): 2}
 por UF: {}

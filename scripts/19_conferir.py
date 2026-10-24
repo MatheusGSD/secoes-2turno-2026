@@ -156,9 +156,8 @@ def regras():
         ("só renumerada: 0 " in log02, "Como foi feito: '(só renumerada; nenhuma urna no cadastro atual)'"),
         (max(ufs, key=lambda u: ufs[u]["renovadas"]) == "PR", "Como a lista encolheu: 'o Paraná, o que tem mais'"),
         (ren["predios_divididos"] == 0, "Como a lista encolheu: 'Nenhum prédio provisório ficou dividido'"),
-        (min(fx, key=lambda r: r["pct"])["faixa"] == "menos de 30%" and
-         min(fx, key=lambda r: r["pct"])["ic"][1] < 100 * pl["nenhum"]["trocados"] / pl["nenhum"]["locais"],
-         "Por local e cartão 10: 'só os locais onde Lula teve menos de 30% ficam abaixo da média'"),
+        (min(fx, key=lambda r: r["pct"])["faixa"] == "menos de 30%",
+         "Por local e cartão 10: 'os locais onde Lula teve menos de 30% têm a menor fração na lista'"),
         (n["fora_do_cadastro_2t"]["ja_fora_no_1t_abst"] < nac["abst"] + 1,
          "Como foi feito: abstenção nas que já estavam fora 'perto dos ... do país'"),
     ]
