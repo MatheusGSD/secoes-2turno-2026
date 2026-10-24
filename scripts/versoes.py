@@ -37,7 +37,9 @@ ATUAL = VERSOES[-1][0]
 POR_EXTENSO = {5: "CINCO", 6: "SEIS", 7: "SETE", 8: "OITO", 9: "NOVE", 10: "DEZ", 11: "ONZE", 12: "DOZE",
                13: "TREZE", 14: "CATORZE", 15: "QUINZE", 16: "DEZESSEIS", 17: "DEZESSETE", 18: "DEZOITO",
                19: "DEZENOVE", 20: "VINTE", 21: "VINTE E UMA", 22: "VINTE E DUAS", 23: "VINTE E TRÊS",
-               24: "VINTE E QUATRO", 25: "VINTE E CINCO", 26: "VINTE E SEIS"}
+               24: "VINTE E QUATRO", 25: "VINTE E CINCO", 26: "VINTE E SEIS", 27: "VINTE E SETE",
+               28: "VINTE E OITO", 29: "VINTE E NOVE", 30: "TRINTA", 31: "TRINTA E UMA", 32: "TRINTA E DUAS",
+               33: "TRINTA E TRÊS", 34: "TRINTA E QUATRO", 35: "TRINTA E CINCO"}
 
 
 def cabecalho():
