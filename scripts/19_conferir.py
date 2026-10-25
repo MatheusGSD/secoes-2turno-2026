@@ -132,8 +132,8 @@ def regras():
         (all(inclui(*pl[e]["ic"]) for e in ("estado", "município")),
          "Por local: 'dentro do estado e do município, não aparece' / 'não é estatisticamente significativa'"),
         (pl["nenhum"]["ic"][1] < 0.05, "Cartão 10 (10_imagem_por_local.py): subtítulo 'No país, pouco'"),
-        (pl["nenhum"]["ic"][0] > 0, "Por local: 'inclusive na atual (...; na de 24/10, 20h27, incluía o zero)' (página) e"
-         " 'voltou a ficar logo acima do zero' (README, 25/10)"),
+        (inclui(*pl["nenhum"]["ic"]), "Por local: 'a última delas a de 25/10, 6h28; com a lista atual, ..., por pouco' (página)"
+         " e 'voltou a ter intervalo que inclui o zero' (README, 25/10, 11h29)"),
         (m["pct_lula"] - geo["2026"]["lula_esperado_pelo_municipio"] < 1.5,
          "Geografia: 'em 2026, perto do esperado pelo município'"),
         (inclui(s22[n["principal"]]["ic_baixo"], s22[n["principal"]]["ic_alto"]),
