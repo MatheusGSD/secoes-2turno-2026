@@ -1,7 +1,6 @@
 situacao          o_que_mudou_no_cadastro
-entrou na lista   local do 2º turno           48
-nas duas versões                             396
-                  local do 2º turno           12
-saíram: 0 urnas, 0 aptos | tipo antes: {} | tipo agora: {} | ficam no prédio do 1º turno: 0
-entraram: 48 urnas | por município: {('MG', 'UBERLÂNDIA'): 15, ('PR', 'BARRACÃO'): 10, ('PR', 'CURITIBA'): 10, ('RJ', 'RIO DE JANEIRO'): 10, ('SC', 'SÃO DOMINGOS'): 3}
-por UF: {}
+nas duas versões                             444
+saiu da lista     local do 2º turno           12
+saíram: 12 urnas, 4113 aptos | tipo antes: {'saiu do local de cadastro': 12} | tipo agora: {'igual': 12} | ficam no prédio do 1º turno: 12
+entraram: 0 urnas | por município: {}
+por UF: {'PR': 12}
