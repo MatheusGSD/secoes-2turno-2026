@@ -80,8 +80,11 @@ def votos(x):
 
 
 def fino(x):
-    """Com duas casas; com três quando duas dariam zero (−0,003, e não 0,00, num limite de intervalo)."""
-    return sinal(x, 3) if round(abs(x), 2) == 0 and round(abs(x), 3) > 0 else sinal(x, 2)
+    """Com duas casas; com três ou quatro quando duas dariam zero (−0,003, e não 0,00, num limite de intervalo)."""
+    for casas in (2, 3, 4):
+        if round(abs(x), casas) > 0:
+            return sinal(x, casas)
+    return sinal(x, 2)
 
 
 def ponto(x):
@@ -117,7 +120,8 @@ def ordinal(n):
         return ORDINAIS[n]
     if n < 20:
         return "décima " + ORDINAIS[n - 10]
-    return "vigésima" + ("" if n == 20 else " " + ORDINAIS[n - 20])
+    dezena = "vigésima" if n < 30 else "trigésima"
+    return dezena + ("" if n % 10 == 0 else " " + ORDINAIS[n % 10])
 
 
 def lista(itens):
@@ -264,9 +268,10 @@ def valores():
         if m["urnas_lula"] == m["urnas_flavio"] else f"{lado} venceu em mais urnas e somou mais votos")
     v["abst"] = pct(m["abst"])
     vz = n["voto_vs_vizinhas"]
-    v["vizinhas_dif"] = dec(abs(vz["dif_pp"])) + (" ponto a mais" if vz["dif_pp"] >= 0 else " ponto a menos")
-    v["vizinhas_ic"] = (f"{dec(-vz['ic_baixo'])} ponto a menos a {dec(vz['ic_alto'])} a mais" if vz["ic_baixo"] < 0 < vz["ic_alto"]
-                        else f"{sinal(vz['ic_baixo'])} a {sinal(vz['ic_alto'])} ponto")
+    ponto = lambda x: " pontos" if round(abs(x), 1) >= 2 else " ponto"
+    v["vizinhas_dif"] = dec(abs(vz["dif_pp"])) + ponto(vz["dif_pp"]) + (" a mais" if vz["dif_pp"] >= 0 else " a menos")
+    v["vizinhas_ic"] = (f"{dec(-vz['ic_baixo'])}{ponto(vz['ic_baixo'])} a menos a {dec(vz['ic_alto'])} a mais" if vz["ic_baixo"] < 0 < vz["ic_alto"]
+                        else f"{sinal(vz['ic_baixo'])} a {sinal(vz['ic_alto'])}{ponto(vz['ic_alto'])}")
     v["vizinhas_pct_acima"] = pct(vz["pct_acima"], 0)
     g26 = geo["2026"]
     v["lula_esperado_municipio"] = pct(g26["lula_esperado_pelo_municipio"])

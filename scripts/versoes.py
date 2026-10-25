@@ -34,7 +34,8 @@ VERSOES = [
     ("23/10, 20h28", "6606e76", "versoes_23out_20h28.csv"),
     ("24/10, 6h27", "957dec4", "versoes_24out_06h27.csv"),
     ("24/10, 11h27", "7abb655", "versoes_24out_11h27.csv"),
-    ("24/10, 15h28", None, "versoes_24out_15h28.csv"),
+    ("24/10, 15h28", "c40ade6", "versoes_24out_15h28.csv"),
+    ("24/10, 20h27", None, "versoes_24out_20h27.csv"),
 ]
 ATUAL = VERSOES[-1][0]
 POR_EXTENSO = {5: "CINCO", 6: "SEIS", 7: "SETE", 8: "OITO", 9: "NOVE", 10: "DEZ", 11: "ONZE", 12: "DOZE",
