@@ -4,9 +4,9 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Urnas que mudam de lugar</title>
-<meta name="description" content="As 445 urnas que funcionam em outro prédio no 2º turno de 2026: onde ficam, em quem os eleitores delas votaram no 1º turno, por que o número difere das 4.352 seções divulgadas pelo TSE e quanto a mudança pode pesar no resultado. Atualizado em 26/10.">
+<meta name="description" content="As 445 urnas que funcionaram em outro prédio no 2º turno de 2026: onde ficam, em quem os eleitores delas votaram no 1º turno, por que o número difere das 4.352 seções divulgadas pelo TSE e se os eleitores delas faltaram mais. Atualizado em 26/10.">
 <meta property="og:title" content="Urnas que mudam de lugar">
-<meta property="og:description" content="As 445 urnas que funcionam em outro prédio no 2º turno de 2026: onde ficam, em quem os eleitores delas votaram no 1º turno e quanto a mudança pode pesar no resultado. Atualizado em 26/10.">
+<meta property="og:description" content="As 445 urnas que funcionaram em outro prédio no 2º turno de 2026: onde ficam, em quem os eleitores delas votaram no 1º turno e se eles faltaram mais. Atualizado em 26/10.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="https://matheusgsd.github.io/secoes-2turno-2026/">
 <meta property="og:image" content="https://matheusgsd.github.io/secoes-2turno-2026/card.png">
@@ -215,6 +215,8 @@ figcaption { font-size: .82rem; color: var(--tinta2); margin-top: .5rem; line-he
 .graf .zero { stroke: var(--tinta3); stroke-width: 1; }
 .graf .bigode { stroke: var(--tinta); stroke-width: 2; stroke-linecap: round; }
 .graf .ponto-ef { fill: var(--tinta); stroke: var(--papel); stroke-width: 2; }
+.graf .bigode.b22 { stroke: var(--tinta3); stroke-width: 1.5; }
+.graf .ponto-22 { fill: var(--papel); stroke: var(--tinta3); stroke-width: 2; }
 .graf .alvo { fill: transparent; }
 .graf .muted { fill: var(--tinta2); font-size: 11.5px; }
 .graf .titulo-grupo { fill: var(--tinta3); font: 500 10.5px var(--dados); letter-spacing: .06em; }
@@ -275,11 +277,11 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
 <header class="topo col">
   <p class="chapeu">2º turno · 25 de outubro de 2026 · cadastro do TSE de <!--n:cadastro-->25/10, 15h27<!--/n--> · atualizado em <!--n:atualizado-->26/10<!--/n--></p>
   <h1>Urnas que mudam de lugar</h1>
-  <p class="linha-fina"><!--n:urnas-->445<!--/n--> urnas vão funcionar em outro prédio no 2º turno. Veja onde ficam, em quem os eleitores delas votaram no 1º turno, por que o número é diferente das 4.352 seções divulgadas pelo TSE (em geral, cada seção tem uma urna) e quanto a mudança pode pesar no resultado.</p>
+  <p class="linha-fina"><!--n:urnas-->445<!--/n--> urnas funcionaram em outro prédio no 2º turno. Veja onde ficam, em quem os eleitores delas votaram, por que o número é diferente das 4.352 seções divulgadas pelo TSE (em geral, cada seção tem uma urna) e se eles faltaram mais por causa da mudança (<a href="#t-depois">na média, não</a>).</p>
   <div class="tres" role="group" aria-label="Resumo">
-    <div><b><!--n:urnas-->445<!--/n--></b><span>urnas funcionam no 2º turno num prédio diferente do 1º turno: <!--n:pct_urnas_pais-->0,09%<!--/n--> das 499.248 urnas do país</span></div>
+    <div><b><!--n:urnas-->445<!--/n--></b><span>urnas funcionaram no 2º turno num prédio diferente do 1º turno: <!--n:pct_urnas_pais-->0,09%<!--/n--> das 499.248 urnas do país</span></div>
     <div><b><!--n:aptos_mil-->140 mil<!--/n--></b><span>eleitores aptos nessas urnas, em <!--n:municipios-->100<!--/n--> municípios de <!--n:ufs-->22<!--/n--> estados. No 1º turno, elas somaram <!--n:pct_validos_pais-->0,09%<!--/n--> dos votos válidos do país</span></div>
-    <div><b>≈ 0</b><span>de efeito estimado, com base em 2022: a vantagem de Flávio Bolsonaro (PL) sobre Lula (PT), de 2,24 milhões de votos no 1º turno, mudaria <!--n:faixa_comparacoes-->entre 16 votos a menos e 23 a mais<!--/n-->, nas três formas de comparação que usamos</span></div>
+    <div><b>≈ 0</b><span>de efeito medido no 2º turno: do 1º para o 2º, a abstenção nessas urnas variou <!--n:t2_efeito-->+0,03<!--/n--> ponto em relação à das urnas vizinhas que não mudaram (intervalo de <!--n:t2_ic-->−0,30 a +0,37<!--/n-->). Antes da eleição, com o que se mediu em 2022, a estimativa também era de efeito perto de zero</span></div>
   </div>
   <aside class="atualizacao" aria-labelledby="t-atualizacao">
     <h2 id="t-atualizacao">Atualizado com o cadastro de <!--n:cadastro-->25/10, 15h27<!--/n-->: agora são <!--n:urnas-->445<!--/n--> urnas</h2>
@@ -373,6 +375,24 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
 </header>
 
 <main>
+<section class="col" aria-labelledby="t-depois">
+  <h2 id="t-depois">Depois do 2º turno: os eleitores dessas urnas faltaram mais?</h2>
+  <p><strong>Não, na média.</strong> O TSE publicou em 26/10 o resultado de cada urna nos dois turnos, com os eleitores aptos e os que compareceram. Medimos o mesmo que em 2022: em cada uma das <!--n:urnas-->445<!--/n--> urnas da lista, a variação da abstenção do 1º para o 2º turno, menos a das urnas do mesmo município e da mesma zona eleitoral que não mudaram de prédio. Nas urnas que mudaram, a abstenção variou <!--n:t2_efeito-->+0,03<!--/n--> ponto em relação à das vizinhas, com intervalo de 95% de <!--n:t2_ic-->−0,30 a +0,37<!--/n-->: uma diferença que não se distingue de zero, como em 2022 (<!--n:efeito_2022-->0,08 ponto a menos<!--/n-->, de <!--n:efeito_2022_ic-->0,24 a menos a 0,08 a mais<!--/n-->).</p>
+  <p>Comparar com o país engana. No Brasil, a abstenção caiu de <!--n:t2_abst_pais_1t-->20,8%<!--/n--> no 1º turno para <!--n:t2_abst_pais_2t-->19,0%<!--/n--> no 2º; nas urnas da lista, caiu menos, de <!--n:t2_abst_lista_1t-->21,5%<!--/n--> para <!--n:t2_abst_lista_2t-->20,6%<!--/n-->. A diferença vem de onde elas estão, não da mudança: comparadas com as vizinhas, elas já tinham, no 1º turno, abstenção <!--n:t2_acima_1t-->0,47<!--/n--> ponto maior, e continuaram com <!--n:t2_acima_2t-->0,50<!--/n--> a mais no 2º.</p>
+  <figure>
+    <svg class="graf" id="g-2t" role="img" aria-label="Efeito da troca de prédio sobre a abstenção no 2º turno de 2026, comparado com 2022, por grupo, com intervalo de 95%. Os números estão em saida/abstencao_2t.csv."></svg>
+    <figcaption>Variação da abstenção do 1º para o 2º turno nas urnas que trocaram de prédio, menos a variação nas urnas do mesmo município e da mesma zona que não mudaram, em pontos percentuais. Ponto cheio: 2026; vazado: 2022. Média ponderada pelos eleitores aptos; a linha é o intervalo de 95%, por 2.000 sorteios dos grupos de comparação, pouco confiável quando as urnas estão em poucos lugares. "Saíram do local de sempre" inclui as que trocaram de prédio provisório. Os testes de controle são urnas que não mudaram de prédio. Os números estão em <a href="https://github.com/MatheusGSD/secoes-2turno-2026/blob/main/saida/abstencao_2t.csv" target="_blank" rel="noopener">saida/abstencao_2t.csv</a>.</figcaption>
+  </figure>
+  <p><strong>Por tipo de mudança.</strong> Nas <!--n:t2_sai_urnas-->364<!--/n--> urnas que saíram do local de sempre, a abstenção variou <!--n:t2_sai_efeito-->+0,11<!--/n--> ponto em relação à das vizinhas (de <!--n:t2_sai_ic-->−0,26 a +0,48<!--/n-->); nas <!--n:t2_volta_urnas-->51<!--/n--> que voltaram a ele, <!--n:t2_volta_efeito-->−0,01<!--/n--> (de <!--n:t2_volta_ic-->−1,03 a +0,90<!--/n-->). O efeito visto no 1º turno de 2026 nas urnas que já tinham saído do local de sempre (<!--n:abst1t_var-->0,64<!--/n--> ponto a mais, de <!--n:abst1t_var_ic-->0,49 a 0,79<!--/n-->; <a href="#t-abst-1t">veja abaixo</a>) não se repetiu: os dois intervalos não se cruzam.</p>
+  <p><strong>Por distância, não há um padrão claro.</strong> Em 2026, a abstenção ficou acima da das vizinhas nas <!--n:t2_300_urnas-->46<!--/n--> urnas que mudaram de 300 a 600 m (<!--n:t2_300_efeito-->+0,73<!--/n--> ponto, de <!--n:t2_300_ic-->+0,10 a +1,55<!--/n-->) e nas <!--n:t2_longe_urnas-->9<!--/n--> que mudaram mais de 1,2 km (<!--n:t2_longe_efeito-->+3,1<!--/n-->), mas não nas que mudaram menos de 300 m nem nas de 600 m a 1,2 km. As 9 mais longe estão em 5 lugares, e um pesa mais: 5 urnas de São Bento (PB), que foram para um prédio a 1,6 km, 4 delas com 4 a 6,5 pontos a mais que as vizinhas. As outras são Unaí (MG), a 10,5 km, com 5,5 pontos a mais; Jardim (CE), a 4 km, com 4,6; Santo Antônio do Sudoeste (PR), a 2,8 km, com 2,2 a menos; e Vigia (PA), uma urna que voltou ao local de sempre, a 4,3 km, com 6,7 a menos. Em 2022, nas <!--n:t2_longe_2022_urnas-->94<!--/n--> urnas que mudaram mais de 1,2 km, não houve diferença (<!--n:t2_longe_2022_efeito-->−0,30<!--/n-->, de <!--n:t2_longe_2022_ic-->−1,00 a +0,42<!--/n-->). Juntando os dois anos, nenhuma faixa de distância se distingue de zero: acima de 1,2 km, as <!--n:t2_longe_juntas_urnas-->103<!--/n--> urnas dão <!--n:t2_longe_juntas_efeito-->−0,03<!--/n--> (de <!--n:t2_longe_juntas_ic-->−0,79 a +0,82<!--/n-->). Em 2026, cada km a mais soma <!--n:t2_incl-->+0,6<!--/n--> ponto (de <!--n:t2_incl_ic-->−0,2 a +1,4<!--/n-->); com 2022, até 5 km, <!--n:t2_incl_juntas-->−0,01<!--/n--> (de <!--n:t2_incl_juntas_ic-->−0,30 a +0,34<!--/n-->). Metade das <!--n:t2_dist_com-->235<!--/n--> urnas de 2026 com distância mudou menos de <!--n:t2_dist_mediana-->260 m<!--/n-->; as outras <!--n:dist_urnas_sem-->210<!--/n--> ficam sem distância, porque falta no cadastro a coordenada confiável de um dos prédios.</p>
+  <p><strong>Endereço genérico.</strong> Nas <!--n:t2_generico_urnas-->23<!--/n--> urnas em que o prédio antigo e o novo têm o mesmo endereço genérico no cadastro (como "Estrada Geral, S/N" ou "Rio Japiim Grande"), a abstenção variou <!--n:t2_generico_efeito-->+1,93<!--/n--> ponto em relação à das vizinhas (de <!--n:t2_generico_ic-->+0,01 a +3,45<!--/n-->; o intervalo fica no limite do zero, e as urnas estão em só 9 lugares). As maiores diferenças estão no Pará: em Breves, 4 de 5 urnas tiveram de 3 a 8 pontos a mais que as vizinhas, e em Limoeiro do Ajuru, 4 de 5, de 1,4 a 5,3. Nos dois municípios, a abstenção subiu do 1º para o 2º turno também nas vizinhas (5,7 e 2,0 pontos). São poucas urnas, em poucos lugares, para concluir.</p>
+  <p><strong>Outros recortes.</strong> Nada muda com a data em que a urna entrou na lista: as <!--n:t2_tarde_urnas-->71<!--/n--> que entraram nos cadastros de 24 e 25/10, na véspera ou no dia da eleição, tiveram <!--n:t2_tarde_efeito-->−0,16<!--/n--> ponto (de <!--n:t2_tarde_ic-->−1,20 a +0,69<!--/n-->). Nem com o bairro: <!--n:t2_mesmo_bairro_efeito-->+0,08<!--/n--> quando o prédio novo fica no mesmo bairro, <!--n:t2_outro_bairro_efeito-->−0,07<!--/n--> quando fica em outro. Por região, só o Sudeste fica acima do zero (<!--n:t2_sudeste_efeito-->+0,44<!--/n-->, de <!--n:t2_sudeste_ic-->+0,08 a +0,79<!--/n-->); com cerca de 30 recortes, um ou outro assim é esperado por acaso. Separar as urnas pela abstenção do 1º turno mostra outra coisa: as que tinham abstenção bem acima da das vizinhas tiveram <!--n:t2_q_acima_efeito-->−0,90<!--/n--> ponto no 2º turno, e as que tinham abaixo, <!--n:t2_q_abaixo_efeito-->+0,64<!--/n-->. É a volta à média que acontece em qualquer urna, não efeito da mudança.</p>
+  <p><strong>Testes de controle.</strong> O mesmo cálculo, em urnas que não mudaram de prédio, dá o que se espera. Nas <!--n:t2_reescritas_urnas-->64<!--/n--> que o cadastro reescreveu sem mudar o prédio (<a href="#t-nome-reescrito">veja abaixo</a>), em dois municípios, <!--n:t2_reescritas_efeito-->−0,04<!--/n--> ponto. Nas <!--n:t2_saiu_lista_urnas-->2.070<!--/n--> que estiveram na lista em alguma versão do cadastro e saíram dela, <!--n:t2_saiu_lista_efeito-->−0,22<!--/n--> (de <!--n:t2_saiu_lista_ic-->−0,38 a −0,06<!--/n-->), no sentido oposto ao de um eleitor confuso com a lista. E nas <!--n:t2_fora_urnas-->4.849<!--/n--> que votaram fora do local de sempre nos dois turnos e nunca estiveram na lista, <!--n:t2_fora_efeito-->−0,12<!--/n--> (de <!--n:t2_fora_ic-->−0,21 a −0,02<!--/n-->). Quase todas as urnas desses dois grupos votaram fora do local de sempre já no 1º turno, com abstenção maior que a das vizinhas; no 2º, no mesmo prédio provisório, a diferença diminuiu um pouco.</p>
+  <p><strong>No resultado, nada muda.</strong> Lula venceu com <!--n:t2_pct_lula-->51,8%<!--/n--> dos votos válidos, contra <!--n:t2_pct_flavio-->48,2%<!--/n--> de Flávio, uma diferença de <!--n:t2_margem_lula-->4,40 milhões<!--/n--> de votos (no Brasil, sem o exterior, como as outras contas desta página). Nas urnas da lista, Lula teve <!--n:t2_pct_lula_lista-->54,4%<!--/n-->. Se quem deixou de votar a mais (ou a menos) votasse como o resto da sua urna no 2º turno, a diferença entre os dois mudaria em <!--n:t2_margem_media-->3 votos a favor de Flávio<!--/n--> com o efeito médio (<!--n:t2_margem_media_ic-->de 34 a favor de Lula a 43 a favor de Flávio<!--/n-->), ou em <!--n:t2_margem_urna-->89 votos a favor de Lula<!--/n--> somando urna a urna, o que inclui a variação de cada urna que não tem a ver com a mudança. Antes da eleição, a estimativa era de <!--n:t2_antes-->2 votos a favor de Lula<!--/n--> (<!--n:t2_antes_ic-->de 14 a favor de Lula a 9 a favor de Flávio<!--/n-->), com faixa de previsão, urna a urna, <!--n:t2_antes_previsao-->de 107 a favor de Lula a 116 a favor de Flávio<!--/n-->. Tudo fica abaixo de 0,01% da diferença.</p>
+  <p><strong>O resultado também confere a lista.</strong> Em todas as <!--n:t2_conf_urnas-->497.897<!--/n--> urnas do país, o local registrado no resultado, nos dois turnos, é o do último cadastro, o de <!--n:cadastro-->25/10, 15h27<!--/n-->. Mudaram de número de local entre os turnos <!--n:t2_conf_mudou-->431<!--/n--> urnas, todas da lista; as outras <!--n:t2_conf_mesmo_numero-->14<!--/n--> da lista mantêm o número e mudam de prédio. As <!--n:t2_conf_instaladas-->445<!--/n--> foram instaladas e votaram em urna eletrônica. O local do resultado vem do mesmo sistema do cadastro: a conferência mostra que nenhuma mudança foi registrada depois dele, não que cada eleitor achou o prédio.</p>
+  <p>É uma comparação entre urnas, não um experimento: supõe que, sem a mudança, a abstenção teria variado como nas vizinhas. O intervalo do efeito médio vai a cerca de 0,3 ponto para cada lado, e um efeito menor que isso passaria despercebido; em grupos pequenos, como as mudanças longas, a conta diz pouco. Ela está em <a href="https://github.com/MatheusGSD/secoes-2turno-2026/blob/main/scripts/24_abstencao_2t.py" target="_blank" rel="noopener">scripts/24_abstencao_2t.py</a>, e o resultado urna a urna, em <a href="https://github.com/MatheusGSD/secoes-2turno-2026/blob/main/saida/abstencao_2t_urnas.csv" target="_blank" rel="noopener">saida/abstencao_2t_urnas.csv</a>.</p>
+</section>
+
 <section class="larga" aria-labelledby="t-mapa">
   <div class="mapa-intro">
     <h2 id="t-mapa">Onde ficam</h2>
@@ -666,6 +686,7 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
   <p>A geografia também explica o voto. Nas urnas que mudam em 2026, Lula teve <!--n:pct_lula-->48,6%<!--/n--> dos votos válidos no 1º turno, contra 45,2% no país. Se cada uma votasse como o próprio estado, seriam <!--n:lula_esperado_estado-->47,4%<!--/n-->; como o próprio município, <!--n:lula_esperado_municipio-->49,6%<!--/n-->. <!--h-->Em 2022, Lula teve 51,1% nessas urnas, contra 48,4% no país e 52,2% esperados pelo estado (52,0% pelo município).<!--/h--> Nas duas eleições, as urnas que mudam votaram perto dos lugares onde estão: em 2026, perto do esperado pelo município; em 2022, um pouco abaixo.</p>
 
   <h2 id="t-impacto">O impacto, passo a passo</h2>
+  <p><em>Esta é a estimativa feita antes da eleição, com o que se mediu em 2022. O que aconteceu no 2º turno está em <a href="#t-depois">“Depois do 2º turno”</a>.</em></p>
   <h3>1. Trocar de prédio faz o eleitor faltar?</h3>
   <p>É essa resposta que define o impacto. Em vez de supor um número, medimos o que aconteceu em 2022, quando 1.506 urnas também trocaram de prédio entre os turnos. Para cada uma, comparamos a variação da abstenção do 1º para o 2º turno com a das urnas do mesmo município e da mesma zona eleitoral que não mudaram.</p>
   <p>Não há sinal de que a abstenção tenha subido. Nas urnas que mudaram, ela variou <!--n:efeito_2022-->0,08 ponto a menos<!--/n--> que nas vizinhas, com intervalo de 95% de <!--n:efeito_2022_ic-->0,24 a menos a 0,08 a mais<!--/n-->: uma diferença que não se distingue de zero. Em outras comparações, o resultado vai de <!--n:sens_zona-->0,19 ponto a menos<!--/n--> (só a mesma zona; de <!--n:sens_zona_ic-->−0,37 a −0,03<!--/n-->, o único intervalo que não inclui o zero, no sentido de menos abstenção) a <!--n:sens_local-->0,24 a mais<!--/n--> (mesmo local de cadastro, na mesma zona; de <!--n:sens_local_ic-->−0,05 a +0,53<!--/n-->). O resultado depende do grupo de comparação, mas nenhum mostra abstenção maior.</p>
@@ -1255,6 +1276,62 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
     }
     if (!estr) svg.append("text").attr("class", "muted").attr("x", esq + 30).attr("y", 26).attr("text-anchor", "end").text("urnas");
   }
+  // depois do 2º turno: o efeito medido em 2026 (ponto cheio) ao lado do de 2022 (vazado), do mesmo grupo
+  function g2t() {
+    const svg = d3.select("#g-2t"); svg.selectAll("*").remove();
+    if (!D.abstencao_2t) return; // dados.json antigo, de cache
+    const Wg = Math.max(300, svg.node().parentNode.clientWidth), estr = Wg < 520;
+    const g = Object.fromEntries(D.abstencao_2t.grupos.map(r => [r.grupo, r]));
+    const e22 = Object.fromEntries(N.efeito_2022.map(r => [r.grupo, r]));
+    const linhas = [
+      { t: "Mesmo município e zona" },
+      { rot: "Todas as urnas que mudaram", r: g.todas, r22: e22.todas, forte: true },
+      { rot: "Saíram do local de sempre", r: g["saíram do local de sempre ou trocaram de provisório"], r22: e22.sai },
+      { rot: "Voltaram ao local de sempre", r: g["voltaram ao local de sempre"], r22: e22.volta },
+      { t: "Por distância" },
+      ...["até 300 m", "300 a 600 m", "600 m a 1,2 km", "mais de 1,2 km", "sem distância"].map(f => ({ rot: f[0].toUpperCase() + f.slice(1), r: g[f], r22: e22[f] })),
+      { t: "Outros recortes, só 2026" },
+      { rot: "Endereço genérico nos dois", r: g["endereço genérico"] },
+      { rot: "Entraram na lista em 24 e 25/10", r: g["entraram na lista em 24 e 25/10"] },
+      { t: "Testes de controle, só 2026" },
+      { rot: "Estiveram na lista e saíram", r: g["controle: estiveram na lista e saíram"] },
+      { rot: "Fora do local de sempre nos 2 turnos", r: g["controle: fora do local de sempre nos dois turnos"] },
+    ];
+    const vals = linhas.filter(l => l.r).flatMap(l => [l.r, l.r22].filter(Boolean)).flatMap(r => [r.ic_baixo, r.ic_alto]);
+    const lo = Math.floor(Math.min(-1, ...vals)), hi = Math.ceil(Math.max(1, ...vals));
+    const esq = estr ? 8 : 250, dir = 16, lh = estr ? 46 : 34;
+    let yy = 34; const rows = [];
+    for (const l of linhas) { if (l.t) { rows.push({ ...l, y: yy + 8 }); yy += 24; } else { rows.push({ ...l, y: yy + (estr ? 20 : 2) }); yy += lh; } }
+    const Hg = yy + 24;
+    svg.attr("viewBox", `0 0 ${Wg} ${Hg}`).attr("height", Hg);
+    const xs = d3.scaleLinear([lo, hi], [esq + (estr ? 0 : 40), Wg - dir]);
+    const ax = svg.append("g").attr("class", "eixo");
+    for (const v of d3.range(lo, hi + 1)) {
+      ax.append("line").attr("class", v === 0 ? "zero" : "grade").attr("x1", xs(v)).attr("x2", xs(v)).attr("y1", 24).attr("y2", Hg - 20);
+      ax.append("text").attr("x", xs(v)).attr("y", Hg - 5).attr("text-anchor", "middle").text((v > 0 ? "+" : v < 0 ? "−" : "") + Math.abs(v));
+    }
+    svg.append("text").attr("class", "muted").attr("x", xs(0) - 6).attr("y", 13).attr("text-anchor", "end").text("← subiu menos");
+    svg.append("text").attr("class", "muted").attr("x", xs(0) + 6).attr("y", 13).text("subiu mais →");
+    const marca = (r, y, ano) => {
+      svg.append("line").attr("class", ano === 2022 ? "bigode b22" : "bigode").attr("x1", xs(r.ic_baixo)).attr("x2", xs(r.ic_alto)).attr("y1", y).attr("y2", y);
+      svg.append("circle").attr("class", ano === 2022 ? "ponto-22" : "ponto-ef").attr("cx", xs(r.efeito_pp)).attr("cy", y).attr("r", ano === 2022 ? 4.5 : 5.5);
+    };
+    const linhaDica = (r, ano) => `<br><b>${ano}</b>: ${fmt.format(r.urnas)} urnas, efeito de ${pct(r.efeito_pp, 2)} ponto (${pct(r.ic_baixo, 2)} a ${pct(r.ic_alto, 2)})`;
+    for (const l of rows) {
+      if (l.t) { svg.append("text").attr("class", "titulo-grupo").attr("x", 0).attr("y", l.y).text(l.t.toUpperCase()); continue; }
+      const r = l.r, y = l.y;
+      if (!r) continue;
+      if (estr) svg.append("text").attr("x", 0).attr("y", y - 13).attr("class", l.forte ? "forte" : null).text(`${l.rot} · ${fmt.format(r.urnas)} urnas`);
+      else {
+        svg.append("text").attr("x", 0).attr("y", y + 4).attr("class", l.forte ? "forte" : null).text(l.rot);
+        svg.append("text").attr("class", "muted").attr("x", esq + 30).attr("y", y + 4).attr("text-anchor", "end").text(fmt.format(r.urnas));
+      }
+      if (l.r22) { marca(r, y - 5, 2026); marca(l.r22, y + 6, 2022); } else marca(r, y, 2026);
+      const alvo = svg.append("rect").attr("class", "alvo").attr("x", 0).attr("y", y - lh / 2 - (estr ? 8 : 0)).attr("width", Wg).attr("height", lh);
+      dicaG(alvo.node(), `<b>${l.rot}</b>${linhaDica(r, 2026)}${l.r22 ? linhaDica(l.r22, 2022) : ""}`);
+    }
+    if (!estr) svg.append("text").attr("class", "muted").attr("x", esq + 30).attr("y", 26).attr("text-anchor", "end").text("urnas 2026");
+  }
   function gMargem() {
     const svg = d3.select("#g-margem"); svg.selectAll("*").remove();
     const Wg = Math.max(300, svg.node().parentNode.clientWidth), dir = 8;
@@ -1481,7 +1558,7 @@ footer { padding-block: 2rem 3rem; font-size: .82rem; color: var(--tinta2); }
 
   let evoI = 0, evoTimer = null, gEvoMapa = () => {}, gEvoUrnas = () => {};
   let larguraGraf = 0;
-  new ResizeObserver(() => { const w = document.getElementById("g-2022").parentNode.clientWidth; if (w !== larguraGraf) { larguraGraf = w; g2022(); gMargem(); gFaixas(); gLocal(); gVersoes(); gEvoMapa(); gEvoUrnas(); } })
+  new ResizeObserver(() => { const w = document.getElementById("g-2022").parentNode.clientWidth; if (w !== larguraGraf) { larguraGraf = w; g2022(); g2t(); gMargem(); gFaixas(); gLocal(); gVersoes(); gEvoMapa(); gEvoUrnas(); } })
     .observe(document.getElementById("g-2022").parentNode);
 
   // ---------- início ----------

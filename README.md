@@ -2,8 +2,56 @@
 
 A Justiça Eleitoral trocou o endereço de algumas seções entre o 1º e o 2º turno de 2026. Este repositório mostra
 quais urnas mudam de prédio, em quem os eleitores dessas urnas votaram no 1º turno e quanto isso pode pesar no resultado.
+Depois do 2º turno, mostra também se os eleitores dessas urnas faltaram mais.
 
 **Página com o mapa:** https://matheusgsd.github.io/secoes-2turno-2026/
+
+## Depois do 2º turno
+
+**Na média, a abstenção não subiu nas urnas que mudaram de prédio.** O TSE publicou em 26/10 o resultado de cada urna
+nos dois turnos (detalhe da votação por seção, com aptos e comparecimento). `24_abstencao_2t.py` mede o mesmo que
+`03_impacto.py` mediu em 2022: em cada uma das <!--n:urnas-->445<!--/n--> urnas da lista, a variação da abstenção do 1º para o 2º turno, menos a
+das urnas do mesmo município e da mesma zona que não mudaram e nunca estiveram na lista. Média ponderada pelos aptos,
+intervalo de 95% por 2.000 sorteios dos grupos de comparação.
+
+- **Todas:** <!--n:t2_efeito-->+0,03<!--/n--> ponto (<!--n:t2_ic-->−0,30 a +0,37<!--/n-->), como em 2022 (<!--n:efeito_2022-->0,08 ponto a menos<!--/n-->, de <!--n:efeito_2022_ic-->0,24 a menos a 0,08 a mais<!--/n-->). Comparar com o país engana:
+  a abstenção caiu de <!--n:t2_abst_pais_1t-->20,8%<!--/n--> para <!--n:t2_abst_pais_2t-->19,0%<!--/n--> no Brasil e de <!--n:t2_abst_lista_1t-->21,5%<!--/n--> para <!--n:t2_abst_lista_2t-->20,6%<!--/n--> nas urnas da lista, mas elas já tinham, no 1º
+  turno, abstenção <!--n:t2_acima_1t-->0,47<!--/n--> ponto acima das vizinhas, e ficaram <!--n:t2_acima_2t-->0,50<!--/n--> acima no 2º.
+- **Por tipo:** as <!--n:t2_sai_urnas-->364<!--/n--> que saíram do local de sempre, <!--n:t2_sai_efeito-->+0,11<!--/n--> (<!--n:t2_sai_ic-->−0,26 a +0,48<!--/n-->); as <!--n:t2_volta_urnas-->51<!--/n--> que voltaram a ele, <!--n:t2_volta_efeito-->−0,01<!--/n--> (<!--n:t2_volta_ic-->−1,03 a +0,90<!--/n-->). O
+  efeito do 1º turno de 2026 nas urnas que já tinham saído do local de sempre (<!--n:abst1t_var-->0,64<!--/n-->, de <!--n:abst1t_var_ic-->0,49 a 0,79<!--/n-->;
+  `13_abstencao_1t.py`), que usamos como cenário alternativo, não se repetiu.
+- **Por distância, sem padrão claro.** Em 2026, acima de zero de 300 a 600 m (<!--n:t2_300_urnas-->46<!--/n--> urnas, <!--n:t2_300_efeito-->+0,73<!--/n-->, de <!--n:t2_300_ic-->+0,10 a +1,55<!--/n-->) e acima de
+  1,2 km (<!--n:t2_longe_urnas-->9<!--/n--> urnas, <!--n:t2_longe_efeito-->+3,1<!--/n-->), mas não nas outras faixas. As 9 mais longe estão em 5 lugares: 5 em São Bento-PB, a 1,6 km,
+  4 delas com 4 a 6,5 pontos a mais que as vizinhas; Unaí-MG, a 10,5 km, +5,5; Jardim-CE, a 4 km, +4,6; Santo Antônio
+  do Sudoeste-PR, a 2,8 km, −2,2; e Vigia-PA, que voltou ao local de sempre, a 4,3 km, −6,7. Em 2022, as <!--n:t2_longe_2022_urnas-->94<!--/n--> urnas
+  acima de 1,2 km deram <!--n:t2_longe_2022_efeito-->−0,30<!--/n--> (<!--n:t2_longe_2022_ic-->−1,00 a +0,42<!--/n-->); com os dois anos juntos, nenhuma faixa se distingue de zero (acima de
+  1,2 km, <!--n:t2_longe_juntas_urnas-->103<!--/n--> urnas, <!--n:t2_longe_juntas_efeito-->−0,03<!--/n-->, de <!--n:t2_longe_juntas_ic-->−0,79 a +0,82<!--/n-->). Por km: <!--n:t2_incl-->+0,6<!--/n--> em 2026 (<!--n:t2_incl_ic-->−0,2 a +1,4<!--/n-->) e <!--n:t2_incl_juntas-->−0,01<!--/n--> nos dois anos
+  juntos, até 5 km (<!--n:t2_incl_juntas_ic-->−0,30 a +0,34<!--/n-->). <!--n:dist_urnas_sem-->210<!--/n--> urnas da lista ficam sem distância, porque falta no cadastro a
+  coordenada confiável de um dos prédios. Tentamos completar pelo endereço no OpenStreetMap, mas o ponto da rua erra
+  justamente as distâncias longas (2,6 km entre dois blocos do mesmo campus da UFU, 53 km entre dois prédios da mesma
+  linha rural em Cacaulândia-RO), e a tentativa ficou de fora.
+- **Endereço genérico** nos dois prédios (<!--n:t2_generico_urnas-->23<!--/n--> urnas): <!--n:t2_generico_efeito-->+1,93<!--/n--> (<!--n:t2_generico_ic-->+0,01 a +3,45<!--/n-->, no limite do zero). Em Breves-PA, 4 de 5 urnas tiveram de 3 a 8
+  pontos a mais que as vizinhas; em Limoeiro do Ajuru-PA, 4 de 5, de 1,4 a 5,3. Poucas urnas, em poucos lugares, para concluir.
+- **Outros recortes:** as <!--n:t2_tarde_urnas-->71<!--/n--> que entraram na lista em 24 e 25/10, <!--n:t2_tarde_efeito-->−0,16<!--/n--> (<!--n:t2_tarde_ic-->−1,20 a +0,69<!--/n-->); mesmo bairro <!--n:t2_mesmo_bairro_efeito-->+0,08<!--/n-->, outro
+  bairro <!--n:t2_outro_bairro_efeito-->−0,07<!--/n-->; por região, só o Sudeste acima de zero (<!--n:t2_sudeste_efeito-->+0,44<!--/n-->, de <!--n:t2_sudeste_ic-->+0,08 a +0,79<!--/n-->), esperado por acaso em cerca de 30
+  recortes. Separar pela abstenção do 1º turno mostra volta à média (<!--n:t2_q_acima_efeito-->−0,90<!--/n--> nas que estavam acima das vizinhas,
+  <!--n:t2_q_abaixo_efeito-->+0,64<!--/n--> nas que estavam abaixo), não efeito da mudança.
+- **Testes de controle**, em urnas que não mudaram de prédio: as <!--n:t2_reescritas_urnas-->64<!--/n--> reescritas no cadastro, <!--n:t2_reescritas_efeito-->−0,04<!--/n-->; as <!--n:t2_saiu_lista_urnas-->2.070<!--/n--> que
+  estiveram na lista e saíram, <!--n:t2_saiu_lista_efeito-->−0,22<!--/n--> (<!--n:t2_saiu_lista_ic-->−0,38 a −0,06<!--/n-->), no sentido oposto ao de um eleitor confuso; as <!--n:t2_fora_urnas-->4.849<!--/n--> fora do local de
+  sempre nos dois turnos, <!--n:t2_fora_efeito-->−0,12<!--/n--> (<!--n:t2_fora_ic-->−0,21 a −0,02<!--/n-->). Nesses dois grupos, a abstenção a mais do 1º turno, quando quase todas
+  saíram do local de sempre, diminuiu um pouco no 2º.
+- **No resultado, nada muda.** Lula venceu com <!--n:t2_pct_lula-->51,8%<!--/n--> dos válidos, <!--n:t2_margem_lula-->4,40 milhões<!--/n--> de votos de diferença (no Brasil, sem o
+  exterior); nas urnas da lista, teve <!--n:t2_pct_lula_lista-->54,4%<!--/n-->. Com quem deixou de votar dividido como os votos da própria urna no 2º
+  turno, a diferença muda <!--n:t2_margem_media-->3 votos a favor de Flávio<!--/n--> com o efeito médio (<!--n:t2_margem_media_ic-->de 34 a favor de Lula a 43 a favor de Flávio<!--/n-->) e <!--n:t2_margem_urna-->89 votos a favor de Lula<!--/n-->
+  urna a urna. A estimativa de antes da eleição era <!--n:t2_antes-->2 votos a favor de Lula<!--/n--> (<!--n:t2_antes_ic-->de 14 a favor de Lula a 9 a favor de Flávio<!--/n-->; faixa de
+  previsão <!--n:t2_antes_previsao-->de 107 a favor de Lula a 116 a favor de Flávio<!--/n-->).
+- **O resultado confere a lista.** Nas <!--n:t2_conf_urnas-->497.897<!--/n--> urnas do país, o local de cada turno no resultado é o do cadastro de
+  <!--n:cadastro-->25/10, 15h27<!--/n-->; <!--n:t2_conf_mudou-->431<!--/n--> mudaram de número de local entre os turnos, todas da lista (as outras <!--n:t2_conf_mesmo_numero-->14<!--/n--> mudam de prédio com o
+  mesmo número), e as <!--n:t2_conf_instaladas-->445<!--/n--> foram instaladas e votaram em urna eletrônica. O local do resultado vem do mesmo sistema do
+  cadastro: isso mostra que nenhuma mudança foi registrada depois dele, não que cada eleitor achou o prédio.
+
+É uma comparação entre urnas, não um experimento. Os números por grupo estão em `saida/abstencao_2t.csv`; urna a
+urna, em `saida/abstencao_2t_urnas.csv`; por município, em `saida/abstencao_2t_municipios.csv`.
 
 ## O que os números mostram
 
@@ -578,12 +626,17 @@ município, pela malha do IBGE. Os detalhes estão no cabeçalho de cada script.
 | `18_texto.py` | Os números da lista atual no texto da página e deste README, entre marcadores, reescritos a partir das saídas dos outros scripts (rode depois deles); todos os valores ficam em `saida/texto.json` |
 | `19_conferir.py` | Confere o texto depois do 18: marcadores desatualizados, números e rótulo da versão anterior que ficaram no texto, regras de interpretação que deixaram de valer e o que falta do `CHECKLIST.md` (`saida/log_19.txt`) |
 | `20_imagem_reescritos.py` | Cartão 1600 × 900 com as urnas que não contam porque o cadastro só reescreveu o nome e o endereço do local (mesmo número), com os registros dos dois turnos e um mapa com fundo do OpenStreetMap (`saida/imagem_reescritos.png`); avulso, fora do `00_atualizar.py` |
+| `24_abstencao_2t.py` | Depois da eleição: a abstenção do 1º para o 2º turno nas urnas da lista, comparada com as vizinhas, por grupo, distância e data de entrada na lista, com testes de controle, a conferência do local no resultado e o efeito no resultado (`saida/abstencao_2t.json`; rode depois de 02, 03 e 13, e antes de 04 e 18) |
 | `ibge.py` | Malhas e códigos de município do IBGE, usados por 02 e 06 |
 
 Para rodar do zero, baixe para `dados/` os arquivos do [portal de dados abertos do TSE](https://dadosabertos.tse.jus.br/)
-(cerca de 630 MB, fora do git) e rode os scripts em ordem com `python -P scripts/0N_....py`:
+(cerca de 940 MB, fora do git) e rode os scripts em ordem com `python -P scripts/0N_....py`:
 
-- `votacao_secao_2026_BR.zip` e `votacao_secao_2022_BR.zip` (Resultados › Votação por seção eleitoral)
+- `votacao_secao_2026_BR.zip` e `votacao_secao_2022_BR.zip` (Resultados › Votação por seção eleitoral). O de 2026
+  usado aqui foi gerado em 26/10 e já traz o 2º turno; o do 1º turno só, de 6/10, ficou em `dados/anteriores/`, e os
+  votos do 1º turno são os mesmos nos dois, seção a seção.
+- `detalhe_votacao_secao_2026.zip` (Resultados › Detalhe da apuração por seção eleitoral), gerado em 26/10, com aptos,
+  comparecimento e local de cada seção nos dois turnos, para `24_abstencao_2t.py`
 - `eleitorado_local_votacao_2026.zip` e `eleitorado_local_votacao_2022.zip` (Eleitorado › Eleitorado por local de
   votação). O de 2026 usado aqui foi gerado em <!--n:cadastro_extenso-->25/10 às 15h27<!--/n--> (Brasília) e já traz o 2º turno. O portal guarda só
   a versão mais recente, então o resultado pode mudar se o TSE publicar outra. O CDN pode entregar uma cópia antiga em
@@ -632,6 +685,9 @@ Principais saídas:
   e `saida/versoes_17_18out.csv`: as comparações anteriores (<!--h-->23/10, 10h47 × 11h27; 23/10, 10h00 × 10h47; 23/10, 6h27 × 10h00; 22/10, 20h28 × 23/10, 6h27; 22/10, 15h27 × 20h28; 22/10, 11h27 × 15h27; 22/10, 6h28 × 11h27; 21/10, 20h28 × 22/10, 6h28; 21/10, 15h27 × 20h28; 21/10, 14h19 × 15h27; 21/10, 11h27 × 14h19<!--/h-->; 21/10, 6h27 × 11h27; 20/10, 20h27 × 21/10, 6h27; 20/10, 15h27 × 20h27; 20/10, 12h32 × 15h27; 20/10, 11h27 × 12h32; 20/10, 6h27 × 11h27; 19/10, 15h27 × 20/10, 6h27; 19/10, 11h27 × 15h27; 18/10, 20h27 × 19/10, 11h27; 18/10,
   11h27 × 20h27; 17/10, 23h33 × 18/10, 11h27; 17/10, 6h28 × 23h33)
 - `saida/impacto_2022.csv` e `saida/impacto_uf_2026.csv`: efeito medido em 2022 e resumo por estado
+- `saida/abstencao_2t.json`, `saida/abstencao_2t.csv`, `saida/abstencao_2t_urnas.csv` e
+  `saida/abstencao_2t_municipios.csv`: depois do 2º turno, o efeito medido na abstenção, por grupo, urna a urna e por
+  município
 - `saida/geografia.json`, `saida/geografia_regioes.csv` e `saida/geografia_ufs.csv`: as urnas que mudam por região e estado, em 2022 e 2026
 - `saida/por_local_faixas.csv`: percentual de locais na lista por faixa de voto em Lula, no país e comparado com o estado e o município
 - `saida/por_local.csv`: regressão por local de votação (chance de o local estar na lista e voto no 1º turno), com as três listas
@@ -643,7 +699,8 @@ Principais saídas:
 
 ## Fontes
 
-- TSE, [dados abertos](https://dadosabertos.tse.jus.br/): votação por seção e cadastro de locais de votação, 2022 e 2026.
+- TSE, [dados abertos](https://dadosabertos.tse.jus.br/): votação por seção e cadastro de locais de votação, 2022 e 2026;
+  detalhe da apuração por seção, 2026.
 - IBGE, [API de malhas](https://servicodados.ibge.gov.br/api/docs/malhas?versao=3): contornos de estados e municípios.
 - TSE, [painel de estatísticas do eleitorado](https://sig.tse.jus.br/ords/dwapr/r/seai/sig-eleicao-eleitorado/home),
   Capilaridade › Seções alteradas (atualizações de 17/10 e 18/10).

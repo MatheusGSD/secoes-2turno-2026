@@ -125,7 +125,42 @@ def regras():
     log02 = (SAIDA / "log_02.txt").read_text(encoding="utf-8")
     ufs = {u["uf"]: u for u in ren["ufs"]}
     inclui = lambda lo, hi: lo <= 0 <= hi  # noqa: E731
-    return [
+    t2 = json.loads((SAIDA / "abstencao_2t.json").read_text(encoding="utf-8"))
+    g2 = {r["grupo"]: r for r in t2["grupos"]}
+    ic2 = lambda k: (g2[k]["ic_baixo"], g2[k]["ic_alto"])  # noqa: E731
+    regioes = ["Norte", "Nordeste", "Centro-Oeste", "Sudeste", "Sul"]
+    res2, cf2 = t2["resultado"], t2["conferencia"]
+    depois = [
+        (inclui(*ic2("todas")), "Depois do 2º turno: 'Não, na média' / 'não se distingue de zero' / quadro do alto"),
+        (inclui(*ic2("voltou ao local de cadastro")) and inclui(*ic2("saiu do local de cadastro")),
+         "Depois do 2º turno: as que saíram e as que voltaram, intervalos com o zero"),
+        (ic2("saiu do local de cadastro")[1] < t2["resultado"]["efeito_1t_2026"]["ic"][0],
+         "Depois do 2º turno: o efeito do 1º turno 'não se repetiu' (intervalos sem sobreposição)"),
+        (all(inclui(r["ic_baixo"], r["ic_alto"]) for r in t2["distancia"]["faixas_juntas"]),
+         "Depois do 2º turno: com 2022 junto, 'nenhuma faixa de distância se distingue de zero'"),
+        (g2["mais de 1,2 km"]["efeito_pp"] > 1 and g2["300 a 600 m"]["ic_baixo"] > 0,
+         "Depois do 2º turno: em 2026, 'acima de zero' nas faixas de 300 a 600 m e de mais de 1,2 km"),
+        (g2["endereço genérico"]["efeito_pp"] > 1 and abs(g2["endereço genérico"]["ic_baixo"]) < 0.1
+         and g2["endereço genérico"]["grupos"] == 9,
+         "Depois do 2º turno: endereço genérico, 'no limite do zero' e 'em só 9 lugares'"),
+        (inclui(*ic2("entraram na lista em 24 e 25/10")), "Depois do 2º turno: 'Nada muda com a data em que a urna entrou'"),
+        (g2["Sudeste"]["ic_baixo"] > 0 and all(inclui(*ic2(r)) for r in regioes if r != "Sudeste"),
+         "Depois do 2º turno: 'Por região, só o Sudeste fica acima do zero'"),
+        (inclui(*ic2("controle: reescritas no cadastro")) and ic2("controle: estiveram na lista e saíram")[1] < 0
+         and ic2("controle: fora do local de sempre nos dois turnos")[1] < 0,
+         "Depois do 2º turno: testes de controle, 'perto de zero' e 'no sentido oposto ao de um eleitor confuso'"),
+        (g2["abstenção no 1º turno acima das vizinhas"]["efeito_pp"] < 0 < g2["abstenção no 1º turno abaixo das vizinhas"]["efeito_pp"],
+         "Depois do 2º turno: 'volta à média'"),
+        (max(abs(res2["margem_media"]), abs(res2["margem_urna_a_urna"])) < 0.0001 * t2["nacional_2t"]["margem_lula"],
+         "Depois do 2º turno: no resultado, 'menos de 0,01% da diferença'"),
+        (res2["estimado_antes"]["margem_previsao"][0] <= res2["margem_urna_a_urna"] <= res2["estimado_antes"]["margem_previsao"][1],
+         "Depois do 2º turno: urna a urna, 'dentro da faixa de previsão'"),
+        (res2["margem_media"] > 0 > res2["margem_urna_a_urna"],
+         "Depois do 2º turno: 'cresceria ... com o efeito médio' e 'diminuiria ... somando urna a urna'"),
+        (cf2["local_diferente_t1"] == cf2["local_diferente_t2"] == cf2["mudou_numero_fora_da_lista"] == 0,
+         "Depois do 2º turno: conferência, 'o local registrado no resultado é o do último cadastro'"),
+    ]
+    return depois + [
         (m["pct_lula"] > nac["pct_lula"], "Quem vota: 'votaram mais em Lula que o resto do país'"),
         (m["abst"] > nac["abst"], "Quem vota: 'A abstenção foi um pouco maior que a do país'"),
         (inclui(vz["ic_baixo"], vz["ic_alto"]), "Quem vota: 'A diferença fica dentro da margem de erro' (urna a urna)"),

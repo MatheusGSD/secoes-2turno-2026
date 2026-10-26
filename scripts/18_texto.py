@@ -449,6 +449,60 @@ def valores():
     v["abst1t_votos_pct"] = pct(100 * -ef["estimativa"]["votos_liquidos_lula"] / n["nacional"]["margem_votos"], 2)
     v["abst1t_no_mesmo_predio"] = inteiro(fc["ja_fora_no_1t_urnas"])
 
+    # depois do 2º turno (24_abstencao_2t.py)
+    t2 = ler_json("abstencao_2t.json")
+    g = {r["grupo"]: r for r in t2["grupos"]}
+
+    def ic(r, casas=2):
+        return f"{sinal(r['ic_baixo'], casas)} a {sinal(r['ic_alto'], casas)}"
+
+    def lado(x):
+        """A diferença entre Flávio e Lula (Flávio menos Lula) dita pelo lado que ganha: '3 votos a favor de Flávio'."""
+        return "0 voto" if round(x) == 0 else f"{inteiro(abs(x))} a favor de {'Flávio' if x > 0 else 'Lula'}"
+
+    for k, rot, casas in [("t2", "todas", 2), ("t2_sai", "saiu do local de cadastro", 2),
+                          ("t2_volta", "voltou ao local de cadastro", 2), ("t2_longe", "mais de 1,2 km", 1),
+                          ("t2_300", "300 a 600 m", 2),
+                          ("t2_generico", "endereço genérico", 2), ("t2_tarde", "entraram na lista em 24 e 25/10", 2),
+                          ("t2_mesmo_bairro", "mesmo bairro", 2), ("t2_outro_bairro", "outro bairro", 2),
+                          ("t2_sudeste", "Sudeste", 2), ("t2_reescritas", "controle: reescritas no cadastro", 2),
+                          ("t2_saiu_lista", "controle: estiveram na lista e saíram", 2),
+                          ("t2_fora", "controle: fora do local de sempre nos dois turnos", 2),
+                          ("t2_q_acima", "abstenção no 1º turno acima das vizinhas", 2),
+                          ("t2_q_abaixo", "abstenção no 1º turno abaixo das vizinhas", 2)]:
+        v[f"{k}_efeito"], v[f"{k}_ic"], v[f"{k}_urnas"] = sinal(g[rot]["efeito_pp"], casas), ic(g[rot], casas), inteiro(g[rot]["urnas"])
+    v["t2_acima_1t"], v["t2_acima_2t"] = dec(g["todas"]["abst1_acima"], 2), dec(g["todas"]["abst2_acima"], 2)
+    v["t2_abst_lista_1t"], v["t2_abst_lista_2t"] = pct(g["todas"]["abst1"]), pct(g["todas"]["abst2"])
+    nac2 = t2["nacional_2t"]
+    v["t2_abst_pais_1t"], v["t2_abst_pais_2t"] = pct(nac2["abst_t1"]), pct(nac2["abst_t2"])
+    v["t2_pct_lula"], v["t2_pct_flavio"] = pct(nac2["pct_lula"]), pct(nac2["pct_flavio"])
+    v["t2_margem_lula"] = dec(nac2["margem_lula"] / 1e6, 2) + " milhões"
+    v["t2_pct_lula_lista"] = pct(t2["lista"]["pct_lula_t2"])
+    longe22 = next(r for r in n["efeito_2022"] if r["grupo"] == "mais de 1,2 km")
+    v["t2_longe_2022_efeito"], v["t2_longe_2022_ic"] = sinal(longe22["efeito_pp"], 2), ic(longe22)
+    v["t2_longe_2022_urnas"] = inteiro(longe22["urnas"])
+    juntas = next(r for r in t2["distancia"]["faixas_juntas"] if r["grupo"] == "mais de 1,2 km")
+    v["t2_longe_juntas_efeito"], v["t2_longe_juntas_ic"] = sinal(juntas["efeito_pp"], 2), ic(juntas)
+    v["t2_longe_juntas_urnas"] = inteiro(juntas["urnas"])
+    inc, incj = t2["distancia"]["inclinacao_2026"], t2["distancia"]["inclinacao_juntas_ate_5km"]
+    v["t2_incl"], v["t2_incl_ic"] = sinal(inc["pp_por_km"]), f"{sinal(inc['ic'][0])} a {sinal(inc['ic'][1])}"
+    v["t2_incl_juntas"] = sinal(incj["pp_por_km"], 2)
+    v["t2_incl_juntas_ic"] = f"{sinal(incj['ic'][0], 2)} a {sinal(incj['ic'][1], 2)}"
+    v["t2_dist_mediana"] = f"{arred(inc['mediana_km'] * 1000, 10)} m"
+    v["t2_dist_com"] = inteiro(t2["lista"]["com_distancia"])
+    res2, antes = t2["resultado"], t2["resultado"]["estimado_antes"]
+    v["t2_margem_media"] = lado(res2["margem_media"]).replace(" a favor", " votos a favor", 1)
+    v["t2_margem_media_ic"] = f"de {lado(res2['margem_ic'][0])} a {lado(res2['margem_ic'][1])}"
+    v["t2_margem_urna"] = lado(res2["margem_urna_a_urna"]).replace(" a favor", " votos a favor", 1)
+    v["t2_antes"] = lado(antes["margem"]).replace(" a favor", " votos a favor", 1)
+    v["t2_antes_ic"] = f"de {lado(antes['margem_ic'][0])} a {lado(antes['margem_ic'][1])}"
+    v["t2_antes_previsao"] = f"de {lado(antes['margem_previsao'][0])} a {lado(antes['margem_previsao'][1])}"
+    el = res2["eleitores_a_mais"]
+    v["t2_eleitores"] = f"{inteiro(abs(el))} eleitores a {'mais' if el > 0 else 'menos'}"
+    cf = t2["conferencia"]
+    v["t2_conf_urnas"], v["t2_conf_mudou"] = inteiro(cf["urnas"]), inteiro(cf["mudou_numero"])
+    v["t2_conf_mesmo_numero"], v["t2_conf_instaladas"] = inteiro(cf["lista_mesmo_numero"]), inteiro(cf["lista_instaladas"])
+
     blocos = {"tab_efeito": tabela_efeito(hist), "tab_fontes": tabela_fontes(hist),
               "fluxo": fluxo(fc["ja_fora_no_1t_urnas"], sai, volta, predio, m["urnas"]),
               "linha_por_local": linha_por_local(pl, v)}

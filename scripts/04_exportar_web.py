@@ -12,8 +12,10 @@
 - por_local, por_local_faixas: a regressão por local de votação e o percentual de locais na lista por faixa de
   voto em Lula, de 09_por_local.py (sem eles, os gráficos ficam vazios).
 - renovadas: as urnas que saíram da lista a cada versão do cadastro, por estado, de 12_renovadas.py.
+- abstencao_2t: o efeito da mudança na abstenção do 2º turno, por grupo, de 24_abstencao_2t.py (sem ele, o gráfico
+  de "Depois do 2º turno" fica vazio).
 
-Uso: python -P scripts/04_exportar_web.py   (depois de 02 e 03, de 09 para o gráfico por local e de 12 para o das versões)
+Uso: python -P scripts/04_exportar_web.py   (depois de 02 e 03, de 09 para o gráfico por local, de 12 para o das versões e de 24 para o do 2º turno)
 """
 import json
 from pathlib import Path
@@ -159,6 +161,15 @@ def renovadas():
     return json.loads(p.read_text(encoding="utf-8")) if p.exists() else None
 
 
+def abstencao_2t():
+    """Efeito da mudança na abstenção do 2º turno, por grupo, de 24_abstencao_2t.py (depois da eleição)."""
+    p = SAIDA / "abstencao_2t.json"
+    if not p.exists():
+        return None
+    cols = ["grupo", "efeito_pp", "ic_baixo", "ic_alto", "urnas", "aptos", "grupos"]
+    return {"grupos": [{c: r[c] for c in cols} for r in json.loads(p.read_text(encoding="utf-8"))["grupos"]]}
+
+
 def main():
     delta, rotulos = fundo()
     uf = pd.read_csv(SAIDA / "impacto_uf_2026.csv")
@@ -169,7 +180,7 @@ def main():
         "ufs": uf[["SG_UF", "urnas", "aptos", "c13", "c22", "validos", "urnas_lula", "urnas_flavio", "c13_uf",
                    "c22_uf", "validos_uf", "gov_2t"]].to_dict("records"),
         "numeros": numeros, "distancia": distancia(), "por_local": por_local(),
-        "por_local_faixas": por_local_faixas(), "renovadas": renovadas(),
+        "por_local_faixas": por_local_faixas(), "renovadas": renovadas(), "abstencao_2t": abstencao_2t(),
     }
     txt = json.dumps(dados, ensure_ascii=False, separators=(",", ":"), default=lambda x: None)
     (WEB / "dados.json").write_text(txt, encoding="utf-8")

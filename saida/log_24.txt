@@ -1,0 +1,46 @@
+urnas: 497897 | na lista: 445 | estiveram na lista e saíram: 2070 | variação de mais de 60 pontos (fora): 1
+conferência: {'urnas': 497897, 'local_diferente_t1': 0, 'local_diferente_t2': 0, 'mudou_numero': 431, 'mudou_numero_fora_da_lista': 0, 'lista_mesmo_numero': 14, 'lista_instaladas': 445, 'lista_urna_eletronica': 445}
+2º turno no Brasil: {'lula': 64056078, 'flavio': 59654544, 'validos': 123710622, 'aptos_t1': 157828968, 'aptos_t2': 157828819, 'abst_t1': np.float64(20.84211752559898), 'abst_t2': np.float64(18.9915809989049), 'pct_lula': 51.778963652773484, 'pct_flavio': 48.221036347226516, 'margem_lula': 4401534}
+urnas da lista com vizinhas: 445 | com distância: 235
+                                              grupo  efeito_pp  ic_baixo  ic_alto  urnas  grupos  pct_subiu_mais  abst1_acima  abst2_acima
+                                              todas       0.03     -0.30     0.37    445     103           48.76         0.47         0.50
+saíram do local de sempre ou trocaram de provisório       0.03     -0.34     0.37    394      93           49.75         0.61         0.64
+                        voltaram ao local de sempre      -0.01     -1.02     0.89     51      12           41.18        -0.82        -0.83
+                          saiu do local de cadastro       0.11     -0.26     0.48    364      85           51.10         0.57         0.68
+                        voltou ao local de cadastro      -0.01     -1.03     0.90     51      12           41.18        -0.82        -0.83
+                         trocou de local provisório      -1.24     -2.50     0.07     16       5           25.00         0.16        -1.08
+                    local de sempre em outro prédio      -0.36     -1.59     0.83     14       4           42.86         2.13         1.77
+                                          até 300 m      -0.16     -0.72     0.34    128      39           47.66        -0.35        -0.50
+                                        300 a 600 m       0.73      0.10     1.55     46      13           58.70        -0.36         0.37
+                                     600 m a 1,2 km       0.21     -0.66     0.99     52      10           50.00         1.89         2.09
+                                     mais de 1,2 km       3.13     -2.04     4.52      9       5           66.67         4.66         7.80
+                                      sem distância      -0.18     -0.71     0.36    210      40           46.19         0.63         0.44
+                                  endereço genérico       1.93      0.01     3.45     23       9           73.91        -0.73         1.20
+                                      nome parecido       0.83      0.55     1.01      7       2           71.43         1.25         2.09
+                                       mesmo bairro       0.08     -0.35     0.51    299      77           48.49         0.31         0.39
+                                       outro bairro      -0.07     -0.63     0.40    146      29           49.32         0.78         0.71
+                         entraram na lista em 17/10      -0.04     -0.56     0.51    160      44           47.50         0.57         0.53
+                    entraram na lista em 18 e 19/10       0.24     -0.78     1.40     60      16           48.33        -0.33        -0.09
+                    entraram na lista em 20 e 21/10       0.02     -0.70     0.73     77      18           48.05        -0.09        -0.07
+                    entraram na lista em 22 e 23/10       0.18     -0.34     0.91     77      16           50.65         0.34         0.52
+                    entraram na lista em 24 e 25/10      -0.16     -1.20     0.69     71      10           50.70         1.64         1.48
+                                              Norte      -0.01     -0.84     0.90    106      20           44.34        -0.06        -0.07
+                                           Nordeste      -0.20     -0.86     0.51    133      39           45.86         0.64         0.44
+                                       Centro-Oeste      -0.53     -1.05     0.34     31       6           35.48         1.98         1.45
+                                            Sudeste       0.44      0.08     0.79    122      25           58.20         0.32         0.75
+                                                Sul       0.05     -0.74     0.60     53      13           50.94         0.57         0.62
+          abstenção no 1º turno abaixo das vizinhas       0.64      0.25     1.02    148      69           59.46        -4.11        -3.47
+           abstenção no 1º turno perto das vizinhas       0.39     -0.06     0.87    148      66           52.70         0.35         0.74
+           abstenção no 1º turno acima das vizinhas      -0.90     -1.54    -0.26    149      62           34.23         4.94         4.04
+                   controle: reescritas no cadastro      -0.04     -0.23     0.05     64       2           53.12        -0.83        -0.87
+              controle: estiveram na lista e saíram      -0.22     -0.38    -0.06   2070     355           46.47         0.58         0.36
+  controle: fora do local de sempre nos dois turnos      -0.12     -0.21    -0.02   4849     721           48.65         0.67         0.55
+outras comparações: {'zona_municipio': (np.float64(0.03), [np.float64(-0.29), np.float64(0.36)], 445), 'zona': (np.float64(-0.05), [np.float64(-0.41), np.float64(0.31)], 445), 'local_cadastro': (np.float64(0.2), [np.float64(-0.49), np.float64(1.01)], 60), 'todas_as_vizinhas': (np.float64(0.03), [np.float64(-0.3), np.float64(0.37)], 445)}
+2022, conferência com 03_impacto.py: efeito de todas as urnas -0.078
+distância: {"inclinacao_2026": {"pp_por_km": 0.6130835063544503, "ic": [-0.16095062443857944, 1.4318287655654887], "urnas": 235, "mediana_km": 0.2625597530661156, "max_km": 10.547545548073046}, "inclinacao_juntas_ate_5km": {"pp_por_km": -0.006257079851852948, "ic": [-0.2950803968326585, 0.34009391197986205], "urnas": 1130, "mediana_km": 0.3728125713783858, "max_km": 4.849525948064792}}
+         grupo  efeito_pp  ic_baixo  ic_alto  urnas
+     até 300 m      -0.14     -0.37     0.10    506
+   300 a 600 m       0.12     -0.13     0.36    298
+600 m a 1,2 km      -0.20     -0.55     0.11    250
+mais de 1,2 km      -0.03     -0.79     0.82    103
+no resultado: {"margem_media": 3.3777575495456285, "margem_ic": [-33.80919602701466, 42.73170827212739], "margem_urna_a_urna": -88.82169178586282, "eleitores_a_mais": -41.4136662645773, "estimado_antes": {"margem": -1.9333214734842583, "margem_ic": [-13.902827173159897, 8.521787849236024], "margem_previsao": [-106.6285214651447, 116.2689922700944], "eleitores_a_mais": 49.77203462105948}, "efeito_2022": {"efeito_pp": -0.07803171380461037, "ic_baixo": -0.24040070763797075, "ic_alto": 0.07642495079415844}, "efeito_1t_2026": {"dif_pp": 0.6355941756948641, "ic": [0.4894664574119473, 0.7899459905122753]}, "sens_2t_antes": 10.353308825379212, "sai_cadastro_pp": 0.1112147104702736, "sai_cadastro_ic": [-0.2634181993666348, 0.4804377683269751]}

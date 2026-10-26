@@ -51,9 +51,10 @@ ATUAL = DADOS / "eleitorado_local_votacao_2026.zip"
 URL = "https://cdn.tse.jus.br/estatistica/sead/odsele/eleitorado_locais_votacao/eleitorado_local_votacao_2026.zip"
 REGISTRO = RAIZ / "scripts" / "versoes.py"
 MESES = ["jan", "fev", "mar", "abr", "mai", "jun", "jul", "ago", "set", "out", "nov", "dez"]
-# ordem de 19/10: 09 antes de 04 (04 exporta por_local a partir dos CSVs de 09); 12 depois de 07
-ORDEM = ["02", "03", "07", "12", "16", "09", "11", "13", "04", "06", "05", "08", "10", "14", "15", "17", "18"]
-COM_LOG = {"02", "03", "04", "07", "09", "11", "12", "13", "16", "18"}
+# ordem de 19/10: 09 antes de 04 (04 exporta por_local a partir dos CSVs de 09); 12 depois de 07. Desde 26/10, 24 (o
+# resultado do 2º turno) depois de 13 e antes de 04 e 18, que leem a saída dele
+ORDEM = ["02", "03", "07", "12", "16", "09", "11", "13", "24", "04", "06", "05", "08", "10", "14", "15", "17", "18"]
+COM_LOG = {"02", "03", "04", "07", "09", "11", "12", "13", "16", "18", "24"}
 NOVA = 10
 # no Agendador, o script roda com pythonw, sem console: cada processo filho que precisa de console (git, python) abriria
 # uma janela. Os filhos rodam com python.exe num console oculto (CREATE_NO_WINDOW), que os netos (o git chamado pelos
