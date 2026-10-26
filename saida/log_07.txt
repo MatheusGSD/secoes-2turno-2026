@@ -1,6 +1,5 @@
 situacao          o_que_mudou_no_cadastro
-entrou na lista   local do 2º turno            1
-nas duas versões                             444
+nas duas versões                             445
 saíram: 0 urnas, 0 aptos | tipo antes: {} | tipo agora: {} | ficam no prédio do 1º turno: 0
-entraram: 1 urnas | por município: {('PR', 'GUARATUBA'): 1}
+entraram: 0 urnas | por município: {}
 por UF: {}

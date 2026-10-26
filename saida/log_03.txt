@@ -61,8 +61,8 @@ mais de 1,2 km      -0.30     -1.00     0.42     94  25856
   ]
  }
 }
-efeito na margem (Flávio - Lula): {"zona_municipio": {"margem": -1.9333214734842583, "margem_ic": [-13.902827173159897, 8.521787849236024], "eleitores_a_mais": 49.77203462105948, "eleitores_ic": [-342.15882353844466, 487.4261504858783]}, "zona": {"margem": -6.4296916123206715, "margem_ic": [-16.350681361382858, 3.542150466868548], "eleitores_a_mais": 193.80557012802393, "eleitores_ic": [-181.82536941539254, 567.8536274888953]}, "local_cadastro": {"margem": 8.454768112122782, "margem_ic": [-6.099627037099923, 22.736114775691796], "eleitores_a_mais": -254.7260649086881, "eleitores_ic": [-766.6353434091799, 279.30180449070764]}}
-faixa de previsão da margem: [-111.5  110.1]
+efeito na margem (Flávio - Lula): {"zona_municipio": {"margem": -1.9333214734842583, "margem_ic": [-13.902827173159897, 8.521787849236024], "eleitores_a_mais": 49.77203462105948, "eleitores_ic": [-342.15882353844466, 487.4261504858783]}, "zona": {"margem": -6.429691612320671, "margem_ic": [-16.350681361382858, 3.5421504668685486], "eleitores_a_mais": 193.80557012802393, "eleitores_ic": [-181.82536941539254, 567.8536274888953]}, "local_cadastro": {"margem": 8.45476811212278, "margem_ic": [-6.099627037099923, 22.736114775691796], "eleitores_a_mais": -254.7260649086881, "eleitores_ic": [-766.6353434091799, 279.30180449070764]}}
+faixa de previsão da margem: [-106.6  116.3]
        urnas  aptos  urnas_lula  urnas_flavio  efeito
 SG_UF                                                
 MG        64  19701          24            39    -0.1

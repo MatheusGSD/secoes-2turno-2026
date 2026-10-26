@@ -187,7 +187,8 @@ def voto_vs_vizinhas(u):
 def main():
     res, sens, draws, efs = efeito_2022()
     u = votos_2026()
-    m = u[u.mudou].copy()
+    # em ordem fixa: a faixa de previsão sorteia urna a urna, e a ordem das linhas do cadastro muda entre versões
+    m = u[u.mudou].sort_values(URNA).copy()
     impacto = aplicar(m, draws, sens)
     impacto[PRINCIPAL]["margem_previsao"] = previsao(m, efs)
     print("faixa de previsão da margem:", np.round(impacto[PRINCIPAL]["margem_previsao"], 1))
