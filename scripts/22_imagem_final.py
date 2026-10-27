@@ -106,7 +106,7 @@ def main():
     bx.xaxis.set_major_locator(mdates.DayLocator())
     bx.xaxis.set_major_formatter(mdates.DateFormatter("%d/%m"))
 
-    fig.text(0.955, 0.03, "matheusgsd.github.io/secoes-2turno-2026", family=DADOS, size=7.4, color=TINTA, ha="right")
+    fig.text(0.955, 0.03, "secoes.dalmolin.dev", family=DADOS, size=7.4, color=TINTA, ha="right")
     out = SAIDA / "imagem_final.png"
     fig.savefig(out, dpi=200, facecolor=PAPEL)
     print(out)

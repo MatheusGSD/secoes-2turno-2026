@@ -115,7 +115,7 @@ def main():
     t(0.15, f"{br(d['menos_1km'], 0)}% a menos de 1 km · {br(d['de_5km'])}% a 5 km ou mais", size=8, weight="bold")
     t(0.105, "É a distância entre os prédios, não o deslocamento de cada eleitor:\no endereço do eleitor não é público.",
       size=6.8, color=TINTA2, va="top", linespacing=1.3)
-    fig.text(0.955, 0.03, "matheusgsd.github.io/secoes-2turno-2026", family=DADOS, size=7.4, color=TINTA, ha="right")
+    fig.text(0.955, 0.03, "secoes.dalmolin.dev", family=DADOS, size=7.4, color=TINTA, ha="right")
     fig.text(0.03, 0.03, f"{d['urnas_com']:,} urnas com coordenada confiável nos dois prédios; {d['urnas_sem']} ficam sem distância.".replace(",", "."),
              family=FONTE, size=6, color=TINTA3)
 

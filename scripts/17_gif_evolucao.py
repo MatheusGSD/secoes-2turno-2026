@@ -144,7 +144,7 @@ def main():
         for xq, (c, m, s) in zip((.03, .165, .315, .495), lg):
             fig.text(xq, .04, m, color=c, size=8, family=FONTE)
             fig.text(xq + .016, .04, s, color=TINTA2, size=6, family=FONTE)
-        fig.text(.955, .04, "matheusgsd.github.io/secoes-2turno-2026", family=DADOS, size=6.4, color=TINTA, ha="right")
+        fig.text(.955, .04, "secoes.dalmolin.dev", family=DADOS, size=6.4, color=TINTA, ha="right")
         buf = io.BytesIO(); fig.savefig(buf, format="png", facecolor=PAPEL); plt.close(fig)
         buf.seek(0)
         return Image.open(buf).convert("RGB")

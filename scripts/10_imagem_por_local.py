@@ -83,7 +83,7 @@ def main():
 
     t(0.045, 0.045, "Locais de votação com alguma urna que muda de prédio do 1º para o 2º turno, por faixa de voto em Lula\n"
                     "no 1º turno, com intervalo de 95%. Dados: TSE.", size=6.8, color=TINTA3, linespacing=1.35)
-    t(0.955, 0.05, "matheusgsd.github.io/secoes-2turno-2026", size=7.4, family=DADOS, ha="right")
+    t(0.955, 0.05, "secoes.dalmolin.dev", size=7.4, family=DADOS, ha="right")
 
     out = SAIDA / "imagem_por_local.png"
     fig.savefig(out, dpi=200, facecolor=PAPEL)

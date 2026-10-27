@@ -4,7 +4,8 @@ A Justiça Eleitoral trocou o endereço de algumas seções entre o 1º e o 2º 
 quais urnas mudam de prédio, em quem os eleitores dessas urnas votaram no 1º turno e quanto isso pode pesar no resultado.
 Depois do 2º turno, mostra também se os eleitores dessas urnas faltaram mais.
 
-**Página com o mapa:** https://matheusgsd.github.io/secoes-2turno-2026/
+**Página com o mapa:** https://secoes.dalmolin.dev (até 26/10, em matheusgsd.github.io/secoes-2turno-2026, que agora
+redireciona para cá)
 
 ## Depois do 2º turno
 

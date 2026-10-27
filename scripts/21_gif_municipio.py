@@ -231,7 +231,7 @@ def main():
         tl.plot([pos], [0], "o", ms=9, mfc="none", mec=TINTA, mew=1.2, zorder=3)
         fig.text(.02, .04, "Mapa: © colaboradores do OpenStreetMap. Círculo: prédio do 1º turno, do tamanho do número de urnas.",
                  size=5.8, color=TINTA3, family=FONTE)
-        fig.text(.955, .04, "matheusgsd.github.io/secoes-2turno-2026", family=DADOS, size=6.4, color=TINTA, ha="right")
+        fig.text(.955, .04, "secoes.dalmolin.dev", family=DADOS, size=6.4, color=TINTA, ha="right")
         buf = io.BytesIO(); fig.savefig(buf, format="png", facecolor=PAPEL); plt.close(fig)
         buf.seek(0)
         return Image.open(buf).convert("RGB")

@@ -157,7 +157,7 @@ def main():
     t(0.96, 0.065, "Mapa: © colaboradores do OpenStreetMap", size=5.5, color=TINTA3, ha="right")
     t(0.6, 0.065, "Tamanho: eleitores", size=5.5, color=TINTA3)
 
-    t(0.045, 0.045, "No mapa da página, filtro “Podem confundir”: matheusgsd.github.io/secoes-2turno-2026",
+    t(0.045, 0.045, "No mapa da página, filtro “Podem confundir”: secoes.dalmolin.dev",
       size=6.8, weight="bold")
     fig.savefig(SAIDA / "imagem_reescritos.png", facecolor=PAPEL)
     print("saida/imagem_reescritos.png |", len(r), "urnas em", len(locais), "locais")

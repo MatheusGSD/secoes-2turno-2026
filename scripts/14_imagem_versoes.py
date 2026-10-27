@@ -116,7 +116,7 @@ def main():
     t(0.6, 0.1, "Intervalo de 95%, em votos. A diferença no 1º turno foi de " + f"{dif:.2f}".replace(".", ",") + " milhões.",
       size=6.6, color=TINTA2)
 
-    fig.text(0.955, 0.03, "matheusgsd.github.io/secoes-2turno-2026", family=DADOS, size=7.4, color=TINTA, ha="right")
+    fig.text(0.955, 0.03, "secoes.dalmolin.dev", family=DADOS, size=7.4, color=TINTA, ha="right")
     out = SAIDA / "imagem_versoes.png"
     fig.savefig(out, dpi=200, facecolor=PAPEL)
     print(out)

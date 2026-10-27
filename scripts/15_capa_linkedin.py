@@ -83,7 +83,7 @@ def main():
     for x, c, rot in [(0.05, LULA, "Lula venceu ali no 1º turno"), (0.30, FLAVIO, "Flávio venceu")]:
         t(x, y, "●", size=14, color=c, va="baseline")
         t(x + 0.022, y, rot, size=12, color=TINTA2, va="baseline")
-    t(0.05, MARGEM + 0.008, "matheusgsd.github.io/secoes-2turno-2026", size=12, color=TINTA2, family=DADOS)
+    t(0.05, MARGEM + 0.008, "secoes.dalmolin.dev", size=12, color=TINTA2, family=DADOS)
 
     out = SAIDA / "capa_linkedin.png"
     fig.savefig(out, dpi=200, facecolor=FUNDO)

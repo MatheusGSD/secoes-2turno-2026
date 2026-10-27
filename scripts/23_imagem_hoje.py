@@ -102,7 +102,7 @@ def main():
       size=8.2, color=TINTA2)
     t(0.045, 0.17, "segue perto de zero: −2 votos (de −14 a +9), numa diferença de 2,24 milhões no 1º turno.", size=8.2, color=TINTA2)
     t(0.045, 0.03, "Na dúvida, confira o seu local no e-Título.", size=7.4, color=TINTA2)
-    fig.text(0.955, 0.03, "matheusgsd.github.io/secoes-2turno-2026", family=DADOS, size=7.4, color=TINTA, ha="right")
+    fig.text(0.955, 0.03, "secoes.dalmolin.dev", family=DADOS, size=7.4, color=TINTA, ha="right")
     out = SAIDA / "imagem_hoje.png"
     fig.savefig(out, dpi=200, facecolor=PAPEL)
     print(out)

@@ -83,7 +83,7 @@ def main():
         fig.text(lx, ly, "●", family=FONTE, size=9, color=c, va="baseline")
         fig.text(lx + 0.02, ly, rot, family=FONTE, size=7, color=TINTA2, va="baseline")
         lx += 0.2
-    fig.text(0.955, 0.03, "matheusgsd.github.io/secoes-2turno-2026", family=DADOS, size=7.4, color=TINTA, ha="right")
+    fig.text(0.955, 0.03, "secoes.dalmolin.dev", family=DADOS, size=7.4, color=TINTA, ha="right")
     fig.text(0.02, 0.03, "Cada ponto cinza é um local de votação. Círculo: tamanho = eleitores.", family=FONTE,
              size=6, color=TINTA3)
 
